@@ -1,92 +1,92 @@
 [
     {
         "source": "Craigslist",
-        "title": "Close to Schools & Transit, in Vancouver BC, 1 bedroom",
-        "title_cn": "靠近学校和交通，位于不列颠哥伦比亚省温哥华，1 间卧室",
+        "title": "$2000 - Large 1 bedroom basement suite with private entrance",
+        "title_cn": "2000 美元 - 带私人入口的大型一卧室地下室套房",
+        "price": "$2,000",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-large-bedroom-basement-suite/7913959270.html",
+        "location": "Oakridge / Langara",
+        "image": "https://images.craigslist.org/00k0k_ewbMbCbc4F1_0ap08p_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Studio, Dishwasher, Guest suites",
+        "title_cn": "一室公寓、洗碗机、客房套房",
+        "price": "$2,150",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-studio-dishwasher-guest-suites/7917820514.html",
+        "location": "930 Seymour St, Vancouver, BC",
+        "image": "https://images.craigslist.org/00F0F_7QnckukFswQ_0gw0b1_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Surrey above ground 2 bdr furnished includ utility laundry near bus",
+        "title_cn": "萨里地上 2 间卧室配有家具，包括公共汽车附近的公用洗衣房",
+        "price": "$1,798",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-upper-west-surrey-above-ground/7914064223.html",
+        "location": "141st/85ave",
+        "image": "https://images.craigslist.org/00d0d_6hFjEODj3DU_04c04c_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 Bed + Den + Solarium in West Point Grey 5 mins drive to UBC",
+        "title_cn": "West Point Grey 1 Bed + Den + Solarium 距 UBC 5 分钟车程",
         "price": "$2,480",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-close-to-schools-transit-in/7918262013.html",
-        "location": "939 Beatty Street, Vancouver, BC",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bed-den-solarium-in-west/7913594542.html",
+        "location": "Vancouver Point Grey area",
+        "image": "https://images.craigslist.org/00q0q_5mkrcMOpmyy_0lM0t2_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "For Rent- $2,000/month- 2BR Basement Suite – South Burnaby",
-        "title_cn": "出租 - $2,000/月 - 2BR 地下室套房 - 南伯纳比",
-        "price": "$2,000",
-        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-for-rent-month-2br-basement/7918261931.html",
-        "location": "South Burnaby",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+        "title": "1Bedroom/ 1Bathroom in Ladner with beautiful farm and mountain views!",
+        "title_cn": "拉德纳的 1 卧室/ 1 浴室，可欣赏美丽的农场和山景！",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/delta-1bedroom-1bathroom-in-ladner-with/7918263859.html",
+        "location": "Ladner",
+        "image": "https://images.craigslist.org/00909_hCwp2H2UIoG_0lM0t2_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "Online rental payments, Quick access to city centre, 1 bedroom",
-        "title_cn": "网上支付租金, 快速前往市中心, 1 间卧室",
-        "price": "$2,510",
-        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-inner-east-online/7918261784.html",
-        "location": "2151 Front Street, North Vancouver, BC",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+        "title": "UniqueAccommodations.com ID:3800 Upscale Modern @ Pacific Point",
+        "title_cn": "UniqueAccommodations.com ID：3800 高档现代@ Pacific Point",
+        "price": "$3,350",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-uniqueaccommodationscom/7918263833.html",
+        "location": "Vancouver Downtown",
+        "image": "https://images.craigslist.org/01010_blnMhLTJlJl_0kY0dV_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "2 BEDROOM SUITE IN CHARACTER HOUSE - PERFECT FOR 2 ROOM MATES",
-        "title_cn": "特色别墅内的 2 卧室套房 - 非常适合 2 室友入住",
-        "price": "$2,400",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-suite-in-character/7918261691.html",
-        "location": "KITSILANO",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+        "title": "New-Build 1 Bedroom and Den for Professionals, Students, Couples in DT",
+        "title_cn": "位于DT的新建一卧室和书房，适合专业人士、学生、情侣",
+        "price": "$2,100",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-new-build-bedroom-and-den-for/7915057238.html",
+        "location": "Surrey",
+        "image": "https://images.craigslist.org/00h0h_163LadEGCOr_0t20CI_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "!!NEW 1BR1den condo, steps to shopping, skytrain, Rocky point park~",
-        "title_cn": "!!全新 1 BR 1den 公寓，通往购物、轻轨、Rocky Point 公园的台阶~",
-        "price": "$2,300",
-        "url": "https://vancouver.craigslist.org/pml/apa/d/port-moody-new-1br1den-condo-steps-to/7917199917.html",
-        "location": "port moody",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+        "title": "Newly Built Sunset Facing High-Rise 1bd + den in Downtown",
+        "title_cn": "市中心新建的面向日落的高层 1bd + 书房",
+        "price": "$2,150",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-newly-built-sunset-facing-high/7909822076.html",
+        "location": "Surrey",
+        "image": "https://images.craigslist.org/00a0a_9BddQt2caOq_0t20CI_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "2 bedroom/1 bath - above ground",
-        "title_cn": "2 间卧室/1 间浴室 - 地上",
-        "price": "$2,000",
-        "url": "https://vancouver.craigslist.org/pml/apa/d/coquitlam-bedroom-bath-above-ground/7916702703.html",
-        "location": "Burke Mountain",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+        "title": "Surrey2bdr up ground includ utility wifi laundry furnished near bus",
+        "title_cn": "Surrey2bdr 地面包括公共设施 wifi 洗衣房 靠近巴士",
+        "price": "$1,760",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-surrey2bdr-up-ground-includ/7915657694.html",
+        "location": "140st/84 bus station,school,park, shopping",
+        "image": "https://images.craigslist.org/00c0c_e1rc0e1BZUQ_0CI0lM_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "~~~NEW Large 1BR1Den, central port moody, 200m to skytrain, school",
-        "title_cn": "~~~全新大型 1BR1Den，穆迪港中心，距空中列车、学校 200m",
-        "price": "$2,300",
-        "url": "https://vancouver.craigslist.org/pml/apa/d/port-moody-new-large-1br1den-central/7917765932.html",
-        "location": "port moody",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
-    },
-    {
-        "source": "Craigslist",
-        "title": "Community garden, Outdoor bbq and dining area, 1B/1B",
-        "title_cn": "社区花园、户外烧烤和用餐区、1B/1B",
-        "price": "$2,095",
-        "url": "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-community-garden/7918261403.html",
-        "location": "820 6th Avenue, New Westminster, BC",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
-    },
-    {
-        "source": "Craigslist",
-        "title": "2 bdrm, Top Floor, Bright Corner Suite in Kitsilano",
-        "title_cn": "基斯拉诺 2 卧室顶层明亮角落套房",
-        "price": "$2,400",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bdrm-top-floor-bright-corner/7917787242.html",
-        "location": "Kitsilano",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
-    },
-    {
-        "source": "Craigslist",
-        "title": "$2,200 | 1-Bedroom Condo for Rent in Downtown Vancouver",
-        "title_cn": "2,200 美元 |温哥华市中心一卧室公寓出租",
-        "price": "$2,200",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-condo-for-rent-in/7917529784.html",
-        "location": "vancouver",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+        "title": "Studio, Online rental payments, On-site storage",
+        "title_cn": "工作室、在线租金支付、现场存储",
+        "price": "$1,890",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-studio-online-rental-payments/7918263724.html",
+        "location": "4769 Hazel St, Burnaby, BC",
+        "image": "https://images.craigslist.org/00t0t_3y6ipLInUNO_0gw09m_600x450.jpg"
     }
 ]
