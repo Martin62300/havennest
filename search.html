@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聚合租房搜索 - 找到你的家</title>
+    <style>
+        body { font-family: 'PingFang SC', sans-serif; background: #f8f9fa; margin: 0; padding: 20px; }
+        .search-container { max-width: 800px; margin: 50px auto; text-align: center; }
+        .search-box { display: flex; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 30px; overflow: hidden; }
+        input { flex: 1; padding: 15px 25px; border: none; outline: none; font-size: 16px; }
+        button { background: #ff5a5f; color: white; border: none; padding: 0 30px; cursor: pointer; font-weight: bold; }
+        
+        .results { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
+        .house-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: 0.3s; }
+        .house-card:hover { transform: translateY(-5px); }
+        .house-info { padding: 15px; text-align: left; }
+        .price { color: #ff5a5f; font-size: 18px; font-weight: bold; }
+        .platform-tag { background: #eee; font-size: 12px; padding: 2px 8px; border-radius: 4px; float: right; }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+    <h2>全网租房信息聚合搜索</h2>
+    <div class="search-box">
+        <input type="text" placeholder="输入地铁站、地段或小区名...">
+        <button>搜索房源</button>
+    </div>
+
+    <div class="results">
+        <div class="house-card">
+            <div style="height:150px; background:#ddd;"></div> <div class="house-info">
+                <span class="platform-tag">豆瓣租房</span>
+                <div class="price">¥3500/月</div>
+                <p>静安区 2号线旁 精装主卧带阳台</p>
+                <a href="#" style="font-size: 14px; color: #007bff;">查看原贴 -></a>
+            </div>
+        </div>
+        </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>HavenNest 安家居 | Metro Vancouver Rentals: Burnaby, Richmond, Surrey & more</title>
+    <meta name="description" content="大温地区租房聚合搜索平台。覆盖温哥华、本拿比、列治文、素里及 Delta 房源。Search thousands of rental listings in Metro Vancouver. Bilingual support.">
+    <meta name="keywords" content="温哥华租房, Burnaby rentals, Richmond housing, Surrey basement, Delta rentals, 安家居, HavenNest">
+    
+    <style>
+        :root {
+            --van-green: #27ae60;
+            --dark-blue: #2c3e50;
+            --light-bg: #f8fafc;
+        }
+
+        body { font-family: 'Inter', 'PingFang SC', -apple-system, sans-serif; background: var(--light-bg); margin: 0; color: #333; }
+        
+        /* 导航栏 */
+        header { 
+            background: white; padding: 1rem 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .logo { font-size: 24px; font-weight: 800; color: var(--van-green); text-decoration: none; }
+        .logo span { color: var(--dark-blue); }
+
+        .lang-switch {
+            background: var(--light-bg); border: 1px solid #ddd; padding: 6px 15px;
+            border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;
+        }
+
+        /* [SEO 优化] 城市快速导航 */
+        .city-nav { 
+            background: white; padding: 12px 5%; border-bottom: 1px solid #edf2f7;
+            display: flex; gap: 12px; overflow-x: auto; white-space: nowrap;
+        }
+        .city-link { 
+            text-decoration: none; color: #4a5568; font-size: 13px; font-weight: 500;
+            padding: 6px 14px; border-radius: 20px; border: 1px solid #e2e8f0; transition: 0.2s;
+        }
+        .city-link:hover, .city-link.active { background: var(--van-green); color: white; border-color: var(--van-green); }
+
+        /* 搜索区 */
+        .hero { background: white; padding: 30px 5%; text-align: center; }
+        .search-wrap { max-width: 800px; margin: 0 auto; display: flex; gap: 10px; }
+        input { flex: 2; padding:

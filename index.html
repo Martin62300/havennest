@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HavenNest 安家居 - 大温地区智能租房</title>
+    <style>
+        :root {
+            --primary-color: #27ae60;
+            --secondary-color: #2c3e50;
+            --bg-color: #f9fbf9;
+            --accent-color: #e67e22;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            color: var(--secondary-color);
+        }
+
+        /* 导航栏 */
+        header {
+            background: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* 语言切换按钮样式 */
+        .lang-switch {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* 顶部欢迎区 */
+        .hero {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 60px 5%;
+            text-align: center;
+        }
+
+        /* 房源网格 */
+        .listings-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* 卡片样式升级 */
+        .house-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .house-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+            /* 默认图以防万一图片加载失败 */
+            background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600');
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-price {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8em;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .view-btn {
+            margin-top: auto;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        #loading-status {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 100px;
+            color: #95a5a6;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">HavenNest 安家居</a>
+    <div class="lang-switch">
+        <button id="btn-zh" class="lang-btn active" onclick="switchLang('zh')">中文</button>
+        <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English</button>
+    </div>
+</header>
+
+<section class="hero">
+    <h1 id="hero-title">发现你的理想温哥华之家</h1>
+    <p id="hero-subtitle">目前已为您监控到最新的实时房源</p>
+</section>
+
+<div class="listings-wrapper">
+    <div id="listings-container" class="grid-container">
+        <div id="loading-status">正在同步最新房源数据...</div>
+    </div>
+</div>
+
+<script>
+    let currentLang = 'zh'; 
+    let houseData = [];
+
+    // UI 文字翻译字典
+    const uiText = {
+        zh: {
+            title: "发现你的理想温哥华之家",
+            subtitle: "目前已为您监控到最新的实时房源",
+            details: "查看详情",
+            loading: "正在同步最新房源数据...",
+            error: "❌ 房源同步暂未完成，请稍后再试"
+        },
+        en: {
+            title: "Find Your Ideal Home in Vancouver",
+            subtitle: "Monitoring the latest real-time listings for you",
+            details: "View Details",
+            loading: "Syncing latest listings...",
+            error: "❌ Failed to load listings. Please try again later."
+        }
+    };
+
+    async function fetchData() {
+        try {
+            const response = await fetch('listings.json');
+            houseData = await response.json();
+            renderListings();
+        } catch (error) {
+            console.error('Fetch error:', error);
+            document.getElementById('loading-status').innerHTML = uiText[currentLang].error;
+        }
+    }
+
+    function switchLang(lang) {
+        currentLang = lang;
+        
+        // 更新按钮状态
+        document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        
+        // 更新页面静态文字
+        document.getElementById('hero-title').innerText = uiText[lang].title;
+        document.getElementById('hero-subtitle').innerText = uiText[lang].subtitle;
+        
+        renderListings();
+    }
+
+    function renderListings() {
+        const container = document.getElementById('listings-container');
+        container.innerHTML = '';
+
+        if (houseData.length === 0) {
+            container.innerHTML = `<div id="loading-status">${uiText[currentLang].loading}</div>`;
+            return;
+        }
+
+        houseData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'house-card';
+            
+            // 根据当前语言选择标题列
+            const displayTitle = currentLang === 'zh' ? (item.title_cn || item.title) : item.title;
+            const detailText = uiText[currentLang].details;
+            
+            // 如果 item.image 存在则使用，否则用占位图
+            const bgImg = item.image ? item.image : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600';
+
+            card.innerHTML = `
+                <div class="card-image" style="background-image: url('${bgImg}')"></div>
+                <div class="card-content">
+                    <div class="card-price">${item.price}</div>
+                    <div class="card-title">${displayTitle}</div>
+                    <div class="card-meta">📍 ${item.location} | Metro Vancouver</div>
+                    <a href="${item.url}" target="_blank" class="view-btn">${detailText}</a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // 初始加载
+    fetchData();
+</script>
+
+</body>
+</html>

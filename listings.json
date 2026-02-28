@@ -1,0 +1,102 @@
+[
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "Cedar Creek 1 Bedroom 1 Bath + Den Condo For Rent",
+        "title_cn": "雪松溪 1 卧室 1 浴室 + 书房公寓出租",
+        "price": "$2,100",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-cedar-creek-bedroom-bath-den/7918245442.html",
+        "location": "South Burnaby",
+        "image": "https://images.craigslist.org/00404_cZzuopvMBks_0fu0bC_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "Brand New 1 Br +Den A/C unit@Hamilton Village! EV Charging available!",
+        "title_cn": "全新 1 卧室 + 书房空调装置@汉密尔顿村！电动车充电可用！",
+        "price": "$2,100",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-brand-new-br-den-c/7918250310.html",
+        "location": "Hamilton Richmond",
+        "image": "https://images.craigslist.org/00x0x_iTRqImULZtq_0CI0t2_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "Large 3 Bedroom Basement",
+        "title_cn": "大型三卧室地下室",
+        "price": "$2,100",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-large-bedroom-basement/7913157612.html",
+        "location": "Surrey",
+        "image": "https://images.craigslist.org/00I0I_54P5zmYhlUa_0CI0t2_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "1 Bedroom and 1 Full Bath - Basement $1,300 per month",
+        "title_cn": "1 间卧室和 1 个全套浴室 - 地下室 每月 1,300 美元",
+        "price": "$1,300",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-northeast-bedroom-and-full-bath/7918244783.html",
+        "location": "East Clayton",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "Brand New Highrise One Bedroom Condo for Rent",
+        "title_cn": "全新高层一卧室公寓出租",
+        "price": "$2,300",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-brand-new-highrise-one-bedroom/7918245469.html",
+        "location": "Metrotown",
+        "image": "https://images.craigslist.org/01111_UiXsAZDzDO_0oM0gw_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "1 bedroom basement suite Kitsilano. Utilities included",
+        "title_cn": "一卧室地下室套房基斯兰诺。包含公用事业",
+        "price": "$1,650",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-basement-suite/7918249735.html",
+        "location": "Kitsilano",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "3 Bedroom 3.5 Bath Townhouse in South Surrey",
+        "title_cn": "南萨里 3 卧室 3.5 浴室联排别墅",
+        "price": "$2,800",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-bedroom-35-bath-townhouse-in/7918245725.html",
+        "location": "16458 23 A Ave",
+        "image": "https://images.craigslist.org/00e0e_3n7K3Vl9Cwm_0oM0gw_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "Centrally located, spacious and bright 1-bed, 1-bath corner unit",
+        "title_cn": "位于市中心，宽敞明亮，一床一卫转角单元",
+        "price": "$1,950",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-centrally-located-spacious-and/7915229097.html",
+        "location": "Richmond",
+        "image": "https://images.craigslist.org/01515_79Dpg0QELf0_0CI0t2_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "2 Bed 2 Bath Condo with AC | Steps to Richmond Brighouse Station",
+        "title_cn": "2 床 2 浴室公寓，配有空调 |前往里士满布里格豪斯站的步骤",
+        "price": "$2,800",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-bed-bath-condo-with-ac-steps/7918245628.html",
+        "location": "Richmond Centre",
+        "image": "https://images.craigslist.org/00202_9aicVQoSWPU_0hk0ew_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "native_lang": "en",
+        "title": "$22251br - 500ft2 - Central Location - Steps to Robson St - Shoppi",
+        "title_cn": "$22251br - 500ft2 - 中心位置 - 通往 Robson 街的台阶 - Shoppi",
+        "price": "$2,225",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-22251br-500ft2-central/7911773642.html",
+        "location": "Downtown",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    }
+]
