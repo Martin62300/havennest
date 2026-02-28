@@ -9,37 +9,42 @@ from deep_translator import GoogleTranslator
 class HavenNestCrawler:
     def __init__(self):
         self.all_listings = []
+        self.seen_urls = set() # 👈 物理去重：确保不出现重复房源
         self.scraper = cloudscraper.create_scraper(browser={'browser': 'chrome', 'platform': 'windows', 'desktop': True})
         self.translator = GoogleTranslator(source='auto', target='zh-CN')
 
-    def force_clean(self, text):
-        """终极清理：彻底移除导致 VS Code 报错的所有非法字符"""
+    def clean_illegal_chars(self, text):
+        """杀掉所有导致 JSON 报错的不可见字符"""
         if not text: return ""
-        # 移除 LS (\u2028), PS (\u2029) 以及控制字符
-        clean_text = re.sub(r'[\u2028\u2029\u0000-\u001f\u007f-\u009f]', '', text)
-        return " ".join(clean_text.split())
+        text = re.sub(r'[\u2028\u2029\u0000-\u001f\u007f-\u009f]', '', text)
+        return " ".join(text.split())
 
     def ai_translate(self, text):
+        """真正好用的 AI 汉化，不只是单词替换"""
         if not text: return ""
         try:
-            return self.translator.translate(self.force_clean(text)[:300])
+            cleaned = self.clean_illegal_chars(text)
+            return self.translator.translate(cleaned[:350])
         except:
-            return self.force_clean(text)
+            return cleaned
 
-    def crawl_craigslist(self, limit=10):
-        print("🔍 正在抓取 Craigslist 并进行 AI 汉化...")
+    def crawl_craigslist(self, limit=12):
+        print("🔍 正在同步 Craigslist 深度汉化数据...")
         url = "https://vancouver.craigslist.org/search/apa"
         try:
             res = self.scraper.get(url, timeout=15)
             soup = BeautifulSoup(res.text, 'html.parser')
-            items = soup.find_all('li', class_='cl-static-search-result')[:limit]
+            items = soup.find_all('li', class_='cl-static-search-result')
             
+            count = 0
             for item in items:
                 link = item.find('a')['href']
-                title = self.force_clean(item.find('div', class_='title').text)
+                if link in self.seen_urls: continue # 👈 拦截重复
                 
-                # 深度抓图
-                d_res = self.scraper.get(link, timeout=30)
+                title = self.clean_illegal_chars(item.find('div', class_='title').text)
+                
+                # 抓取详情图
+                d_res = self.scraper.get(link, timeout=10)
                 d_soup = BeautifulSoup(d_res.text, 'html.parser')
                 img_el = d_soup.find('img')
                 img_url = img_el['src'] if img_el else "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
@@ -51,57 +56,64 @@ class HavenNestCrawler:
                     "title_cn": self.ai_translate(title),
                     "price": item.find('div', class_='price').text if item.find('div', class_='price') else "面议",
                     "url": link,
-                    "location": self.force_clean(item.find('div', class_='location').text) if item.find('div', class_='location') else "Vancouver",
-                    "image": img_url
+                    "location": self.clean_illegal_chars(item.find('div', class_='location').text) if item.find('div', class_='location') else "Vancouver",
+                    "image": img_url,
+                    "date": datetime.now().strftime("%Y-%m-%d")
                 })
-                print(f"✅ [Craigslist] 已翻译: {title[:15]}...")
+                self.seen_urls.add(link)
+                count += 1
+                if count >= limit: break
                 time.sleep(1)
         except Exception as e:
-            print(f"❌ Craigslist 异常: {e}")
+            print(f"❌ Craigslist 引擎异常: {e}")
 
-    def crawl_zumper(self, limit=10):
-        print("🔍 正在转向抓取 Zumper 高质量房源...")
+    def crawl_zumper(self, limit=12):
+        print("🔍 正在同步 Zumper 高质量数据源...")
         url = "https://www.zumper.com/apartments-for-rent/vancouver-bc"
         try:
             res = self.scraper.get(url, timeout=20)
             soup = BeautifulSoup(res.text, 'html.parser')
+            items = soup.select('[data-testid="listing-card"]')
             
-            # Zumper 的房源卡片通常在特定的 Feed 类中
-            items = soup.select('[data-testid="listing-card"]')[:limit]
-            
+            count = 0
             for item in items:
-                title_el = item.select_one('[class*="Title"]')
                 link_el = item.select_one('a[href*="/apartments-for-rent/"]')
-                price_el = item.select_one('[class*="Price"]')
+                if not link_el: continue
+                full_url = "https://www.zumper.com" + link_el['href']
                 
-                if title_el and link_el:
-                    title = self.force_clean(title_el.text)
-                    self.all_listings.append({
-                        "source": "Zumper",
-                        "native_lang": "en",
-                        "title": title,
-                        "title_cn": self.ai_translate(title),
-                        "price": price_el.text if price_el else "面议",
-                        "url": "https://www.zumper.com" + link_el['href'],
-                        "location": "Vancouver",
-                        "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" # Zumper 需特殊处理图片流，先用高清占位
-                    })
-                    print(f"✅ [Zumper] 已处理: {title[:15]}...")
-            
-            print(f"✨ Zumper 获取成功，增加 {len(self.all_listings)} 条精选房源。")
+                if full_url in self.seen_urls: continue 
+
+                title_el = item.select_one('[class*="Title"]')
+                title = self.clean_illegal_chars(title_el.text) if title_el else "Vancouver Suite"
+                price_el = item.select_one('[class*="Price"]')
+
+                self.all_listings.append({
+                    "source": "Zumper",
+                    "native_lang": "en",
+                    "title": title,
+                    "title_cn": self.ai_translate(title),
+                    "price": price_el.text if price_el else "面议",
+                    "url": full_url,
+                    "location": "Vancouver",
+                    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+                    "date": datetime.now().strftime("%Y-%m-%d")
+                })
+                self.seen_urls.add(full_url)
+                count += 1
+                if count >= limit: break
         except Exception as e:
-            print(f"❌ Zumper 抓取失败: {e}")
+            print(f"❌ Zumper 引擎异常: {e}")
 
     def save(self):
         with open('listings.json', 'w', encoding='utf-8') as f:
             json_str = json.dumps(self.all_listings, ensure_ascii=False, indent=4)
-            # 物理级剔除异常行终止符
+            # 最后的双重清理，确保无 LS/PS 符号
             cleaned_json = re.sub(r'[\u2028\u2029]', '', json_str)
             f.write(cleaned_json)
-        print(f"📊 任务结束：JSON 文件已彻底清洗并存入 {len(self.all_listings)} 条数据。")
+        print(f"📊 任务结束：Havennest 已同步 {len(self.all_listings)} 条最新服务数据。")
 
 if __name__ == "__main__":
     crawler = HavenNestCrawler()
-    crawler.crawl_craigslist(limit=10) 
-    crawler.crawl_zumper(limit=10)
+    crawler.crawl_craigslist() 
+    crawler.crawl_zumper()
     crawler.save()

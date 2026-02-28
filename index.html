@@ -19,7 +19,6 @@
             color: var(--secondary-color);
         }
 
-        /* 导航栏 */
         header {
             background: white;
             padding: 1rem 5%;
@@ -39,7 +38,6 @@
             text-decoration: none;
         }
 
-        /* 语言切换按钮样式 */
         .lang-switch {
             display: flex;
             gap: 10px;
@@ -62,7 +60,6 @@
             color: white;
         }
 
-        /* 顶部欢迎区 */
         .hero {
             background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
             color: white;
@@ -70,7 +67,6 @@
             text-align: center;
         }
 
-        /* 房源网格 */
         .listings-wrapper {
             max-width: 1200px;
             margin: 40px auto;
@@ -83,7 +79,6 @@
             gap: 30px;
         }
 
-        /* 卡片样式升级 */
         .house-card {
             background: white;
             border-radius: 16px;
@@ -105,8 +100,6 @@
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
-            /* 默认图以防万一图片加载失败 */
-            background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600');
         }
 
         .card-content {
@@ -135,10 +128,33 @@
             height: 2.8em;
         }
 
+        /* 🟢 新增：全量翻译文本样式 */
+        .card-desc {
+            font-size: 0.85rem;
+            color: #636e72;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 🟠 新增：盈利导流区样式 */
+        .service-banner {
+            background: #fff9f1;
+            border: 1px dashed #e67e22;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+            color: #d35400;
+        }
+
         .card-meta {
             font-size: 0.85rem;
             color: #7f8c8d;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .view-btn {
@@ -185,19 +201,20 @@
     let currentLang = 'zh'; 
     let houseData = [];
 
-    // UI 文字翻译字典
     const uiText = {
         zh: {
             title: "发现你的理想温哥华之家",
             subtitle: "目前已为您监控到最新的实时房源",
-            details: "查看详情",
+            details: "查看原网页详情",
+            service_tip: "🛡️ 租房必读：BC公寓通常要求$5万水损险。联系 Martin 获取专业保障。",
             loading: "正在同步最新房源数据...",
             error: "❌ 房源同步暂未完成，请稍后再试"
         },
         en: {
             title: "Find Your Ideal Home in Vancouver",
             subtitle: "Monitoring the latest real-time listings for you",
-            details: "View Details",
+            details: "View Original Listing",
+            service_tip: "🛡️ Security Tip: Condos usually require $50k Strata Deductible Ins. Contact Martin for a quote.",
             loading: "Syncing latest listings...",
             error: "❌ Failed to load listings. Please try again later."
         }
@@ -216,15 +233,10 @@
 
     function switchLang(lang) {
         currentLang = lang;
-        
-        // 更新按钮状态
         document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
         document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-        
-        // 更新页面静态文字
         document.getElementById('hero-title').innerText = uiText[lang].title;
         document.getElementById('hero-subtitle').innerText = uiText[lang].subtitle;
-        
         renderListings();
     }
 
@@ -237,15 +249,20 @@
             return;
         }
 
-        houseData.forEach(item => {
+        // 🔵 去重逻辑：确保前端显示不重复
+        const uniqueData = Array.from(new Set(houseData.map(a => a.url)))
+            .map(url => houseData.find(a => a.url === url));
+
+        uniqueData.forEach(item => {
             const card = document.createElement('div');
             card.className = 'house-card';
             
-            // 根据当前语言选择标题列
             const displayTitle = currentLang === 'zh' ? (item.title_cn || item.title) : item.title;
-            const detailText = uiText[currentLang].details;
+            // 🟢 新增：深度描述汉化渲染
+            const displayDesc = currentLang === 'zh' ? (item.description_cn || "点击查看详情...") : (item.title || "View details...");
             
-            // 如果 item.image 存在则使用，否则用占位图
+            const detailText = uiText[currentLang].details;
+            const serviceTip = uiText[currentLang].service_tip;
             const bgImg = item.image ? item.image : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600';
 
             card.innerHTML = `
@@ -253,7 +270,15 @@
                 <div class="card-content">
                     <div class="card-price">${item.price}</div>
                     <div class="card-title">${displayTitle}</div>
-                    <div class="card-meta">📍 ${item.location} | Metro Vancouver</div>
+                    <div class="card-desc">${displayDesc}</div>
+                    
+                    <div class="card-meta">📍 ${item.location} | ${item.source}</div>
+                    
+                    <div class="service-banner">
+                        ${serviceTip}
+                        <br><a href="mailto:support@havennestapp.com" style="color:#e67e22; font-weight:bold; text-decoration:none;">立即咨询 →</a>
+                    </div>
+
                     <a href="${item.url}" target="_blank" class="view-btn">${detailText}</a>
                 </div>
             `;
@@ -261,7 +286,6 @@
         });
     }
 
-    // 初始加载
     fetchData();
 </script>
 
