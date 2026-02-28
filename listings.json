@@ -1,134 +1,110 @@
 [
     {
         "source": "Craigslist",
-        "native_lang": "en",
-        "title": "Two Bedroom Apartment",
-        "title_cn": "两卧室公寓",
-        "price": "$2,175",
-        "url": "https://vancouver.craigslist.org/pml/apa/d/port-moody-two-bedroom-apartment/7911913880.html",
-        "location": "Port Moody",
-        "image": "https://images.craigslist.org/00D0D_hcQIgyFAe43_0hq0c3_600x450.jpg",
-        "date": "2026-02-28"
-    },
-    {
-        "source": "Craigslist",
-        "native_lang": "en",
-        "title": "Wheelchair-Accessible Low Income 1 Bedroom/1 Bathroom Apartment",
-        "title_cn": "适合轮椅使用者入住的低收入一卧室/一浴室公寓",
-        "price": "$1,700",
-        "url": "https://vancouver.craigslist.org/pml/apa/d/maple-ridge-wheelchair-accessible-low/7914511969.html",
-        "location": "tricities/pitt/maple",
-        "image": "https://images.craigslist.org/00a0a_7h51qTBuHaY_0ww0oo_600x450.jpg",
-        "date": "2026-02-28"
-    },
-    {
-        "source": "Craigslist",
-        "native_lang": "en",
-        "title": "South Arm - 3 bedroom/1.5 bathroom suite for rent",
-        "title_cn": "South Arm - 3卧室/1.5浴室套房出租",
-        "price": "$2,050",
-        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-south-arm-bedroom-15-bathroom/7917204419.html",
-        "location": "Richmond",
-        "image": "https://images.craigslist.org/00d0d_1i4rO4PaHSb_0kE0dN_600x450.jpg",
-        "date": "2026-02-28"
-    },
-    {
-        "source": "Craigslist",
-        "native_lang": "en",
-        "title": "Lougheed Mall– 3 bedroom/2 bathroom suite for rent",
-        "title_cn": "Lougheed Mall – 3 间卧室/2 间浴室套房出租",
-        "price": "$3,650",
-        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-lougheed-mall-bedroom-bathroom/7915598418.html",
-        "location": "Burnaby",
-        "image": "https://images.craigslist.org/00U0U_b1bwSeODJLA_0ak05O_600x450.jpg",
-        "date": "2026-02-28"
-    },
-    {
-        "source": "Craigslist",
-        "native_lang": "en",
-        "title": "SPACIOUS 3 BEDROOM/2 BATHROOM 1/2 DUPLEX IN MALLARDVILLE",
-        "title_cn": "位于 Mallardville 的宽敞 3 卧室/2 浴室 1/2 复式公寓",
-        "price": "$3,200",
-        "url": "https://vancouver.craigslist.org/pml/apa/d/coquitlam-spacious-bedroom-bathroom-2/7917270058.html",
-        "location": "COQUITLAM WEST",
-        "image": "https://images.craigslist.org/00303_gaMEIfMhS5R_0ak0dL_600x450.jpg",
-        "date": "2026-02-28"
-    },
-    {
-        "source": "Craigslist",
-        "native_lang": "en",
-        "title": "STUNNING 2 BEDROOM + DEN/2 BATHROOM CONDO WALK TO WC EXPRESS",
-        "title_cn": "令人惊叹的 2 卧室 + 书房/2 浴室公寓，步行即可到达 WC Express",
-        "price": "$2,500",
-        "url": "https://vancouver.craigslist.org/pml/apa/d/maple-ridge-stunning-bedroom-den/7917274888.html",
-        "location": "CENTRAL MAPLE RIDGE",
-        "image": "https://images.craigslist.org/00T0T_3QDKQNON3vd_0cU0hd_600x450.jpg",
-        "date": "2026-02-28"
-    },
-    {
-        "source": "Craigslist",
-        "native_lang": "en",
-        "title": "🔥 Richmond Centre Luxury 1 Bed + Den | High Floor | Parking Inc",
-        "title_cn": "🔥 里士满中心豪华 1 床 + 书房 |高层 |停车公司",
+        "title": "Commercial drive 2 bedroom condo",
+        "title_cn": "商业大道两卧室公寓",
         "price": "$2,300",
-        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-richmond-centre-luxury-bed-den/7918251234.html",
-        "location": "Richmond",
-        "image": "https://images.craigslist.org/01515_1yGyzSEo1PG_0iS0pl_600x450.jpg",
-        "date": "2026-02-28"
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-commercial-drive-bedroom-condo/7915226549.html",
+        "location": "Commercial Drive",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
     },
     {
         "source": "Craigslist",
-        "native_lang": "en",
-        "title": "3/bd 2/ba, Heated Outdoor Swimming Pool, Located in Burnaby",
-        "title_cn": "3/bd 2/ba，室外恒温游泳池，位于伯纳比",
-        "price": "$3,950",
-        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-bd-ba-heated-outdoor-swimming/7917790373.html",
+        "title": "Spacious fully furnished condo at Amazing Brentwood short or long term",
+        "title_cn": "宽敞的设施齐全的公寓，位于令人惊叹的布伦特伍德，短期或长期",
+        "price": "$2,700",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-spacious-fully-furnished-condo/7908714116.html",
+        "location": "Burnaby",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Situated in Burnaby!, Pet-Friendly Apartments, 1bd 1ba",
+        "title_cn": "位于伯纳比！，宠物友好公寓，1bd 1ba",
+        "price": "$2,150",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-situated-in-burnaby-pet/7917325312.html",
         "location": "4390 Grange Street, Burnaby, BC",
-        "image": "https://images.craigslist.org/00p0p_9XefRVOFpRL_0gw08B_600x450.jpg",
-        "date": "2026-02-28"
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
     },
     {
         "source": "Craigslist",
-        "native_lang": "en",
-        "title": "2 bedroom garden level suite for rent",
-        "title_cn": "两卧室花园层套房出租",
-        "price": "$2,100",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-garden-level-suite/7918256533.html",
-        "location": "Vancouver",
-        "image": "https://images.craigslist.org/00P0P_kmJ5hw2H1nx_0dI0ii_600x450.jpg",
-        "date": "2026-02-28"
+        "title": "Studio, Full size stainless steel appliances, Elevator",
+        "title_cn": "工作室、全尺寸不锈钢器具、电梯",
+        "price": "$2,265",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-studio-full-size-stainless/7916006864.html",
+        "location": "city of vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
     },
     {
         "source": "Craigslist",
-        "native_lang": "en",
-        "title": "Vancouver West - 3 bedroom plus den suite for rent",
-        "title_cn": "温哥华西区 - 3间卧室加书房套房出租",
-        "price": "$4,250",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-vancouver-west-bedroom-plus/7912501144.html",
-        "location": "Vancouver",
-        "image": "https://images.craigslist.org/00N0N_dqt2eiEykRn_0dI097_600x450.jpg",
-        "date": "2026-02-28"
+        "title": "Top floor 2BR/2BA/Full size W&D/UG parking/Vinyl floors/Walk in closet",
+        "title_cn": "顶层 2BR/2BA/全尺寸 W&D/UG 停车场/乙烯基地板/步入式衣柜",
+        "price": "$2,805",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/port-moody-top-floor-2br-2ba-full-size/7914731965.html",
+        "location": "3370 Dewdney Trunk Road, Port Moody, BC",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
     },
     {
         "source": "Craigslist",
-        "native_lang": "en",
-        "title": "Killarney – 4 bedroom/3bathroom semi basement suite for rent",
-        "title_cn": "基拉尼 – 4 卧室/3 浴室半地下室套房出租",
-        "price": "$2,950",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-killarney-bedroom-3bathroom/7918256497.html",
-        "location": "Vancouver",
-        "image": "https://images.craigslist.org/00B0B_gNyD8B7yvSQ_0dI0ii_600x450.jpg",
-        "date": "2026-02-28"
+        "title": "Fremont Village Residences | Spacious One Bedroom Apartment",
+        "title_cn": "弗里蒙特村住宅 |宽敞的一卧室公寓",
+        "price": "$1,895",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/port-coquitlam-central-fremont-village/7918258618.html",
+        "location": "Port Coquitlam",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
     },
     {
         "source": "Craigslist",
-        "native_lang": "en",
-        "title": "Fleetwood - 3 bedroom house for rent",
-        "title_cn": "弗利特伍德 - 出租 3 间卧室的房子",
-        "price": "$3,590",
-        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-fleetwood-bedroom-house-for-rent/7916353318.html",
-        "location": "Surrey",
-        "image": "https://images.craigslist.org/00u0u_bXEA9ZPq5SY_0dq0t2_600x450.jpg",
-        "date": "2026-02-28"
+        "title": "Penthouse - HUGE deck - Amazing view - 1 bed & 1 bath",
+        "title_cn": "顶层公寓 - 巨大的甲板 - 令人惊叹的景观 - 1 张床和 1 个浴室",
+        "price": "$3,200",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-penthouse-huge-deck-amazing/7916191731.html",
+        "location": "Mount Pleasant",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "title": "One bedroom on 3rd floor near Clarke & Robinson",
+        "title_cn": "一间卧室位于三楼，靠近克拉克和罗宾逊",
+        "price": "$1,650",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/coquitlam-one-bedroom-on-3rd-floor-near/7916508295.html",
+        "location": "Coquitlam",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Spacious 2BR Park-View Condo | Utilities Included | Parking | Richmond",
+        "title_cn": "宽敞 2 居公园景观公寓 |包含实用程序 |停车 |里士满",
+        "price": "$2,200",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-spacious-2br-park-view-condo/7917520620.html",
+        "location": "Richmond",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "title": "One bedroom and den on the 2nd floor near Lougheed Mall. Available now",
+        "title_cn": "一间卧室和书房位于二楼，靠近洛希德购物中心。现已上市",
+        "price": "$1,895",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-one-bedroom-and-den-on-the-2nd/7911420917.html",
+        "location": "Burnaby",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "title": "3 bedroom 2 bathroom home in Killarney",
+        "title_cn": "基拉尼 3 卧室 2 浴室住宅",
+        "price": "$3,300",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-bathroom-home-in/7911233400.html",
+        "location": "Killarney",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "title": "** Fully Furnished 1 Bed+1 Bath Apt. - $2,295/mo Incl. All Utilities **",
+        "title_cn": "** 家具齐全的 1 床 + 1 浴室公寓。 - $2,295/月 含税所有实用程序 **",
+        "price": "$2,295",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-fully-furnished-bed1/7916258503.html",
+        "location": "North Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
     }
 ]
