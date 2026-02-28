@@ -5,7 +5,7 @@ python test_crawl.py
 echo ☁️ Step 2: 正在清理并上传数据到 GitHub...
 git add .
 git commit -m "Auto-update listings: %date% %time%"
-git push origin main -f
+git push origin master -f
 
 echo ✅ 任务完成！你的 Havennest 网站已更新。
 pause
