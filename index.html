@@ -3,177 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest 安家居 - 大温地区智能租房</title>
+    <title>HavenNest 安家居 - 大温租房一站式助手</title>
     <style>
-        :root {
-            --primary-color: #27ae60;
-            --secondary-color: #2c3e50;
-            --bg-color: #f9fbf9;
-            --accent-color: #e67e22;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            color: var(--secondary-color);
-        }
-
-        header {
-            background: white;
-            padding: 1rem 5%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .lang-switch {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .lang-btn {
-            background: none;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 5px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .lang-btn.active {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            color: white;
-            padding: 60px 5%;
-            text-align: center;
-        }
-
-        .listings-wrapper {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .house-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .house-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            background-color: #f0f0f0;
-        }
-
-        .card-content {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-price {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .card-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            line-height: 1.4;
-            margin-bottom: 12px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 2.8em;
-        }
-
-        /* 🟢 新增：全量翻译文本样式 */
-        .card-desc {
-            font-size: 0.85rem;
-            color: #636e72;
-            margin-bottom: 15px;
-            line-height: 1.6;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* 🟠 新增：盈利导流区样式 */
-        .service-banner {
-            background: #fff9f1;
-            border: 1px dashed #e67e22;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 0.8rem;
-            color: #d35400;
-        }
-
-        .card-meta {
-            font-size: 0.85rem;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-
-        .view-btn {
-            margin-top: auto;
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        #loading-status {
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 100px;
-            color: #95a5a6;
-        }
+        :root { --primary-color: #27ae60; --secondary-color: #2c3e50; --bg-color: #f9fbf9; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; color: var(--secondary-color); }
+        header { background: white; padding: 1rem 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
+        .lang-switch { display: flex; gap: 10px; }
+        .lang-btn { background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; }
+        .lang-btn.active { background: var(--primary-color); color: white; }
+        .hero { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; padding: 60px 5%; text-align: center; }
+        .grid-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        .house-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: 0.3s ease; display: flex; flex-direction: column; }
+        .house-card:hover { transform: translateY(-8px); }
+        .card-image { width: 100%; height: 210px; background-size: cover; background-position: center; }
+        .card-content { padding: 18px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-price { font-size: 1.5rem; color: var(--primary-color); font-weight: 800; margin-bottom: 5px; }
+        .card-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; margin-bottom: 10px; height: 2.8em; overflow: hidden; color: #1a1a1a; }
+        .card-meta { font-size: 0.8rem; color: #95a5a6; margin-bottom: 15px; display: flex; justify-content: space-between; }
+        /* 🛡️ 优雅的避坑小标签 */
+        .safety-tag { background: #f0fdf4; color: #166534; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; margin-bottom: 15px; border: 1px solid #dcfce7; line-height: 1.5; }
+        .view-btn { margin-top: auto; background: var(--primary-color); color: white; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
     </style>
 </head>
 <body>
@@ -187,14 +37,12 @@
 </header>
 
 <section class="hero">
-    <h1 id="hero-title">发现你的理想温哥华之家</h1>
-    <p id="hero-subtitle">目前已为您监控到最新的实时房源</p>
+    <h1 id="hero-title">发现大温理想之家</h1>
+    <p id="hero-subtitle">智能监控实时房源，助您租房不踩坑</p>
 </section>
 
-<div class="listings-wrapper">
-    <div id="listings-container" class="grid-container">
-        <div id="loading-status">正在同步最新房源数据...</div>
-    </div>
+<div class="grid-container" id="listings-container">
+    <div style="grid-column: 1/-1; text-align: center; padding: 100px; color: #95a5a6;">房源同步中...</div>
 </div>
 
 <script>
@@ -203,91 +51,58 @@
 
     const uiText = {
         zh: {
-            title: "发现你的理想温哥华之家",
-            subtitle: "目前已为您监控到最新的实时房源",
-            details: "查看原网页详情",
-            service_tip: "🛡️ 租房必读：BC公寓通常要求$5万水损险。联系 Martin 获取专业保障。",
-            loading: "正在同步最新房源数据...",
-            error: "❌ 房源同步暂未完成，请稍后再试"
+            details: "查看详情",
+            safety: "💡 建议：入住前核实业主 ID。若需保障财物及责任风险，可咨询 Martin 了解租客险。"
         },
         en: {
-            title: "Find Your Ideal Home in Vancouver",
-            subtitle: "Monitoring the latest real-time listings for you",
-            details: "View Original Listing",
-            service_tip: "🛡️ Security Tip: Condos usually require $50k Strata Deductible Ins. Contact Martin for a quote.",
-            loading: "Syncing latest listings...",
-            error: "❌ Failed to load listings. Please try again later."
+            details: "Source Details",
+            safety: "💡 Tip: Verify ID before moving in. Contact Martin for Tenant Insurance to protect your belongings."
         }
     };
 
     async function fetchData() {
-        try {
-            const response = await fetch('listings.json');
-            houseData = await response.json();
-            renderListings();
-        } catch (error) {
-            console.error('Fetch error:', error);
-            document.getElementById('loading-status').innerHTML = uiText[currentLang].error;
-        }
+        const res = await fetch('listings.json');
+        houseData = await res.json();
+        render();
     }
 
     function switchLang(lang) {
         currentLang = lang;
         document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
         document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-        document.getElementById('hero-title').innerText = uiText[lang].title;
-        document.getElementById('hero-subtitle').innerText = uiText[lang].subtitle;
-        renderListings();
+        render();
     }
 
-    function renderListings() {
+    function render() {
         const container = document.getElementById('listings-container');
         container.innerHTML = '';
 
-        if (houseData.length === 0) {
-            container.innerHTML = `<div id="loading-status">${uiText[currentLang].loading}</div>`;
-            return;
-        }
-
-        // 🔵 去重逻辑：确保前端显示不重复
+        // 🟢 物理去重逻辑
         const uniqueData = Array.from(new Set(houseData.map(a => a.url)))
             .map(url => houseData.find(a => a.url === url));
 
         uniqueData.forEach(item => {
             const card = document.createElement('div');
             card.className = 'house-card';
+            const title = currentLang === 'zh' ? (item.title_cn || item.title) : item.title;
             
-            const displayTitle = currentLang === 'zh' ? (item.title_cn || item.title) : item.title;
-            // 🟢 新增：深度描述汉化渲染
-            const displayDesc = currentLang === 'zh' ? (item.description_cn || "点击查看详情...") : (item.title || "View details...");
-            
-            const detailText = uiText[currentLang].details;
-            const serviceTip = uiText[currentLang].service_tip;
-            const bgImg = item.image ? item.image : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600';
-
             card.innerHTML = `
-                <div class="card-image" style="background-image: url('${bgImg}')"></div>
+                <div class="card-image" style="background-image: url('${item.image || ''}')"></div>
                 <div class="card-content">
                     <div class="card-price">${item.price}</div>
-                    <div class="card-title">${displayTitle}</div>
-                    <div class="card-desc">${displayDesc}</div>
-                    
-                    <div class="card-meta">📍 ${item.location} | ${item.source}</div>
-                    
-                    <div class="service-banner">
-                        ${serviceTip}
-                        <br><a href="mailto:support@havennestapp.com" style="color:#e67e22; font-weight:bold; text-decoration:none;">立即咨询 →</a>
+                    <div class="card-title">${title}</div>
+                    <div class="card-meta">
+                        <span>📍 ${item.location}</span>
+                        <span>📶 ${item.source}</span>
                     </div>
-
-                    <a href="${item.url}" target="_blank" class="view-btn">${detailText}</a>
+                    <div class="safety-tag">${uiText[currentLang].safety}</div>
+                    <a href="${item.url}" target="_blank" class="view-btn">${uiText[currentLang].details}</a>
                 </div>
             `;
             container.appendChild(card);
         });
     }
-
     fetchData();
 </script>
-
 </body>
 </html>
