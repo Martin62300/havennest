@@ -88,23 +88,5 @@
         "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-condo-for-rent-in/7917529784.html",
         "location": "vancouver",
         "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
-    },
-    {
-        "source": "Craigslist",
-        "title": "✨ Bright & Spacious Ground-Level Suite – Tsawwassen ✨",
-        "title_cn": "✨ 明亮宽敞的地面套房 - Tsawwassen ✨",
-        "price": "$1,750",
-        "url": "https://vancouver.craigslist.org/rds/apa/d/delta-bright-spacious-ground-level/7918261045.html",
-        "location": "Tsawassen",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
-    },
-    {
-        "source": "Craigslist",
-        "title": "Brand New 3 Beds Stack Townhouse in East Newton",
-        "title_cn": "东牛顿全新 3 床堆叠联排别墅",
-        "price": "$3,000",
-        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-brand-new-beds-stack-townhouse/7918260797.html",
-        "location": "Surrey",
-        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
     }
 ]
