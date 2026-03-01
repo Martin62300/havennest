@@ -1,0 +1,34 @@
+name: Auto Update Listings
+
+on:
+  schedule:
+    # 每天凌晨 1:00 AM (PST) 运行，即 UTC 时间 9:00 AM
+    - cron: '0 9 * * *'
+  workflow_dispatch: # 允许你手动点击运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install cloudscraper beautifulsoup4 deep-translator
+
+      - name: Run Crawler
+        run: python test_crawl.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "Martin62300"
+          git config --global user.email "support@havennestapp.com"
+          git add listings.json
+          git commit -m "Auto-update listings: $(date)" || echo "No changes to commit"
+          git push origin master
