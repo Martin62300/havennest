@@ -18,29 +18,29 @@ class HavenNestCrawler:
         if os.path.exists(self.filename):
             try:
                 with open(self.filename, 'r', encoding='utf-8') as f:
-                    return json.load(f)
+                    data = json.load(f)
+                    return data if isinstance(data, list) else []
             except: return []
         return []
 
     def clean_old_data(self, days=45):
-        # 🚀 自动清理逻辑：物理删除 45 天前的陈旧房源
+        # 🚀 物理清理 45 天前的陈旧数据
         cutoff_date = datetime.now() - timedelta(days=days)
         initial_count = len(self.all_listings)
         self.all_listings = [
             item for item in self.all_listings 
             if datetime.strptime(item.get('date', datetime.now().strftime("%Y-%m-%d")), '%Y-%m-%d') > cutoff_date
         ]
-        print(f"🧹 自动清理：已移除 {initial_count - len(self.all_listings)} 条陈旧房源。")
+        print(f"🧹 自动清理：已移除 {initial_count - len(self.all_listings)} 条过期房源。")
 
     def ai_translate(self, text):
         if not text: return ""
         try:
-            clean_t = re.sub(r'[\u2028\u2029\u0000-\u001f\u007f-\u009f]', '', text)
-            return self.translator.translate(clean_t[:200])
+            return self.translator.translate(text[:200])
         except: return text
 
     def crawl_craigslist(self, limit=20):
-        print(f"🔍 正在抓取 Craigslist 实拍大图房源...")
+        print(f"🔍 正在抓取 Craigslist 最新房源...")
         url = "https://vancouver.craigslist.org/search/apa"
         try:
             res = self.scraper.get(url, timeout=20)
@@ -51,10 +51,12 @@ class HavenNestCrawler:
                 link = item.find('a')['href']
                 if link in self.seen_urls: continue
                 
-                # 🚀 提取真实图片逻辑
-                # Craigslist 搜索页通常包含图片 ID
-                img_id = item.get('data-ids', '').split(',')[0].replace('1:', '')
-                img_url = f"https://images.craigslist.org/{img_id}_300x225.jpg" if img_id else "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+                # 🚀 优化：从 data-ids 提取高清图
+                img_ids = item.get('data-ids', '').split(',')
+                img_url = ""
+                if img_ids and img_ids[0]:
+                    clean_id = img_ids[0].split(':')[-1]
+                    img_url = f"https://images.craigslist.org/{clean_id}_300x225.jpg"
 
                 title = item.find('div', class_='title').text.strip()
                 self.all_listings.insert(0, {
@@ -73,7 +75,7 @@ class HavenNestCrawler:
         except Exception as e: print(f"❌ Craigslist 异常: {e}")
 
     def crawl_zumper(self, limit=20):
-        print(f"🔍 正在抓取 Zumper 真实实景房源...")
+        print(f"🔍 正在抓取 Zumper 最新房源...")
         url = "https://www.zumper.com/apartments-for-rent/vancouver-bc"
         try:
             res = self.scraper.get(url, timeout=25)
@@ -88,17 +90,16 @@ class HavenNestCrawler:
 
                 title_el = item.select_one('[class*="Title"]')
                 img_el = item.find('img')
-                # 🚀 抓取 Zumper 真实图片
-                real_img = img_el['src'] if (img_el and img_el.has_attr('src')) else "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800"
+                img_url = img_el['src'] if (img_el and img_el.has_attr('src')) else ""
 
                 self.all_listings.insert(0, {
                     "source": "Zumper",
                     "title": title_el.text.strip() if title_el else "Vancouver Suite",
-                    "title_cn": self.ai_translate(title_el.text) if title_el else "精选套房",
+                    "title_cn": self.ai_translate(title_el.text) if title_el else "精选公寓",
                     "price": item.select_one('[class*="Price"]').text if item.select_one('[class*="Price"]') else "N/A",
                     "url": full_url,
                     "location": "Vancouver",
-                    "image": real_img,
+                    "image": img_url,
                     "date": datetime.now().strftime("%Y-%m-%d")
                 })
                 self.seen_urls.add(full_url)
@@ -110,7 +111,7 @@ class HavenNestCrawler:
         self.clean_old_data() 
         with open(self.filename, 'w', encoding='utf-8') as f:
             json.dump(self.all_listings, f, ensure_ascii=False, indent=4)
-        print(f"📊 任务结束：当前数据库共积攒 {len(self.all_listings)} 条带真实图片的房源。")
+        print(f"📊 任务结束：当前数据库共积攒 {len(self.all_listings)} 条优质房源。")
 
 if __name__ == "__main__":
     c = HavenNestCrawler()
