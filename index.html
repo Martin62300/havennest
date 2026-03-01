@@ -17,23 +17,23 @@
         .service-item { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; border: 1px solid #eee; cursor: pointer; }
         .grid-container { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; flex-grow: 1; }
         .house-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-        .card-image { width: 100%; height: 220px; background-size: cover; background-position: center; background-color: #f1f5f9; }
+        .card-image { width: 100%; height: 230px; background-size: cover; background-position: center; background-color: #f1f5f9; }
         .card-content { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; }
         .card-price { font-size: 1.6rem; color: var(--primary-color); font-weight: 800; margin-bottom: 5px; }
         .card-title { font-size: 1.1rem; font-weight: 600; line-height: 1.4; height: 2.8em; overflow: hidden; }
-        .safety-tip { font-size: 0.75rem; color: #166534; background: #f0fdf4; padding: 12px; border-radius: 10px; margin: 15px 0; border: 1px solid #dcfce7; }
+        .safety-tip { font-size: 0.75rem; color: #166534; background: #f0fdf4; padding: 12px; border-radius: 10px; margin: 15px 0; border: 1px solid #dcfce7; line-height: 1.4; }
         .view-btn { margin-top: auto; background: var(--primary-color); color: white; text-align: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: 600; }
         footer { background: white; padding: 40px 5%; text-align: center; border-top: 1px solid #eee; }
         .disclaimer-btn { color: #94a3b8; font-size: 0.85rem; text-decoration: underline; cursor: pointer; background: none; border: none; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 95%; max-width: 600px; padding: 40px; border-radius: 28px; position: relative; max-height: 85vh; overflow-y: auto; }
+        .modal-content { background: white; width: 95%; max-width: 650px; padding: 40px; border-radius: 28px; position: relative; max-height: 85vh; overflow-y: auto; }
         .step { display: none; }
         .step.active { display: block; }
         .btn-action { background: var(--primary-color); color: white; border: none; padding: 14px 30px; border-radius: 14px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 15px; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-size: 0.85rem; margin-bottom: 6px; color: #64748b; }
-        .form-group input { width: 100%; padding: 13px; border: 1px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; }
-        .lang-btn { background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 5px 15px; border-radius: 20px; cursor: pointer; }
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-group label { display: block; font-size: 0.82rem; margin-bottom: 5px; color: #64748b; font-weight: 600; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; }
+        .lang-btn { background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 6px 16px; border-radius: 25px; cursor: pointer; }
         .lang-btn.active { background: var(--primary-color); color: white; }
     </style>
 </head>
@@ -58,7 +58,7 @@
 
 <footer>
     <p style="color:#64748b; font-size:0.9rem; margin-bottom:12px;">&copy; 2026 HavenNest App. All rights reserved.</p>
-    <button class="disclaimer-btn" onclick="openDisclaimer()">法律免责声明 / Disclaimer</button>
+    <button class="disclaimer-btn" onclick="openDisclaimer()" id="d_btn">法律免责声明 / Disclaimer</button>
 </footer>
 
 <div id="svcModal" class="modal">
@@ -67,31 +67,33 @@
         
         <div id="step1" class="step active">
             <h2 id="m_t1" style="color:var(--primary-color); margin-top:0;"></h2>
-            <div id="m_c1" style="text-align:left; font-size:0.95rem; line-height:1.7;"></div>
-            <button class="btn-action" onclick="nextStep(2)">下一步</button>
+            <div id="m_c1" style="text-align:left; font-size:0.95rem; line-height:1.7; color:#334155;"></div>
+            <button class="btn-action" onclick="nextStep(2)">下一步 / Next Step</button>
         </div>
 
         <div id="step2" class="step">
             <h2 id="m_t2" style="color:var(--primary-color);"></h2>
-            <div id="m_c2" style="background:#f8fafc; padding:20px; border-radius:15px; font-size:0.85rem; text-align:left;"></div>
+            <div id="m_c2" style="background:#f8fafc; padding:25px; border-radius:18px; font-size:0.88rem; text-align:left; color:#475569; line-height:1.6;"></div>
             <button class="btn-action" onclick="nextStep(3)" id="m_b2"></button>
         </div>
 
         <div id="step3" class="step">
             <h2 id="m_t3" style="color:var(--primary-color);"></h2>
-            <div class="form-group"><label id="l_name">姓名</label><input type="text" id="q_name"></div>
-            <div class="form-group"><label id="l_phone">电话</label><input type="tel" id="q_phone"></div>
-            <div id="group_ins" style="display:none;"><div class="form-group"><label id="l_dob">生日</label><input type="date" id="q_dob"></div></div>
-            <div class="form-group"><label id="l_addr">地址</label><input type="text" id="q_addr"></div>
-            <div class="form-group"><label id="l_date">日期</label><input type="date" id="q_eff_date"></div>
+            <div class="form-group"><label id="l_name">姓名 / Full Name</label><input type="text" id="q_name"></div>
+            <div class="form-group"><label id="l_phone">电话 / Phone</label><input type="tel" id="q_phone"></div>
+            <div class="form-group"><label id="l_email">邮箱 / Email</label><input type="email" id="q_email"></div>
+            <div id="group_ins" style="display:none;"><div class="form-group"><label id="l_dob">生日 / Date of Birth</label><input type="date" id="q_dob"></div></div>
+            <div class="form-group"><label id="l_addr">地址 / Rental Address</label><input type="text" id="q_addr"></div>
+            <div class="form-group"><label id="l_date">日期 / Date</label><input type="date" id="q_eff_date"></div>
             <button class="btn-action" onclick="generateOutput()" id="m_b3"></button>
         </div>
 
         <div id="step4" class="step">
             <h2 id="m_t4"></h2>
-            <textarea id="outputBox" readonly style="width:100%; height:160px; margin-bottom:10px;"></textarea>
+            <p id="m_c4" style="font-size:0.82rem; color:#64748b; margin-bottom:10px;"></p>
+            <textarea id="outputBox" readonly style="width:100%; height:160px; border-radius:15px; border:1px solid #e2e8f0; padding:15px; font-family:monospace; font-size:0.8rem;"></textarea>
             <button class="btn-action" onclick="copyText()" id="m_cp"></button>
-            <button class="btn-action" onclick="openMail()" style="background:#3b82f6;">发送邮件给系统</button>
+            <button class="btn-action" onclick="openMail()" style="background:#3b82f6;">发送邮件给系统 / Email System</button>
         </div>
     </div>
 </div>
@@ -111,29 +113,29 @@
         zh: {
             h_t: "发现大温理想之家", h_s: "实时监控优质房源，全方位租房助手", details: "查看详情", safety: "💡 提示：入住前请核实业主信息，并签署 BC 省认可的正规租房合同。", all_cities: "全部地区",
             svc: {
-                ins: { icon: "🛡️", title: "租客保险咨询", t1: "为何需要租客保险？", c1: "<ul><li><strong>财物保障：</strong>覆盖家具、电子产品及衣物受损损失。</li><li><strong>责任赔付：</strong>承担因过失导致房屋或邻居受损的法律赔偿。</li><li><strong>额外生活费：</strong>因理赔无法居住时提供食宿补偿。</li></ul>", d_l: "生效日期" },
-                move: { icon: "📦", title: "专业搬家服务", t1: "专业搬家保障", c1: "对接持牌团队，提供家具拆卸、加固打包及全额搬运保险，让搬迁省心省力。", d_l: "服务日期" },
-                clean: { icon: "🧹", title: "退房清洁服务", t1: "专业退房清洁", c1: "遵循 BC 退房验收标准，深度清理厨卫及家电，助力拿回全额押金。", d_l: "服务日期" }
+                ins: { icon: "🛡️", title: "租客保险咨询", t1: "为何需要租客保险？", c1: "<p>租客保险是您的核心保障，不仅是房东要求，更是保护您的个人财产与法律责任：</p><ul><li><strong>财物保障：</strong>覆盖家具、电子产品、衣物等免受盗窃火灾损失。</li><li><strong>责任赔付：</strong>承担因过失（如漏水）导致房屋受损的法律赔付责任。</li><li><strong>生活补偿：</strong>因理赔导致无法居住时提供食宿补偿。</li></ul>", d_l: "生效日期" },
+                move: { icon: "📦", title: "专业搬家服务", t1: "专业搬家保障", c1: "对接大温持牌团队，提供家具拆卸、加固打包、钢琴搬运及全额保险保障，让搬迁更省心。", d_l: "服务日期" },
+                clean: { icon: "🧹", title: "退房清洁服务", t1: "专业退房清洁", c1: "遵循 BC 验收标准，深度清理厨房卫浴及家电，助力拿回全额押金，省时省力。", d_l: "服务日期" }
             },
-            m: { t2: "信息授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方合作承保/服务机构进行报价。数据仅用于本次申请及报价。", b2: "同意授权并继续", t3: "申请信息填写", b3: "生成英文申请单", t4: "表单已生成", cp: "复制内容" },
-            disc: { t: "法律免责声明", b: "我已阅读并知悉", c: "<h4>1. 信息服务</h4><p>HavenNest 是房源聚合工具，不对第三方数据的真实性、合法性或实时变动承担法律责任。</p><h4>2. 法律纠纷</h4><p>本站不参与任何租约签署或资金交易。用户与第三方服务商产生的任何合同纠纷、财务损失或诈骗行为均与本站无关。</p><h4>3. 安全提示</h4><p>强烈建议在支付任何费用前核实房东证件，签署 BC 省认可的正规租房合同。</p>" }
+            m: { t2: "信息授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方合作承保机构（如 JF Insurance 等）或服务商进行报价预约。数据仅用于本次申请，受隐私政策保护。", b2: "同意授权并继续", t3: "申请信息填写", b3: "生成英文申请单", t4: "表单已生成", cp: "复制内容", c4: "为杜绝邮件乱码，内容已转为纯英文及标准字符：" },
+            disc: { t: "法律条款及免责声明", b: "我已阅读并知悉", c: "<h4>1. 信息准确性</h4><p>HavenNest 是房源聚合工具。数据抓取自第三方平台。我们不对房源真实性、价格变动或可用性承担法律责任。</p><h4>2. 法律纠纷免责</h4><p>本站不参与签署合同或资金交易。用户与房东或第三方服务商产生的任何损失、诈骗或违约行为均与本站无关。</p><h4>3. 安全提示</h4><p>强烈建议在转账前实地看房、核实 ID，并签署 BC 省认可的正规租房合同。</p>" }
         },
         en: {
             h_t: "Find Your Ideal Home", h_s: "Real-time rental monitor & all-in-one assistant", details: "View Details", safety: "💡 Tip: Verify landlord identity and sign a standard BC tenancy agreement.", all_cities: "All Cities",
             svc: {
-                ins: { icon: "🛡️", title: "Tenant Insurance", t1: "Why Tenant Insurance?", c1: "<ul><li><strong>Property Protection:</strong> Covers furniture, electronics, and clothing.</li><li><strong>Liability:</strong> Covers damages caused by your negligence.</li><li><strong>Living Expenses:</strong> Reimbursement if forced out due to a claim.</li></ul>", d_l: "Effective Date" },
-                move: { icon: "📦", title: "Moving Services", t1: "Moving Services", c1: "Licensed and insured movers providing full-service packaging and furniture assembly.", d_l: "Service Date" },
-                clean: { icon: "🧹", title: "Cleaning Services", t1: "Cleaning Services", c1: "Professional cleaning following BC standards to secure your deposit return.", d_l: "Service Date" }
+                ins: { icon: "🛡️", title: "Tenant Insurance", t1: "Why Insurance?", c1: "<p>Core protection for your rental life:</p><ul><li><strong>Property Protection:</strong> Covers furniture and electronics against theft or fire.</li><li><strong>Liability:</strong> Covers legal claims if you cause damage to others' property.</li><li><strong>Living Expenses:</strong> Reimburses costs if forced to move out due to a claim.</li></ul>", d_l: "Effective Date" },
+                move: { icon: "📦", title: "Moving Services", t1: "Moving Services", c1: "Licensed movers in Metro Vancouver providing safe handling, packing, and insurance coverage.", d_l: "Service Date" },
+                clean: { icon: "🧹", title: "Cleaning Services", t1: "Cleaning Services", c1: "Deep cleaning following BC move-out standards to secure your deposit return.", d_l: "Service Date" }
             },
-            m: { t2: "Consent", c2: "I authorize HavenNest to transfer my info to official service providers. Data used solely for this application.", b2: "Agree and Continue", t3: "Application Form", b3: "Generate Form", t4: "Generated", cp: "Copy Form" },
-            disc: { t: "Legal Disclaimer", b: "I Understand", c: "<h4>1. Information Service</h4><p>HavenNest is an aggregator. We are not responsible for the accuracy or availability of 3rd-party listings.</p><h4>2. Liability</h4><p>We are NOT responsible for disputes, losses, or scams involving landlords or 3rd-party providers.</p><h4>3. Safety Advice</h4><p>Perform due diligence and sign standard BC lease agreements before making payments.</p>" }
+            m: { t2: "Consent", c2: "I authorize HavenNest to transfer my info to official service providers (e.g., JF Insurance) for quotes. Data is protected and used solely for this request.", b2: "Agree and Continue", t3: "Application Form", b3: "Generate Form", t4: "Generated", cp: "Copy Form", c4: "Generated in English to prevent errors:" },
+            disc: { t: "Legal Disclaimer", b: "I Understand", c: "<h4>1. Aggregator Policy</h4><p>HavenNest fetches data from 3rd-party sites. We are not responsible for the accuracy or availability of listings.</p><h4>2. Liability</h4><p>We do NOT participate in payments or lease signing. HavenNest is not liable for disputes or fraud between parties.</p><h4>3. Safety</h4><p>Verify identities and sign standard BC lease agreements before payments.</p>" }
         }
     };
 
     function openModal(svc) {
         activeSvc = svc; const config = uiText[currentLang].svc[svc];
         document.getElementById('m_t1').innerText = config.t1; document.getElementById('m_c1').innerHTML = config.c1;
-        document.getElementById('l_date').innerText = config.d_l;
+        document.getElementById('l_date').innerText = currentLang === 'zh' ? config.d_l : config.d_l;
         document.getElementById('group_ins').style.display = (svc === 'ins') ? 'block' : 'none';
         document.getElementById('svcModal').style.display = 'flex'; nextStep(1);
     }
@@ -143,38 +145,36 @@
     function nextStep(s) { document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); document.getElementById('step' + s).classList.add('active'); }
 
     function generateOutput() {
-        const d = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, a: document.getElementById('q_addr').value, ed: document.getElementById('q_eff_date').value, dob: document.getElementById('q_dob').value };
+        const d = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, e: document.getElementById('q_email').value, a: document.getElementById('q_addr').value, ed: document.getElementById('q_eff_date').value, dob: document.getElementById('q_dob').value };
         const h = activeSvc === 'ins' ? 'Effective Date' : 'Service Date';
-        let text = `[HavenNest ${activeSvc.toUpperCase()} Application]\nName: ${d.n}\nPhone: ${d.p}\nAddress: ${d.a}\n${h}: ${d.ed}`;
+        let text = `[HavenNest ${activeSvc.toUpperCase()} Application]\nName: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nAddress: ${d.a}\n${h}: ${d.ed}`;
         if(activeSvc === 'ins') text += `\nDOB: ${d.dob}`;
-        document.getElementById('outputBox').value = text + "\nConsent: Signed via Portal";
+        document.getElementById('outputBox').value = text + "\nConsent: Authorized via HavenNest Portal";
+        document.getElementById('m_c4').innerText = uiText[currentLang].m.c4;
         nextStep(4);
     }
     function copyText() { const b = document.getElementById('outputBox'); b.select(); document.execCommand('copy'); document.getElementById('m_cp').innerText = '✅ Copied'; }
-    function openMail() { window.location.href = `mailto:support@havennestapp.com?subject=Service Request&body=${encodeURIComponent(document.getElementById('outputBox').value)}`; }
+    function openMail() { window.location.href = `mailto:support@havennestapp.com?subject=Service Request - ${activeSvc.toUpperCase()}&body=${encodeURIComponent(document.getElementById('outputBox').value)}`; }
 
     function switchLang(lang) {
-        currentLang = lang; document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
-        document.getElementById('hero-title').innerText = uiText[lang].h_t;
-        const d = uiText[lang].disc; document.getElementById('dt_t').innerText = d.t; document.getElementById('dt_c').innerHTML = d.c; document.getElementById('dt_b').innerText = d.b;
+        currentLang = lang; document.getElementById('btn-zh').classList.toggle('active', lang === 'zh'); document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        document.getElementById('hero-title').innerText = uiText[lang].h_t; document.getElementById('hero-subtitle').innerText = uiText[lang].h_s;
         const m = uiText[lang].m; document.getElementById('m_t2').innerText = m.t2; document.getElementById('m_c2').innerText = m.c2; document.getElementById('m_b2').innerText = m.b2; document.getElementById('m_t3').innerText = m.t3; document.getElementById('m_b3').innerText = m.b3; document.getElementById('m_t4').innerText = m.t4; document.getElementById('m_cp').innerText = m.cp;
+        const d = uiText[lang].disc; document.getElementById('dt_t').innerText = d.t; document.getElementById('dt_c').innerHTML = d.c; document.getElementById('dt_b').innerText = d.b;
+        document.getElementById('d_btn').innerText = lang === 'zh' ? '法律免责声明 / Disclaimer' : 'Legal Disclaimer';
         renderUI();
     }
 
     function renderUI() {
         const s = document.getElementById('service-center');
         s.innerHTML = Object.keys(uiText[currentLang].svc).map(k => `<div class="service-item" onclick="openModal('${k}')"><span style="font-size:2.8rem; display:block; margin-bottom:10px;">${uiText[currentLang].svc[k].icon}</span><strong>${uiText[currentLang].svc[k].title}</strong></div>`).join('');
-        
         const cities = ['All', ...new Set(houseData.map(i => i.location))].sort();
         document.getElementById('city-filters').innerHTML = cities.map(c => `<button class="filter-btn ${currentCity===c?'active':''}" onclick="filterByCity('${c}')">${c==='All'?uiText[currentLang].all_cities:c}</button>`).join('');
-
         const c = document.getElementById('listings-container'); c.innerHTML = '';
-        const f = "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800";
+        const f = "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800";
         const filtered = currentCity === 'All' ? houseData : houseData.filter(i => i.location === currentCity);
-        
         filtered.forEach(item => {
             const card = document.createElement('div'); card.className = 'house-card';
-            // 🚀 图片显示逻辑：如果不带 http 或为空，则使用 Unsplash 备用图 [cite: 2026-02-28]
             const img = (item.image && item.image.startsWith('http')) ? item.image : f;
             card.innerHTML = `<div class="card-image" style="background-image: url('${img}')"></div><div class="card-content"><div class="card-price">${item.price}</div><div class="card-title">${currentLang === 'zh' ? (item.title_cn || item.title) : item.title}</div><div class="card-meta">📍 ${item.location} | ${item.source}</div><div class="safety-tip">${uiText[currentLang].safety}</div><a href="${item.url}" target="_blank" class="view-btn">${uiText[currentLang].details}</a></div>`;
             c.appendChild(card);
