@@ -1,92 +1,202 @@
 [
     {
         "source": "Craigslist",
-        "title": "One bedroom furnished suite near Douglas college and skytrain",
-        "title_cn": "靠近道格拉斯学院和轻轨的一卧室套房",
-        "price": "$1,950",
-        "url": "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-one-bedroom-furnished/7915529018.html",
-        "location": "New Westminster",
-        "image": "https://images.craigslist.org/01313_c9BxHOhzdYi_0CI0t2_600x450.jpg"
+        "title": "1834 E Pender",
+        "title_cn": "分段阅读_第 1834 章",
+        "price": "$1,875",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-1834-pender/7918300879.html",
+        "location": "Grandview - Woodland",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
     },
     {
         "source": "Craigslist",
-        "title": "HUGE 2BR APARTMENT AT PATTERSON STATION",
-        "title_cn": "位于帕特森站的大型 2 居公寓",
-        "price": "$2,275",
-        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-huge-2br-apartment-at-patterson/7918299012.html",
-        "location": "BURNABY",
-        "image": "https://images.craigslist.org/00D0D_baG7x7OCn1R_0pO0hd_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "NEWLY RENOVATED GROUND FLOOR 2BEDROOM SUITE SEPARATE ENTRANCE",
-        "title_cn": "新装修的底层 2 卧室套房，设有独立入口",
-        "price": "$1,800",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-newly-renovated-ground-floor/7918298667.html",
-        "location": "3 MINS WALK TO 29TH AVE SKYTRAIN",
-        "image": "https://images.craigslist.org/00M0M_dBoMitPUAKk_0lM0t2_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "Bright 1 bedroom apartment in the West End",
-        "title_cn": "西区明亮的一卧室公寓",
-        "price": "$1,950",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bright-bedroom-apartment-in/7913955120.html",
-        "location": "West End",
-        "image": "https://images.craigslist.org/00x0x_5ygiJfaUgIT_0t20CI_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "Newly renovated corner unit condo (NW facing)",
-        "title_cn": "新装修的角落单元公寓（面向西北）",
-        "price": "$2,300",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-newly-renovated-corner-unit/7912438734.html",
-        "location": "West End",
-        "image": "https://images.craigslist.org/01616_B0wn2IJSOv_0t20CI_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "West End Large 1 bed, newly renovated",
-        "title_cn": "西区大 1 床，新装修",
-        "price": "$2,300",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-west-end-large-bed-newly/7912440158.html",
-        "location": "West End",
-        "image": "https://images.craigslist.org/00D0D_3pYzUE2KzQN_0t20CI_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "⭐️FOR RENT – Luxury Waterfront Living in North Vancouver⭐️",
-        "title_cn": "⭐️出租 – 北温哥华的豪华海滨生活⭐️",
-        "price": "$2,800",
-        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-southwest-for-rent/7915004971.html",
-        "location": "north shore",
-        "image": "https://images.craigslist.org/00W0W_k4zrGCDiwDc_0dm0hq_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "1-Bed/1 Bath South Surrey Basement Suite $1400/month - April 1/2026",
-        "title_cn": "1-Bed/1 Bath South Surrey Basement Suite $1400/month - April 1/2026",
-        "price": "$1,400",
-        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-bed-bath-south-surrey-basement/7912249256.html",
-        "location": "Surrey",
-        "image": "https://images.craigslist.org/00a0a_2AovCWL6fdi_0bC0kE_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "Vancouver East Brand New 2025 Built –Cedar Lane Modern 1 Bedroom Apt",
-        "title_cn": "温哥华东部全新 2025 年建成 – 雪松巷现代 1 居公寓",
-        "price": "$2,200",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-vancouver-east-brand-new-2025/7917651322.html",
+        "title": "Spacious 1bedroom suite-1856 Frances Street",
+        "title_cn": "宽敞的一卧室套房 - 弗朗西斯街 1856 号",
+        "price": "$1,795",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-spacious-1bedroom-suite-1856/7918300909.html",
         "location": "Vancouver",
-        "image": "https://images.craigslist.org/00j0j_bGHhLfSM3lh_0CI0pO_600x450.jpg"
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
     },
     {
         "source": "Craigslist",
-        "title": "Bright one bedroom in New Westminster Brewery District",
-        "title_cn": "新威斯敏斯特啤酒区明亮的一间卧室",
-        "price": "$1,995",
-        "url": "https://vancouver.craigslist.org/van/apa/d/new-westminster-northeast-bright-one/7918298223.html",
-        "location": "New Westminter",
-        "image": "https://images.craigslist.org/00Y0Y_E07wB25xOW_0t20CI_600x450.jpg"
+        "title": "Bright Spacious 1 bedroom Suite-1828 Frances St",
+        "title_cn": "明亮宽敞的一卧室套房 - 1828 Frances St",
+        "price": "$1,875",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bright-spacious-bedroom-suite/7918300934.html",
+        "location": "Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Burke Moutains @ Coast Meridian & Queenston Ave",
+        "title_cn": "伯克山@海岸子午线和昆斯顿大道",
+        "price": "$2,150",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/coquitlam-burke-moutains-coast-meridian/7918300967.html",
+        "location": "coquitlam bc",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Two bedrooms with 1.5 bathroom (own enterance)",
+        "title_cn": "两间卧室，1.5 间浴室（自己的入口）",
+        "price": "$1,680",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-two-bedrooms-with-15-bathroom/7914632832.html",
+        "location": "Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "private entrance with two bedrooms & 1.5 bathroom",
+        "title_cn": "私人入口，设有两间卧室和 1.5 间浴室",
+        "price": "$1,680",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-private-entrance-with-two/7914332058.html",
+        "location": "Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Metrotown One Bedroom Apartment for Rent",
+        "title_cn": "铁道镇一卧室公寓出租",
+        "price": "$1,680",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-metrotown-one-bedroom-apartment/7911492685.html",
+        "location": "Burnaby",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "White Rock prime location brand new private two bed suite",
+        "title_cn": "白石黄金地段全新私人两床套房",
+        "price": "$1,700",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/white-rock-white-rock-prime-location/7914942956.html",
+        "location": "White Rock",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Newer custom built 4 bedroom  house",
+        "title_cn": "较新的定制 4 卧室房屋",
+        "price": "$4,100",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-newer-custom-built-bedroom-house/7916932553.html",
+        "location": "South Surrey",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "3-Bedroom Upper-Level Suite for Rent Near Langara",
+        "title_cn": "兰加拉附近出租三卧室高层套房",
+        "price": "$2,800",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-upper-level-suite-for/7916959575.html",
+        "location": "Langara",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Brand New North Van 1b1b A/C Apartment",
+        "title_cn": "全新 North Van 1b1b 空调公寓",
+        "price": "$2,650",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-brand-new-north-van/7915240857.html",
+        "location": "north shore",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Burnaby SFU 2bd 2ba Penthouse Green Views",
+        "title_cn": "伯纳比 SFU 2bd 2ba 顶楼绿景公寓",
+        "price": "$2,550",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-burnaby-sfu-2bd-2ba-penthouse/7914852161.html",
+        "location": "burnaby/newwest",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 bedroom Nr. Broadway and Commercial-large & spacious",
+        "title_cn": "1 间卧室百老汇和商业区——大型且宽敞",
+        "price": "$1,820",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-nr-broadway-and/7918301393.html",
+        "location": "East Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 BEDROOM 1.5 BATHROOM - FURNISHED ❤️",
+        "title_cn": "1 间卧室 1.5 间浴室 - 带家具❤️",
+        "price": "$2,250",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-bedroom-15-bathroom/7914908328.html",
+        "location": "North Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "BURNABY CONDO CORNER UNIT 2 BED 2 BATH (CEDAR CREEK)",
+        "title_cn": "伯纳比公寓转角单元 2 床 2 浴室（雪松溪）",
+        "price": "$2,900",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-burnaby-condo-corner-unit-bed/7918301446.html",
+        "location": "BURNABY",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Newly Renovated 2 Bedrooms & 1 Bathroom",
+        "title_cn": "新装修 2 间卧室和 1 间浴室",
+        "price": "$2,150",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-newly-renovated-bedrooms/7918301486.html",
+        "location": "Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 bedroom (+ flex Room) , 2 Bath, 2 level Laneway House",
+        "title_cn": "1 间卧室（+ 灵活房）、2 间浴室、2 层后巷屋",
+        "price": "$1,900",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-flex-room-bath-level/7912943790.html",
+        "location": "city of vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 bedroom/1 bathroom basement suite",
+        "title_cn": "一间卧室/一间浴室地下室套房",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-bathroom-basement/7918301630.html",
+        "location": "Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Luxurious Two Bedrooms by Concord Pacific",
+        "title_cn": "康科德太平洋豪华两卧室公寓",
+        "price": "$2,300",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-luxurious-two-bedrooms-by/7918301649.html",
+        "location": "Surrey King George",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "NEW* Furnished bedroom available in a 3 bd luxury suite",
+        "title_cn": "全新* 3 卧室豪华套房内配备家具的卧室",
+        "price": "$1,100",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-new-furnished-bedroom/7918299554.html",
+        "location": "vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
     }
 ]
