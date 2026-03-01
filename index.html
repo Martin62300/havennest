@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest 安家居 - 大温一站式租房助手</title>
+    <title>HavenNest 安家居 - 大温租房一站式助手</title>
     <style>
         :root { --primary-color: #27ae60; --bg-color: #f9fbf9; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg-color); margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
@@ -11,27 +11,28 @@
         .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
         .hero { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; padding: 60px 5% 100px; text-align: center; }
         .service-center { max-width: 1200px; margin: -40px auto 40px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .service-item { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s; color: inherit; }
-        .service-item:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-        .grid-container { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; flex-grow: 1; }
-        .house-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
-        .card-image { width: 100%; height: 210px; background-size: cover; background-position: center; background-color: #f1f5f9; }
-        .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-price { font-size: 1.5rem; color: var(--primary-color); font-weight: 800; margin-bottom: 5px; }
-        .card-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; margin-bottom: 12px; height: 2.8em; overflow: hidden; }
-        .safety-tip { font-size: 0.75rem; color: #166534; background: #f0fdf4; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #dcfce7; line-height: 1.4; }
-        .view-btn { margin-top: auto; background: var(--primary-color); color: white; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 600; }
-        footer { background: white; padding: 40px 5%; text-align: center; border-top: 1px solid #eee; margin-top: 40px; }
+        .service-item { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s; }
+        .grid-container { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; flex-grow: 1; }
+        .house-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: 0.3s; }
+        .house-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .card-image { width: 100%; height: 220px; background-size: cover; background-position: center; background-color: #f1f5f9; }
+        .card-content { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-price { font-size: 1.6rem; color: var(--primary-color); font-weight: 800; margin-bottom: 5px; }
+        .card-title { font-size: 1.1rem; font-weight: 600; line-height: 1.4; height: 2.8em; overflow: hidden; margin-bottom: 12px; }
+        .safety-tip { font-size: 0.75rem; color: #166534; background: #f0fdf4; padding: 12px; border-radius: 10px; margin-bottom: 15px; line-height: 1.4; border: 1px solid #dcfce7; }
+        .view-btn { margin-top: auto; background: var(--primary-color); color: white; text-align: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+        
+        footer { background: white; padding: 40px 5%; text-align: center; border-top: 1px solid #eee; }
         .disclaimer-btn { color: #94a3b8; font-size: 0.85rem; text-decoration: underline; cursor: pointer; background: none; border: none; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 95%; max-width: 600px; padding: 40px; border-radius: 24px; position: relative; max-height: 85vh; overflow-y: auto; }
+        .modal-content { background: white; width: 95%; max-width: 600px; padding: 40px; border-radius: 28px; position: relative; max-height: 85vh; overflow-y: auto; }
         .step { display: none; }
         .step.active { display: block; }
-        .btn-action { background: var(--primary-color); color: white; border: none; padding: 14px 30px; border-radius: 12px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 15px; font-size: 1rem; }
+        .btn-action { background: var(--primary-color); color: white; border: none; padding: 14px 30px; border-radius: 14px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 15px; font-size: 1rem; }
         .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: #64748b; }
-        .form-group input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; }
-        .lang-btn { background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 5px 15px; border-radius: 20px; cursor: pointer; }
+        .form-group label { display: block; font-size: 0.85rem; margin-bottom: 6px; color: #64748b; }
+        .form-group input { width: 100%; padding: 13px; border: 1px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; }
+        .lang-btn { background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 6px 16px; border-radius: 25px; cursor: pointer; }
         .lang-btn.active { background: var(--primary-color); color: white; }
     </style>
 </head>
@@ -51,30 +52,39 @@
 </section>
 
 <div class="service-center" id="service-center"></div>
-
 <div class="grid-container" id="listings-container"></div>
 
 <footer>
     <p style="color:#64748b; font-size:0.9rem; margin-bottom:12px;">&copy; 2026 HavenNest App. All rights reserved.</p>
-    <button class="disclaimer-btn" onclick="openDisclaimer()">法律免责声明 / Legal Disclaimer</button>
+    <button class="disclaimer-btn" onclick="openDisclaimer()" id="d_btn">法律免责声明 / Disclaimer</button>
 </footer>
 
 <div id="svcModal" class="modal">
     <div class="modal-content">
         <span style="position:absolute; top:20px; right:25px; cursor:pointer; font-size:24px; color:#cbd5e1;" onclick="closeModal()">×</span>
-        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; font-size:0.95rem; line-height:1.7;"></div><button class="btn-action" onclick="nextStep(2)">下一步</button></div>
-        <div id="step2" class="step"><h2 id="m_t2"></h2><div id="m_c2" style="background:#f8fafc; padding:20px; border-radius:12px; font-size:0.85rem; text-align:left;"></div><button class="btn-action" onclick="nextStep(3)" id="m_b2"></button></div>
-        <div id="step3" class="step"><h2 id="m_t3"></h2><div class="form-group"><label id="l_name"></label><input type="text" id="q_name" placeholder="Full Name"></div><div class="form-group"><label id="l_phone"></label><input type="tel" id="q_phone" placeholder="778-xxx-xxxx"></div><div class="form-group"><label id="l_email"></label><input type="email" id="q_email" placeholder="Email"></div><div id="group_ins" style="display:none;"><div class="form-group"><label id="l_dob"></label><input type="date" id="q_dob"></div></div><div id="group_move" style="display:none;"><div class="form-group"><label id="l_f_addr"></label><input type="text" id="q_f_addr" placeholder="Origin Address"></div></div><div class="form-group"><label id="l_addr"></label><input type="text" id="q_addr" placeholder="Destination Address"></div><div class="form-group"><label id="l_date"></label><input type="date" id="q_eff_date"></div><button class="btn-action" onclick="generateOutput()" id="m_b3"></button></div>
-        <div id="step4" class="step"><h2 id="m_t4"></h2><p id="m_c4" style="font-size:0.85rem; color:#64748b;"></p><textarea id="outputBox" readonly style="width:100%; height:160px; padding:15px; border:1px solid #e2e8f0; border-radius:12px; font-family:monospace; margin-bottom:10px;"></textarea><button class="btn-action" onclick="copyText()" id="m_cp"></button><button class="btn-action" onclick="openMail()" style="background:#3b82f6;" id="m_ml"></button></div>
+        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; line-height:1.7;"></div><button class="btn-action" onclick="nextStep(2)">下一步</button></div>
+        <div id="step2" class="step"><h2 id="m_t2"></h2><div id="m_c2" style="background:#f8fafc; padding:20px; border-radius:15px; font-size:0.85rem; text-align:left; color:#64748b;"></div><button class="btn-action" onclick="nextStep(3)" id="m_b2"></button></div>
+        <div id="step3" class="step">
+            <h2 id="m_t3"></h2>
+            <div class="form-group"><label id="l_name"></label><input type="text" id="q_name" placeholder="Full Name"></div>
+            <div class="form-group"><label id="l_phone"></label><input type="tel" id="q_phone" placeholder="778-xxx-xxxx"></div>
+            <div class="form-group"><label id="l_email"></label><input type="email" id="q_email" placeholder="Email"></div>
+            <div id="group_ins" style="display:none;"><div class="form-group"><label id="l_dob"></label><input type="date" id="q_dob"></div></div>
+            <div id="group_move" style="display:none;"><div class="form-group"><label id="l_f_addr"></label><input type="text" id="q_f_addr" placeholder="Origin Address"></div></div>
+            <div class="form-group"><label id="l_addr"></label><input type="text" id="q_addr" placeholder="Destination Address"></div>
+            <div class="form-group"><label id="l_date"></label><input type="date" id="q_eff_date"></div>
+            <button class="btn-action" onclick="generateOutput()" id="m_b3"></button>
+        </div>
+        <div id="step4" class="step"><h2 id="m_t4"></h2><p id="m_c4" style="font-size:0.85rem; color:#64748b;"></p><textarea id="outputBox" readonly style="width:100%; height:160px; padding:15px; border:1px solid #e2e8f0; border-radius:15px; font-family:monospace; font-size:0.8rem; margin-bottom:10px;"></textarea><button class="btn-action" onclick="copyText()" id="m_cp"></button><button class="btn-action" onclick="openMail()" style="background:#3b82f6;" id="m_ml"></button></div>
     </div>
 </div>
 
 <div id="discModal" class="modal">
     <div class="modal-content" style="max-width: 650px; text-align: left;">
         <span style="position:absolute; top:20px; right:25px; cursor:pointer; font-size:24px; color:#cbd5e1;" onclick="closeDisclaimer()">×</span>
-        <h2 id="d_t" style="color:var(--primary-color); margin-top:0;"></h2>
-        <div id="d_c" style="font-size:0.85rem; line-height:1.6; color:#475569;"></div>
-        <button class="btn-action" onclick="closeDisclaimer()" id="d_b"></button>
+        <h2 id="dt_t" style="color:var(--primary-color); margin-top:0;"></h2>
+        <div id="dt_c" style="font-size:0.85rem; line-height:1.6; color:#475569;"></div>
+        <button class="btn-action" onclick="closeDisclaimer()" id="dt_b"></button>
     </div>
 </div>
 
@@ -85,25 +95,32 @@
             h_t: "发现大温理想之家", h_s: "实时监控优质房源，全方位租房助手",
             details: "查看详情", safety: "💡 提示：入住前请核实业主信息，并签署 BC 省认可的正规租房合同。",
             svc: {
-                ins: { icon: "🛡️", title: "租客保险咨询", desc: "保障个人财物及责任风险", t1: "为何需要租客保险？", c1: "<ul><li><strong>财物保障：</strong>覆盖家具、电子产品水火盗窃损失。</li><li><strong>责任赔付：</strong>承担因疏忽导致的房屋或邻居受损赔偿。</li></ul>", d_l: "生效日期" },
-                move: { icon: "📦", title: "专业搬家服务", desc: "精选大温口碑搬家团队", t1: "专业搬家服务", c1: "对接持牌团队，提供家具拆卸、加固打包及全额保险保障。", d_l: "服务日期" },
-                clean: { icon: "🧹", title: "退房清洁服务", desc: "专业高效，助您拿回押金", t1: "退房清洁服务", c1: "遵循 BC 验收标准，深度清理厨卫及家电，助力足额拿回押金。", d_l: "服务日期" }
+                ins: { icon: "🛡️", title: "租客保险咨询", desc: "保障个人财物及责任风险", t1: "为何需要租客保险？", c1: "<ul><li><strong>财物保障：</strong>覆盖家具、电子产品及衣物受损损失。</li><li><strong>责任赔付：</strong>承担因过失导致房屋或邻居受损的法律赔偿。</li><li><strong>额外生活费：</strong>因理赔无法居住时提供临时搬迁补偿。</li></ul>", d_l: "生效日期" },
+                move: { icon: "📦", title: "专业搬家服务", desc: "精选大温口碑搬家团队", t1: "专业搬家服务", c1: "对接本地持牌团队，提供家具拆卸、加固打包及全额搬运保险保障。", d_l: "服务日期" },
+                clean: { icon: "🧹", title: "退房清洁服务", desc: "专业高效，助您拿回押金", t1: "退房清洁服务", c1: "遵循 BC 退房验收标准，深度清理厨房及家电内部，助力足额拿回押金。", d_l: "服务日期" }
             },
-            m: { t2: "授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方承保/服务机构。数据仅用于此次申请。", b2: "同意并继续", t3: "信息填写", ln: "姓名 (与 ID 一致)", lp: "电话", le: "邮箱", ld: "生日", lfa: "出发地", la: "目的地", b3: "生成英文申请单", t4: "已生成", c4: "为杜绝乱码，内容已转为英文：", cp: "1. 复制内容", ml: "2. 发送邮件" },
-            disc: { t: "法律免责声明 / Legal Disclaimer", b: "我已阅读并知悉 / I Understand", c: "<h4>1. 信息准确性</h4><p>HavenNest 是信息聚合平台。房源数据均自动抓取自第三方平台。我们尽力确保更新，但不对内容的真实性、合法性、实时性或价格变动负责。</p><h4>2. 风险自担</h4><p>用户在第三方网站的一切行为受其条款约束。本站不对因跳转、使用第三方房源或服务产生的任何直接或间接损失承担法律责任。</p><h4>3. 纠纷声明</h4><p>本站不参与租约签署或资金交易。用户与房东、搬家、清洁或保险服务商之间的任何合同纠纷、财务损失或诈骗行为，均与本站无关。</p><h4>4. 安全提示</h4><p>强烈建议实地看房、核实 ID，并签署 BC 省认可的正规租房合同。切勿在签署合同前进行任何转账。</p>" }
+            m: { t2: "信息授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方合作承保/服务机构。数据仅用于本次申请及报价。", b2: "同意授权并继续", t3: "申请信息填写", ln: "姓名 (与 ID 一致)", lp: "电话", le: "邮箱", ld: "出生日期", lfa: "出发地地址", la: "租房地址 (含邮编)", b3: "生成英文申请单", t4: "表单已生成", c4: "为杜绝邮件乱码，内容已转为纯英文及标准字符：", cp: "1. 复制内容", ml: "2. 发送邮件" },
+            disc: { t: "法律免责声明 / Legal Disclaimer", b: "我已阅读并知悉 / I Understand", c: "<h4>1. 信息准确性</h4><p>HavenNest 是聚合工具。房源数据自动抓取自第三方平台。我们不对房源的真实性、合法性、实时性或价格变动承担法律责任。</p><h4>2. 风险免责</h4><p>点击详情将跳转至原始平台。本站不参与签署合同或资金交易。用户与房东、搬家、清洁商产生的任何纠纷与本站无关。</p><h4>3. 安全提示</h4><p>强烈建议实地看房、核实 ID，并签署 BC 省认可的正规租房合同。切勿在签署正式合同前支付任何费用。</p>" }
         },
         en: {
             h_t: "Find Your Ideal Home", h_s: "Real-time rental monitor & all-in-one assistant",
             details: "View Details", safety: "💡 Tip: Verify landlord identity and sign a standard BC tenancy agreement.",
             svc: {
-                ins: { icon: "🛡️", title: "Tenant Insurance", desc: "Protect belongings & liability", t1: "Why Insurance?", c1: "Covers personal property and liability claims during your tenancy.", d_l: "Effective Date" },
-                move: { icon: "📦", title: "Moving Services", desc: "Trusted local moving teams", t1: "Moving Services", c1: "Connecting you with licensed and insured local movers.", d_l: "Service Date" },
-                clean: { icon: "🧹", title: "Cleaning Services", desc: "Professional move-out cleaning", t1: "Cleaning Services", c1: "Standardized deep cleaning to help secure your security deposit.", d_l: "Service Date" }
+                ins: { icon: "🛡️", title: "Tenant Insurance", desc: "Protect belongings & liability", t1: "Why Insurance?", c1: "Covers personal property, liability claims, and living expenses during a claim.", d_l: "Effective Date" },
+                move: { icon: "📦", title: "Moving Services", desc: "Trusted local moving teams", t1: "Moving Services", c1: "Connecting you with licensed movers for a safe relocation in Metro Vancouver.", d_l: "Service Date" },
+                clean: { icon: "🧹", title: "Cleaning Services", desc: "Professional move-out cleaning", t1: "Cleaning Services", c1: "Professional cleaners following BC standards to secure your security deposit.", d_l: "Service Date" }
             },
-            m: { t2: "Consent", c2: "I authorize HavenNest to transfer my info to official providers for quotes.", b2: "Agree", t3: "Application Form", ln: "Full Name", lp: "Phone", le: "Email", ld: "DOB", lfa: "Origin", la: "Destination", b3: "Generate Form", t4: "Generated", c4: "Generated in English to prevent errors:", cp: "1. Copy Form", ml: "2. Open Mail" },
-            disc: { t: "Legal Disclaimer", b: "I Understand", c: "<h4>1. Accuracy</h4><p>HavenNest is an aggregator. We do not warrant the accuracy or availability of 3rd-party listings.</p><h4>2. External Links</h4><p>Redirection to original platforms is beyond our control. Users use external data at their own risk.</p><h4>3. Liability</h4><p>We are NOT responsible for disputes, fraud, or losses occurring between users and landlords/providers.</p><h4>4. Advice</h4><p>Perform due diligence and sign standard BC lease agreements before making payments.</p>" }
+            m: { t2: "Consent", c2: "I authorize HavenNest to transfer my info to official service providers. Data used solely for this application.", b2: "Agree", t3: "Application Form", ln: "Full Name", lp: "Phone", le: "Email", ld: "DOB", lfa: "Origin", la: "Rental Address", b3: "Generate Form", t4: "Generated", c4: "The form is generated in English. Please follow:", cp: "1. Copy Form", ml: "2. Open Mail" },
+            disc: { t: "Legal Disclaimer", b: "I Understand", c: "<h4>1. Nature of Service</h4><p>HavenNest is an aggregator. We do not warrant the accuracy, legitimacy, or availability of 3rd-party listings.</p><h4>2. Redirection</h4><p>External links lead to original platforms. Users are bound by those websites' terms and policies.</p><h4>3. Liability</h4><p>We are NOT responsible for disputes, financial losses, or scams involving landlords or 3rd-party service providers.</p><h4>4. Safety</h4><p>Perform due diligence and sign standard BC lease agreements before making payments.</p>" }
         }
     };
+
+    // 🚀 随机背景图逻辑：当抓取图失效时 [cite: 2026-02-28]
+    const fallbacks = [
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+        "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800"
+    ];
 
     function openModal(svc) {
         activeSvc = svc; const config = uiText[currentLang].svc[svc];
@@ -133,26 +150,28 @@
         currentLang = lang; document.getElementById('btn-zh').classList.toggle('active', lang === 'zh'); document.getElementById('btn-en').classList.toggle('active', lang === 'en');
         document.getElementById('hero-title').innerText = uiText[lang].h_t; document.getElementById('hero-subtitle').innerText = uiText[lang].h_s;
         const m = uiText[lang].m; document.getElementById('m_t2').innerText = m.t2; document.getElementById('m_c2').innerText = m.c2; document.getElementById('m_b2').innerText = m.b2; document.getElementById('m_t3').innerText = m.t3; document.getElementById('l_name').innerText = m.ln; document.getElementById('l_phone').innerText = m.lp; document.getElementById('l_email').innerText = m.le; document.getElementById('l_dob').innerText = m.ld; document.getElementById('l_f_addr').innerText = m.lfa; document.getElementById('l_addr').innerText = m.la; document.getElementById('m_b3').innerText = m.b3; document.getElementById('m_t4').innerText = m.t4; document.getElementById('m_cp').innerText = m.cp; document.getElementById('m_ml').innerText = m.ml;
-        const d = uiText[lang].disc; document.getElementById('d_t').innerText = d.t; document.getElementById('d_c').innerHTML = d.c; document.getElementById('d_b').innerText = d.b; renderUI();
+        const d = uiText[lang].disc; document.getElementById('dt_t').innerText = d.t; document.getElementById('dt_c').innerHTML = d.c; document.getElementById('dt_b').innerText = d.b; 
+        document.getElementById('d_btn').innerText = currentLang === 'zh' ? '法律免责声明 / Disclaimer' : 'Legal Disclaimer';
+        renderUI();
     }
 
     function renderUI() {
         const s = document.getElementById('service-center');
-        s.innerHTML = Object.keys(uiText[currentLang].svc).map(k => `<div class="service-item" onclick="openModal('${k}')"><span style="font-size:2.5rem; display:block; margin-bottom:10px;">${uiText[currentLang].svc[k].icon}</span><strong>${uiText[currentLang].svc[k].title}</strong><p style="font-size:0.8rem; color:#64748b; margin:8px 0 0;">${uiText[currentLang].svc[k].desc}</p></div>`).join('');
+        s.innerHTML = Object.keys(uiText[currentLang].svc).map(k => `<div class="service-item" onclick="openModal('${k}')"><span style="font-size:2.8rem; display:block; margin-bottom:10px;">${uiText[currentLang].svc[k].icon}</span><strong>${uiText[currentLang].svc[k].title}</strong><p style="font-size:0.8rem; color:#64748b; margin:10px 0 0;">${uiText[currentLang].svc[k].desc}</p></div>`).join('');
         const c = document.getElementById('listings-container'); c.innerHTML = '';
-        const f = "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800";
-        // 🚀 核心优化：全量渲染积攒的房源，并修复图片 [cite: 2026-02-28]
-        houseData.forEach(item => {
+        
+        // 🚀 核心优化：全量积攒房源，增加多图随机兜底逻辑 [cite: 2026-02-28]
+        houseData.forEach((item, index) => {
             const card = document.createElement('div'); card.className = 'house-card';
-            const img = (item.image && item.image.startsWith('http')) ? item.image : f;
-            card.innerHTML = `<div class="card-image" style="background-image: url('${img}'), url('${f}')"></div><div class="card-content"><div class="card-price">${item.price}</div><div class="card-title">${currentLang === 'zh' ? (item.title_cn || item.title) : item.title}</div><div class="card-meta" style="font-size:0.8rem; color:#94a3b8;">📍 ${item.location} | ${item.source}</div><div class="safety-tip">${uiText[currentLang].safety}</div><a href="${item.url}" target="_blank" class="view-btn">${uiText[currentLang].details}</a></div>`;
+            const randomFallback = fallbacks[index % fallbacks.length];
+            const img = (item.image && item.image.startsWith('http')) ? item.image : randomFallback;
+            card.innerHTML = `<div class="card-image" style="background-image: url('${img}'), url('${randomFallback}')"></div><div class="card-content"><div class="card-price">${item.price}</div><div class="card-title">${currentLang === 'zh' ? (item.title_cn || item.title) : item.title}</div><div class="card-meta" style="font-size:0.8rem; color:#94a3b8; margin-bottom:15px;">📍 ${item.location} | ${item.source}</div><div class="safety-tip">${uiText[currentLang].safety}</div><a href="${item.url}" target="_blank" class="view-btn">${uiText[currentLang].details}</a></div>`;
             c.appendChild(card);
         });
     }
 
     async function fetchData() {
         try {
-            // 🚀 核心优化：增加随机参数防止缓存，确保显示最新数据库
             const res = await fetch('listings.json?t=' + Date.now());
             houseData = await res.json(); switchLang(currentLang);
         } catch(e) { console.error(e); }

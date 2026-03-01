@@ -1,6 +1,256 @@
 [
     {
         "source": "Craigslist",
+        "title": "Joyce-Collingwood Station, 1bed 1bath 1den parking and locker for rent",
+        "title_cn": "Joyce-Collingwood 站，1 床 1 浴室 1 室，停车位和储物柜出租",
+        "price": "$2,200",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-joyce-collingwood-station/7913612823.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Fraser and 41st Ave, 2 bed 1 bath apartment for rent!",
+        "title_cn": "弗雷泽和第 41 大道，2 床 1 浴室公寓出租！",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-fraser-and-41st-ave-bed-bath/7915073886.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Brand New 1Bed & Den 700SQF",
+        "title_cn": "全新 1 床和书房 700 平方英尺",
+        "price": "$2,750",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-brand-new-1bed-den-700sqf/7913753677.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 Bed 1 Bath at The City of Lougheed (Pet Friendly/AC/EV)(T3-A5-20F)",
+        "title_cn": "洛希德市 1 床 1 浴室（可携带宠物/空调/电动汽车）(T3-A5-20F)",
+        "price": "$2,400",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-bed-bath-at-the-city-of/7918295696.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Grandview Heights Semi-basement 2 bedroom 1 bathroom",
+        "title_cn": "Grandview Heights 半地下室 2 卧室 1 浴室",
+        "price": "$1,900",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-grandview-heights-semi-basement/7909324947.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2B/2B at The Amazing Brentwood (Pet Friendly)(Parking + Storage)",
+        "title_cn": "神奇布伦特伍德 2 房/2 房（可携带宠物）（停车位 + 储藏室）",
+        "price": "$3,000",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-2b-2b-at-the-amazing-brentwood/7918296612.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "SPACIOUS 2-BED / 2-BATH W/ AIR CON, LARGE BALCONY, PARKING, PET OK!",
+        "title_cn": "宽敞的 2 床/2 浴室，配有空调、大阳台、停车位，可带宠物！",
+        "price": "$4,000",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-spacious-bed-bath-air-con/7918295676.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "🌟 Marpole Private Rm – Furnished, Utilities included",
+        "title_cn": "🌟 Marpole 私人房间 – 带家具，包括公用设施",
+        "price": "$760",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-marpole-private-rm-furnished/7910366913.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "One bedroom Apartment 2nd Floor on 43 & Main",
+        "title_cn": "一卧室公寓，位于 43 号和主楼 2 楼",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-one-bedroom-apartment-2nd/7908798514.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2 bedroom basement suite",
+        "title_cn": "两卧室地下室套房",
+        "price": "$2,900",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-northwest-central/7915235081.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Renting New 20th Floor Condo Unit, Fully Furnished In Seylynn Village",
+        "title_cn": "在 Seylynn Village 租新 20 层公寓，家具齐全",
+        "price": "$2,450",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-renting-new-20th-floor/7909003527.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Charming 1BR Ground Level Suite in Woodland Acres",
+        "title_cn": "迷人一卧室地面套房，位于林地英亩",
+        "price": "$1,500",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/port-coquitlam-central-charming-1br/7917294800.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Furnished 1BR Condo @ University District – Heat/Water, Parking & Lock",
+        "title_cn": "大学区带家具的一卧室公寓 - 供暖/供水、停车位和锁",
+        "price": "$1,750",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-inner-northwest-furnished-1br/7917295200.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Bright and cozy 1-bedroom, 1-bathroom suite Vancouver",
+        "title_cn": "温哥华明亮舒适一卧室一浴室套房",
+        "price": "$1,480",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bright-and-cozy-bedroom/7917295349.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "MODERN 2 BEDROOM 2 BATHROOM CONDO IN EVO BUILDING",
+        "title_cn": "EVO 大楼现代 2 卧室 2 浴室公寓",
+        "price": "$2,250",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-inner-northwest-modern-bedroom/7917295698.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Bright one bedroom in New Westminster Brewery District",
+        "title_cn": "新威斯敏斯特啤酒区明亮的一间卧室",
+        "price": "$1,995",
+        "url": "https://vancouver.craigslist.org/van/apa/d/new-westminster-northeast-bright-one/7918298223.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Vancouver East Brand New 2025 Built –Cedar Lane Modern 1 Bedroom Apt",
+        "title_cn": "Vancouver East Brand New 2025 Built –Cedar Lane Modern 1 Bedroom Apt",
+        "price": "$2,200",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-vancouver-east-brand-new-2025/7917651322.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1-Bed/1 Bath South Surrey Basement Suite $1400/month - April 1/2026",
+        "title_cn": "1 床/1 浴室南萨里地下室套房 1400 美元/月 - 2026 年 4 月 1 日",
+        "price": "$1,400",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-bed-bath-south-surrey-basement/7912249256.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "⭐️FOR RENT – Luxury Waterfront Living in North Vancouver⭐️",
+        "title_cn": "⭐️出租 – 北温哥华的豪华海滨生活⭐️",
+        "price": "$2,800",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-southwest-for-rent/7915004971.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "West End Large 1 bed, newly renovated",
+        "title_cn": "西区大 1 床，新装修",
+        "price": "$2,300",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-west-end-large-bed-newly/7912440158.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Newly renovated corner unit condo (NW facing)",
+        "title_cn": "新装修的角落单元公寓（面向西北）",
+        "price": "$2,300",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-newly-renovated-corner-unit/7912438734.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Bright 1 bedroom apartment in the West End",
+        "title_cn": "西区明亮的一卧室公寓",
+        "price": "$1,950",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bright-bedroom-apartment-in/7913955120.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "NEWLY RENOVATED GROUND FLOOR 2BEDROOM SUITE SEPARATE ENTRANCE",
+        "title_cn": "新装修的底层 2 卧室套房，设有独立入口",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-newly-renovated-ground-floor/7918298667.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "HUGE 2BR APARTMENT AT PATTERSON STATION",
+        "title_cn": "位于帕特森站的大型 2 居公寓",
+        "price": "$2,275",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-huge-2br-apartment-at-patterson/7918299012.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "One bedroom furnished suite near Douglas college and skytrain",
+        "title_cn": "靠近道格拉斯学院和轻轨的一卧室套房",
+        "price": "$1,950",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-one-bedroom-furnished/7915529018.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
         "title": "2 Bedroom Suite Ground Level - Fully Renovated",
         "title_cn": "2 Bedroom Suite Ground Level - Fully Renovated",
         "price": "$1,750",
