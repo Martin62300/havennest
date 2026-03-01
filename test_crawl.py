@@ -1,115 +1,87 @@
 import cloudscraper
 from bs4 import BeautifulSoup
-import json
-import os
-import re
-import time
+import json, os, re, time
 from datetime import datetime, timedelta
 from deep_translator import GoogleTranslator
 
 class HavenNestCrawler:
     def __init__(self):
         self.filename = 'listings.json'
-        # 🚀 强制初始化为空列表，实现你要求的“删除重抓”逻辑
-        self.all_listings = [] 
-        self.seen_urls = set()
-        self.scraper = cloudscraper.create_scraper(browser={'browser': 'chrome', 'platform': 'windows', 'desktop': True})
+        self.scraper = cloudscraper.create_scraper(browser={'browser': 'chrome','platform': 'windows','desktop': True})
         self.translator = GoogleTranslator(source='auto', target='zh-CN')
-        
-        # 🏙️ 大温地区城市映射表（防止出现门牌号筛选）
-        self.city_map = ["Vancouver", "Richmond", "Burnaby", "Surrey", "Coquitlam", "New Westminster", "North Vancouver", "West Vancouver", "Langley", "Delta", "Port Coquitlam", "Port Moody"]
+        # 🏙️ 核心修正：只识别以下标准城市
+        self.valid_cities = ["Vancouver", "Richmond", "Burnaby", "Surrey", "Coquitlam", "New Westminster", "North Vancouver", "West Vancouver", "Langley", "Delta", "Port Coquitlam", "Port Moody"]
 
-    def clean_location(self, loc_str):
-        # 🚀 核心优化：从乱七八糟的地址中提取标准城市名
-        if not loc_str: return "Vancouver"
-        loc_str = loc_str.strip().title()
-        for city in self.city_map:
-            if city in loc_str: return city
-        return "Greater Vancouver"
-
-    def ai_translate(self, text):
-        if not text: return ""
-        try: return self.translator.translate(text[:200])
-        except: return text
+    def clean_loc(self, raw):
+        if not raw: return "Vancouver"
+        raw = raw.strip().title()
+        for city in self.valid_cities:
+            if city in raw: return city
+        return "Vancouver"
 
     def crawl_craigslist(self, limit=30):
-        print(f"🔍 正在抓取 Craigslist 最新房源并合成高清图片...")
+        print("🔍 正在提取 Craigslist 高清图片源...")
         url = "https://vancouver.craigslist.org/search/apa"
         try:
             res = self.scraper.get(url, timeout=30)
             soup = BeautifulSoup(res.text, 'html.parser')
             items = soup.find_all('li', class_='cl-static-search-result')
-            count = 0
-            for item in items:
-                link = item.find('a')['href']
-                if link in self.seen_urls: continue
-                
-                # 🚀 修正图片逻辑：直接从 data-ids 合成官方 CDN 链接，永不失效 [cite: 2026-02-28]
+            results = []
+            for item in items[:limit]:
+                # 🚀 核心修复：通过 ID 合成 CDN 链接，这种链接存活率最高 [cite: 2026-02-28]
                 img_ids = item.get('data-ids', '').split(',')
                 img_url = ""
                 if img_ids and img_ids[0]:
                     clean_id = img_ids[0].replace('1:', '').split(':')[-1]
-                    img_url = f"https://images.craigslist.org/{clean_id}_300x225.jpg"
+                    img_url = f"https://images.craigslist.org/{clean_id}_600x450.jpg"
 
                 title = item.find('div', class_='title').text.strip()
-                raw_loc = item.find('div', class_='location').text if item.find('div', class_='location') else "Vancouver"
-                
-                self.all_listings.append({
+                results.append({
                     "source": "Craigslist",
                     "title": title,
-                    "title_cn": self.ai_translate(title),
+                    "title_cn": self.translator.translate(title[:200]),
                     "price": item.find('div', class_='price').text if item.find('div', class_='price') else "N/A",
-                    "url": link,
-                    "location": self.clean_location(raw_loc), # 🚀 城市清洗
+                    "url": item.find('a')['href'],
+                    "location": self.clean_loc(item.find('div', class_='location').text if item.find('div', class_='location') else ""),
                     "image": img_url,
                     "date": datetime.now().strftime("%Y-%m-%d")
                 })
-                self.seen_urls.add(link)
-                count += 1
-                if count >= limit: break
-        except Exception as e: print(f"❌ Craigslist 异常: {e}")
+            return results
+        except: return []
 
     def crawl_zumper(self, limit=30):
-        print(f"🔍 正在同步 Zumper (提取实拍环境图)...")
+        print("🔍 正在同步 Zumper 实景图...")
         url = "https://www.zumper.com/apartments-for-rent/vancouver-bc"
         try:
             res = self.scraper.get(url, timeout=30)
             soup = BeautifulSoup(res.text, 'html.parser')
             items = soup.select('[data-testid="listing-card"]')
-            count = 0
-            for item in items:
-                link_el = item.select_one('a[href*="/apartments-for-rent/"]')
-                if not link_el: continue
-                full_url = "https://www.zumper.com" + link_el['href']
-                if full_url in self.seen_urls: continue
-
+            results = []
+            for item in items[:limit]:
                 img_el = item.find('img')
-                # 🚀 提取 Zumper 封面大图
-                img_url = img_el.get('src') or ""
-
-                self.all_listings.append({
+                img_url = img_el['src'] if (img_el and 'src' in img_el.attrs) else ""
+                title_el = item.select_one('[class*="Title"]')
+                title = title_el.text.strip() if title_el else "Vancouver Suite"
+                results.append({
                     "source": "Zumper",
-                    "title": item.select_one('[class*="Title"]').text.strip() if item.select_one('[class*="Title"]') else "Vancouver Suite",
-                    "title_cn": self.ai_translate(item.select_one('[class*="Title"]').text) if item.select_one('[class*="Title"]') else "精选套房",
+                    "title": title,
+                    "title_cn": self.translator.translate(title[:200]),
                     "price": item.select_one('[class*="Price"]').text if item.select_one('[class*="Price"]') else "N/A",
-                    "url": full_url,
+                    "url": "https://www.zumper.com" + item.select_one('a')['href'],
                     "location": "Vancouver",
                     "image": img_url,
                     "date": datetime.now().strftime("%Y-%m-%d")
                 })
-                self.seen_urls.add(full_url)
-                count += 1
-                if count >= limit: break
-        except Exception as e: print(f"❌ Zumper 异常: {e}")
+            return results
+        except: return []
 
-    def save(self):
+    def run(self):
+        data = self.crawl_craigslist() + self.crawl_zumper()
+        # 🚀 物理去重并保存
+        unique_data = {x['url']: x for x in data}.values()
         with open(self.filename, 'w', encoding='utf-8') as f:
-            json.dump(self.all_listings, f, ensure_ascii=False, indent=4)
-        print(f"✅ 清洗完毕：数据库已重置，当前共抓取 {len(self.all_listings)} 条干净房源。")
+            json.dump(list(unique_data), f, ensure_ascii=False, indent=4)
+        print(f"✅ 成功积攒 {len(unique_data)} 条带图房源。")
 
 if __name__ == "__main__":
-    c = HavenNestCrawler()
-    c.crawl_craigslist(30)
-    time.sleep(3)
-    c.crawl_zumper(30)
-    c.save()
+    HavenNestCrawler().run()
