@@ -11,7 +11,7 @@
         .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
         .hero { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; padding: 60px 5% 100px; text-align: center; }
         .service-center { max-width: 1200px; margin: -40px auto 40px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .service-item { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s; text-decoration: none; color: inherit; }
+        .service-item { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s; color: inherit; }
         .service-item:hover { transform: translateY(-5px); border-color: var(--primary-color); }
         .grid-container { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         .house-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
@@ -84,14 +84,13 @@
             </div>
             
             <div id="group_move" style="display:none;">
-                <div class="form-group"><label id="l_f_addr">出发地地址</label><input type="text" id="q_f_addr" placeholder="From Address"></div>
+                <div class="form-group"><label id="l_f_addr">出发地地址</label><input type="text" id="q_f_addr" placeholder="Origin Address"></div>
             </div>
 
-            <div class="form-group"><label id="l_addr">出租屋地址 (含邮编)</label><input type="text" id="q_addr" placeholder="Unit/Street, City, Postal Code"></div>
-            
+            <div class="form-group"><label id="l_addr">出租屋地址 (含邮编)</label><input type="text" id="q_addr" placeholder="Destination Address"></div>
             <div class="form-group"><label id="l_eff_date">生效/服务日期</label><input type="date" id="q_eff_date"></div>
 
-            <button id="m_b3" class="btn-action" onclick="generateOutput()">生成英文申请表单</button>
+            <button id="m_b3" class="btn-action" onclick="generateOutput()">生成申请表单</button>
         </div>
 
         <div id="step4" class="step">
@@ -114,28 +113,28 @@
             h_t: "发现大温理想之家", h_s: "实时监控优质房源，全方位租房助手",
             details: "查看详情", safety: "💡 提示：入住前请核实业主信息，并签署 BC 省认可的正规租房合同。",
             svc: {
-                ins: { icon: "🛡️", title: "租客保险咨询", desc: "保障个人财物及第三方责任风险", t1: "为何需要租客保险？", c1: "<p>租客保险是您的核心保障：</p><ul><li><strong>个人财物：</strong>保障家具、电脑等免受水火盗窃损失。</li><li><strong>责任赔付：</strong>若因您的疏忽导致他人受损，保险承担法律赔付。</li></ul>" },
-                move: { icon: "📦", title: "专业搬家服务", desc: "精选大温口碑搬家团队", t1: "专业搬家保障", c1: "精选持牌团队，提供家具拆装、物品加固及全额搬运保障。" },
-                clean: { icon: "🧹", title: "退房清洁服务", desc: "专业高效，助您拿回押金", t1: "退房清洁专家", c1: "深度清理厨房、卫浴，遵循 BC 省常规退房验收标准，助力拿回押金。" }
+                ins: { icon: "🛡️", title: "租客保险咨询", desc: "保障个人财物及第三方责任风险", t1: "为何需要租客保险？", c1: "<p>租客保险是您的核心保障：</p><ul><li><strong>个人财物保障：</strong>保护您的家具、电子产品、衣物等免受盗窃、火灾、水损风险。</li><li><strong>责任赔付：</strong>若因您的疏漏导致房屋受损，保险承担高额法律赔偿。</li><li><strong>意外伤害：</strong>保障访客在您的租住空间内的意外医疗及法律费用。</li><li><strong>额外生活费：</strong>理赔期间房屋无法居住时提供食宿补偿。</li></ul>" },
+                move: { icon: "📦", title: "专业搬家服务", desc: "精选大温口碑搬家团队", t1: "专业搬家保障", c1: "<p>我们为您对接大温持牌团队：</p><ul><li><strong>安全搬运：</strong>精细打包，大件家具专业拆装。</li><li><strong>透明报价：</strong>无隐形消费，全额搬运保障。</li></ul>" },
+                clean: { icon: "🧹", title: "退房清洁服务", desc: "专业高效，助您拿回押金", t1: "专业退房清洁", c1: "<p>助力拿回押金：</p><ul><li><strong>深度清理：</strong>厨房、卫浴、家电内部等顽固区域。</li><li><strong>专业标准：</strong>遵循 BC 省常规退房验收标准。</li></ul>" }
             },
             m: {
-                t2: "授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方服务机构进行报价预约。数据仅用于此次申请。",
+                t2: "授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方承保/服务机构进行报价预约。数据仅用于此次申请。",
                 b2: "同意并继续", t3: "信息填写", ln: "姓名 (与 ID 一致)", lp: "电话", le: "邮箱", ld: "生日", lfa: "出发地地址", la: "出租屋地址", led: "生效/服务日期", b3: "生成英文申请表单",
-                t4: "表单已生成", c4: "为杜绝乱码，内容已转为纯英文。请执行：", cp: "1. 复制内容", ml: "2. 发送邮件"
+                t4: "申请表已生成", c4: "为杜绝乱码，内容已转为纯英文。请执行：", cp: "1. 复制内容", ml: "2. 发送邮件"
             }
         },
         en: {
             h_t: "Find Your Ideal Home", h_s: "Real-time monitoring of quality listings, your rental assistant",
             details: "View Details", safety: "💡 Tip: Verify landlord identity and sign a standard BC lease recognized by the province.",
             svc: {
-                ins: { icon: "🛡️", title: "Tenant Insurance", desc: "Protect belongings and liability", t1: "Why Insurance?", c1: "Protects your furniture, electronics, and liability against claims." },
-                move: { icon: "📦", title: "Moving Services", desc: "Trusted local moving teams", t1: "Professional Moving", c1: "Licensed movers for a safe relocation." },
-                clean: { icon: "🧹", title: "Cleaning Services", desc: "Professional move-out cleaning", t1: "Move-out Cleaning", c1: "Follows standard check-lists to secure your deposit." }
+                ins: { icon: "🛡️", title: "Tenant Insurance", desc: "Protect belongings and liability", t1: "Why Insurance?", c1: "<p>Your core security:</p><ul><li><strong>Personal Property:</strong> Protects furniture and electronics.</li><li><strong>Liability:</strong> Covers damages to property or neighbors.</li><li><strong>Injuries:</strong> Legal and medical protection for guests.</li></ul>" },
+                move: { icon: "📦", title: "Moving Services", desc: "Trusted local moving teams", t1: "Moving Services", c1: "Licensed movers for a safe relocation." },
+                clean: { icon: "🧹", title: "Cleaning Services", desc: "Professional move-out cleaning", t1: "Cleaning Services", c1: "Secure your deposit with professional cleaning." }
             },
             m: {
-                t2: "Consent", c2: "I authorize HavenNest to transfer my info to official providers for quotes. Data used solely for this application.",
+                t2: "Consent", c2: "I authorize HavenNest to transfer my info to official providers for quotes. Data is used solely for this application.",
                 b2: "Agree", t3: "Application Form", ln: "Full Name", lp: "Phone", le: "Email", ld: "DOB", lfa: "Origin Address", la: "Rental Address", led: "Effective/Service Date", b3: "Generate English Form",
-                t4: "Generated", c4: "Generated in English to prevent errors. Please follow:",
+                t4: "Generated", c4: "The form is generated in English. Please follow:",
                 cp: "1. Copy Form", ml: "2. Open Mail"
             }
         }
@@ -158,7 +157,7 @@
         document.getElementById('step' + s).classList.add('active');
     }
 
-    // 🚀 核心逻辑更新：加入 Effective Date
+    // 🚀 核心更新：生成表单时强制使用英文符号和标签
     function generateOutput() {
         const d = {
             n: document.getElementById('q_name').value,
@@ -174,15 +173,16 @@
         if(activeSvc === 'ins') extra += `Date of Birth: ${d.dob}\n`;
         if(activeSvc === 'move') extra += `Origin Address: ${d.fa}\n`;
 
-        const text = `[HavenNest ${activeSvc.toUpperCase()} Application]\nFull Name: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nRental Address: ${d.a}\n${extra}Status: Authorized via HavenNest Portal`;
+        const text = `[HavenNest ${activeSvc.toUpperCase()} Application]\nFull Name: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nRental Address: ${d.a}\n${extra}Consent: Authorized via HavenNest Portal`;
         document.getElementById('outputBox').value = text;
+        document.getElementById('m_c4').innerText = uiText[currentLang].m.c4;
         nextStep(4);
     }
 
     function copyText() {
         const box = document.getElementById('outputBox');
         box.select(); document.execCommand('copy');
-        document.getElementById('m_cp').innerText = currentLang === 'zh' ? '✅ 已复制成功' : '✅ Copied';
+        document.getElementById('m_cp').innerText = currentLang === 'zh' ? '✅ 已成功复制' : '✅ Copied';
     }
 
     function openMail() {
@@ -197,6 +197,7 @@
         document.getElementById('btn-en').classList.toggle('active', lang === 'en');
         document.getElementById('hero-title').innerText = uiText[lang].h_t;
         document.getElementById('hero-subtitle').innerText = uiText[lang].h_s;
+        
         const m = uiText[lang].m;
         document.getElementById('m_t2').innerText = m.t2;
         document.getElementById('m_c2').innerText = m.c2;
@@ -211,7 +212,6 @@
         document.getElementById('l_eff_date').innerText = m.led;
         document.getElementById('m_b3').innerText = m.b3;
         document.getElementById('m_t4').innerText = m.t4;
-        document.getElementById('m_c4').innerText = m.c4;
         document.getElementById('m_cp').innerText = m.cp;
         document.getElementById('m_ml').innerText = m.ml;
         renderUI();
@@ -223,13 +223,14 @@
             const s = uiText[currentLang].svc[key];
             return `<div class="service-item" onclick="openModal('${key}')"><span style="font-size:2.5rem; display:block; margin-bottom:10px;">${s.icon}</span><strong>${s.title}</strong><p style="font-size:0.8rem; color:#64748b; margin:8px 0 0;">${s.desc}</p></div>`;
         }).join('');
+        
         const container = document.getElementById('listings-container');
         container.innerHTML = '';
         const uniqueData = Array.from(new Set(houseData.map(a => a.url))).map(url => houseData.find(a => a.url === url));
         uniqueData.forEach(item => {
             const card = document.createElement('div');
             card.className = 'house-card';
-            card.innerHTML = `<div class="card-image" style="background-image: url('${item.image}')"></div><div class="card-content"><div class="card-price">${item.price}</div><div class="card-title">${currentLang === 'zh' ? (item.title_cn || item.title) : item.title}</div><div class="card-meta" style="font-size:0.8rem; color:#95a5a6; margin-bottom:15px;">📍 ${item.location} | ${item.source}</div><div class="safety-tip">${uiText[currentLang].safety}</div><a href="${item.url}" target="_blank" class="view-btn">查看详情</a></div>`;
+            card.innerHTML = `<div class="card-image" style="background-image: url('${item.image}')"></div><div class="card-content"><div class="card-price">${item.price}</div><div class="card-title">${currentLang === 'zh' ? (item.title_cn || item.title) : item.title}</div><div class="card-meta">📍 ${item.location} | ${item.source}</div><div class="safety-tip">${uiText[currentLang].safety}</div><a href="${item.url}" target="_blank" class="view-btn">查看详情</a></div>`;
             container.appendChild(card);
         });
     }
