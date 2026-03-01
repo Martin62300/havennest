@@ -23,10 +23,12 @@
         .card-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; margin-bottom: 12px; height: 2.8em; overflow: hidden; }
         .safety-tip { font-size: 0.75rem; color: #166534; background: #f0fdf4; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #dcfce7; line-height: 1.4; }
         .view-btn { margin-top: auto; background: var(--primary-color); color: white; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 600; }
+        
         footer { background: white; padding: 30px 5%; text-align: center; border-top: 1px solid #eee; margin-top: 40px; }
         .disclaimer-link { color: #94a3b8; font-size: 0.85rem; text-decoration: underline; cursor: pointer; }
+
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 95%; max-width: 550px; padding: 35px; border-radius: 24px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-content { background: white; width: 95%; max-width: 550px; padding: 35px; border-radius: 24px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
         .step { display: none; }
         .step.active { display: block; }
         .btn-action { background: var(--primary-color); color: white; border: none; padding: 14px 30px; border-radius: 12px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 15px; font-size: 1rem; }
@@ -76,11 +78,11 @@
             <button id="m_b2" class="btn-action" onclick="nextStep(3)">同意授权并继续</button>
         </div>
         <div id="step3" class="step">
-            <h2 id="m_t3" style="color:var(--primary-color);">申请信息填写</h2>
+            <h2 id="m_t3" style="color:var(--primary-color);">信息填写</h2>
             <div class="form-group"><label id="l_name">姓名</label><input type="text" id="q_name" placeholder="Full Name"></div>
             <div class="form-group"><label id="l_phone">电话</label><input type="tel" id="q_phone" placeholder="778-xxx-xxxx"></div>
             <div class="form-group"><label id="l_email">邮箱</label><input type="email" id="q_email" placeholder="Email"></div>
-            <div id="group_ins" style="display:none;"><div class="form-group"><label id="l_dob">出生日期</label><input type="date" id="q_dob"></div></div>
+            <div id="group_ins" style="display:none;"><div class="form-group"><label id="l_dob">生日</label><input type="date" id="q_dob"></div></div>
             <div id="group_move" style="display:none;"><div class="form-group"><label id="l_f_addr">出发地地址</label><input type="text" id="q_f_addr" placeholder="Origin Address"></div></div>
             <div class="form-group"><label id="l_addr">出租屋地址 (含邮编)</label><input type="text" id="q_addr" placeholder="Destination Address"></div>
             <div class="form-group"><label id="l_eff_date">日期</label><input type="date" id="q_eff_date"></div>
@@ -101,7 +103,7 @@
         <span style="position:absolute; top:20px; right:25px; cursor:pointer; font-size:24px; color:#cbd5e1;" onclick="closeDisclaimer()">×</span>
         <h2 id="m_dt" style="color:var(--primary-color); margin-top:0;">法律免责声明</h2>
         <div id="m_dc" style="text-align:left; font-size:0.85rem; line-height:1.6; color:#475569;"></div>
-        <button class="btn-action" onclick="closeDisclaimer()">我已阅读并知悉 / I Understand</button>
+        <button id="m_db" class="btn-action" onclick="closeDisclaimer()">我已阅读并知悉 / I Understand</button>
     </div>
 </div>
 
@@ -123,7 +125,9 @@
                 t2: "授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方承保/服务机构进行报价。数据仅用于此次申请。",
                 b2: "同意并继续", t3: "信息填写", ln: "姓名", lp: "电话", le: "邮箱", ld: "生日", lfa: "出发地地址", la: "出租屋地址", b3: "生成英文申请单",
                 t4: "表单已生成", c4: "为杜绝乱码内容，申请单已转为英文。请执行：", cp: "1. 复制内容", ml: "2. 发送邮件",
-                dt: "法律免责声明", dc: "<p>1. <strong>信息来源：</strong>HavenNest 是聚合平台，不对房源实时准确性负责。</p><p>2. <strong>跳转提示：</strong>点击查看详情将离开本站，受原平台规则约束。</p><p>3. <strong>纠纷免责：</strong>本站不参与签署合同，不承担任何法律纠纷或财务损失责任。</p>"
+                dt: "法律免责声明 / Legal Disclaimer",
+                dc: "<p>1. <strong>信息聚合性质：</strong>HavenNest 是房源信息聚合工具，内容通过抓取第三方公开网站生成。我们不对房源的真实性、合法性、实时性及价格变动的准确性承担法律责任。</p><p>2. <strong>跳转提示：</strong>点击查看详情将跳转至第三方平台，用户的后续操作、隐私保护及纠纷解决均受该原始平台规则约束。</p><p>3. <strong>纠纷免责声明：</strong>本站不参与任何租约签署、租金交付或中介行为。用户与房东、第三方服务商（搬家/清洁/保险）之间产生的任何法律纠纷、财务损失或诈骗行为，均与本站无关。</p><p>4. <strong>安全建议：</strong>建议租客在签署正式合同前核实业主 ID，签署 BC 省认可的正规租房合同。</p>",
+                db: "我已阅读并知悉"
             }
         },
         en: {
@@ -132,14 +136,16 @@
             svc: {
                 ins: { icon: "🛡️", title: "Tenant Insurance", desc: "Protect belongings and liability", t1: "Why Insurance?", c1: "Covers your furniture and liability against claims.", date_label: "Effective Date" },
                 move: { icon: "📦", title: "Moving Services", desc: "Trusted local moving teams", t1: "Moving Services", c1: "Licensed movers for a safe relocation.", date_label: "Service Date" },
-                clean: { icon: "🧹", title: "Cleaning Services", desc: "Professional move-out cleaning", t1: "Cleaning Services", c1: "Secure your deposit with deep cleaning.", date_label: "Service Date" }
+                clean: { icon: "🧹", title: "Cleaning Services", desc: "Professional move-out cleaning", t1: "Cleaning Services", c1: "Helps secure your deposit with deep cleaning.", date_label: "Service Date" }
             },
             m: {
                 t2: "Consent", c2: "I authorize HavenNest to transfer my info to official providers for quotes.",
                 b2: "Agree", t3: "Application Form", ln: "Full Name", lp: "Phone", le: "Email", ld: "DOB", lfa: "Origin Address", la: "Rental Address", b3: "Generate Form",
-                t4: "Generated", c4: "Generated in English to prevent errors. Please follow:",
+                t4: "Generated", c4: "The form is generated in English. Please follow:",
                 cp: "1. Copy Form", ml: "2. Open Mail",
-                dt: "Legal Disclaimer", dc: "<p>1. <strong>Source:</strong> HavenNest is an aggregator tool.</p><p>2. <strong>Redirection:</strong> External links lead to 3rd-party sites.</p><p>3. <strong>Liability:</strong> We are NOT responsible for any disputes or financial losses.</p>"
+                dt: "Legal Disclaimer",
+                dc: "<p>1. <strong>Aggregator Service:</strong> HavenNest is an information aggregator. We are not responsible for the accuracy, legality, or availability of 3rd-party listings.</p><p>2. <strong>Redirection:</strong> External links lead to original platforms. Users are bound by their specific terms and policies.</p><p>3. <strong>Liability:</strong> We are NOT responsible for any disputes, financial losses, or scams involving landlords or 3rd-party providers (moving/cleaning/insurance).</p><p>4. <strong>Safety Advice:</strong> Users should perform due diligence and sign standard BC residential tenancy agreements.</p>",
+                db: "I Understand"
             }
         }
     };
@@ -149,8 +155,7 @@
         const config = uiText[currentLang].svc[svc];
         document.getElementById('m_t1').innerText = config.t1;
         document.getElementById('m_c1').innerHTML = config.c1;
-        document.getElementById('l_eff_date').innerText = config.date_label; // 🚀 动态修改日期标签
-        
+        document.getElementById('l_eff_date').innerText = config.date_label;
         document.getElementById('group_ins').style.display = (svc === 'ins') ? 'block' : 'none';
         document.getElementById('group_move').style.display = (svc === 'move') ? 'block' : 'none';
         document.getElementById('svcModal').style.display = 'flex';
@@ -175,7 +180,6 @@
             dob: document.getElementById('q_dob').value,
             fa: document.getElementById('q_f_addr').value
         };
-        // 🚀 英文输出同步修改：保险使用 Effective Date，搬家清洁使用 Service Date
         const dateHeader = activeSvc === 'ins' ? 'Effective Date' : 'Service Date';
         let extra = `${dateHeader}: ${d.ed}\n`;
         if(activeSvc === 'ins') extra += `DOB: ${d.dob}\n`;
@@ -223,6 +227,7 @@
         document.getElementById('m_ml').innerText = m.ml;
         document.getElementById('m_dt').innerText = m.dt;
         document.getElementById('m_dc').innerHTML = m.dc;
+        document.getElementById('m_db').innerText = m.db;
         document.getElementById('l_disc').innerText = currentLang === 'zh' ? '免责声明 / Disclaimer' : 'Legal Disclaimer';
         renderUI();
     }

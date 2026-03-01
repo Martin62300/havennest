@@ -23,14 +23,14 @@ class HavenNestCrawler:
         return []
 
     def clean_old_data(self, days=45):
-        # 🚀 自动清理逻辑：删除45天前的陈旧房源 [cite: 2026-02-28]
+        # 🚀 自动清理逻辑：物理删除 45 天前的陈旧房源
         cutoff_date = datetime.now() - timedelta(days=days)
         initial_count = len(self.all_listings)
         self.all_listings = [
             item for item in self.all_listings 
-            if datetime.strptime(item.get('date', '2026-01-01'), '%Y-%m-%d') > cutoff_date
+            if datetime.strptime(item.get('date', datetime.now().strftime("%Y-%m-%d")), '%Y-%m-%d') > cutoff_date
         ]
-        print(f"🧹 已清理 {initial_count - len(self.all_listings)} 条陈旧房源。")
+        print(f"🧹 自动清理：已移除 {initial_count - len(self.all_listings)} 条超过 {days} 天的过期房源。")
 
     def ai_translate(self, text):
         if not text: return ""
@@ -40,7 +40,7 @@ class HavenNestCrawler:
         except: return text
 
     def crawl_craigslist(self, limit=20):
-        print(f"🔍 正在追加 Craigslist 最新房源 (上限 {limit})...")
+        print(f"🔍 正在同步 Craigslist 最新房源 (上限 {limit})...")
         url = "https://vancouver.craigslist.org/search/apa"
         try:
             res = self.scraper.get(url, timeout=20)
@@ -52,7 +52,8 @@ class HavenNestCrawler:
                 if link in self.seen_urls: continue
                 
                 title = item.find('div', class_='title').text.strip()
-                self.all_listings.insert(0, { # 🚀 新房源放在最前面
+                # 🚀 增量添加：新房源插入列表开头
+                self.all_listings.insert(0, {
                     "source": "Craigslist",
                     "title": title,
                     "title_cn": self.ai_translate(title),
@@ -60,18 +61,53 @@ class HavenNestCrawler:
                     "url": link,
                     "location": item.find('div', class_='location').text.strip() if item.find('div', class_='location') else "Vancouver",
                     "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
-                    "date": datetime.now().strftime("%Y-%m-%d") # 🚀 记录抓取日期用于清理
+                    "date": datetime.now().strftime("%Y-%m-%d")
                 })
                 self.seen_urls.add(link)
                 count += 1
                 if count >= limit: break
         except Exception as e: print(f"❌ Craigslist 异常: {e}")
 
+    def crawl_zumper(self, limit=20):
+        print(f"🔍 正在同步 Zumper 最新房源 (上限 {limit})...")
+        url = "https://www.zumper.com/apartments-for-rent/vancouver-bc"
+        try:
+            res = self.scraper.get(url, timeout=25)
+            soup = BeautifulSoup(res.text, 'html.parser')
+            items = soup.select('[data-testid="listing-card"]')
+            count = 0
+            for item in items:
+                link_el = item.select_one('a[href*="/apartments-for-rent/"]')
+                if not link_el: continue
+                full_url = "https://www.zumper.com" + link_el['href']
+                if full_url in self.seen_urls: continue
+
+                title_el = item.select_one('[class*="Title"]')
+                title = title_el.text.strip() if title_el else "Vancouver Suite"
+                self.all_listings.insert(0, {
+                    "source": "Zumper",
+                    "title": title,
+                    "title_cn": self.ai_translate(title),
+                    "price": item.select_one('[class*="Price"]').text if item.select_one('[class*="Price"]') else "N/A",
+                    "url": full_url,
+                    "location": "Vancouver",
+                    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+                    "date": datetime.now().strftime("%Y-%m-%d")
+                })
+                self.seen_urls.add(full_url)
+                count += 1
+                if count >= limit: break
+        except Exception as e: print(f"❌ Zumper 异常: {e}")
+
     def save(self):
-        self.clean_old_data() # 🚀 保存前先清理
+        self.clean_old_data() 
         with open(self.filename, 'w', encoding='utf-8') as f:
             json.dump(self.all_listings, f, ensure_ascii=False, indent=4)
-        print(f"📊 数据库已更新：当前共积攒 {len(self.all_listings)} 条优质房源。")
+        print(f"📊 任务结束：当前数据库共积攒 {len(self.all_listings)} 条优质房源。")
 
 if __name__ == "__main__":
-    c = HavenNestCrawler(); c.crawl_craigslist(); c.save()
+    # 🚀 修正入口：同时抓取两个网站
+    c = HavenNestCrawler()
+    c.crawl_craigslist(limit=20)
+    c.crawl_zumper(limit=20)
+    c.save()

@@ -1,6 +1,206 @@
 [
     {
         "source": "Craigslist",
+        "title": "Handsome and spacious one Bedroom/1 Bathroom furnished condo",
+        "title_cn": "漂亮宽敞的一卧室/一浴室公寓",
+        "price": "$1,700",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-handsome-and-spacious-one/7918298134.html",
+        "location": "Alberni str",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Electric Avenue 2 Bedroom 1 Bathroom",
+        "title_cn": "电气大道 2 卧室 1 浴室",
+        "price": "$2,950",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-electric-avenue-bedroom/7918299569.html",
+        "location": "Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Two Bedroom Two Bathroom at UBC",
+        "title_cn": "UBC 两卧室两浴室",
+        "price": "$3,800",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-two-bedroom-two-bathroom-at/7917428930.html",
+        "location": "Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2B 2Ba JR, Sorry No Pets, All Appliances Included, Close To Skytrain!",
+        "title_cn": "2B 2Ba JR，抱歉禁止携带宠物，包括所有电器，靠近轻轨！",
+        "price": "$2,380",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/port-moody-2b-2ba-jr-sorry-no-pets-all/7915612498.html",
+        "location": "3370 Dewdney Trunk Road, Port Moody, BC",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2bed1bath ground suite, utilities included",
+        "title_cn": "2卧室1浴室地面套房，包括公用设施",
+        "price": "$1,600",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-2bed1bath-ground-suite/7918299683.html",
+        "location": "Vancouver East",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "3 bed, 2 bath Luxury living at Queen Elizabeth Park",
+        "title_cn": "3 床，2 浴室奢华生活在伊丽莎白女王公园",
+        "price": "$4,795",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bed-bath-luxury-living-at/7916676545.html",
+        "location": "Cambie",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Penthouse 2Beds; 2Full Baths",
+        "title_cn": "顶层公寓，配备 2 张床； 2全套浴室",
+        "price": "$2,400",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-penthouse-2beds-2full-baths/7918300156.html",
+        "location": "Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Private self-contained Edgy suite..Available for all and sundry.",
+        "title_cn": "私人独立前卫套房..可供所有人和各类人士使用。",
+        "price": "$600",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-private-self-contained-edgy/7918298148.html",
+        "location": "Alexander street",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "$1,980 / 2br - Legal Bright Ground Level Entry Suite - Coquitlam",
+        "title_cn": "$1,980 / 2 间卧室 - 合法明亮地面入口套房 - 高贵林",
+        "price": "$1,980",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/coquitlam-br-legal-bright-ground-level/7916247981.html",
+        "location": "Westwood Plateau",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "NEWLY RENOVATED TOP FLOOR LARGE, SPACIOUS, IMMACULATE 2 BED 1 BATH",
+        "title_cn": "新装修的顶层大、宽敞、完美的 2 床 1 浴室",
+        "price": "$2,300",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-newly-renovated-top-floor/7918300275.html",
+        "location": "MARPOLE, VANCOUVER",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Fully furnished 2 bedroom unit for rent in Downtown Vancouver",
+        "title_cn": "温哥华市中心 家具齐全 2 居室单位出租",
+        "price": "$3,000",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-fully-furnished-bedroom-unit/7914404048.html",
+        "location": "1255 Seymour Street",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "5 bedroom plus den house in Burke mountain Coquitlam",
+        "title_cn": "高贵林伯克山 5 间卧室加书房",
+        "price": "$5,500",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/coquitlam-bedroom-plus-den-house-in/7914403796.html",
+        "location": "3438 HORIZON DRIVE",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Nice spacious house for rent in Coquitlam Burke Mountain",
+        "title_cn": "高贵林伯克山漂亮宽敞的房子出租",
+        "price": "$5,500",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/coquitlam-nice-spacious-house-for-rent/7914403829.html",
+        "location": "3438 Horizon",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2 bedrooms 2 bathrooms Condo unit at Lynn Valley North Vancouver",
+        "title_cn": "北温哥华林恩谷 2 间卧室 2 间浴室公寓单元",
+        "price": "$3,200",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-bedrooms-bathrooms/7914403894.html",
+        "location": "2651 Library Lane",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2 bedrooms 2 bathrooms Condo unit at Lynn Valley North Vancouver",
+        "title_cn": "北温哥华林恩谷 2 间卧室 2 间浴室公寓单元",
+        "price": "$3,200",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-bedrooms-bathrooms/7914403863.html",
+        "location": "2651 library lane, North Vancouver",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "3 Bedrooms Main House with 1 Den for rent in Port Coquitlam",
+        "title_cn": "高贵林港 3 间卧室 主屋 1 间书房 出租",
+        "price": "$3,100",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/port-coquitlam-bedrooms-main-house-with/7917749729.html",
+        "location": "19xx CAMPBELL AVENUE",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Social room, off street parking, secure building",
+        "title_cn": "社交室、街边停车位、安全建筑",
+        "price": "$2,135",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/white-rock-social-room-off-street/7916949118.html",
+        "location": "1371 Blackwood Street, White Rock, BC",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2 bedrooms plus DEN corner unit in Whalley Surrey, top floor",
+        "title_cn": "位于惠利萨里 (Whalley Surrey) 顶层的 2 间卧室以及 DEN 角落单元",
+        "price": "$2,200",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-bedrooms-plus-den-corner-unit-in/7914404295.html",
+        "location": "10777 138 Street",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Two Bedroom Two Bathroom Townhouse for Rent",
+        "title_cn": "两卧室两浴室联排别墅出租",
+        "price": "$2,300",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-two-bedroom-two-bathroom/7917107562.html",
+        "location": "Burnaby",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Spacious Two Bedroom plus Den for Rent",
+        "title_cn": "宽敞两卧室加书房出租",
+        "price": "$2,200",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/surrey-inner-northwest-spacious-two/7915019156.html",
+        "location": "Surrey",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
         "title": "1834 E Pender",
         "title_cn": "分段阅读_第 1834 章",
         "price": "$1,875",
