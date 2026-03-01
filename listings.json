@@ -1,6 +1,256 @@
 [
     {
         "source": "Craigslist",
+        "title": "Joyce Station, 1 bed 1 bath 1 den apartment w/ AC for rent",
+        "title_cn": "乔伊斯站，1 床 1 浴室 1 书房公寓，带空调出租",
+        "price": "$2,200",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-joyce-station-bed-bath-den/7911294211.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2 Bedroom 1 Bathroom",
+        "title_cn": "2 卧室 1 浴室",
+        "price": "$1,750",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-outer-northwest-bedroom-bathroom/7913790656.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "No.3 and Blundell in Richmond– 4 beds 2.5 baths whole house for rent!",
+        "title_cn": "里士满的 No.3 和 Blundell – 4 床 2.5 浴室整栋房子出租！",
+        "price": "$4,200",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-no3-and-blundell-in-richmond/7910898582.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Marine Gateway, 1 bed 1 bath w/parking and storage locker for rent",
+        "title_cn": "Marine Gateway，1 床 1 浴室，带停车位和储物柜出租",
+        "price": "$2,200",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-marine-gateway-bed-bath/7911928656.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Basement Suite in East Burnaby",
+        "title_cn": "东伯纳比地下室套房",
+        "price": "$1,500",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-basement-suite-in-east-burnaby/7914984671.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Concord Garden, 1 bed 1 den 1 bath with A/C for rent (NO PARKING)",
+        "title_cn": "康科德花园，1 床 1 书房 1 浴室，带空调出租（无停车位）",
+        "price": "$2,100",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-concord-garden-bed-den-bath/7913152470.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "☎☎  2 bed + Office/ Den, High Ceiling, Central, Bright, AC",
+        "title_cn": "☎☎ 2 床 + 办公室/书房，高天花板，中央，明亮，空调",
+        "price": "$2,495",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bed-office-den-high-ceiling/7914733265.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 Bed+1 Bath+1 Den Apartment in Yaletown for rent",
+        "title_cn": "耶鲁镇 1 床 + 1 浴室 + 1 书房公寓出租",
+        "price": "$2,600",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bed1-bath1-den-apartment-in/7916286743.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Richmond Blundell and Minoru, 1 bed 1.5 bath w/parking for rent",
+        "title_cn": "里士满 Blundell 和 Minoru，1 床 1.5 浴室，带停车位出租",
+        "price": "$2,000",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-richmond-blundell-and-minoru/7913161816.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2 Beds 2 Baths Apartment for Rent in New Westminster",
+        "title_cn": "新威斯敏斯特 2 床 2 浴室公寓出租",
+        "price": "$2,600",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-beds-baths-apartment/7916287991.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Metrotown Private room for March",
+        "title_cn": "Metrotown 三月私人房间",
+        "price": "$950",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/burnaby-metrotown-private-room-for-march/7912941912.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Olympic Village One Bedroom&One Den New Apartment for Rent at Avenue One",
+        "title_cn": "第一大道奥运村一卧室一书房新公寓出租",
+        "price": "$2,600",
+        "url": "https://vancouver.craigslist.org/van/apa/d/burnaby-olympic-village-one-bedroomone/7918300445.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Bright, clean, convenient apartment for rent - Utilities included",
+        "title_cn": "明亮、干净、方便的公寓出租 - 包水电费",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-north-bright-clean-convenient/7918303146.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 Bedroom Garden Suite in Deep Cove",
+        "title_cn": "深湾一卧室花园套房",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-bedroom-garden-suite-in/7912424876.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Relaxing sauna, Electric vehicle charging stations, 2/BD 2/BA",
+        "title_cn": "放松桑拿、电动汽车充电站、2/BD 2/BA",
+        "price": "$3,010",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-relaxing-sauna-electric-vehicle/7916497239.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "🌊 White Rock 2-Bedroom West Beach Location – Furnished  Suite! 🏡",
+        "title_cn": "🌊 白石两卧室西海滩位置 - 带家具套房！ 🏡",
+        "price": "$1,900",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/white-rock-white-rock-bedroom-west/7917081956.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Sun-Drenched 3BR Upper Suite – Prime Location & Private Feel",
+        "title_cn": "阳光普照的三卧室上层套房 - 优越的地理位置和私密的感觉",
+        "price": "$3,000",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-sun-drenched-3br-upper-suite/7918303601.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Metrotown - 6658 Dow Ave., unit 9XX.  2 bedrooms, 2 bathrooms",
+        "title_cn": "Metrotown - 6658 Dow Ave.，单元 9XX。  2间卧室，2间浴室",
+        "price": "$3,150",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-metrotown-dow-ave-unit-9xx/7918303647.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "3 bedroom house for rent $2700",
+        "title_cn": "出租 3 间卧室的房子 $2700",
+        "price": "$2,700",
+        "url": "https://vancouver.craigslist.org/van/apa/d/surrey-outer-northwest-bedroom-house/7918303823.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Situated in New Westminster!, Games room, Studio",
+        "title_cn": "位于新威斯敏斯特！, 游戏室, 工作室",
+        "price": "$1,795",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-situated-in-new/7916858904.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Burnaby Metrotown, near BCIT, ground floor, utilities included",
+        "title_cn": "Burnaby Metrotown，靠近 BCIT，一楼，包括公用设施",
+        "price": "$1,600",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/burnaby-burnaby-metrotown-near-bcit/7918303940.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Furnished 2 rooms, kitchen, and bathroom",
+        "title_cn": "2房1卫, 厨房, 家具齐全",
+        "price": "$2,200",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-furnished-rooms-kitchen-and/7915863007.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "One bedroom, kitchen, washroom, and laundry with private entrance",
+        "title_cn": "一间卧室、厨房、卫生间和洗衣房，带私人入口",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-one-bedroom-kitchen-washroom/7917131969.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "4Bedroom 3Bathroom house in Ladner for rent",
+        "title_cn": "拉德纳 4 卧室 3 浴室房屋出租",
+        "price": "$3,850",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/delta-central-4bedroom-3bathroom-house/7918304019.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2 Bedroom Suite - Killarney",
+        "title_cn": "两卧室套房 - 基拉尼",
+        "price": "$1,800",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-suite-killarney/7914193154.html",
+        "location": "Vancouver",
+        "image": "",
+        "date": "2026-02-28"
+    },
+    {
+        "source": "Craigslist",
         "title": "Joyce-Collingwood Station, 1bed 1bath 1den parking and locker for rent",
         "title_cn": "Joyce-Collingwood 站，1 床 1 浴室 1 室，停车位和储物柜出租",
         "price": "$2,200",
