@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest 安家居 - 大温租房一站式助手</title>
+    <title>HavenNest 安家居 - 大温租房助手</title>
     <style>
         :root { --primary-color: #27ae60; --bg-color: #f9fbf9; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg-color); margin: 0; }
@@ -21,7 +21,7 @@
         .card-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; margin-bottom: 12px; height: 2.8em; overflow: hidden; }
         .safety-tip { font-size: 0.75rem; color: #166534; background: #f0fdf4; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #dcfce7; line-height: 1.4; }
         .view-btn { margin-top: auto; background: var(--primary-color); color: white; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 600; }
-        .lang-btn { background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; }
+        .lang-btn { background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; }
         .lang-btn.active { background: var(--primary-color); color: white; }
 
         /* 🛡️ 申请中心弹窗 */
@@ -60,45 +60,33 @@
 <div id="svcModal" class="modal">
     <div class="modal-content">
         <span style="position:absolute; top:20px; right:25px; cursor:pointer; font-size:24px; color:#cbd5e1;" onclick="closeModal()">×</span>
-        
         <div id="step1" class="step active">
             <h2 id="m_t1" style="color:var(--primary-color); margin-top:0;">服务详情</h2>
             <div id="m_c1" style="text-align:left; font-size:0.9rem; line-height:1.7; color:#475569;"></div>
             <button id="m_b1" class="btn-action" onclick="nextStep(2)">下一步</button>
         </div>
-
         <div id="step2" class="step">
             <h2 id="m_t2" style="color:var(--primary-color);">信息授权告知</h2>
             <div id="m_c2" style="background:#f8fafc; padding:20px; border-radius:12px; font-size:0.85rem; color:#64748b; line-height:1.6; text-align:left;"></div>
             <button id="m_b2" class="btn-action" onclick="nextStep(3)">同意授权并继续</button>
         </div>
-
         <div id="step3" class="step">
-            <h2 id="m_t3" style="color:var(--primary-color);">申请信息填写</h2>
+            <h2 id="m_t3" style="color:var(--primary-color);">信息填写</h2>
             <div class="form-group"><label id="l_name">姓名</label><input type="text" id="q_name" placeholder="Full Name"></div>
-            <div class="form-group"><label id="l_phone">联系电话</label><input type="tel" id="q_phone" placeholder="778-xxx-xxxx"></div>
-            <div class="form-group"><label id="l_email">联系邮箱</label><input type="email" id="q_email" placeholder="Email Address"></div>
-            
-            <div id="group_ins" style="display:none;">
-                <div class="form-group"><label id="l_dob">出生日期</label><input type="date" id="q_dob"></div>
-            </div>
-            
-            <div id="group_move" style="display:none;">
-                <div class="form-group"><label id="l_f_addr">出发地地址</label><input type="text" id="q_f_addr" placeholder="Origin Address"></div>
-            </div>
-
+            <div class="form-group"><label id="l_phone">电话</label><input type="tel" id="q_phone" placeholder="778-xxx-xxxx"></div>
+            <div class="form-group"><label id="l_email">邮箱</label><input type="email" id="q_email" placeholder="Email"></div>
+            <div id="group_ins" style="display:none;"><div class="form-group"><label id="l_dob">生日</label><input type="date" id="q_dob"></div></div>
+            <div id="group_move" style="display:none;"><div class="form-group"><label id="l_f_addr">出发地地址</label><input type="text" id="q_f_addr" placeholder="Origin Address"></div></div>
             <div class="form-group"><label id="l_addr">出租屋地址 (含邮编)</label><input type="text" id="q_addr" placeholder="Destination Address"></div>
             <div class="form-group"><label id="l_eff_date">生效/服务日期</label><input type="date" id="q_eff_date"></div>
-
-            <button id="m_b3" class="btn-action" onclick="generateOutput()">生成申请表单</button>
+            <button id="m_b3" class="btn-action" onclick="generateOutput()">生成表单</button>
         </div>
-
         <div id="step4" class="step">
             <h2 id="m_t4" style="color:var(--primary-color);">申请表已生成</h2>
             <p id="m_c4" style="font-size:0.85rem; color:#64748b;"></p>
             <textarea id="outputBox" readonly style="width:100%; height:160px; padding:15px; border:1px solid #e2e8f0; border-radius:12px; font-family:monospace; font-size:0.8rem; margin-bottom:10px;"></textarea>
-            <button id="m_cp" class="btn-action" onclick="copyText()">1. 点击复制内容</button>
-            <button id="m_ml" class="btn-action btn-mail" onclick="openMail()">2. 调起邮箱发送</button>
+            <button id="m_cp" class="btn-action" onclick="copyText()">1. 复制内容</button>
+            <button id="m_ml" class="btn-action btn-mail" onclick="openMail()">2. 调起邮箱</button>
         </div>
     </div>
 </div>
@@ -113,28 +101,28 @@
             h_t: "发现大温理想之家", h_s: "实时监控优质房源，全方位租房助手",
             details: "查看详情", safety: "💡 提示：入住前请核实业主信息，并签署 BC 省认可的正规租房合同。",
             svc: {
-                ins: { icon: "🛡️", title: "租客保险咨询", desc: "保障个人财物及第三方责任风险", t1: "为何需要租客保险？", c1: "<p>租客保险是您的核心保障：</p><ul><li><strong>个人财物保障：</strong>保护您的家具、电子产品、衣物等免受盗窃、火灾、水损风险。</li><li><strong>责任赔付：</strong>若因您的疏漏导致房屋受损，保险承担高额法律赔偿。</li><li><strong>意外伤害：</strong>保障访客在您的租住空间内的意外医疗及法律费用。</li><li><strong>额外生活费：</strong>理赔期间房屋无法居住时提供食宿补偿。</li></ul>" },
-                move: { icon: "📦", title: "专业搬家服务", desc: "精选大温口碑搬家团队", t1: "专业搬家保障", c1: "<p>我们为您对接大温持牌团队：</p><ul><li><strong>安全搬运：</strong>精细打包，大件家具专业拆装。</li><li><strong>透明报价：</strong>无隐形消费，全额搬运保障。</li></ul>" },
-                clean: { icon: "🧹", title: "退房清洁服务", desc: "专业高效，助您拿回押金", t1: "专业退房清洁", c1: "<p>助力拿回押金：</p><ul><li><strong>深度清理：</strong>厨房、卫浴、家电内部等顽固区域。</li><li><strong>专业标准：</strong>遵循 BC 省常规退房验收标准。</li></ul>" }
+                ins: { icon: "🛡️", title: "租客保险咨询", desc: "保障个人财物及责任风险", t1: "为何需要租客保险？", c1: "<p>租客保险是您的核心保障：</p><ul><li><strong>个人财物保障：</strong>保护家具、电子产品免受水火盗窃损失。</li><li><strong>责任赔付：</strong>若因疏忽导致房屋受损，保险承担赔偿责任。</li></ul>" },
+                move: { icon: "📦", title: "专业搬家服务", desc: "精选大温口碑搬家团队", t1: "专业搬家服务", c1: "精选持牌搬家团队，提供家具拆卸及全额搬运保障。" },
+                clean: { icon: "🧹", title: "退房清洁服务", desc: "专业高效，助您拿回押金", t1: "退房清洁服务", c1: "深度清理厨房及卫浴，遵循 BC 省常规退房验收标准。" }
             },
             m: {
-                t2: "授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方承保/服务机构进行报价预约。数据仅用于此次申请。",
-                b2: "同意并继续", t3: "信息填写", ln: "姓名 (与 ID 一致)", lp: "电话", le: "邮箱", ld: "生日", lfa: "出发地地址", la: "出租屋地址", led: "生效/服务日期", b3: "生成英文申请表单",
-                t4: "申请表已生成", c4: "为杜绝乱码，内容已转为纯英文。请执行：", cp: "1. 复制内容", ml: "2. 发送邮件"
+                t2: "授权告知", c2: "本人授权 HavenNest 将提供的个人信息转交给官方承保/服务机构进行报价。数据仅用于此次申请。",
+                b2: "同意并继续", t3: "信息填写", ln: "姓名", lp: "电话", le: "邮箱", ld: "生日", lfa: "出发地地址", la: "出租屋地址", led: "生效/服务日期", b3: "生成英文申请单",
+                t4: "表单已生成", c4: "为杜绝乱码，内容已设为纯英文。请执行：", cp: "1. 复制内容", ml: "2. 发送邮件"
             }
         },
         en: {
             h_t: "Find Your Ideal Home", h_s: "Real-time monitoring of quality listings, your rental assistant",
             details: "View Details", safety: "💡 Tip: Verify landlord identity and sign a standard BC lease recognized by the province.",
             svc: {
-                ins: { icon: "🛡️", title: "Tenant Insurance", desc: "Protect belongings and liability", t1: "Why Insurance?", c1: "<p>Your core security:</p><ul><li><strong>Personal Property:</strong> Protects furniture and electronics.</li><li><strong>Liability:</strong> Covers damages to property or neighbors.</li><li><strong>Injuries:</strong> Legal and medical protection for guests.</li></ul>" },
-                move: { icon: "📦", title: "Moving Services", desc: "Trusted local moving teams", t1: "Moving Services", c1: "Licensed movers for a safe relocation." },
-                clean: { icon: "🧹", title: "Cleaning Services", desc: "Professional move-out cleaning", t1: "Cleaning Services", c1: "Secure your deposit with professional cleaning." }
+                ins: { icon: "🛡️", title: "Tenant Insurance", desc: "Protect belongings and liability", t1: "Why Insurance?", c1: "Covers your furniture and liability claims." },
+                move: { icon: "📦", title: "Moving Services", desc: "Trusted local moving teams", t1: "Moving Services", c1: "Professional movers for a safe relocation." },
+                clean: { icon: "🧹", title: "Cleaning Services", desc: "Professional move-out cleaning", t1: "Cleaning Services", c1: "Helps secure your deposit with deep cleaning." }
             },
             m: {
-                t2: "Consent", c2: "I authorize HavenNest to transfer my info to official providers for quotes. Data is used solely for this application.",
-                b2: "Agree", t3: "Application Form", ln: "Full Name", lp: "Phone", le: "Email", ld: "DOB", lfa: "Origin Address", la: "Rental Address", led: "Effective/Service Date", b3: "Generate English Form",
-                t4: "Generated", c4: "The form is generated in English. Please follow:",
+                t2: "Consent", c2: "I authorize HavenNest to transfer my info to official providers for quotes.",
+                b2: "Agree", t3: "Application Form", ln: "Full Name", lp: "Phone", le: "Email", ld: "DOB", lfa: "Origin Address", la: "Rental Address", led: "Effective Date", b3: "Generate Form",
+                t4: "Generated", c4: "Generated in English to prevent errors. Please follow:",
                 cp: "1. Copy Form", ml: "2. Open Mail"
             }
         }
@@ -157,7 +145,7 @@
         document.getElementById('step' + s).classList.add('active');
     }
 
-    // 🚀 核心更新：生成表单时强制使用英文符号和标签
+    // 🚀 核心修复：纯英文符号
     function generateOutput() {
         const d = {
             n: document.getElementById('q_name').value,
@@ -168,14 +156,12 @@
             dob: document.getElementById('q_dob').value,
             fa: document.getElementById('q_f_addr').value
         };
-        
-        let extra = `Effective/Service Date: ${d.ed}\n`;
-        if(activeSvc === 'ins') extra += `Date of Birth: ${d.dob}\n`;
-        if(activeSvc === 'move') extra += `Origin Address: ${d.fa}\n`;
+        let extra = `Effective Date: ${d.ed}\n`;
+        if(activeSvc === 'ins') extra += `DOB: ${d.dob}\n`;
+        if(activeSvc === 'move') extra += `Origin: ${d.fa}\n`;
 
-        const text = `[HavenNest ${activeSvc.toUpperCase()} Application]\nFull Name: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nRental Address: ${d.a}\n${extra}Consent: Authorized via HavenNest Portal`;
+        const text = `[HavenNest ${activeSvc.toUpperCase()} Application]\nName: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nAddress: ${d.a}\n${extra}Consent: Authorized via Portal`;
         document.getElementById('outputBox').value = text;
-        document.getElementById('m_c4').innerText = uiText[currentLang].m.c4;
         nextStep(4);
     }
 
@@ -197,7 +183,6 @@
         document.getElementById('btn-en').classList.toggle('active', lang === 'en');
         document.getElementById('hero-title').innerText = uiText[lang].h_t;
         document.getElementById('hero-subtitle').innerText = uiText[lang].h_s;
-        
         const m = uiText[lang].m;
         document.getElementById('m_t2').innerText = m.t2;
         document.getElementById('m_c2').innerText = m.c2;
@@ -223,7 +208,6 @@
             const s = uiText[currentLang].svc[key];
             return `<div class="service-item" onclick="openModal('${key}')"><span style="font-size:2.5rem; display:block; margin-bottom:10px;">${s.icon}</span><strong>${s.title}</strong><p style="font-size:0.8rem; color:#64748b; margin:8px 0 0;">${s.desc}</p></div>`;
         }).join('');
-        
         const container = document.getElementById('listings-container');
         container.innerHTML = '';
         const uniqueData = Array.from(new Set(houseData.map(a => a.url))).map(url => houseData.find(a => a.url === url));
