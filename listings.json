@@ -1,92 +1,92 @@
 [
     {
         "source": "Craigslist",
-        "title": "Newly renoed 2 bd/2 bath w/In-suite Laundry and 2 month free rent",
-        "title_cn": "新装修的 2 卧室/2 浴室，带套房内洗衣房和 2 个月免租",
-        "price": "$3,900",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-newly-renoed-bd-bath-in-suite/7918280629.html",
-        "location": "Kerrisdale",
-        "image": "https://images.craigslist.org/01717_hb3dV9d8s81_0CI0pO_600x450.jpg"
+        "title": "Beautiful 6 Bedroom House For Rent",
+        "title_cn": "美丽的 6 卧室房屋出租",
+        "price": "$5,200",
+        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-beautiful-bedroom-house-for/7918283201.html",
+        "location": "Richmond",
+        "image": "https://images.craigslist.org/00e0e_m6ztOeh2fd_0CI0pQ_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "2 bedrooms basement suite (61st/Knight St)",
-        "title_cn": "两卧室地下室套房（61 街/骑士街）",
-        "price": "$1,800",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedrooms-basement-suite-61st/7915178643.html",
-        "location": "East Vancouver",
-        "image": "https://images.craigslist.org/01515_2BImqXLaNFR_0t20CI_600x450.jpg"
+        "title": "New 4 bed & bath Townhouse",
+        "title_cn": "全新 4 床和浴室联排别墅",
+        "price": "$3,700",
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-new-bed-bath-townhouse/7918274659.html",
+        "location": "Surrey",
+        "image": "https://images.craigslist.org/00A0A_duyVRP1wCVh_0x20m1_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "Richmond RIVER GREEN 2 with Water Views 3 Bedroom 2 Bathroom",
-        "title_cn": "Richmond RIVER GREEN 2 水景 3 卧室 2 浴室",
-        "price": "$4,150",
-        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-richmond-river-green-with/7918280298.html",
-        "location": "richmond",
-        "image": "https://images.craigslist.org/00505_4L4oT4Lu1fK_0gw0aZ_600x450.jpg"
+        "title": "Brand New 1 Bed 1 Den in SOCO TWO with AC Close to Lougheed Mall",
+        "title_cn": "SOCO 2 全新 1 床 1 书房，配有空调，靠近 Lougheed 购物中心",
+        "price": "$2,300",
+        "url": "https://vancouver.craigslist.org/pml/apa/d/coquitlam-brand-new-bed-den-in-soco-two/7918277294.html",
+        "location": "Coquitlam",
+        "image": "https://images.craigslist.org/00w0w_b7QpDXdVYsP_0CI0pO_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "Large Nice 2Br Across Richmond Public Market",
-        "title_cn": "里士满公共市场对面大型漂亮 2 居酒店",
-        "price": "$2,780",
-        "url": "https://vancouver.craigslist.org/rch/apa/d/richmond-large-nice-2br-across-richmond/7917430204.html",
-        "location": "#3 + Westminster",
-        "image": "https://images.craigslist.org/00K0K_5fulb1i88XK_0CI0t2_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "House",
-        "title_cn": "房子",
-        "price": "$2,000",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-house/7910969511.html",
-        "location": "Vancouver bc",
-        "image": "https://images.craigslist.org/00S0S_47AWqdxVT3x_0li0pJ_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "Top floor 2BR/2BA/Full size W&D/UG parking/Vinyl floors/Walk in shower",
-        "title_cn": "顶层 2BR/2BA/全尺寸 W&D/UG 停车场/乙烯基地板/步入式淋浴间",
-        "price": "$2,805",
-        "url": "https://vancouver.craigslist.org/pml/apa/d/port-moody-top-floor-2br-2ba-full-size/7917357074.html",
-        "location": "3370 Dewdney Trunk Road, Port Moody, BC",
-        "image": "https://images.craigslist.org/01515_c76WrHExizS_0ak07K_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "2 Bedroom, 1 Bathroom Suite for Rent",
-        "title_cn": "两卧室一浴室套房出租",
-        "price": "$1,800",
-        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-south-bedroom-bathroom-suite-for/7918278639.html",
-        "location": "delta/surrey/langley",
-        "image": "https://images.craigslist.org/00v0v_1mMz8VTkLSc_0fu0kE_600x450.jpg"
-    },
-    {
-        "source": "Craigslist",
-        "title": "Spacious, renovated 1 bedroom in the heart of yaletown",
-        "title_cn": "位于耶鲁镇中心的宽敞、翻新的一卧室公寓",
-        "price": "$2,550",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-spacious-renovated-bedroom-in/7918279040.html",
+        "title": "Mirabel English Bay Davie Village West End 1 bed 10th floor",
+        "title_cn": "米拉贝尔英吉利湾戴维村西区 1 床 10 楼",
+        "price": "$3,000",
+        "url": "https://vancouver.craigslist.org/nvn/apa/d/vancouver-mirabel-english-bay-davie/7910705804.html",
         "location": "Vancouver",
-        "image": "https://images.craigslist.org/00D0D_mhq7XBO1Hv_0hc09Y_600x450.jpg"
+        "image": "https://images.craigslist.org/00j0j_l5yryMSKD6u_0CI0t2_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "UBC - 7F, 5628 Birney - 2 Bedroom 2 Bathroom",
-        "title_cn": "UBC - 7F, 5628 伯尼 - 2 卧室 2 浴室",
-        "price": "$3,900",
-        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-ubc-7f-5628-birney-bedroom/7912449698.html",
-        "location": "Vancouver",
-        "image": "https://images.craigslist.org/00G0G_at16ct5IvOP_0kD0rw_600x450.jpg"
+        "title": "Modern 1BR Apartment in Burquitlam – Mountain Views & EV Parking",
+        "title_cn": "伯奎特兰现代一卧室公寓 – 山景和电动车停车场",
+        "price": "$2,050",
+        "url": "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-modern-1br-apartment-in/7918283083.html",
+        "location": "Coquitlam",
+        "image": "https://images.craigslist.org/00S0S_lFawbR5viqw_0t20CI_600x450.jpg"
     },
     {
         "source": "Craigslist",
-        "title": "1 Bedroom, 1 Bathroom Suite for Rent",
-        "title_cn": "一卧室一浴室套房出租",
+        "title": "AVAIL NOW FURNISHED BACHELOR SUITE UTILS INCLUDED.",
+        "title_cn": "现在提供带家具的单身套房，包括公用设施。",
         "price": "$1,500",
-        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-south-bedroom-bathroom-suite-for/7918278478.html",
-        "location": "delta/surrey/langley",
-        "image": "https://images.craigslist.org/00y0y_88iZTiA25lj_0fu0kE_600x450.jpg"
+        "url": "https://vancouver.craigslist.org/rds/apa/d/surrey-avail-now-furnished-bachelor/7917299853.html",
+        "location": "SCOTT RD/96 AVE SURREY",
+        "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+    },
+    {
+        "source": "Craigslist",
+        "title": "Pacific Cove Apartments - 1 Bedroom - Available Now",
+        "title_cn": "太平洋湾公寓 - 一卧室 - 现已上市",
+        "price": "$2,469",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-pacific-cove-apartments/7917363843.html",
+        "location": "Vancouver",
+        "image": "https://images.craigslist.org/00T0T_j9oxfin3uhJ_0hq0hq_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "title": "1 Bedroom Suite",
+        "title_cn": "一卧室套房",
+        "price": "$1,500",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-suite/7916117411.html",
+        "location": "vancouver",
+        "image": "https://images.craigslist.org/01717_5VscgXdzOnS_0CI0lN_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2 bedroom ground suite",
+        "title_cn": "两卧室地面套房",
+        "price": "$1,600",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-bedroom-ground-suite/7914626895.html",
+        "location": "vancouver",
+        "image": "https://images.craigslist.org/01111_1hyzv3NmwO9_0CI0pO_600x450.jpg"
+    },
+    {
+        "source": "Craigslist",
+        "title": "2-BR suite",
+        "title_cn": "两卧室套房",
+        "price": "$1,600",
+        "url": "https://vancouver.craigslist.org/van/apa/d/vancouver-br-suite/7908993850.html",
+        "location": "vancouver",
+        "image": "https://images.craigslist.org/00b0b_3EWjG2yMVcW_05r07g_600x450.jpg"
     }
 ]

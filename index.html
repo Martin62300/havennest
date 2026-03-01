@@ -51,10 +51,11 @@
     <p id="hero-subtitle">实时监控优质房源，全方位租房助手</p>
 </section>
 
-<div class="service-center" id="service-center">
-    </div>
+<div class="service-center" id="service-center"></div>
 
-<div class="grid-container" id="listings-container"></div>
+<div class="grid-container" id="listings-container">
+    <div style="grid-column: 1/-1; text-align: center; padding: 100px; color: #95a5a6;">数据同步中...</div>
+</div>
 
 <div id="insModal" class="modal">
     <div class="modal-content">
@@ -74,20 +75,20 @@
 
         <div id="step3" class="step">
             <h2 id="m_t3" style="color:var(--primary-color);">申请信息填写</h2>
-            <div class="form-group"><label id="l_name">姓名</label><input type="text" id="q_name" placeholder="Name"></div>
+            <div class="form-group"><label id="l_name">姓名</label><input type="text" id="q_name" placeholder="Full Name"></div>
             <div class="form-group"><label id="l_dob">出生日期</label><input type="date" id="q_dob"></div>
             <div class="form-group"><label id="l_phone">联系电话</label><input type="tel" id="q_phone" placeholder="778-xxx-xxxx"></div>
-            <div class="form-group"><label id="l_email">联系邮箱</label><input type="email" id="q_email" placeholder="Email"></div>
-            <div class="form-group"><label id="l_addr">租房地址</label><input type="text" id="q_addr" placeholder="Address"></div>
-            <button id="m_b3" class="btn-action" onclick="generateOutput()">生成申请表</button>
+            <div class="form-group"><label id="l_email">联系邮箱</label><input type="email" id="q_email" placeholder="Email Address"></div>
+            <div class="form-group"><label id="l_addr">租房地址</label><input type="text" id="q_addr" placeholder="Unit/Street, City, Postal Code"></div>
+            <button id="m_b3" class="btn-action" onclick="generateOutput()">生成加密申请表单</button>
         </div>
 
         <div id="step4" class="step">
             <h2 id="m_t4" style="color:var(--primary-color);">申请表已生成</h2>
             <p id="m_c4" style="font-size:0.85rem; color:#64748b;"></p>
             <textarea id="outputBox" readonly style="width:100%; height:160px; padding:15px; border:1px solid #e2e8f0; border-radius:12px; font-family:monospace; font-size:0.8rem; margin-bottom:10px;"></textarea>
-            <button id="m_cp" class="btn-action" onclick="copyText()">1. 点击复制申请表</button>
-            <button id="m_ml" class="btn-action btn-mail" onclick="openMail()">2. 调起邮箱发送给系统</button>
+            <button id="m_cp" class="btn-action" onclick="copyText()">1. 点击复制内容</button>
+            <button id="m_ml" class="btn-action btn-mail" onclick="openMail()">2. 调起邮箱发送</button>
         </div>
     </div>
 </div>
@@ -107,17 +108,17 @@
             ],
             m: {
                 t1: "为何需要租客保险？",
-                c1: "<p>租客保险是保障您租房安全的核心内容：</p><ul style='padding-left:20px;'><li><strong>责任赔付：</strong>如果您由于疏忽（如火灾、漏水）对房屋或邻居造成损失，保险将承担法律赔偿。</li><li><strong>意外伤害：</strong>若访客在您的租住空间内意外受伤，提供医疗费用保障。</li><li><strong>额外生活费：</strong>若房屋无法居住，保险将支付您临时搬迁的生活费用。</li></ul>",
+                c1: "<p>租客保险不仅是房东的要求，更是您的核心保障：</p><ul style='padding-left:20px;'><li><strong>个人财物保障：</strong>保护您的家具、电子产品、衣物等免受盗窃、火灾、水损风险。</li><li><strong>责任赔付：</strong>若因您的疏忽（如漏水）导致房屋或邻居受损，保险承担高额法律赔偿。</li><li><strong>意外伤害：</strong>保障访客在您租住空间内的意外医疗及法律费用。</li><li><strong>额外生活费：</strong>若房屋理赔期间无法居住，保险将支付您的临时住宿费用。</li></ul>",
                 b1: "了解详情，进入下一步",
                 t2: "信息授权告知",
-                c2: "本人授权 HavenNest 将以下个人信息转交给官方承保机构（如 JF Insurance 等）进行合规报价。HavenNest 承诺严格保护隐私，数据仅用于此次申请。",
+                c2: "本人授权 HavenNest 将以下提供的个人信息转交给官方承保机构（如 JF Insurance 等）进行合规报价。HavenNest 承诺严格保护隐私，数据仅用于此次申请。",
                 b2: "同意授权并继续",
                 t3: "申请信息填写",
                 ln: "姓名 (与 ID 一致)", ld: "出生日期", lp: "联系电话", le: "联系邮箱", la: "租房地址 (含邮编)",
-                b3: "生成加密申请表单",
+                b3: "生成纯英文申请单",
                 t4: "申请表已生成",
-                c4: "请依次执行下方两个步骤（若第二步出现乱码，请手动粘贴刚才复制的内容）：",
-                cp: "1. 点击复制申请表", ml: "2. 调起邮箱发送"
+                c4: "为杜绝系统乱码，所有发送信息已设为标准英文及字符。请执行：",
+                cp: "1. 点击复制内容", ml: "2. 调起邮箱发送"
             }
         },
         en: {
@@ -130,16 +131,16 @@
             ],
             m: {
                 t1: "Why Tenant Insurance?",
-                c1: "<p>It's the core of your rental safety:</p><ul style='padding-left:20px;'><li><strong>Liability:</strong> Covers damages to the property or neighbors caused by your negligence (e.g., fire, leaks).</li><li><strong>Injury:</strong> Medical coverage if a guest is injured in your rental unit.</li><li><strong>Living Expenses:</strong> Reimburses extra costs if you are forced to move out due to a claim.</li></ul>",
-                b1: "I understand, next step",
+                c1: "<p>It is the core of your rental safety and security:</p><ul style='padding-left:20px;'><li><strong>Personal Property:</strong> Protects your furniture, electronics, and clothing from theft, fire, or water damage.</li><li><strong>Liability:</strong> Covers damages to the property or neighbors caused by your negligence (e.g., leaks).</li><li><strong>Injury:</strong> Medical and legal coverage if a guest is injured in your rental unit.</li><li><strong>Living Expenses:</strong> Reimburses costs if you are forced to move out due to a claim.</li></ul>",
+                b1: "Next Step",
                 t2: "Information Consent",
                 c2: "I authorize HavenNest to transfer the following personal information to official underwriting agencies (e.g., JF Insurance) for a quote. HavenNest promises to protect your privacy and use data solely for this application.",
                 b2: "Agree and Continue",
                 t3: "Fill in Application",
                 ln: "Full Name (as on ID)", ld: "Date of Birth", lp: "Phone Number", le: "Email Address", la: "Rental Address (with Postal Code)",
-                b3: "Generate Application Form",
+                b3: "Generate Application",
                 t4: "Form Generated",
-                c4: "Please follow these two steps (Manually paste if step 2 shows garbled text):",
+                c4: "The form is generated in standard English characters. Please follow these steps:",
                 cp: "1. Click to Copy Form", ml: "2. Open Mail to Send"
             }
         }
@@ -152,6 +153,7 @@
         document.getElementById('step' + s).classList.add('active');
     }
 
+    // 🚀 核心修复：全英文标签 + 纯英文符号
     function generateOutput() {
         const d = {
             n: document.getElementById('q_name').value,
@@ -160,7 +162,7 @@
             e: document.getElementById('q_email').value,
             a: document.getElementById('q_addr').value
         };
-        const text = `【HavenNest 租客险申请表 / Application Form】\nName: ${d.n}\nDOB: ${d.b}\nPhone: ${d.p}\nEmail: ${d.e}\nAddress: ${d.a}\nConsent Status: Signed via HavenNest Portal`;
+        const text = `[HavenNest Tenant Insurance Application Form]\nFull Name: ${d.n}\nDate of Birth: ${d.b}\nPhone Number: ${d.p}\nEmail Address: ${d.e}\nRental Address: ${d.a}\nConsent Status: Signed via HavenNest Portal`;
         document.getElementById('outputBox').value = text;
         nextStep(4);
     }
@@ -173,8 +175,8 @@
 
     function openMail() {
         const bodyText = document.getElementById('outputBox').value;
-        // 针对不同客户端的防乱码编码逻辑
-        const subject = currentLang === 'zh' ? "租客保险报价申请" : "Tenant Insurance Quote Request";
+        // 🚀 邮件标题也强制为英文
+        const subject = "Tenant Insurance Quote Request";
         window.location.href = `mailto:support@havennestapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
     }
 
@@ -185,7 +187,6 @@
         document.getElementById('hero-title').innerText = uiText[lang].h_t;
         document.getElementById('hero-subtitle').innerText = uiText[lang].h_s;
         
-        // 🚀 强制更新弹窗内的所有文字
         const m = uiText[lang].m;
         document.getElementById('m_t1').innerText = m.t1;
         document.getElementById('m_c1').innerHTML = m.c1;
@@ -243,7 +244,7 @@
     async function fetchData() {
         const res = await fetch('listings.json');
         houseData = await res.json();
-        renderUI();
+        switchLang(currentLang); 
     }
     fetchData();
 </script>
