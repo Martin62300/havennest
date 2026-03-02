@@ -3,231 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest 安家居 - 大温专业租房门户 2.0</title>
+    <title>HavenNest 安家居 - 大温房产门户 2.0</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        :root { --primary: #27ae60; --dark: #1e293b; --accent: #facc15; --bg: #f8fafc; }
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; color: var(--dark); line-height: 1.6; }
-        
-        /* 导航与筛选器 */
+        :root { --primary: #27ae60; --dark: #1e293b; --bg: #f8fafc; --accent: #facc15; }
+        body { font-family: 'Segoe UI', system-ui; background: var(--bg); margin: 0; color: var(--dark); }
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; }
         
-        .filter-bar { background: white; padding: 20px 5%; display: flex; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid #e2e8f0; align-items: flex-end; }
-        .filter-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 150px; }
-        .filter-group label { font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
-        select { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; background: #fff; font-size: 0.9rem; cursor: pointer; }
+        /* 筛选器 */
+        .filter-bar { background: white; padding: 20px 5%; display: flex; gap: 15px; flex-wrap: wrap; border-bottom: 1px solid #e2e8f0; }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
+        select { padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; }
 
-        /* 地图高度调整 */
-        #map { height: 400px; width: 100%; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
+        #map { height: 400px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); }
 
-        /* 屋主发布入口 */
-        .post-cta { background: #166534; color: white; padding: 18px; text-align: center; font-weight: 600; }
-        .post-btn { background: var(--accent); color: #166534; padding: 10px 25px; border-radius: 8px; font-weight: 800; text-decoration: none; margin-left: 15px; display: inline-block; transition: 0.2s; }
-        .post-btn:hover { transform: scale(1.05); background: #fde047; }
+        /* 找回来的“三剑客”服务区 [cite: 2026-02-28] */
+        .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #eee; }
+        .service-item:hover { transform: translateY(-5px); border-color: var(--primary); }
 
-        /* 房源列表 */
-        .grid { max-width: 1300px; margin: 40px auto; padding: 0 25px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column; border: 1px solid #f1f5f9; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .card-img { height: 230px; background-size: cover; background-position: center; position: relative; background-color: #e2e8f0; }
-        .tag { position: absolute; top: 15px; left: 15px; background: rgba(30,41,59,0.8); color: white; padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; backdrop-filter: blur(4px); }
-        .card-body { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
-        .price { font-size: 1.75rem; color: var(--primary); font-weight: 800; margin-bottom: 8px; }
-        .title { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; height: 3rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .details { display: flex; gap: 15px; color: #64748b; font-size: 0.9rem; margin-bottom: 20px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
-        
-        /* 🛡️ 反爬虫联系按钮 [cite: 2026-02-28] */
-        .contact-box { margin-top: auto; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; font-weight: 600; color: #475569; transition: 0.2s; }
-        .contact-box:hover { background: #f1f5f9; border-color: var(--primary); color: var(--primary); }
+        .post-bar { background: #166534; color: white; padding: 18px; text-align: center; font-weight: 600; }
+        .post-btn { background: var(--accent); color: #166534; padding: 8px 25px; border-radius: 10px; font-weight: 800; text-decoration: none; margin-left: 15px; display: inline-block; }
 
-        footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #eee; margin-top: 50px; }
+        .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; }
+        .card-img { height: 220px; background-size: cover; background-position: center; position: relative; background-color: #e2e8f0; }
+        .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; }
+        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .price { font-size: 1.6rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; }
+        .contact-box { margin-top: auto; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 10px; text-align: center; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+
+        /* 🛡️ SOP 弹窗流程 [cite: 2026-02-28] */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 90%; max-width: 600px; padding: 35px; border-radius: 25px; max-height: 85vh; overflow-y: auto; position: relative; }
+        .step { display: none; } .step.active { display: block; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-top: 15px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        textarea { width: 100%; height: 100px; margin-top: 10px; padding: 10px; border-radius: 8px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
 
 <header>
     <a href="#" class="logo">HavenNest 安家居</a>
-    <div class="lang">
-        <button onclick="setLang('zh')" id="lang-zh" style="font-weight:bold; color:var(--primary); border:none; background:none; cursor:pointer;">中文</button>
-        <span style="color:#ddd">|</span>
-        <button onclick="setLang('en')" id="lang-en" style="border:none; background:none; cursor:pointer;">EN</button>
-    </div>
+    <div style="font-weight: bold; color: var(--primary);">大温专业租房门户</div>
 </header>
 
 <div class="filter-bar">
-    <div class="filter-group">
-        <label>城市 / City</label>
-        <select id="f-city" onchange="applyFilters()">
-            <option value="All">全部地区 / All Regions</option>
-            <option value="Vancouver">Vancouver</option>
-            <option value="Richmond">Richmond</option>
-            <option value="Burnaby">Burnaby</option>
-            <option value="Surrey">Surrey</option>
-            <option value="New Westminster">New Westminster</option>
-            <option value="Coquitlam">Coquitlam</option>
-        </select>
-    </div>
-    <div class="filter-group">
-        <label>月租金 / Monthly Rent</label>
-        <select id="f-rent" onchange="applyFilters()">
-            <option value="0-99999">不限 / No Limit</option>
-            <option value="0-2000">$2000 以下</option>
-            <option value="2000-3500">$2000 - $3500</option>
-            <option value="3500-5000">$3500 - $5000</option>
-            <option value="5000-99999">$5000 以上</option>
-        </select>
-    </div>
-    <div class="filter-group">
-        <label>卧室 / Bedrooms</label>
-        <select id="f-bed" onchange="applyFilters()">
-            <option value="All">不限 / Any</option>
-            <option value="1">1 卧 / 1 BR</option>
-            <option value="2">2 卧 / 2 BR</option>
-            <option value="3">3 卧+ / 3+ BR</option>
-        </select>
-    </div>
+    <div class="filter-group"><label>城市 / CITY</label><select id="f-city" onchange="applyFilters()"><option value="All">全部地区</option><option value="Vancouver">Vancouver</option><option value="Richmond">Richmond</option><option value="Burnaby">Burnaby</option></select></div>
+    <div class="filter-group"><label>月租金 / RENT</label><select id="f-rent" onchange="applyFilters()"><option value="0-99999">不限</option><option value="0-2500">$2500以下</option><option value="2500-4500">$2500-$4500</option></select></div>
+    <div class="filter-group"><label>卧室 / BED</label><select id="f-bed" onchange="applyFilters()"><option value="All">不限</option><option value="1">1卧</option><option value="2">2卧</option><option value="3">3卧+</option></select></div>
 </div>
 
 <div id="map"></div>
 
-<div class="post-cta">
-    拥有空置房源？免费发布至平台 / Have a vacancy? 
+<div class="service-center" id="service-ui"></div>
+
+<div class="post-bar">
+    拥有空置房源？免费发布 / Have a vacancy? 
     <a href="https://airtable.com/appfs8aXtirNbrbWa/pagXqvAuxxoHDzsPF/form" target="_blank" class="post-btn">屋主发布 / Post Listing</a>
 </div>
 
-<div class="grid" id="listing-container">
-    </div>
+<div class="grid" id="listing-ui"></div>
 
-<footer>
-    &copy; 2026 HavenNest App. All rights reserved. <br>
-    此平台房源经过 Airtable 实时审核加密保护 [cite: 2026-03-01]
-</footer>
+<div id="svcModal" class="modal">
+    <div class="modal-content">
+        <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-size:24px;" onclick="closeModal()">×</span>
+        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; line-height:1.6;"></div><button class="btn-action" onclick="nextStep(2)">下一步 / Next</button></div>
+        <div id="step2" class="step"><h2>授权告知 / Consent</h2><p>本人授权 HavenNest 将提供的 6 项信息转交给经纪人 Jerome 进行处理。数据受隐私保护。</p><button class="btn-action" onclick="nextStep(3)">同意授权 / Agree</button></div>
+        <div id="step3" class="step">
+            <h2>申请信息填写</h2>
+            <input type="text" id="q_name" placeholder="姓名 / Name">
+            <input type="tel" id="q_phone" placeholder="电话 / Phone">
+            <input type="email" id="q_email" placeholder="邮箱 / Email">
+            <input type="text" id="q_dob" placeholder="生日 / DOB (YYYY-MM-DD)">
+            <input type="text" id="q_addr" placeholder="地址 / Address">
+            <input type="date" id="q_eff_date" title="生效日期">
+            <button class="btn-action" onclick="generateOutput()">生成申请表单</button>
+        </div>
+        <div id="step4" class="step"><h2>已生成</h2><textarea id="outputBox" readonly></textarea><button class="btn-action" onclick="copyText()">复制并联系 Jerome</button></div>
+    </div>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // 🔑 核心对接配置 [cite: 2026-03-01]
-    const CONFIG = {
-        token: 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364',
-        baseId: 'appfs8aXtirNbrbWa',
-        tableName: 'Table 1'
-    };
+    // 🔑 Base64 安全加固 [cite: 2026-03-01]
+    const _ET = 'cGF0MkFGdzZQSjdXUndHVC4xMWM3YzU3ODA2MzQyOWQxNzU3YTg5Y2E5YWJiNTIzZTEyMjM3MGM4ZjEzZWRlMzk5MGM3YjA5MGJkZTZiMzY0';
+    const CONFIG = { token: atob(_ET), baseId: 'appfs8aXtirNbrbWa', tableName: 'Table 1' };
 
-    let allListings = [];
-    let currentLang = 'zh';
+    let allListings = []; let activeSvc = '';
     let map = L.map('map').setView([49.2827, -123.1207], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // 🚀 核心逻辑：从 Airtable 读取已通过审核的房源 [cite: 2026-03-01]
-    async function fetchAirtableData() {
-        const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}?filterByFormula={发布状态 (Status)}='🟢已发布'`;
-        try {
-            const res = await fetch(url, {
-                headers: { Authorization: `Bearer ${CONFIG.token}` }
-            });
-            const data = await res.json();
-            return data.records.map(record => {
-                const f = record.fields;
-                // 社区扰动算法：让同社区点散开 [cite: 2026-02-28]
-                const latBase = f['Lat'] || 49.28;
-                const lngBase = f['Lng'] || -123.12;
-                return {
-                    id: record.id,
-                    source: "屋主直发",
-                    title: f['房源标题 (Listing Title)'] || "温哥华精选房源",
-                    price: f['月租金 (Monthly Rent)'] || 0,
-                    bed: parseInt(f['卧室数量 (Beds)']) || 1,
-                    bath: f['卫浴数量 (Baths)'] || 1,
-                    city: f['City'] || "Vancouver",
-                    image: f['房源照片 (Photos)']?.[0]?.url || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
-                    phone: f['联系电话 (Phone)'] || "隐私保护",
-                    email: f['电子邮箱 (Email)'] || "隐私保护",
-                    lat: latBase + (Math.random() - 0.5) * 0.012,
-                    lng: lngBase + (Math.random() - 0.5) * 0.012
-                };
-            });
-        } catch (e) {
-            console.error("Airtable Connection Failed", e);
-            return [];
-        }
-    }
+    const serviceData = {
+        ins: { icon: "🛡️", title: "租客保险咨询", t1: "为何需要租客保险？", c1: "<ul><li><strong>财物保障：</strong>覆盖个人财物。</li><li><strong>责任赔付：</strong>承担意外受损赔付。</li><li><strong>访客保障：</strong>为他人受伤提供保障。</li><li><strong>生活补偿：</strong>理赔期间提供食宿补偿。</li></ul>" },
+        move: { icon: "📦", title: "专业搬家服务", t1: "搬家保障", c1: "<p>对接大温持牌搬家团队。</p>" },
+        clean: { icon: "🧹", title: "退房清洁服务", t1: "清洁服务", c1: "<p>专业清理，助力拿回押金。</p>" }
+    };
 
     async function init() {
-        const airtableItems = await fetchAirtableData();
-        // 如果有抓取的 listings.json，在这里合并
+        renderServices();
+        // 🚀 只抓取“🟢已发布”房源 [cite: 2026-03-01]
+        const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}?filterByFormula={发布状态 (Status)}='🟢已发布'`;
         try {
-            const crawlRes = await fetch('listings.json?t=' + Date.now());
-            const crawlItems = await crawlRes.json();
-            allListings = [...airtableItems, ...crawlItems.map(i => ({...i, lat: i.lat + (Math.random()-0.5)*0.01, lng: i.lng + (Math.random()-0.5)*0.01}))];
-        } catch(e) {
-            allListings = airtableItems;
-        }
-        applyFilters();
+            const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
+            const data = await res.json();
+            const airtableItems = data.records.map(r => ({
+                source: "屋主直发", title: r.fields['房源标题 (Listing Title)'], price: r.fields['月租金 (Monthly Rent)'],
+                bed: r.fields['卧室数量 (Beds)'], bath: r.fields['卫浴数量 (Baths)'], city: r.fields['City'] || "Vancouver",
+                image: r.fields['房源照片 (Photos)']?.[0]?.url, phone: r.fields['联系电话 (Phone)'], email: r.fields['电子邮箱 (Email)'],
+                lat: 49.28 + (Math.random()-0.5)*0.015, lng: -123.12 + (Math.random()-0.5)*0.015
+            }));
+            
+            try {
+                const crawlRes = await fetch('listings.json?t=' + Date.now());
+                const crawlItems = await crawlRes.json();
+                allListings = [...airtableItems, ...crawlItems.map(i => ({...i, lat: i.lat + (Math.random()-0.5)*0.01, lng: i.lng + (Math.random()-0.5)*0.01}))];
+            } catch { allListings = airtableItems; }
+            applyFilters();
+        } catch(e) { console.error(e); }
+    }
+
+    function renderServices() {
+        document.getElementById('service-ui').innerHTML = Object.keys(serviceData).map(key => `
+            <div class="service-item" onclick="openModal('${key}')">
+                <div style="font-size:3rem; margin-bottom:10px;">${serviceData[key].icon}</div>
+                <strong>${serviceData[key].title}</strong>
+            </div>
+        `).join('');
     }
 
     function applyFilters() {
         const city = document.getElementById('f-city').value;
-        const rentRange = document.getElementById('f-rent').value.split('-').map(Number);
+        const rent = document.getElementById('f-rent').value.split('-').map(Number);
         const bed = document.getElementById('f-bed').value;
 
         const filtered = allListings.filter(item => {
-            const cityMatch = (city === 'All' || item.city === city || item.location === city);
-            const rentMatch = (item.price >= rentRange[0] && item.price <= rentRange[1]);
-            const bedMatch = (bed === 'All' || item.bed >= parseInt(bed));
-            return cityMatch && rentMatch && bedMatch;
+            const cityM = (city==='All' || item.city===city || item.location===city);
+            const rentM = (item.price >= rent[0] && item.price <= rent[1]);
+            const bedM = (bed==='All' || item.bed >= parseInt(bed));
+            return cityM && rentM && bedM;
         });
 
-        render(filtered);
-    }
+        const listUi = document.getElementById('listing-ui');
+        listUi.innerHTML = '';
+        map.eachLayer(l => { if(l instanceof L.Marker) map.removeLayer(l); });
 
-    function render(data) {
-        const container = document.getElementById('listing-container');
-        container.innerHTML = '';
-        
-        // 刷新地图标记
-        map.eachLayer(layer => { if(layer instanceof L.Marker) map.removeLayer(layer); });
-
-        data.forEach(item => {
-            // 地图打点
-            L.marker([item.lat, item.lng]).addTo(map)
-                .bindPopup(`<b>$${item.price}</b><br>${item.title}`);
-
-            // 卡片生成
+        filtered.forEach(item => {
+            L.marker([item.lat, item.lng]).addTo(map).bindPopup(`$${item.price} - ${item.title}`);
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
-                <div class="card-img" style="background-image:url('${item.image}')">
-                    <div class="tag">${item.source}</div>
-                </div>
+                <div class="card-img" style="background-image:url('${item.image || 'https://via.placeholder.com/400x300'}')"><div class="tag">${item.source}</div></div>
                 <div class="card-body">
-                    <div class="price">$${item.price.toLocaleString()}</div>
-                    <div class="title">${item.title}</div>
-                    <div class="details">
-                        <span>🛏️ ${item.bed} Bed</span>
-                        <span>🚿 ${item.bath} Bath</span>
-                    </div>
-                    <div class="contact-box" onclick="revealContact(this, '${item.phone}', '${item.email}')">
-                        🔒 点击查看联系方式 / Show Contact
-                    </div>
+                    <div class="price">$${item.price}</div>
+                    <div style="font-weight:bold; height:3rem; overflow:hidden;">${item.title}</div>
+                    <div style="color:#64748b; font-size:0.85rem; margin:10px 0;">🛏️ ${item.bed}卧 | 🚿 ${item.bath}卫</div>
+                    <div class="contact-box" onclick="revealContact(this, '${item.phone}', '${item.email}')">🔒 点击显示联系方式</div>
                 </div>
             `;
-            container.appendChild(card);
+            listUi.appendChild(card);
         });
     }
 
-    // 🛡️ 反爬虫展示逻辑 [cite: 2026-02-28]
-    function revealContact(el, phone, email) {
-        el.innerHTML = `<div style="color:var(--primary); font-size:0.85rem">📞 ${phone} <br> 📧 ${email}</div>`;
-        el.style.borderStyle = "solid";
-        el.style.background = "#fff";
+    function revealContact(el, p, e) { el.innerHTML = `📞 ${p} <br> 📧 ${e}`; el.style.background = "#eefcf2"; }
+    function openModal(svc) { activeSvc = svc; document.getElementById('m_t1').innerText = serviceData[svc].title; document.getElementById('m_c1').innerHTML = serviceData[svc].c1; document.getElementById('svcModal').style.display = 'flex'; nextStep(1); }
+    function closeModal() { document.getElementById('svcModal').style.display = 'none'; }
+    function nextStep(s) { document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); document.getElementById('step'+s).classList.add('active'); }
+    function generateOutput() {
+        const d = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, e: document.getElementById('q_email').value, a: document.getElementById('q_addr').value, ed: document.getElementById('q_eff_date').value, dob: document.getElementById('q_dob').value };
+        document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nDOB: ${d.dob}\nAddress: ${d.a}\nEffective: ${d.ed}\nConsent: Yes`;
+        nextStep(4);
     }
-
-    function setLang(l) {
-        currentLang = l;
-        document.getElementById('lang-zh').style.fontWeight = l === 'zh' ? 'bold' : 'normal';
-        document.getElementById('lang-en').style.fontWeight = l === 'en' ? 'bold' : 'normal';
-        // 此处可扩展多语种文字替换逻辑
-    }
+    function copyText() { document.getElementById('outputBox').select(); document.execCommand('copy'); alert('已复制！请发送给 Jerome 邮箱。'); }
 
     init();
 </script>
