@@ -11,7 +11,6 @@
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; }
         
-        /* 语言切换按钮 */
         .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; }
         .lang-toggle span.active { color: var(--primary); font-weight: 800; text-decoration: underline; }
 
@@ -22,7 +21,6 @@
 
         #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); }
 
-        /* 业务中心 */
         .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
         .service-item:hover { transform: translateY(-5px); border-color: var(--primary); }
@@ -41,7 +39,8 @@
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
         .modal-content { background: white; width: 90%; max-width: 650px; padding: 40px; border-radius: 25px; max-height: 85vh; overflow-y: auto; position: relative; }
         .step { display: none; } .step.active { display: block; }
-        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-top: 20px; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-top: 15px; }
+        .btn-secondary { background: #e2e8f0; color: var(--dark); margin-top: 10px; }
         input { width: 100%; padding: 13px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
         textarea { width: 100%; height: 110px; margin-top: 10px; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-family: inherit; }
     </style>
@@ -57,18 +56,17 @@
 </header>
 
 <div class="filter-bar">
-    <div class="filter-group"><label id="lbl-city">城市 / CITY</label><select id="f-city" onchange="applyFilters()"></select></div>
-    <div class="filter-group"><label id="lbl-rent">月租金 / RENT</label><select id="f-rent" onchange="applyFilters()"></select></div>
-    <div class="filter-group"><label id="lbl-bed">卧室 / BED</label><select id="f-bed" onchange="applyFilters()"></select></div>
+    <div class="filter-group"><label id="lbl-city"></label><select id="f-city" onchange="applyFilters()"></select></div>
+    <div class="filter-group"><label id="lbl-rent"></label><select id="f-rent" onchange="applyFilters()"></select></div>
+    <div class="filter-group"><label id="lbl-bed"></label><select id="f-bed" onchange="applyFilters()"></select></div>
 </div>
 
 <div id="map"></div>
-
 <div class="service-center" id="service-ui"></div>
 
-<div class="post-bar" id="post-cta-text">
-    拥有空置房源？免费发布 / Have a vacancy? 
-    <a href="https://airtable.com/appfs8aXtirNbrbWa/pagXqvAuxxoHDzsPF/form" target="_blank" class="post-btn" id="btn-post-now">立即发布 / Post Listing</a>
+<div class="post-bar">
+    <span id="post-cta-text"></span>
+    <a href="https://airtable.com/appfs8aXtirNbrbWa/pagXqvAuxxoHDzsPF/form" target="_blank" class="post-btn" id="btn-post-now"></a>
 </div>
 
 <div class="grid" id="listing-ui"></div>
@@ -76,8 +74,8 @@
 <div id="svcModal" class="modal">
     <div class="modal-content">
         <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-size:24px;" onclick="closeModal()">×</span>
-        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; line-height:1.8; color: #475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
-        <div id="step2" class="step"><h2 id="m_t2"></h2><p id="m_c2"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
+        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; line-height:1.6; color: #475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
+        <div id="step2" class="step"><h2 id="m_t2"></h2><p id="m_c2" style="line-height:1.8"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
         <div id="step3" class="step">
             <h2 id="m_t3"></h2>
             <input type="text" id="q_name">
@@ -88,12 +86,16 @@
             <input type="text" id="q_addr">
             <button class="btn-action" id="btn-gen" onclick="generateOutput()"></button>
         </div>
-        <div id="step4" class="step"><h2 id="m_t4"></h2><textarea id="outputBox" readonly></textarea><button class="btn-action" id="btn-copy" onclick="copyText()"></button></div>
+        <div id="step4" class="step">
+            <h2 id="m_t4"></h2>
+            <textarea id="outputBox" readonly></textarea>
+            <button class="btn-action" id="btn-copy" onclick="copyText()"></button>
+            <button class="btn-action btn-secondary" id="btn-email" onclick="openEmail()"></button>
+        </div>
     </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // 🔑 核心配置 [cite: 2026-03-01]
     const _ET = 'cGF0MkFGdzZQSjdXUndHVC4xMWM3YzU3ODA2MzQyOWQxNzU3YTg5Y2E5YWJiNTIzZTEyMjM3MGM4ZjEzZWRlMzk5MGM3YjA5MGJkZTZiMzY0';
     const CONFIG = { token: atob(_ET), baseId: 'appfs8aXtirNbrbWa', tableName: 'Table 1' };
 
@@ -101,21 +103,38 @@
     let map = L.map('map').setView([49.2827, -123.1207], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // 📖 双语词典 [cite: 2026-02-28]
     const dict = {
         zh: {
-            city: "全部地区", rent: "不限", bed: "不限", post: "拥有房源？免费发布", btnPost: "立即发布",
-            ins: "租客保险咨询", move: "搬家服务", clean: "退房清洁", showContact: "🔒 点击显示联系方式",
-            next: "下一步", agree: "同意授权", gen: "生成申请表单", copy: "复制并发送邮件",
-            dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", name: "全名", phone: "电话", email: "邮箱", addr: "租房地址",
-            insPop: `<p><strong>为何您必须购买租客保险？</strong></p><ul><li><strong>财物保障：</strong>覆盖家具、衣物因火灾或偷盗的损失。</li><li><strong>责任赔付：</strong>承担因您的过失导致房屋受损的法律赔付。</li><li><strong>访客保障：</strong>保障访客意外受伤医疗费。</li><li><strong>生活补偿：</strong>理赔期间提供食宿补助。</li></ul>`
+            lblCity: "城市 / CITY", lblRent: "月租金 / RENT", lblBed: "卧室 / BED", cityAll: "全部地区", rentAll: "不限", bedAll: "不限",
+            postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?", btnPost: "屋主发布 / Post Listing", showContact: "🔒 点击显示联系方式",
+            next: "明白，下一步 / Next", agree: "同意授权 / Agree", gen: "生成申请表单", copy: "复制表单文本 / Copy", email: "点击打开邮件发送 / Send Email",
+            dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", name: "全名", phone: "电话", emailLbl: "邮箱", addr: "租房地址",
+            m_t2: "授权告知", m_c2: "作为大温持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的 6 项个人信息转交给承保经纪人 Jerome 进行报价。数据受隐私保护。",
+            m_t3: "申请信息填写", m_t4: "表单已生成", ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
+            insPop: `<p><strong>为何您必须购买租客保险？</strong></p>
+                    <p style="color:var(--primary); font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
+                    <ul style="padding-left:15px;">
+                        <li><strong>财物保障：</strong>覆盖家具、电子产品及衣物。若因火灾或偷盗受损，保险按重置价值赔付。</li>
+                        <li><strong>责任赔付：</strong>若因您的过失（如忘关水龙头）导致大楼受损，保险承担法律赔付。</li>
+                        <li><strong>访客保障：</strong>保障访客在您空间的意外受伤医疗费。</li>
+                        <li><strong>额外生活费：</strong>理赔期间房屋无法居住时的食宿补助。</li>
+                    </ul>`
         },
         en: {
-            city: "All Regions", rent: "No Limit", bed: "Any", post: "Have a vacancy? Post now", btnPost: "Post Listing",
-            ins: "Tenant Insurance", move: "Moving Service", clean: "Move-out Cleaning", showContact: "🔒 Show Contact Info",
-            next: "Next", agree: "Agree & Continue", gen: "Generate Form", copy: "Copy & Send Email",
-            dob: "DOB (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", name: "Full Name", phone: "Phone", email: "Email", addr: "Rental Address",
-            insPop: `<p><strong>Why do you need Tenant Insurance?</strong></p><ul><li><strong>Contents:</strong> Covers furniture & clothes against theft/fire.</li><li><strong>Liability:</strong> Covers legal costs if you damage the property.</li><li><strong>Medical:</strong> Covers visitors' injury in your home.</li><li><strong>Expenses:</strong> Covers hotel stays during repairs.</li></ul>`
+            lblCity: "CITY", lblRent: "RENT", lblBed: "BED", cityAll: "All Regions", rentAll: "No Limit", bedAll: "Any",
+            postCta: "Have a vacancy? Post it on HavenNest for free!", btnPost: "Post Listing", showContact: "🔒 Show Contact Info",
+            next: "Next Step", agree: "Agree & Continue", gen: "Generate Form", copy: "Copy Text", email: "Send to Jerome via Email",
+            dob: "DOB (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", name: "Full Name", phone: "Phone", emailLbl: "Email", addr: "Rental Address",
+            m_t2: "Authorization", m_c2: "By continuing, you authorize HavenNest to transfer your 6 personal details to Jerome for a professional quote. Your data is protected by privacy laws.",
+            m_t3: "Fill in Details", m_t4: "Form Generated", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
+            insPop: `<p><strong>Why do you need Tenant Insurance?</strong></p>
+                    <p style="color:var(--primary); font-weight:bold;">It's more than just a landlord's requirement; it's the ultimate safety net for your property and peace of mind.</p>
+                    <ul style="padding-left:15px;">
+                        <li><strong>Contents:</strong> Covers your furniture, electronics, and clothes against theft or fire.</li>
+                        <li><strong>Liability:</strong> Covers legal costs if you accidentally damage the building (e.g., water leaks).</li>
+                        <li><strong>Visitors:</strong> Covers medical costs if someone gets hurt in your home.</li>
+                        <li><strong>Living Expenses:</strong> Reimburses hotel/food costs if your home becomes uninhabitable.</li>
+                    </ul>`
         }
     };
 
@@ -128,38 +147,38 @@
 
     function updateUI() {
         const d = dict[curLang];
-        document.getElementById('post-cta-text').firstChild.textContent = d.post;
+        document.getElementById('lbl-city').innerText = d.lblCity;
+        document.getElementById('lbl-rent').innerText = d.lblRent;
+        document.getElementById('lbl-bed').innerText = d.lblBed;
+        document.getElementById('post-cta-text').innerText = d.postCta;
         document.getElementById('btn-post-now').innerText = d.btnPost;
         document.getElementById('btn-next').innerText = d.next;
         document.getElementById('btn-agree').innerText = d.agree;
         document.getElementById('btn-gen').innerText = d.gen;
         document.getElementById('btn-copy').innerText = d.copy;
+        document.getElementById('btn-email').innerText = d.email;
         document.getElementById('q_name').placeholder = d.name;
         document.getElementById('q_phone').placeholder = d.phone;
-        document.getElementById('q_email').placeholder = d.email;
+        document.getElementById('q_email').placeholder = d.emailLbl;
         document.getElementById('q_dob').placeholder = d.dob;
         document.getElementById('q_eff_date').placeholder = d.eff;
         document.getElementById('q_addr').placeholder = d.addr;
+        document.getElementById('m_t2').innerText = d.m_t2;
+        document.getElementById('m_c2').innerText = d.m_c2;
+        document.getElementById('m_t3').innerText = d.m_t3;
+        document.getElementById('m_t4').innerText = d.m_t4;
 
-        // 更新下拉框
-        const citySel = document.getElementById('f-city');
-        citySel.innerHTML = `<option value="All">${d.city}</option><option value="Vancouver">Vancouver</option><option value="Richmond">Richmond</option><option value="Burnaby">Burnaby</option>`;
-        
-        const rentSel = document.getElementById('f-rent');
-        rentSel.innerHTML = `<option value="0-99999">${d.rent}</option><option value="0-2000">$2000以下</option><option value="2000-4000">$2000-$4000</option>`;
+        document.getElementById('f-city').innerHTML = `<option value="All">${d.cityAll}</option><option value="Vancouver">Vancouver</option><option value="Richmond">Richmond</option><option value="Burnaby">Burnaby</option><option value="Delta">Delta</option>`;
+        document.getElementById('f-rent').innerHTML = `<option value="0-99999">${d.rentAll}</option><option value="0-2000">$2000-</option><option value="2000-4000">$2000-4000</option><option value="4000-99999">$4000+</option>`;
+        document.getElementById('f-bed').innerHTML = `<option value="All">${d.bedAll}</option><option value="1">1 BR</option><option value="2">2 BR</option><option value="3">3+ BR</option>`;
 
-        const bedSel = document.getElementById('f-bed');
-        bedSel.innerHTML = `<option value="All">${d.bed}</option><option value="1">1 BR</option><option value="2">2 BR</option><option value="3">3+ BR</option>`;
-
-        renderServices();
-        applyFilters();
+        renderServices(); applyFilters();
     }
 
     async function init() {
-        // 1. 获取 Airtable (状态对齐：已发布 (Live))
-        const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}?filterByFormula={发布状态 (Status)}='已发布 (Live)'`;
+        const airtableUrl = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}?filterByFormula={发布状态 (Status)}='已发布 (Live)'`;
         try {
-            const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
+            const res = await fetch(airtableUrl, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             const data = await res.json();
             const airtableItems = data.records.map(r => ({
                 source: "屋主直发", title: r.fields['房源标题 (Listing Title)'], price: r.fields['月租金 (Monthly Rent)'],
@@ -168,28 +187,23 @@
                 lat: 49.28 + (Math.random()-0.5)*0.02, lng: -123.12 + (Math.random()-0.5)*0.02
             }));
             
-            // 2. 获取本地并清洗价格
             try {
                 const crawlRes = await fetch('listings.json?t=' + Date.now());
                 const crawlItems = await crawlRes.json();
                 const processed = crawlItems.map(i => {
-                    const cleanPrice = i.price ? parseInt(i.price.replace(/[$,]/g, '')) : 0;
-                    return { ...i, source: "系统抓取", price: cleanPrice, lat: i.lat + (Math.random()-0.5)*0.015, lng: i.lng + (Math.random()-0.5)*0.015 };
+                    const cleanPrice = i.price ? parseInt(String(i.price).replace(/[$,]/g, '')) : 0;
+                    return { ...i, source: "抓取房源", price: cleanPrice, lat: (i.lat || 49.28) + (Math.random()-0.5)*0.015, lng: (i.lng || -123.12) + (Math.random()-0.5)*0.015 };
                 });
                 allListings = [...airtableItems, ...processed];
             } catch { allListings = airtableItems; }
             updateUI();
-        } catch(e) { console.error("Fetch Error", e); }
+        } catch(e) { console.error(e); }
     }
 
     function renderServices() {
         const d = dict[curLang];
         const svcs = [{k:'ins', i:'🛡️', t: d.ins}, {k:'move', i:'📦', t: d.move}, {k:'clean', i:'🧹', t: d.clean}];
-        document.getElementById('service-ui').innerHTML = svcs.map(s => `
-            <div class="service-item" onclick="openModal('${s.k}')">
-                <div style="font-size:3rem; margin-bottom:10px;">${s.i}</div>
-                <strong>${s.t}</strong>
-            </div>`).join('');
+        document.getElementById('service-ui').innerHTML = svcs.map(s => `<div class="service-item" onclick="openModal('${s.k}')"><div style="font-size:3rem; margin-bottom:10px;">${s.i}</div><strong>${s.t}</strong></div>`).join('');
     }
 
     function applyFilters() {
@@ -215,17 +229,18 @@
     function openModal(s) { 
         activeSvc = s; const d = dict[curLang];
         document.getElementById('m_t1').innerText = d[s];
-        document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]} for your peace of mind.</p>`;
+        document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]} to secure your rental journey.</p>`;
         document.getElementById('svcModal').style.display = 'flex'; nextStep(1); 
     }
     function closeModal() { document.getElementById('svcModal').style.display = 'none'; }
     function nextStep(s) { document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); document.getElementById('step'+s).classList.add('active'); }
     function generateOutput() {
-        const d = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, a: document.getElementById('q_addr').value, dob: document.getElementById('q_dob').value };
-        document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${d.n}\nPhone: ${d.p}\nDOB: ${d.dob}\nAddress: ${d.a}\nConsent: Yes`;
+        const d = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, e: document.getElementById('q_email').value, a: document.getElementById('q_addr').value, dob: document.getElementById('q_dob').value, ed: document.getElementById('q_eff_date').value };
+        document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nDOB: ${d.dob}\nEffDate: ${d.ed}\nAddress: ${d.a}\nConsent: Yes`;
         nextStep(4);
     }
-    function copyText() { document.getElementById('outputBox').select(); document.execCommand('copy'); alert('Copied!'); }
+    function copyText() { document.getElementById('outputBox').select(); document.execCommand('copy'); alert('Success!'); }
+    function openEmail() { const body = encodeURIComponent(document.getElementById('outputBox').value); window.location.href = `mailto:support@havennestapp.com?subject=Application&body=${body}`; }
     init();
 </script>
 </body>
