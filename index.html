@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest 安家居 - 大温房产门户 2.0 终极版</title>
+    <title>HavenNest 安家居 - 大温房产门户 2.0 终极合体版</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root { --primary: #27ae60; --dark: #1e293b; --bg: #f8fafc; --accent: #facc15; }
@@ -11,8 +11,8 @@
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; }
         
-        .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; }
-        .lang-toggle span.active { color: var(--primary); font-weight: 800; text-decoration: underline; }
+        .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; border: 1px solid #eee; padding: 5px 12px; border-radius: 20px; }
+        .lang-toggle:hover { background: #f1f5f9; }
 
         .filter-bar { background: white; padding: 20px 5%; display: flex; gap: 15px; flex-wrap: wrap; border-bottom: 1px solid #e2e8f0; }
         .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
@@ -50,9 +50,7 @@
 <body>
 <header>
     <a href="#" class="logo">HavenNest 安家居</a>
-    <div class="lang-toggle">
-        <span id="lang-toggle-btn" onclick="toggleLang()">EN / 中文</span>
-    </div>
+    <div class="lang-toggle" onclick="toggleLang()" id="lang-btn">English / 中文</div>
 </header>
 
 <div class="filter-bar">
@@ -101,8 +99,8 @@
     const _ET = 'cGF0MkFGdzZQSjdXUndHVC4xMWM3YzU3ODA2MzQyOWQxNzU3YTg5Y2E5YWJiNTIzZTEyMjM3MGM4ZjEzZWRlMzk5MGM3YjA5MGJkZTZiMzY0';
     const CONFIG = { token: atob(_ET), baseId: 'appfs8aXtirNbrbWa', tableName: 'Table 1' };
 
-    // 📍 坐标修正库：将城市映射到经纬度点
-    const cityMap = {
+    // 📍 坐标映射引擎：修复 listings.json 缺少经纬度的问题
+    const cityCoords = {
         "Vancouver": [49.2827, -123.1207], "Richmond": [49.1666, -123.1336], "Burnaby": [49.2488, -122.9805],
         "Surrey": [49.1913, -122.8490], "New Westminster": [49.2057, -122.9110], "Delta": [49.0847, -123.0581],
         "Port Moody": [49.2831, -122.8317], "Coquitlam": [49.2838, -122.7932]
@@ -116,32 +114,32 @@
         zh: {
             lblCity: "城市 / CITY", lblRent: "月租金 / RENT", lblBed: "卧室 / BED", cityAll: "全部地区", rentAll: "不限", bedAll: "不限",
             postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?", btnPost: "屋主发布", showContact: "🔒 点击显示联系方式",
-            next: "明白，下一步", agree: "同意授权", gen: "生成申请表单", copy: "复制表单文本", email: "点击打开邮件发送",
+            next: "明白，下一步", agree: "同意授权", gen: "生成申请表单", copy: "复制表单文本", email: "打开邮件应用发送",
             dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", name: "全名", phone: "电话", emailLbl: "邮箱", addr: "租房地址",
-            m_t2: "授权告知", m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的姓名、电话、邮箱、生日、地址、生效日期共 6 项信息转交给承保机构进行报价。数据受隐私法保护。",
+            m_t2: "授权告知", m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的 6 项个人信息转交给官方承保经纪团队进行报价。数据受法律保护。",
             m_t3: "申请信息填写", m_t4: "表单已生成", ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
             footer: "免责声明：本网站房源信息部分来自系统抓取，部分为屋主直发。HavenNest 团队致力于提供最真实的租赁信息及专业的保险服务。&copy; 2026 HavenNest App.",
-            insPop: `<h3>为何购买租客保险？</h3>
+            insPop: `<h3>为何必须购买租客保险？</h3>
                     <p style="color:var(--primary); font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
                     <ul style="padding-left:15px;">
-                        <li><strong>财物保障：</strong>覆盖家具、电子产品及衣物。若因火灾或偷盗受损，保险按重置价值赔付。</li>
-                        <li><strong>责任赔付：</strong>若因您的过失导致房屋或邻居受损，保险承担法律赔付。</li>
-                        <li><strong>访客保障：</strong>保障访客在您空间的意外受伤医疗费。</li>
-                        <li><strong>额外生活费：</strong>理赔期间房屋无法居住时的酒店及食宿补助。</li>
+                        <li><strong>财物保障：</strong>覆盖家具、电子产品及衣物。若因火灾、水淹或偷盗受损，保险赔付。</li>
+                        <li><strong>责任赔付：</strong>若因您的过失导致大楼受损，保险承担法律赔付。</li>
+                        <li><strong>访客保障：</strong>保障访客在您空间的意外受伤。</li>
+                        <li><strong>额外生活费：</strong>房屋受损无法居住时的酒店食宿补助。</li>
                     </ul>`
         },
         en: {
             lblCity: "CITY", lblRent: "RENT", lblBed: "BED", cityAll: "All Regions", rentAll: "No Limit", bedAll: "Any",
             postCta: "Have a vacancy? Post it on HavenNest for free!", btnPost: "Post Listing", showContact: "🔒 Show Contact Info",
-            next: "Next", agree: "Agree & Continue", gen: "Generate Form", copy: "Copy Text", email: "Send Application via Email",
+            next: "Next Step", agree: "Agree & Continue", gen: "Generate Form", copy: "Copy Text", email: "Send via Email",
             dob: "DOB (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", name: "Full Name", phone: "Phone", emailLbl: "Email", addr: "Rental Address",
-            m_t2: "Authorization", m_c2: "You authorize HavenNest to securely transfer your 6 details (Name, Phone, Email, DOB, Address, Effective Date) to our partner broker for a customized quote. Your privacy is protected by law.",
+            m_t2: "Authorization", m_c2: "You authorize HavenNest to securely transfer your 6 details to our professional broker team for a customized quote. Your privacy is protected.",
             m_t3: "Fill Details", m_t4: "Form Generated", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
-            footer: "Disclaimer: Listing info is sourced from automated crawlers and direct posts. HavenNest is dedicated to accuracy and professional insurance services. &copy; 2026 HavenNest App.",
+            footer: "Disclaimer: Sourced from automated crawlers and direct posts. HavenNest provides accurate rental info and professional insurance. &copy; 2026 HavenNest App.",
             insPop: `<h3>Why you need Tenant Insurance?</h3>
-                    <p style="color:var(--primary); font-weight:bold;">It's more than just a landlord's requirement; it's the ultimate safety net for your belongings and peace of mind.</p>
+                    <p style="color:var(--primary); font-weight:bold;">It's more than a landlord's rule; it's the ultimate safety net for your belongings and financial peace of mind.</p>
                     <ul style="padding-left:15px;">
-                        <li><strong>Contents:</strong> Replaces furniture/tech after fire or theft.</li>
+                        <li><strong>Contents:</strong> Replaces furniture, tech, and clothes after fire or theft.</li>
                         <li><strong>Liability:</strong> Protects you from legal costs if you accidentally damage the building.</li>
                         <li><strong>Visitors:</strong> Covers medical bills if someone gets hurt in your home.</li>
                         <li><strong>Expenses:</strong> Pays for hotel stays during repairs.</li>
@@ -174,24 +172,28 @@
         document.getElementById('m_t3').innerText = d.m_t3;
         document.getElementById('m_t4').innerText = d.m_t4;
         document.getElementById('footer-text').innerHTML = d.footer;
+        document.getElementById('lang-btn').innerText = curLang === 'zh' ? 'English' : '中文';
 
         document.getElementById('f-city').innerHTML = `<option value="All">${d.cityAll}</option><option value="Vancouver">Vancouver</option><option value="Richmond">Richmond</option><option value="Burnaby">Burnaby</option><option value="Delta">Delta</option><option value="Surrey">Surrey</option><option value="New Westminster">New Westminster</option>`;
-        document.getElementById('f-rent').innerHTML = `<option value="0-99999">${d.rentAll}</option><option value="0-2000">$2000-</option><option value="2000-4000">$2000-4000</option><option value="4000-99999">$4000+</option>`;
-        document.getElementById('f-bed').innerHTML = `<option value="All">${d.bedAll}</option><option value="1">1 BR</option><option value="2">2 BR</option><option value="3">3+ BR</option>`;
+        document.getElementById('f-rent').innerHTML = `<option value="0-99999">${d.rentAll}</option><option value="0-2000">$2000以下</option><option value="2000-4000">$2000-$4000</option><option value="4000-99999">$4000以上</option>`;
+        document.getElementById('f-bed').innerHTML = `<option value="All">${d.bedAll}</option><option value="1">1卧 / 1BR</option><option value="2">2卧 / 2BR</option><option value="3">3卧+ / 3BR+</option>`;
 
         renderServices(); applyFilters();
     }
 
     async function init() {
-        updateUI();
+        updateUI(); // 立即加载文字，解决初次打开空白问题
         const airtableUrl = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}?filterByFormula={发布状态 (Status)}='已发布 (Live)'`;
         try {
             const res = await fetch(airtableUrl, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             const data = await res.json();
             const airtableItems = data.records.map(r => ({
-                source: "屋主直发", title: r.fields['房源标题 (Listing Title)'], price: parseInt(r.fields['月租金 (Monthly Rent)']) || 0,
-                bed: parseInt(r.fields['卧室数量 (Beds)']) || 1, city: r.fields['City'] || "Vancouver",
-                image: r.fields['房源照片 (Photos)']?.[0]?.url, phone: r.fields['联系电话 (Phone)'], email: r.fields['电子邮箱 (Email)'],
+                source: "屋主直发", title: r.fields['房源标题 (Listing Title)'], 
+                price: parseInt(String(r.fields['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0,
+                bed: parseInt(r.fields['卧室数量 (Beds)']) || 1, 
+                city: r.fields['City'] || "Vancouver",
+                image: r.fields['房源照片 (Photos)']?.[0]?.url || "", 
+                phone: r.fields['联系电话 (Phone)'], email: r.fields['电子邮箱 (Email)'],
                 lat: 49.24 + (Math.random()-0.5)*0.05, lng: -123.05 + (Math.random()-0.5)*0.05
             }));
             
@@ -199,17 +201,20 @@
                 const crawlRes = await fetch('listings.json?t=' + Date.now());
                 const crawlItems = await crawlRes.json();
                 const processed = crawlItems.map(i => {
+                    // 核心：清洗 $2,930 格式
                     const cleanPrice = i.price ? parseInt(String(i.price).replace(/[^\d]/g, '')) : 0;
-                    const base = cityMap[i.location] || cityMap["Vancouver"];
+                    // 核心：根据 location 自动匹配经纬度并添加扰动
+                    const coords = cityCoords[i.location] || cityCoords["Vancouver"];
                     return { 
-                        ...i, source: "抓取房源", price: cleanPrice, 
-                        lat: base[0] + (Math.random()-0.5)*0.015, lng: base[1] + (Math.random()-0.5)*0.015 
+                        ...i, source: "系统抓取", price: cleanPrice, 
+                        lat: coords[0] + (Math.random()-0.5)*0.012, 
+                        lng: coords[1] + (Math.random()-0.5)*0.012 
                     };
                 });
                 allListings = [...airtableItems, ...processed];
             } catch { allListings = airtableItems; }
             applyFilters();
-        } catch(e) { console.error(e); }
+        } catch(e) { console.error("Data Fetch Failed", e); }
     }
 
     function renderServices() {
@@ -228,25 +233,25 @@
         filtered.forEach(i => {
             L.marker([i.lat, i.lng]).addTo(map).bindPopup(`<b>$${i.price}</b><br>${i.title}`);
             const card = document.createElement('div'); card.className = 'card';
-            card.innerHTML = `<div class="card-img" style="background-image:url('${i.image || 'https://via.placeholder.com/400x300'}')"><div class="tag">${i.source}</div></div>
+            card.innerHTML = `<div class="card-img" style="background-image:url('${i.image || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800'}')"><div class="tag">${i.source}</div></div>
                 <div class="card-body"><div class="price">$${i.price.toLocaleString()}</div><div style="font-weight:bold; height:3rem; overflow:hidden;">${i.title}</div>
                 <div class="contact-box" onclick="revealContact(this, '${i.phone}', '${i.email}')">${dict[curLang].showContact}</div></div>`;
             listUi.appendChild(card);
         });
     }
 
-    function revealContact(el, p, e) { el.innerHTML = `<div style="color:var(--primary)">📞 ${p || 'Protected'} <br> 📧 ${e || 'Protected'}</div>`; el.style.background = "#fff"; }
+    function revealContact(el, p, e) { el.innerHTML = `<div style="color:var(--primary)">📞 ${p || 'Privacy Protected'} <br> 📧 ${e || 'Privacy Protected'}</div>`; el.style.background = "#fff"; }
     function openModal(s) { 
         activeSvc = s; const d = dict[curLang];
         document.getElementById('m_t1').innerText = d[s];
-        document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]} to secure your rental journey.</p>`;
+        document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]} to protect your home.</p>`;
         document.getElementById('svcModal').style.display = 'flex'; nextStep(1); 
     }
     function closeModal() { document.getElementById('svcModal').style.display = 'none'; }
     function nextStep(s) { document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); document.getElementById('step'+s).classList.add('active'); }
     function generateOutput() {
         const d = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, e: document.getElementById('q_email').value, a: document.getElementById('q_addr').value, dob: document.getElementById('q_dob').value, ed: document.getElementById('q_eff_date').value };
-        document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nDOB: ${d.dob}\nEffDate: ${d.ed}\nAddress: ${d.a}\nConsent: Yes`;
+        document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nDOB: ${d.dob}\nEffective Date: ${d.ed}\nAddress: ${d.a}\nConsent: Yes`;
         nextStep(4);
     }
     function copyText() { document.getElementById('outputBox').select(); document.execCommand('copy'); alert('Copied!'); }
