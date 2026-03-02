@@ -1,105 +1,9 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest 安家居 - 大温房产门户 2.0</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
-        :root { --primary: #27ae60; --dark: #1e293b; --bg: #f8fafc; --accent: #facc15; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; color: var(--dark); line-height: 1.6; }
-        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; }
-        
-        .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; }
-        .lang-toggle span.active { color: var(--primary); font-weight: 800; text-decoration: underline; }
-
-        .filter-bar { background: white; padding: 20px 5%; display: flex; gap: 15px; flex-wrap: wrap; border-bottom: 1px solid #e2e8f0; }
-        .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
-        .filter-group label { font-size: 0.75rem; font-weight: bold; color: #94a3b8; }
-        select { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none; background: #fff; }
-
-        #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); }
-
-        .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
-        .service-item:hover { transform: translateY(-5px); border-color: var(--primary); }
-
-        .post-bar { background: #166534; color: white; padding: 18px; text-align: center; font-weight: 600; }
-        .post-btn { background: var(--accent); color: #166534; padding: 10px 25px; border-radius: 10px; font-weight: 800; text-decoration: none; margin-left: 15px; display: inline-block; }
-
-        .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; }
-        .card-img { height: 230px; background-size: cover; background-position: center; position: relative; }
-        .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; }
-        .card-body { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; }
-        .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; }
-        .contact-box { margin-top: auto; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 90%; max-width: 650px; padding: 40px; border-radius: 25px; max-height: 85vh; overflow-y: auto; position: relative; }
-        .step { display: none; } .step.active { display: block; }
-        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-top: 15px; }
-        .btn-secondary { background: #e2e8f0; color: var(--dark); margin-top: 10px; }
-        input { width: 100%; padding: 13px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
-        textarea { width: 100%; height: 110px; margin-top: 10px; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-family: inherit; }
-    </style>
-</head>
-<body>
-<header>
-    <a href="#" class="logo">HavenNest 安家居</a>
-    <div class="lang-toggle">
-        <span id="lang-zh" class="active" onclick="toggleLang('zh')">中文</span> 
-        <span style="color:#eee">|</span> 
-        <span id="lang-en" onclick="toggleLang('en')">EN</span>
-    </div>
-</header>
-
-<div class="filter-bar">
-    <div class="filter-group"><label id="lbl-city"></label><select id="f-city" onchange="applyFilters()"></select></div>
-    <div class="filter-group"><label id="lbl-rent"></label><select id="f-rent" onchange="applyFilters()"></select></div>
-    <div class="filter-group"><label id="lbl-bed"></label><select id="f-bed" onchange="applyFilters()"></select></div>
-</div>
-
-<div id="map"></div>
-<div class="service-center" id="service-ui"></div>
-
-<div class="post-bar">
-    <span id="post-cta-text"></span>
-    <a href="https://airtable.com/appfs8aXtirNbrbWa/pagXqvAuxxoHDzsPF/form" target="_blank" class="post-btn" id="btn-post-now"></a>
-</div>
-
-<div class="grid" id="listing-ui"></div>
-
-<div id="svcModal" class="modal">
-    <div class="modal-content">
-        <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-size:24px;" onclick="closeModal()">×</span>
-        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; line-height:1.6; color: #475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
-        <div id="step2" class="step"><h2 id="m_t2"></h2><p id="m_c2" style="line-height:1.8"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
-        <div id="step3" class="step">
-            <h2 id="m_t3"></h2>
-            <input type="text" id="q_name">
-            <input type="tel" id="q_phone">
-            <input type="email" id="q_email">
-            <input type="text" id="q_dob">
-            <input type="text" id="q_eff_date">
-            <input type="text" id="q_addr">
-            <button class="btn-action" id="btn-gen" onclick="generateOutput()"></button>
-        </div>
-        <div id="step4" class="step">
-            <h2 id="m_t4"></h2>
-            <textarea id="outputBox" readonly></textarea>
-            <button class="btn-action" id="btn-copy" onclick="copyText()"></button>
-            <button class="btn-action btn-secondary" id="btn-email" onclick="openEmail()"></button>
-        </div>
-    </div>
-</div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     const _ET = 'cGF0MkFGdzZQSjdXUndHVC4xMWM3YzU3ODA2MzQyOWQxNzU3YTg5Y2E5YWJiNTIzZTEyMjM3MGM4ZjEzZWRlMzk5MGM3YjA5MGJkZTZiMzY0';
     const CONFIG = { token: atob(_ET), baseId: 'appfs8aXtirNbrbWa', tableName: 'Table 1' };
 
-    let allListings = []; let activeSvc = ''; let curLang = 'zh';
+    let allListings = []; let curLang = 'zh';
     let map = L.map('map').setView([49.2827, -123.1207], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -108,32 +12,34 @@
             lblCity: "城市 / CITY", lblRent: "月租金 / RENT", lblBed: "卧室 / BED", cityAll: "全部地区", rentAll: "不限", bedAll: "不限",
             postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?", btnPost: "屋主发布 / Post Listing", showContact: "🔒 点击显示联系方式",
             next: "明白，下一步 / Next", agree: "同意授权 / Agree", gen: "生成申请表单", copy: "复制表单文本 / Copy", email: "点击打开邮件发送 / Send Email",
-            dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", name: "全名", phone: "电话", emailLbl: "邮箱", addr: "租房地址",
-            m_t2: "授权告知", m_c2: "作为大温持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的 6 项个人信息转交给承保经纪人 Jerome 进行报价。数据受隐私保护。",
+            dob: "出生日期 / DOB (YYYY-MM-DD)", eff: "保单生效日期 / Effective Date (YYYY-MM-DD)", name: "姓名 / Full Name", phone: "电话 / Phone", emailLbl: "邮箱 / Email", addr: "租房地址 / Address",
+            m_t2: "授权告知", m_c2: "作为大温持牌保险与房产专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的 6 项个人信息转交给官方承保机构进行报价预约。数据受隐私保护。",
             m_t3: "申请信息填写", m_t4: "表单已生成", ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
+            footer: "免责声明：本网站房源信息部分来自系统抓取，部分为屋主直发。HavenNest 团队致力于提供最真实的租赁信息及专业的保险服务。&copy; 2026 HavenNest App.",
             insPop: `<p><strong>为何您必须购买租客保险？</strong></p>
                     <p style="color:var(--primary); font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
                     <ul style="padding-left:15px;">
-                        <li><strong>财物保障：</strong>覆盖家具、电子产品及衣物。若因火灾或偷盗受损，保险按重置价值赔付。</li>
-                        <li><strong>责任赔付：</strong>若因您的过失（如忘关水龙头）导致大楼受损，保险承担法律赔付。</li>
-                        <li><strong>访客保障：</strong>保障访客在您空间的意外受伤医疗费。</li>
-                        <li><strong>额外生活费：</strong>理赔期间房屋无法居住时的食宿补助。</li>
+                        <li><strong>财物保障：</strong>覆盖您的家具、电子产品及衣物。若因火灾、水淹或偷盗受损，保险将赔付。</li>
+                        <li><strong>责任赔付：</strong>若因您的过失导致房屋受损（如忘关水龙头），保险将承担高昂法律赔付。</li>
+                        <li><strong>访客保障：</strong>保障访客在您空间的意外受伤。</li>
+                        <li><strong>生活补偿：</strong>房屋受损无法居住时的酒店食宿补助。</li>
                     </ul>`
         },
         en: {
             lblCity: "CITY", lblRent: "RENT", lblBed: "BED", cityAll: "All Regions", rentAll: "No Limit", bedAll: "Any",
             postCta: "Have a vacancy? Post it on HavenNest for free!", btnPost: "Post Listing", showContact: "🔒 Show Contact Info",
-            next: "Next Step", agree: "Agree & Continue", gen: "Generate Form", copy: "Copy Text", email: "Send to Jerome via Email",
+            next: "Next Step", agree: "Agree & Continue", gen: "Generate Form", copy: "Copy Text", email: "Send Application via Email",
             dob: "DOB (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", name: "Full Name", phone: "Phone", emailLbl: "Email", addr: "Rental Address",
-            m_t2: "Authorization", m_c2: "By continuing, you authorize HavenNest to transfer your 6 personal details to Jerome for a professional quote. Your data is protected by privacy laws.",
+            m_t2: "Authorization", m_c2: "By continuing, you authorize HavenNest to securely transfer your 6 details to our professional broker team for a customized quote. Your privacy is protected.",
             m_t3: "Fill in Details", m_t4: "Form Generated", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
-            insPop: `<p><strong>Why do you need Tenant Insurance?</strong></p>
-                    <p style="color:var(--primary); font-weight:bold;">It's more than just a landlord's requirement; it's the ultimate safety net for your property and peace of mind.</p>
+            footer: "Disclaimer: Listing info is sourced from both automated crawlers and direct posts. HavenNest is dedicated to rental accuracy and professional insurance services. &copy; 2026 HavenNest App.",
+            insPop: `<p><strong>Why you need Tenant Insurance?</strong></p>
+                    <p style="color:var(--primary); font-weight:bold;">It's more than a landlord's rule; it's the ultimate safety net for your belongings and financial peace of mind.</p>
                     <ul style="padding-left:15px;">
-                        <li><strong>Contents:</strong> Covers your furniture, electronics, and clothes against theft or fire.</li>
-                        <li><strong>Liability:</strong> Covers legal costs if you accidentally damage the building (e.g., water leaks).</li>
-                        <li><strong>Visitors:</strong> Covers medical costs if someone gets hurt in your home.</li>
-                        <li><strong>Living Expenses:</strong> Reimburses hotel/food costs if your home becomes uninhabitable.</li>
+                        <li><strong>Contents:</strong> Replaces your furniture, tech, and clothes after fire or theft.</li>
+                        <li><strong>Liability:</strong> Protects you from legal costs if you accidentally damage the building.</li>
+                        <li><strong>Visitors:</strong> Covers medical bills if someone gets hurt in your home.</li>
+                        <li><strong>Expenses:</strong> Pays for hotel stays if your home is uninhabitable during repairs.</li>
                     </ul>`
         }
     };
@@ -167,6 +73,7 @@
         document.getElementById('m_c2').innerText = d.m_c2;
         document.getElementById('m_t3').innerText = d.m_t3;
         document.getElementById('m_t4').innerText = d.m_t4;
+        document.getElementById('footer-text').innerHTML = d.footer;
 
         document.getElementById('f-city').innerHTML = `<option value="All">${d.cityAll}</option><option value="Vancouver">Vancouver</option><option value="Richmond">Richmond</option><option value="Burnaby">Burnaby</option><option value="Delta">Delta</option>`;
         document.getElementById('f-rent').innerHTML = `<option value="0-99999">${d.rentAll}</option><option value="0-2000">$2000-</option><option value="2000-4000">$2000-4000</option><option value="4000-99999">$4000+</option>`;
@@ -176,6 +83,8 @@
     }
 
     async function init() {
+        // 先渲染UI确保文字立显
+        updateUI();
         const airtableUrl = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}?filterByFormula={发布状态 (Status)}='已发布 (Live)'`;
         try {
             const res = await fetch(airtableUrl, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
@@ -196,7 +105,7 @@
                 });
                 allListings = [...airtableItems, ...processed];
             } catch { allListings = airtableItems; }
-            updateUI();
+            applyFilters();
         } catch(e) { console.error(e); }
     }
 
@@ -225,7 +134,7 @@
         });
     }
 
-    function revealContact(el, p, e) { el.innerHTML = `<div style="color:var(--primary)">📞 ${p || 'Hidden'} <br> 📧 ${e || 'Hidden'}</div>`; el.style.background = "#fff"; }
+    function revealContact(el, p, e) { el.innerHTML = `<div style="color:var(--primary)">📞 ${p || 'Protected'} <br> 📧 ${e || 'Protected'}</div>`; el.style.background = "#fff"; }
     function openModal(s) { 
         activeSvc = s; const d = dict[curLang];
         document.getElementById('m_t1').innerText = d[s];
@@ -239,8 +148,8 @@
         document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${d.n}\nPhone: ${d.p}\nEmail: ${d.e}\nDOB: ${d.dob}\nEffDate: ${d.ed}\nAddress: ${d.a}\nConsent: Yes`;
         nextStep(4);
     }
-    function copyText() { document.getElementById('outputBox').select(); document.execCommand('copy'); alert('Success!'); }
-    function openEmail() { const body = encodeURIComponent(document.getElementById('outputBox').value); window.location.href = `mailto:support@havennestapp.com?subject=Application&body=${body}`; }
+    function copyText() { document.getElementById('outputBox').select(); document.execCommand('copy'); alert('Copied!'); }
+    function openEmail() { const b = encodeURIComponent(document.getElementById('outputBox').value); window.location.href = `mailto:support@havennestapp.com?subject=Inquiry&body=${b}`; }
     init();
 </script>
 </body>
