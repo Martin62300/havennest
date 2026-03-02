@@ -17,7 +17,7 @@
         .filter-bar { background: white; padding: 20px 5%; display: flex; gap: 15px; flex-wrap: wrap; border-bottom: 1px solid #e2e8f0; }
         .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
         .filter-group label { font-size: 0.75rem; font-weight: bold; color: #94a3b8; }
-        select { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none; background: #fff; font-size: 0.9rem; }
+        select { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none; background: #fff; }
 
         #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); }
 
@@ -29,8 +29,8 @@
         .post-btn { background: var(--accent); color: #166534; padding: 10px 25px; border-radius: 10px; font-weight: 800; text-decoration: none; margin-left: 15px; display: inline-block; }
 
         .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; transition: 0.3s; }
-        .card-img { height: 230px; background-size: cover; background-position: center; background-color: #eee; position: relative; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; }
+        .card-img { height: 230px; background-size: cover; background-position: center; background-color: #eee; }
         .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; }
         .card-body { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; }
         .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; }
@@ -51,9 +51,7 @@
 <header>
     <a href="#" class="logo">HavenNest 安家居</a>
     <div class="lang-toggle">
-        <span id="lang-zh" class="active" onclick="toggleLang('zh')">中文</span> 
-        <span style="color:#eee">|</span> 
-        <span id="lang-en" onclick="toggleLang('en')">EN</span>
+        <span id="lang-toggle-btn" onclick="toggleLang()">EN / 中文</span>
     </div>
 </header>
 
@@ -97,24 +95,17 @@
     </div>
 </div>
 
-<footer>
-    <div id="footer-text"></div>
-</footer>
+<footer><div id="footer-text"></div></footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     const _ET = 'cGF0MkFGdzZQSjdXUndHVC4xMWM3YzU3ODA2MzQyOWQxNzU3YTg5Y2E5YWJiNTIzZTEyMjM3MGM4ZjEzZWRlMzk5MGM3YjA5MGJkZTZiMzY0';
     const CONFIG = { token: atob(_ET), baseId: 'appfs8aXtirNbrbWa', tableName: 'Table 1' };
 
-    // 📍 坐标映射库：修复 JSON 缺少坐标的问题
-    const cityCoords = {
-        "Vancouver": [49.2827, -123.1207],
-        "Richmond": [49.1666, -123.1336],
-        "Burnaby": [49.2488, -122.9805],
-        "Surrey": [49.1913, -122.8490],
-        "New Westminster": [49.2057, -122.9110],
-        "Delta": [49.0847, -123.0581],
-        "Port Moody": [49.2831, -122.8317],
-        "Coquitlam": [49.2838, -122.7932]
+    // 📍 坐标修正库：将城市映射到经纬度点
+    const cityMap = {
+        "Vancouver": [49.2827, -123.1207], "Richmond": [49.1666, -123.1336], "Burnaby": [49.2488, -122.9805],
+        "Surrey": [49.1913, -122.8490], "New Westminster": [49.2057, -122.9110], "Delta": [49.0847, -123.0581],
+        "Port Moody": [49.2831, -122.8317], "Coquitlam": [49.2838, -122.7932]
     };
 
     let allListings = []; let curLang = 'zh';
@@ -124,46 +115,41 @@
     const dict = {
         zh: {
             lblCity: "城市 / CITY", lblRent: "月租金 / RENT", lblBed: "卧室 / BED", cityAll: "全部地区", rentAll: "不限", bedAll: "不限",
-            postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?", btnPost: "屋主发布 / Post Listing", showContact: "🔒 点击显示联系方式",
-            next: "明白，下一步 / Next", agree: "同意授权 / Agree", gen: "生成申请表单", copy: "复制表单文本 / Copy", email: "点击打开邮件发送 / Send Email",
-            dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", name: "姓名 / Full Name", phone: "电话 / Phone", emailLbl: "邮箱 / Email", addr: "租房地址 / Address",
-            m_t2: "授权告知", m_c2: "作为大温持牌保险与房产专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的 6 项个人信息转交给官方承保机构进行报价预约。数据受隐私保护。",
+            postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?", btnPost: "屋主发布", showContact: "🔒 点击显示联系方式",
+            next: "明白，下一步", agree: "同意授权", gen: "生成申请表单", copy: "复制表单文本", email: "点击打开邮件发送",
+            dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", name: "全名", phone: "电话", emailLbl: "邮箱", addr: "租房地址",
+            m_t2: "授权告知", m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的姓名、电话、邮箱、生日、地址、生效日期共 6 项信息转交给承保机构进行报价。数据受隐私法保护。",
             m_t3: "申请信息填写", m_t4: "表单已生成", ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
             footer: "免责声明：本网站房源信息部分来自系统抓取，部分为屋主直发。HavenNest 团队致力于提供最真实的租赁信息及专业的保险服务。&copy; 2026 HavenNest App.",
-            insPop: `<p><strong>为何您必须购买租客保险？</strong></p>
+            insPop: `<h3>为何购买租客保险？</h3>
                     <p style="color:var(--primary); font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
                     <ul style="padding-left:15px;">
-                        <li><strong>财物保障：</strong>覆盖您的家具、电子产品及衣物。若因火灾、水淹或偷盗受损，保险将赔付。</li>
-                        <li><strong>责任赔付：</strong>若因您的过失（如忘关水龙头）导致大楼受损，保险将承担高昂法律赔付。</li>
+                        <li><strong>财物保障：</strong>覆盖家具、电子产品及衣物。若因火灾或偷盗受损，保险按重置价值赔付。</li>
+                        <li><strong>责任赔付：</strong>若因您的过失导致房屋或邻居受损，保险承担法律赔付。</li>
                         <li><strong>访客保障：</strong>保障访客在您空间的意外受伤医疗费。</li>
-                        <li><strong>额外生活费：</strong>房屋受损无法居住时的酒店食宿补助。</li>
+                        <li><strong>额外生活费：</strong>理赔期间房屋无法居住时的酒店及食宿补助。</li>
                     </ul>`
         },
         en: {
             lblCity: "CITY", lblRent: "RENT", lblBed: "BED", cityAll: "All Regions", rentAll: "No Limit", bedAll: "Any",
             postCta: "Have a vacancy? Post it on HavenNest for free!", btnPost: "Post Listing", showContact: "🔒 Show Contact Info",
-            next: "Next Step", agree: "Agree & Continue", gen: "Generate Form", copy: "Copy Text", email: "Send Application via Email",
+            next: "Next", agree: "Agree & Continue", gen: "Generate Form", copy: "Copy Text", email: "Send Application via Email",
             dob: "DOB (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", name: "Full Name", phone: "Phone", emailLbl: "Email", addr: "Rental Address",
-            m_t2: "Authorization", m_c2: "By continuing, you authorize HavenNest to securely transfer your 6 details to our professional broker team for a customized quote. Your privacy is protected.",
-            m_t3: "Fill in Details", m_t4: "Form Generated", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
-            footer: "Disclaimer: Listing info is sourced from automated crawlers and direct posts. HavenNest is dedicated to rental accuracy and professional insurance services. &copy; 2026 HavenNest App.",
-            insPop: `<p><strong>Why do you need Tenant Insurance?</strong></p>
-                    <p style="color:var(--primary); font-weight:bold;">It's more than just a landlord's rule; it's the ultimate safety net for your belongings and financial peace of mind.</p>
+            m_t2: "Authorization", m_c2: "You authorize HavenNest to securely transfer your 6 details (Name, Phone, Email, DOB, Address, Effective Date) to our partner broker for a customized quote. Your privacy is protected by law.",
+            m_t3: "Fill Details", m_t4: "Form Generated", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
+            footer: "Disclaimer: Listing info is sourced from automated crawlers and direct posts. HavenNest is dedicated to accuracy and professional insurance services. &copy; 2026 HavenNest App.",
+            insPop: `<h3>Why you need Tenant Insurance?</h3>
+                    <p style="color:var(--primary); font-weight:bold;">It's more than just a landlord's requirement; it's the ultimate safety net for your belongings and peace of mind.</p>
                     <ul style="padding-left:15px;">
-                        <li><strong>Contents:</strong> Replaces your furniture, tech, and clothes after fire or theft.</li>
+                        <li><strong>Contents:</strong> Replaces furniture/tech after fire or theft.</li>
                         <li><strong>Liability:</strong> Protects you from legal costs if you accidentally damage the building.</li>
                         <li><strong>Visitors:</strong> Covers medical bills if someone gets hurt in your home.</li>
-                        <li><strong>Expenses:</strong> Pays for hotel stays if your home is uninhabitable during repairs.</li>
+                        <li><strong>Expenses:</strong> Pays for hotel stays during repairs.</li>
                     </ul>`
         }
     };
 
-    function toggleLang(l) {
-        curLang = l;
-        document.getElementById('lang-zh').className = l === 'zh' ? 'active' : '';
-        document.getElementById('lang-en').className = l === 'en' ? 'active' : '';
-        updateUI();
-    }
+    function toggleLang() { curLang = curLang === 'zh' ? 'en' : 'zh'; updateUI(); }
 
     function updateUI() {
         const d = dict[curLang];
@@ -197,31 +183,27 @@
     }
 
     async function init() {
-        updateUI(); // 初始加载文字
+        updateUI();
         const airtableUrl = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}?filterByFormula={发布状态 (Status)}='已发布 (Live)'`;
         try {
             const res = await fetch(airtableUrl, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             const data = await res.json();
-            const airtableItems = data.records.map(r => {
-                const f = r.fields;
-                return {
-                    source: "屋主直发", title: f['房源标题 (Listing Title)'], price: parseInt(f['月租金 (Monthly Rent)']) || 0,
-                    bed: parseInt(f['卧室数量 (Beds)']) || 1, city: f['City'] || "Vancouver",
-                    image: f['房源照片 (Photos)']?.[0]?.url, phone: f['联系电话 (Phone)'], email: f['电子邮箱 (Email)'],
-                    lat: 49.24 + (Math.random()-0.5)*0.05, lng: -123.05 + (Math.random()-0.5)*0.05 // Airtable 默认位移
-                };
-            });
+            const airtableItems = data.records.map(r => ({
+                source: "屋主直发", title: r.fields['房源标题 (Listing Title)'], price: parseInt(r.fields['月租金 (Monthly Rent)']) || 0,
+                bed: parseInt(r.fields['卧室数量 (Beds)']) || 1, city: r.fields['City'] || "Vancouver",
+                image: r.fields['房源照片 (Photos)']?.[0]?.url, phone: r.fields['联系电话 (Phone)'], email: r.fields['电子邮箱 (Email)'],
+                lat: 49.24 + (Math.random()-0.5)*0.05, lng: -123.05 + (Math.random()-0.5)*0.05
+            }));
             
             try {
                 const crawlRes = await fetch('listings.json?t=' + Date.now());
                 const crawlItems = await crawlRes.json();
                 const processed = crawlItems.map(i => {
                     const cleanPrice = i.price ? parseInt(String(i.price).replace(/[^\d]/g, '')) : 0;
-                    const baseCoord = cityCoords[i.location] || cityCoords["Vancouver"];
+                    const base = cityMap[i.location] || cityMap["Vancouver"];
                     return { 
                         ...i, source: "抓取房源", price: cleanPrice, 
-                        bed: i.title.toLowerCase().includes('2br') ? 2 : (i.title.toLowerCase().includes('3br') ? 3 : 1),
-                        lat: baseCoord[0] + (Math.random()-0.5)*0.015, lng: baseCoord[1] + (Math.random()-0.5)*0.015 
+                        lat: base[0] + (Math.random()-0.5)*0.015, lng: base[1] + (Math.random()-0.5)*0.015 
                     };
                 });
                 allListings = [...airtableItems, ...processed];
@@ -241,14 +223,12 @@
         const rent = document.getElementById('f-rent').value.split('-').map(Number);
         const bed = document.getElementById('f-bed').value;
         const filtered = allListings.filter(i => (city==='All' || i.city===city || i.location===city) && (i.price >= rent[0] && i.price <= rent[1]) && (bed==='All' || i.bed >= parseInt(bed)));
-        
         const listUi = document.getElementById('listing-ui'); listUi.innerHTML = '';
         map.eachLayer(l => { if(l instanceof L.Marker) map.removeLayer(l); });
-
         filtered.forEach(i => {
             L.marker([i.lat, i.lng]).addTo(map).bindPopup(`<b>$${i.price}</b><br>${i.title}`);
             const card = document.createElement('div'); card.className = 'card';
-            card.innerHTML = `<div class="card-img" style="background-image:url('${i.image || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800'}')"><div class="tag">${i.source}</div></div>
+            card.innerHTML = `<div class="card-img" style="background-image:url('${i.image || 'https://via.placeholder.com/400x300'}')"><div class="tag">${i.source}</div></div>
                 <div class="card-body"><div class="price">$${i.price.toLocaleString()}</div><div style="font-weight:bold; height:3rem; overflow:hidden;">${i.title}</div>
                 <div class="contact-box" onclick="revealContact(this, '${i.phone}', '${i.email}')">${dict[curLang].showContact}</div></div>`;
             listUi.appendChild(card);
