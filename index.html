@@ -1,3 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HavenNest 安家居 - 大温房产门户 2.0 终极版</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root { --primary: #27ae60; --dark: #1e293b; --bg: #f8fafc; --accent: #facc15; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; color: var(--dark); line-height: 1.6; }
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+        
+        .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; }
+        .lang-toggle span.active { color: var(--primary); font-weight: 800; text-decoration: underline; }
+
+        .filter-bar { background: white; padding: 20px 5%; display: flex; gap: 15px; flex-wrap: wrap; border-bottom: 1px solid #e2e8f0; }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
+        .filter-group label { font-size: 0.75rem; font-weight: bold; color: #94a3b8; }
+        select { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none; background: #fff; }
+
+        #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); }
+
+        .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
+        .service-item:hover { transform: translateY(-5px); border-color: var(--primary); }
+
+        .post-bar { background: #166534; color: white; padding: 18px; text-align: center; font-weight: 600; }
+        .post-btn { background: var(--accent); color: #166534; padding: 10px 25px; border-radius: 10px; font-weight: 800; text-decoration: none; margin-left: 15px; display: inline-block; }
+
+        .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; }
+        .card-img { height: 230px; background-size: cover; background-position: center; position: relative; }
+        .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; }
+        .card-body { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; }
+        .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; }
+        .contact-box { margin-top: auto; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 90%; max-width: 650px; padding: 40px; border-radius: 25px; max-height: 85vh; overflow-y: auto; position: relative; }
+        .step { display: none; } .step.active { display: block; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-top: 15px; }
+        .btn-secondary { background: #e2e8f0; color: var(--dark); margin-top: 10px; }
+        input { width: 100%; padding: 13px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
+        textarea { width: 100%; height: 110px; margin-top: 10px; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-family: inherit; }
+        
+        footer { text-align: center; padding: 50px 5%; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #eee; background: white; }
+    </style>
+</head>
+<body>
+<header>
+    <a href="#" class="logo">HavenNest 安家居</a>
+    <div class="lang-toggle">
+        <span id="lang-zh" class="active" onclick="toggleLang('zh')">中文</span> 
+        <span style="color:#eee">|</span> 
+        <span id="lang-en" onclick="toggleLang('en')">EN</span>
+    </div>
+</header>
+
+<div class="filter-bar">
+    <div class="filter-group"><label id="lbl-city"></label><select id="f-city" onchange="applyFilters()"></select></div>
+    <div class="filter-group"><label id="lbl-rent"></label><select id="f-rent" onchange="applyFilters()"></select></div>
+    <div class="filter-group"><label id="lbl-bed"></label><select id="f-bed" onchange="applyFilters()"></select></div>
+</div>
+
+<div id="map"></div>
+<div class="service-center" id="service-ui"></div>
+
+<div class="post-bar">
+    <span id="post-cta-text"></span>
+    <a href="https://airtable.com/appfs8aXtirNbrbWa/pagXqvAuxxoHDzsPF/form" target="_blank" class="post-btn" id="btn-post-now"></a>
+</div>
+
+<div class="grid" id="listing-ui"></div>
+
+<div id="svcModal" class="modal">
+    <div class="modal-content">
+        <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-size:24px;" onclick="closeModal()">×</span>
+        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; line-height:1.6; color: #475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
+        <div id="step2" class="step"><h2 id="m_t2"></h2><p id="m_c2" style="line-height:1.8"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
+        <div id="step3" class="step">
+            <h2 id="m_t3"></h2>
+            <input type="text" id="q_name">
+            <input type="tel" id="q_phone">
+            <input type="email" id="q_email">
+            <input type="text" id="q_dob">
+            <input type="text" id="q_eff_date">
+            <input type="text" id="q_addr">
+            <button class="btn-action" id="btn-gen" onclick="generateOutput()"></button>
+        </div>
+        <div id="step4" class="step">
+            <h2 id="m_t4"></h2>
+            <textarea id="outputBox" readonly></textarea>
+            <button class="btn-action" id="btn-copy" onclick="copyText()"></button>
+            <button class="btn-action btn-secondary" id="btn-email" onclick="openEmail()"></button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer-text"></div>
+</footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     const _ET = 'cGF0MkFGdzZQSjdXUndHVC4xMWM3YzU3ODA2MzQyOWQxNzU3YTg5Y2E5YWJiNTIzZTEyMjM3MGM4ZjEzZWRlMzk5MGM3YjA5MGJkZTZiMzY0';
