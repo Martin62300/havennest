@@ -3,63 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest - 大温房产门户</title>
+    <title>HavenNest - 大温地区专业房源门户</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root { --navy: #002147; --gold: #D4AF37; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: var(--bg); color: #333; }
-        header { background: var(--navy); color: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
+        header { background: var(--navy); color: white; padding: 18px 5%; display: flex; justify-content: space-between; align-items: center; }
         #map { height: 420px; width: 100%; border-bottom: 4px solid var(--gold); }
         .container { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         .listing-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; display: flex; flex-direction: column; }
         .listing-info { padding: 25px; }
         .price { color: var(--navy); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
         .title { font-size: 1.15rem; font-weight: 700; height: 2.8em; overflow: hidden; margin-bottom: 20px; }
-        
-        /* 铁三角按钮组样式 */
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .btn-main { background: var(--navy); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; grid-column: span 2; margin-bottom: 8px; }
         .btn-sub { background: #f0f0f0; color: #555; border: none; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
-
         .disclaimer { font-size: 0.8rem; color: #888; padding: 50px 10%; line-height: 1.8; border-top: 1px solid #ddd; text-align: center; background: #fff; }
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
-        .modal-content { background: white; margin: 5% auto; padding: 45px; border-radius: 25px; width: 90%; max-width: 500px; text-align: center; }
-        .btn-submit { background: var(--gold); color: white; border: none; padding: 16px; border-radius: 12px; width: 100%; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
     <div style="font-size: 1.8rem; font-weight: 900; letter-spacing: 2px;">HAVENNEST</div>
-    <div style="font-size: 0.9rem;">专家团队 / Official Team</div>
+    <div style="font-size: 0.9rem;">专家团队官方发布 / Official Team</div>
 </header>
 
 <div id="map"></div>
 
 <div class="container" id="listings">
-    <h3 style="grid-column: 1/-1; text-align: center; color: #666;">正在同步大温数据库房源...</h3>
+    <h3 style="grid-column: 1/-1; text-align: center; color: #888;">正在同步 HavenNest 数据库...</h3>
 </div>
 
 <div class="disclaimer">
     <strong>免责声明 / Disclaimer:</strong><br>
-    HavenNest 为房源信息聚合平台。房源数据来源于第三方公开渠道或屋主发布。本平台不对房源信息的真实性负责。租客保险由持牌专家团队提供，搬家及清洁服务由合作机构提供。
-</div>
-
-<div id="serviceModal" class="modal">
-    <div class="modal-content">
-        <h2 id="modal-title" style="color:var(--navy);">申请专属服务</h2>
-        <input type="text" id="cust-name" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;" placeholder="您的姓名 / Full Name">
-        <input type="text" id="cust-phone" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;" placeholder="电话号码 / Phone Number">
-        <button class="btn-submit" onclick="submitRequest()">提交申请 / Submit</button>
-        <p onclick="document.getElementById('serviceModal').style.display='none'" style="color:#999; margin-top:20px; cursor:pointer;">返回 / Back</p>
-    </div>
+    HavenNest 为房源信息聚合平台。房源数据来源于第三方公开渠道或屋主自助发布。本平台不对房源信息的真实性承担法律责任。租客保险由持牌专家团队提供，搬家及清洁服务由合作机构提供。
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // 自动抓取您在 image_7b0ccb.png 中确认的配置
+    // 【物理焊死区域】引号锁定，字段名已根据 image_70375e.png 对齐
     const CONFIG = {
-        baseId: 'appfs8aXtirNbrbWa', 
+        baseId: 'appfs8aXtirNbrbWa',
         token: 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364',
         supportEmail: 'support@havennestapp.com'
     };
@@ -78,69 +62,47 @@
 
     async function fetchData() {
         try {
-            // 确保 Table 名精确对齐 image_7b10ad.png 里的 Table 1
             const url = `https://api.airtable.com/v1/${CONFIG.baseId}/Table%201`;
             const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             
-            if (!res.ok) {
-                const errorData = await res.json();
-                throw new Error(`Airtable Error: ${errorData.error.message}`);
-            }
+            if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
 
             const data = await res.json();
             const grid = document.getElementById('listings');
             grid.innerHTML = ""; 
 
-            // 处理数据逻辑：过滤空行并匹配 image_7a9be9.png 的中文字段
             data.records.forEach(record => {
                 const f = record.fields;
-                if (!f['房源标题 (Listing Title)']) return; // 跳过空行
-
-                const title = f['房源标题 (Listing Title)'];
+                // 对齐 image_70375e.png 里的字段名
+                const title = f['房源标题 (Listing Title)'] || "Luxury Listing";
                 const rent = f['月租金 (Monthly Rent)'] || "0";
                 const city = f['所属城市 (City)'] || "Greater Vancouver";
 
                 const card = document.createElement('div');
                 card.className = 'listing-card';
                 card.innerHTML = `
-                    <div style="width:100%; height:230px; background:#ddd; display:flex; align-items:center; justify-content:center; color:#999;">Photo Coming Soon</div>
+                    <div style="width:100%; height:230px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">Photo Coming Soon</div>
                     <div class="listing-info">
                         <div class="price">$${rent}</div>
                         <div class="title">${title}</div>
                         <div style="font-size:0.9rem; color:#888; margin-bottom:20px;">📍 ${city}</div>
                         <div class="btn-group">
-                            <button class="btn-main" onclick="openSOP('租客保险', '${title}')">申请租客保险 / Insurance</button>
-                            <button class="btn-sub" onclick="openSOP('专业搬家', '${title}')">搬家服务 / Moving</button>
-                            <button class="btn-sub" onclick="openSOP('深度清洁', '${title}')">清洁服务 / Cleaning</button>
+                            <button class="btn-main">申请租客保险 / Insurance</button>
+                            <button class="btn-sub">搬家服务 / Moving</button>
+                            <button class="btn-sub">清洁服务 / Cleaning</button>
                         </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         } catch (e) {
-            console.error("Critical Failure:", e);
             document.getElementById('listings').innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; color: red; padding: 20px; border: 1px solid #ffcccc; background: #fff5f5; border-radius: 10px;">
+                <div style="grid-column: 1/-1; text-align: center; color: red;">
                     <h3>同步异常: ${e.message}</h3>
-                    <p>请确认 Airtable Token 已点击 "Save changes" 并授权了 "Untitled Base"。</p>
+                    <p>💡 **解决建议**：请尝试在浏览器【无痕/隐私模式】下打开网页，或关闭 AdBlock 等拦截插件后再刷新。</p>
                 </div>`;
         }
     }
-
-    function openSOP(type, house) {
-        sessionStorage.setItem('svc', `${type} - ${house}`);
-        document.getElementById('modal-title').innerText = `申请 ${type}`;
-        document.getElementById('serviceModal').style.display = 'block';
-    }
-
-    function submitRequest() {
-        const name = document.getElementById('cust-name').value;
-        const phone = document.getElementById('cust-phone').value;
-        const svc = sessionStorage.getItem('svc');
-        window.location.href = `mailto:${CONFIG.supportEmail}?subject=${encodeURIComponent(svc)}&body=客户: ${name}%0A电话: ${phone}`;
-        document.getElementById('serviceModal').style.display = 'none';
-    }
-
     init();
 </script>
 </body>
