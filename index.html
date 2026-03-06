@@ -14,27 +14,39 @@
 
         #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); background: #e2e8f0; }
 
-        /* 房源网格与 5px 粗金边 [cite: 2026-03-04] */
+        .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
+        .post-bar { background: var(--green); color: white; padding: 18px; text-align: center; font-weight: 600; }
+
+        /* 房源卡片与 5px 物理金边 [cite: 2026-03-04] */
         .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; position: relative; display: flex; flex-direction: column; transition: 0.3s; cursor: pointer; }
-        .gold-frame { border: 5px solid var(--accent) !important; box-shadow: 0 4px 25px rgba(212, 175, 55, 0.5) !important; transform: translateY(-8px); z-index: 5; }
+        .gold-frame { 
+            border: 5px solid var(--accent) !important; 
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5) !important; 
+            transform: translateY(-8px);
+            z-index: 5;
+        }
         
         .card-img { height: 230px; background-size: cover; background-position: center; background-color: #eee; }
         .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
         .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; padding: 22px 22px 0; }
         .card-title { font-weight: bold; height: 3rem; overflow: hidden; display: block; padding: 0 22px 22px; font-size: 1.1rem; }
 
-        /* 详情页多图画廊 [cite: 2026-03-01] */
+        /* 详情页画廊升级：左右大按键 [cite: 2026-03-01] */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,33,71,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 95%; max-width: 800px; padding: 0; border-radius: 25px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
-        .gallery-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; background: #000; border-radius: 25px 25px 0 0; height: 450px; }
-        .gallery-img { flex: 0 0 100%; scroll-snap-align: start; object-fit: contain; height: 100%; }
+        .modal-content { background: white; width: 95%; max-width: 800px; padding: 0; border-radius: 25px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .gallery-wrapper { position: relative; width: 100%; height: 480px; background: #000; border-radius: 25px 25px 0 0; overflow: hidden; }
+        .gallery-container { display: flex; height: 100%; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .gallery-img { flex: 0 0 100%; object-fit: contain; height: 100%; }
+        
+        /* 左右大按键样式 */
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; font-size: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 2100; }
+        .nav-btn:hover { background: rgba(255,255,255,0.4); }
+        .nav-prev { left: 20px; }
+        .nav-next { right: 20px; }
 
-        .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
-        .post-bar { background: var(--green); color: white; padding: 18px; text-align: center; font-weight: 600; }
         .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 700; margin-top: 15px; }
-
         footer { text-align: center; padding: 60px 10%; color: #94a3b8; font-size: 0.85rem; background: white; border-top: 1px solid #eee; }
     </style>
 </head>
@@ -79,7 +91,7 @@
         tableName: 'Table 1'
     };
 
-    let allListings = []; let curLang = 'zh'; let activeSvc = '';
+    let allListings = []; let curLang = 'zh'; let curSlide = 0;
     let map = L.map('map').setView([49.24, -123.05], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -98,7 +110,7 @@
             next: "Next", agree: "Authorize",
             ins: "Tenant Insurance", move: "Moving", clean: "Cleaning",
             footer: "Disclaimer: Sourced from crawlers and direct posts. &copy; 2026 HavenNest App.",
-            insPop: `<h3>Why Tenant Insurance?</h3><p>It's the ultimate safety net for your peace of mind.</p>`
+            insPop: `<h3>Why Tenant Insurance?</h3><p style="color:#166534; font-weight:bold;">It's the ultimate safety net for your belongings and peace of mind.</p>`
         }
     };
 
@@ -114,14 +126,14 @@
     }
 
     async function init() {
-        const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
+        const airtableUrl = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
+        let airtableItems = [];
         try {
-            const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
+            const res = await fetch(airtableUrl, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             const data = await res.json();
-            allListings = await Promise.all(data.records.map(async r => {
+            airtableItems = await Promise.all(data.records.map(async r => {
                 const f = r.fields;
                 const coords = await getCoords(f['房源具体地址 (Address)'] || "Vancouver");
-                // 抓取所有图片附件
                 const photos = f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'].map(p => p.url) : [];
                 return {
                     id: r.id, source: "屋主直发",
@@ -136,6 +148,15 @@
                 };
             }));
         } catch(e) {}
+
+        let crawlItems = [];
+        try {
+            const crawlRes = await fetch('listings.json?t=' + Date.now());
+            const crawlData = await crawlRes.json();
+            crawlItems = crawlData.map(i => ({...i, source: "抓取房源", lat: 49.25+(Math.random()-0.5)*0.1, lng: -123.05+(Math.random()-0.5)*0.1}));
+        } catch(e) {}
+        
+        allListings = [...airtableItems, ...crawlItems]; // 双流归位 [cite: 2026-02-28]
         updateUI();
     }
 
@@ -153,32 +174,27 @@
         const ui = document.getElementById('listing-ui'); ui.innerHTML = '';
         map.eachLayer(l => { if(l instanceof L.Marker) map.removeLayer(l); });
 
-        // 3. 聚合逻辑：按地址分组 [cite: 2026-03-01]
         const grouped = {};
         allListings.forEach(i => {
-            const key = `${i.lat}_${i.lng}`;
+            const key = `${i.lat.toFixed(4)}_${i.lng.toFixed(4)}`;
             if(!grouped[key]) grouped[key] = [];
             grouped[key].push(i);
         });
 
-        // 渲染地图点
         Object.values(grouped).forEach(items => {
             const first = items[0];
             const marker = L.marker([first.lat, first.lng]).addTo(map);
-            
-            // 地图弹窗：支持多房源挑选 [cite: 2026-03-01]
-            let popupHtml = `<div style="min-width:200px;"><b>${first.address}</b><hr>`;
-            items.forEach((item, idx) => {
-                popupHtml += `<div style="margin-bottom:10px;">
+            let popupHtml = `<div style="min-width:220px;"><b>${first.address || 'Listing Location'}</b><hr>`;
+            items.forEach(item => {
+                popupHtml += `<div style="margin-bottom:12px;">
                     <span style="color:var(--primary); font-weight:800;">$${item.price}</span> - ${item.title}<br>
-                    <button onclick="window.showDetailById('${item.id}')" style="background:var(--primary); color:white; border:none; padding:4px 8px; border-radius:5px; font-size:11px; cursor:pointer; margin-top:5px;">查看详情 / View</button>
+                    <button onclick="window.showDetailById('${item.id || item.title}')" style="background:var(--primary); color:white; border:none; padding:5px 10px; border-radius:5px; font-size:11px; cursor:pointer; margin-top:5px;">查看详情 / View</button>
                 </div>`;
             });
             popupHtml += `</div>`;
             marker.bindPopup(popupHtml);
         });
 
-        // 渲染房源卡片
         allListings.forEach(i => {
             const card = document.createElement('div');
             card.className = `card ${i.isPromo ? 'gold-frame' : ''}`;
@@ -189,35 +205,42 @@
         });
     }
 
-    // 全局方法，供地图按钮调用
-    window.showDetailById = (id) => { const item = allListings.find(x => x.id === id); if(item) showDetail(item); };
+    window.showDetailById = (id) => { const item = allListings.find(x => (x.id === id || x.title === id)); if(item) showDetail(item); };
 
     function showDetail(i) {
+        if(i.source === "抓取房源" && i.url) { window.open(i.url, '_blank'); return; }
         const modal = document.getElementById('detailModal');
-        // 2. 多图画廊逻辑 [cite: 2026-03-01]
-        let galleryHtml = `<div class="gallery-container">`;
-        if(i.images && i.images.length > 0) {
-            i.images.forEach(src => { galleryHtml += `<img src="${src}" class="gallery-img">`; });
-        } else {
-            galleryHtml += `<img src="${i.image}" class="gallery-img">`;
-        }
-        galleryHtml += `</div>`;
+        const images = (i.images && i.images.length > 0) ? i.images : [i.image];
+        curSlide = 0;
 
-        modal.innerHTML = `<div class="modal-content" style="text-align:left;">
-            <span style="position:absolute; top:15px; right:20px; font-size:35px; color:white; cursor:pointer; z-index:2100;" onclick="closeDetail()">×</span>
-            ${galleryHtml}
-            <div style="padding:40px;">
-                <h1 style="color:var(--primary); margin:0;">$${i.price} / mo</h1>
-                <h2>${i.title}</h2>
-                <p style="color:#666; line-height:1.8;">${i.desc}</p>
-                <div style="background:#f1f5f9; padding:20px; border-radius:15px; margin-top:20px;">
-                    <strong>联系方式 / Contact:</strong><br>📞 ${i.phone || 'Protected'} | 📧 ${i.email || 'Protected'}
+        let galleryContent = images.map(img => `<img src="${img}" class="gallery-img">`).join('');
+        
+        modal.innerHTML = `
+            <div class="modal-content" style="text-align:left;">
+                <span style="position:absolute; top:15px; right:20px; font-size:35px; color:white; cursor:pointer; z-index:2200; text-shadow:0 0 10px rgba(0,0,0,0.5);" onclick="closeDetail()">×</span>
+                <div class="gallery-wrapper">
+                    ${images.length > 1 ? '<button class="nav-btn nav-prev" onclick="changeSlide(-1)">❮</button><button class="nav-btn nav-next" onclick="changeSlide(1)">❯</button>' : ''}
+                    <div class="gallery-container" id="gallery-con">${galleryContent}</div>
                 </div>
-                <button class="btn-action" onclick="closeDetail(); openSOP('ins');">为此房源申请租客保险 / Apply Insurance</button>
-                <p style="text-align:center; color:#999; font-size:12px; margin-top:15px;">⬅️ 左右滑动查看更多照片 ➡️</p>
-            </div>
-        </div>`;
+                <div style="padding:40px;">
+                    <h1 style="color:var(--primary); margin:0;">$${i.price} / mo</h1>
+                    <h2>${i.title}</h2>
+                    <p style="color:#666; line-height:1.8; white-space:pre-wrap;">${i.desc}</p>
+                    <div style="background:#f1f5f9; padding:20px; border-radius:15px; margin-top:20px;">
+                        <strong>联系方式 / Contact:</strong><br>📞 ${i.phone || 'Protected'} | 📧 ${i.email || 'Protected'}
+                    </div>
+                    <button class="btn-action" onclick="closeDetail(); openSOP('ins');">为此房源申请租客保险 / Apply Insurance</button>
+                    ${images.length > 1 ? '<p style="text-align:center; color:#999; font-size:12px; margin-top:15px;">点击两侧按钮或左右滑动查看共 '+images.length+' 张照片</p>' : ''}
+                </div>
+            </div>`;
         modal.style.display = 'flex';
+    }
+
+    function changeSlide(dir) {
+        const con = document.getElementById('gallery-con');
+        const total = con.children.length;
+        curSlide = (curSlide + dir + total) % total;
+        con.style.transform = `translateX(-${curSlide * 100}%)`;
     }
 
     function closeDetail() { document.getElementById('detailModal').style.display = 'none'; }
