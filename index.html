@@ -3,169 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest - 大温专业房源门户 | Greater Vancouver Housing</title>
+    <title>HavenNest - 专业房源门户</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        :root {
-            --navy-blue: #002147; /* 品牌主色：深海蓝 */
-            --matte-gold: #D4AF37; /* 品牌辅助色：哑光金 */
-            --white: #ffffff;
-            --gray: #f8f9fa;
-        }
-
-        /* 核心视觉：1.5px 立体金色边框推广逻辑 [cite: 2026-03-01, 2026-03-04] */
-        .gold-frame {
-            border: 1.5px solid var(--matte-gold) !important;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4) !important;
-            transform: translateY(-2px);
-            position: relative;
-        }
-        .featured-tag {
-            position: absolute; top: 10px; right: 10px;
-            background: var(--matte-gold); color: white;
-            font-size: 11px; padding: 4px 10px; border-radius: 4px;
-            font-weight: bold; z-index: 10;
-        }
-
-        /* 页面基础布局 */
-        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: var(--gray); color: #333; }
-        header { 
-            background: var(--navy-blue); color: white; padding: 15px 5%; 
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo-text { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
-        
-        #map { height: 400px; width: 100%; border-bottom: 3px solid var(--matte-gold); }
-
-        /* 房源列表布局 [cite: 2026-03-01] */
-        .container { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        .listing-card { 
-            background: white; border-radius: 16px; overflow: hidden; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease;
-            position: relative;
-        }
-        .img-container { width: 100%; height: 220px; overflow: hidden; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .listing-info { padding: 20px; }
-        .price { color: var(--navy-blue); font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
-        .specs { color: #666; font-size: 0.95rem; margin-bottom: 12px; display: flex; gap: 10px; }
-        .title { font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; height: 2.8em; overflow: hidden; }
-
-        /* 保险 SOP 按钮 [cite: 2026-02-28, 2026-03-02] */
-        .btn-insurance { 
-            background: var(--navy-blue); color: white; border: none; 
-            padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer;
-            width: 100%; transition: 0.2s;
-        }
-
-        /* 4步保险弹窗样式 */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 5% auto; padding: 40px; border-radius: 20px; width: 90%; max-width: 500px; text-align: center; }
-        .modal-title { color: var(--navy-blue); font-size: 1.4rem; margin-bottom: 15px; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .btn-submit { background: var(--matte-gold); color: white; border: none; padding: 14px; border-radius: 8px; width: 100%; font-weight: 700; cursor: pointer; }
+        :root { --navy: #002147; --gold: #D4AF37; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: var(--bg); color: #333; }
+        header { background: var(--navy); color: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; }
+        #map { height: 420px; width: 100%; border-bottom: 4px solid var(--gold); }
+        .container { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .listing-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; }
+        .listing-info { padding: 25px; }
+        .price { color: var(--navy); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+        .title { font-size: 1.15rem; font-weight: 700; height: 2.8em; overflow: hidden; margin-bottom: 20px; }
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-main { background: var(--navy); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; grid-column: span 2; margin-bottom: 5px; }
+        .btn-sub { background: #f0f0f0; color: #555; border: none; padding: 10px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
+        .disclaimer { font-size: 0.8rem; color: #888; padding: 50px 10%; text-align: center; border-top: 1px solid #ddd; background: #fff; line-height: 1.6; }
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
+        .modal-content { background: white; margin: 5% auto; padding: 40px; border-radius: 25px; width: 90%; max-width: 500px; text-align: center; }
+        .btn-submit { background: var(--gold); color: white; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo-text">HAVENNEST</div>
-    <div style="font-size: 0.9rem; opacity: 0.8;">专家团队官方发布 / Official Team</div>
+    <div style="font-size: 0.9rem; font-weight: 600;">专家团队官方发布 / Official Team</div>
 </header>
 
 <div id="map"></div>
 
-<div class="container" id="listing-grid">
-    </div>
+<div class="container" id="listings">
+    <h3 style="grid-column: 1/-1; text-align: center; color: #666;">正在同步房源数据...</h3>
+</div>
 
-<div id="sopModal" class="modal">
+<div class="disclaimer">
+    <strong>免责声明 / Disclaimer:</strong><br>
+    HavenNest 为房源信息聚合平台。房源数据来源于屋主自助发布或公开渠道。本平台不对信息的 100% 真实性负责。租客保险由持牌专家提供，搬家及清洁由合作机构提供。
+</div>
+
+<div id="serviceModal" class="modal">
     <div class="modal-content">
-        <h2 class="modal-title">守住最后一道防线 / Last Line of Defense</h2>
-        <p style="color:#666; margin-bottom:20px;">租客保险不仅是房东要求，更是为您自己的安全守住防线。 / Protect your belongings and liability.</p>
-        <input type="text" id="ins-name" placeholder="Full Name / 姓名">
-        <input type="text" id="ins-phone" placeholder="Phone Number / 电话">
-        <button class="btn-submit" onclick="submitInsurance()">提交申请并调起邮件 / Submit & Open Mail</button>
-        <p onclick="closeModal()" style="color:#999; margin-top:15px; cursor:pointer; font-size:0.9rem;">返回 / Back</p>
+        <h2 id="modal-title" style="color:var(--navy);">申请专属服务</h2>
+        <input type="text" id="cust-name" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;" placeholder="您的姓名 / Full Name">
+        <input type="text" id="cust-phone" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;" placeholder="电话号码 / Phone Number">
+        <button class="btn-submit" onclick="submitRequest()">提交申请 / Submit</button>
+        <p onclick="closeModal()" style="color:#999; margin-top:20px; cursor:pointer;">返回 / Back</p>
     </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // Martin：您的专属配置已注入
+    // 【物理焊死区域】引号已由 Martin 改正
     const CONFIG = {
         baseId: 'appfs8aXtirNbrbWa',
         token: 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364',
         supportEmail: 'support@havennestapp.com'
     };
 
-    async function start() {
+    let map;
+
+    async function init() {
         initMap();
-        await loadListings();
+        await fetchData();
     }
 
     function initMap() {
-        const map = L.map('map').setView([49.2827, -123.1207], 11);
+        map = L.map('map').setView([49.2827, -123.1207], 11);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
     }
 
-    async function loadListings() {
-        const url = `https://api.airtable.com/v1/${CONFIG.baseId}/Table%201?sort%5B0%5D%5Bfield%5D=Promotion&sort%5B0%5D%5Bdirection%5D=desc`;
-        const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
-        const data = await res.json();
-        
-        const grid = document.getElementById('listing-grid');
-        data.records.forEach(record => {
-            const f = record.fields;
+    async function fetchData() {
+        try {
+            const url = `https://api.airtable.com/v1/${CONFIG.baseId}/Table%201`;
+            const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
+            const data = await res.json();
             
-            // 11 城级联联动逻辑 [cite: 2026-03-01]
-            let community = "Greater Vancouver";
-            const cities = ['Vancouver', 'Richmond', 'Burnaby', 'Surrey', 'Coquitlam', 'Langley'];
-            cities.forEach(city => { if(f[`Comm_${city}`]) community = f[`Comm_${city}`]; });
+            const grid = document.getElementById('listings');
+            grid.innerHTML = ""; 
 
-            // 金边检测 [cite: 2026-03-04]
-            const isFeatured = f['Promotion'] && f['Promotion'] !== '无 / None';
-            
-            // 抓取首张照片 [cite: 2026-03-04]
-            const photo = f['Property Photos'] ? f['Property Photos'][0].url : 'https://via.placeholder.com/400x250';
+            data.records.forEach(record => {
+                const f = record.fields;
+                // 精确对齐 image_7b10ad.png 中的字段名
+                const title = f['房源标题 (Listing Title)'] || "Luxury Listing";
+                const rent = f['月租金 (Monthly Rent)'] || "0";
+                const city = f['所属城市 (City)'] || "Greater Vancouver";
 
-            const card = document.createElement('div');
-            card.className = `listing-card ${isFeatured ? 'gold-frame' : ''}`;
-            card.innerHTML = `
-                ${isFeatured ? '<div class="featured-tag">FEATURED</div>' : ''}
-                <div class="img-container"><img src="${photo}"></div>
-                <div class="listing-info">
-                    <div class="price">$${f['Monthly Rent (CAD)']}</div>
-                    <div class="specs"><span>🛏️ ${f['Beds']}</span> <span>🚿 ${f['Baths']}</span> <span>📁 ${f['Dens'] || 0}</span></div>
-                    <div class="title">${f['Listing Title']}</div>
-                    <div style="font-size:0.85rem; color:#888; margin-bottom:15px;">📍 ${community}</div>
-                    <button class="btn-insurance" onclick="openSOP('${f['Listing Title']}', '${community}')">申请租客保险 / Apply Insurance</button>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
+                const card = document.createElement('div');
+                card.className = 'listing-card';
+                card.innerHTML = `
+                    <div style="width:100%; height:230px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">Photo Coming Soon</div>
+                    <div class="listing-info">
+                        <div class="price">$${rent}</div>
+                        <div class="title">${title}</div>
+                        <div style="font-size:0.9rem; color:#888; margin-bottom:20px;">📍 ${city}</div>
+                        <div class="btn-group">
+                            <button class="btn-main" onclick="openSOP('租客保险', '${title}')">申请租客保险 / Insurance</button>
+                            <button class="btn-sub" onclick="openSOP('专业搬家', '${title}')">搬家服务 / Moving</button>
+                            <button class="btn-sub" onclick="openSOP('深度清洁', '${title}')">清洁服务 / Cleaning</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        } catch (e) {
+            document.getElementById('listings').innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: red;"><h3>数据同步异常 (Failed to fetch)</h3><p>请发布到 GitHub Pages 即可解决本地权限问题。</p></div>`;
+        }
     }
 
-    function openSOP(title, addr) {
-        sessionStorage.setItem('job_info', `${title} (${addr})`);
-        document.getElementById('sopModal').style.display = 'block';
+    function openSOP(type, house) {
+        sessionStorage.setItem('svc', `${type} - ${house}`);
+        document.getElementById('modal-title').innerText = `申请 ${type}`;
+        document.getElementById('serviceModal').style.display = 'block';
     }
-
-    function closeModal() { document.getElementById('sopModal').style.display = 'none'; }
-
-    function submitInsurance() {
-        const name = document.getElementById('ins-name').value;
-        const phone = document.getElementById('ins-phone').value;
-        const info = sessionStorage.getItem('job_info');
-        
-        if(!name || !phone) return alert('请完整填写 / Please fill all fields');
-
-        const body = `【HavenNest 保险申请】\n客户: ${name}\n电话: ${phone}\n房源: ${info}`;
-        window.location.href = `mailto:${CONFIG.supportEmail}?subject=Insurance Request - ${name}&body=${encodeURIComponent(body)}`;
+    function closeModal() { document.getElementById('serviceModal').style.display = 'none'; }
+    function submitRequest() {
+        const name = document.getElementById('cust-name').value;
+        const phone = document.getElementById('cust-phone').value;
+        const svc = sessionStorage.getItem('svc');
+        window.location.href = `mailto:${CONFIG.supportEmail}?subject=${encodeURIComponent(svc)}&body=客户: ${name}%0A电话: ${phone}`;
         closeModal();
     }
-
-    start();
+    init();
 </script>
 </body>
 </html>
