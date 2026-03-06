@@ -10,25 +10,40 @@
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; color: var(--dark); line-height: 1.6; }
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; }
-        .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; border: 1px solid #eee; padding: 5px 15px; border-radius: 20px; transition: 0.2s; }
+        .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; border: 1px solid #eee; padding: 5px 15px; border-radius: 20px; }
+
         #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); background: #e2e8f0; }
+
         .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
         .service-item:hover { transform: translateY(-5px); border-color: var(--accent); }
+
         .post-bar { background: var(--green); color: white; padding: 18px; text-align: center; font-weight: 600; }
         .post-btn { background: var(--accent); color: var(--green); padding: 10px 25px; border-radius: 10px; font-weight: 800; text-decoration: none; margin-left: 15px; display: inline-block; }
+
         .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; position: relative; display: flex; flex-direction: column; transition: 0.3s; }
-        .gold-frame { border: 2.5px solid var(--accent) !important; box-shadow: 0 4px 25px rgba(212, 175, 55, 0.4) !important; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; position: relative; display: flex; flex-direction: column; transition: 0.3s; cursor: pointer; }
+        
+        /* 1. 金边深度加粗版 [cite: 2026-03-04] */
+        .gold-frame { 
+            border: 5px solid var(--accent) !important; 
+            box-shadow: 0 4px 25px rgba(212, 175, 55, 0.5) !important; 
+            transform: translateY(-8px);
+        }
+        
         .card-img { height: 230px; background-size: cover; background-position: center; background-color: #eee; }
         .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
         .featured-tag { position: absolute; top: 10px; right: 10px; background: var(--accent); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; }
+
         .card-body { padding: 22px; flex-grow: 1; }
         .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; }
-        .listing-title-link { text-decoration: none; color: inherit; font-weight: bold; display: block; height: 3rem; overflow: hidden; }
+        .card-title { font-weight: bold; height: 3rem; overflow: hidden; display: block; font-size: 1.1rem; }
+
+        /* 2. 详情页及 SOP 弹窗 [cite: 2026-03-01, 2026-03-02] */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,33,71,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 90%; max-width: 600px; padding: 40px; border-radius: 25px; text-align: center; position: relative; }
-        .step { display: none; } .step.active { display: block; }
+        .modal-content { background: white; width: 95%; max-width: 700px; padding: 0; border-radius: 25px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; z-index: 2010; }
+        
         .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 700; margin-top: 15px; font-size: 1rem; }
         input, textarea { width: 100%; padding: 13px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
         footer { text-align: center; padding: 60px 10%; color: #94a3b8; font-size: 0.85rem; background: white; border-top: 1px solid #eee; }
@@ -42,7 +57,6 @@
 </header>
 
 <div id="map"></div>
-
 <div class="service-center" id="service-ui"></div>
 
 <div class="post-bar">
@@ -52,22 +66,25 @@
 
 <div class="grid" id="listing-ui"></div>
 
+<div id="detailModal" class="modal">
+    <div class="modal-content" id="detail-content" style="padding:0;">
+        </div>
+</div>
+
 <div id="svcModal" class="modal">
-    <div class="modal-content">
-        <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-size:24px;" onclick="closeModal()">×</span>
+    <div class="modal-content" style="padding:40px;">
+        <span class="modal-close" onclick="closeModal()">×</span>
         <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; color:#475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
-        <div id="step2" class="step"><h2 id="m_t2">授权告知</h2><p id="m_c2" style="text-align:left;"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
+        <div id="step2" class="step"><h2 id="m_t2"></h2><p id="m_c2" style="text-align:left;"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
         <div id="step3" class="step">
             <h2 id="m_t3">填写申请信息</h2>
             <input type="text" id="q_name">
             <input type="tel" id="q_phone">
             <input type="email" id="q_email">
-            <input type="text" id="q_dob">
-            <input type="text" id="q_eff_date">
             <input type="text" id="q_addr">
             <button class="btn-action" id="btn-gen" onclick="generateOutput()">生成申请表</button>
         </div>
-        <div id="step4" class="step"><h2 id="m_t4">表单已生成</h2><textarea id="outputBox" readonly></textarea><button class="btn-action" onclick="copyText()">复制文本 / Copy</button><button class="btn-action" style="background:#64748b" onclick="openEmail()">调起邮件发送 / Email</button></div>
+        <div id="step4" class="step"><h2 id="m_t4">表单已生成</h2><textarea id="outputBox" readonly style="height:150px;"></textarea><button class="btn-action" onclick="copyText()">复制文本</button><button class="btn-action" style="background:#64748b" onclick="openEmail()">发送邮件</button></div>
     </div>
 </div>
 
@@ -88,79 +105,91 @@
     const dict = {
         zh: {
             postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?", btnPost: "屋主发布",
-            next: "明白，下一步", agree: "同意授权并继续", gen: "生成正式申请表", name: "您的姓名", phone: "联系电话", emailLbl: "电子邮箱", dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", addr: "租房地址",
-            m_t2: "授权告知 / Authorization", m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的 6 项信息转交给承保机构进行报价。",
+            next: "明白，下一步", agree: "同意授权并继续", gen: "生成申请表", name: "您的姓名", phone: "联系电话", emailLbl: "电子邮箱", addr: "房源地址",
+            m_t2: "授权告知 / Authorization", m_c2: "您授权 HavenNest 将信息转交给承保机构进行报价。数据受隐私法保护。",
             ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
-            footer: "免责声明：本网站房源信息包含系统抓取及屋主直发。HavenNest 团队致力于提供最真实的租赁信息及专业的保险服务。&copy; 2026 HavenNest App.",
-            insPop: `<h3>为何必须购买租客保险？</h3><p style="color:#166534; font-weight:bold;">它是您生活安全的最后一道防线。</p>
-                    <ul style="text-align:left;"><li><strong>财物保障：</strong>覆盖家具、电子产品等受损。</li><li><strong>责任赔付：</strong>承担过失导致的高昂法律赔付。</li><li><strong>访客保障：</strong>理赔访客在您空间的意外受伤。</li><li><strong>额外生活费：</strong>理赔期间的酒店及食宿补助。</li></ul>`
+            footer: "免责声明：房源包含系统抓取及屋主直发。&copy; 2026 HavenNest App.",
+            // 终极复原长文案
+            insPop: `<h3>为何必须购买租客保险？</h3>
+                    <p style="color:#166534; font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
+                    <ul style="text-align:left;">
+                        <li><strong>财物保障：</strong>覆盖家具、电子产品及衣物受损。</li>
+                        <li><strong>责任赔付：</strong>承担过失导致房屋受损的高昂法律赔付。</li>
+                        <li><strong>访客保障：</strong>理赔访客在您空间的意外受伤。</li>
+                        <li><strong>额外生活费：</strong>理赔期间房屋无法居住时的酒店补助。</li>
+                    </ul>`
         },
         en: {
             postCta: "Have a vacancy? Post it on HavenNest for free!", btnPost: "Post Now",
-            next: "Next", agree: "Agree & Authorize", gen: "Generate Form", name: "Full Name", phone: "Phone", emailLbl: "Email", dob: "DOB (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", addr: "Address",
-            m_t2: "Authorization", m_c2: "You authorize HavenNest to securely transfer your 6 details to partners for quotes. Privacy protected.",
+            next: "Next", agree: "Agree & Authorize", gen: "Generate Form", name: "Full Name", phone: "Phone", emailLbl: "Email", addr: "Address",
+            m_t2: "Authorization", m_c2: "You authorize HavenNest to transfer details for quoting. Privacy protected.",
             ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
             footer: "Disclaimer: Sourced from crawlers and direct posts. &copy; 2026 HavenNest App.",
-            insPop: `<h3>Why Tenant Insurance?</h3><p style="color:#166534; font-weight:bold;">It's your essential safety net.</p>
-                    <ul style="text-align:left;"><li>Contents Coverage</li><li>Liability Protection</li><li>Visitor Safety</li><li>Extra Living Expenses</li></ul>`
+            insPop: `<h3>Why do you need Tenant Insurance?</h3>
+                    <p style="color:#166534; font-weight:bold;">It's the ultimate safety net for your belongings and financial peace of mind.</p>
+                    <ul style="text-align:left;">
+                        <li><strong>Contents:</strong> Protection for furniture/electronics.</li>
+                        <li><strong>Liability:</strong> Coverage for accidental damages.</li>
+                        <li><strong>Visitors:</strong> Covers medical bills for injuries in your home.</li>
+                        <li><strong>Expenses:</strong> Pays for hotel stays during repairs.</li>
+                    </ul>`
         }
     };
 
     function toggleLang() { curLang = curLang === 'zh' ? 'en' : 'zh'; updateUI(); }
 
-    function updateUI() {
-        const d = dict[curLang];
-        document.getElementById('post-cta-text').innerText = d.postCta;
-        document.getElementById('btn-post-now').innerText = d.btnPost;
-        document.getElementById('btn-next').innerText = d.next;
-        document.getElementById('btn-agree').innerText = d.agree;
-        document.getElementById('btn-gen').innerText = d.gen;
-        document.getElementById('q_name').placeholder = d.name;
-        document.getElementById('q_phone').placeholder = d.phone;
-        document.getElementById('q_email').placeholder = d.emailLbl;
-        document.getElementById('q_dob').placeholder = d.dob;
-        document.getElementById('q_eff_date').placeholder = d.eff;
-        document.getElementById('q_addr').placeholder = d.addr;
-        document.getElementById('m_c2').innerText = d.m_c2;
-        document.getElementById('lang-btn').innerText = curLang === 'zh' ? 'English' : '中文';
-        document.getElementById('footer-text').innerHTML = d.footer;
-        const svcs = [{k:'ins', i:'🛡️', t: d.ins}, {k:'move', i:'📦', t: d.move}, {k:'clean', i:'🧹', t: d.clean}];
-        document.getElementById('service-ui').innerHTML = svcs.map(s => `<div class="service-item" onclick="openModal('${s.k}')"><div style="font-size:3rem;">${s.i}</div><strong>${s.t}</strong></div>`).join('');
-        renderListings();
-    }
-
-    // 【方案 B 核心：地址自动寻迹解析】 [cite: 2026-03-03]
     async function getCoordinates(address) {
         try {
-            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address + ', BC, Canada')}`;
-            const res = await fetch(url);
+            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address + ', BC')}`);
             const data = await res.json();
             if (data.length > 0) return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-        } catch(e) { console.warn("Geocoding failed for: " + address); }
-        return [49.24 + (Math.random()-0.5)*0.1, -123.05 + (Math.random()-0.5)*0.1]; 
+        } catch(e) {}
+        return [49.24 + (Math.random()-0.5)*0.1, -123.05 + (Math.random()-0.5)*0.1];
     }
 
     async function init() {
         const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
+        let airtableItems = [];
         try {
             const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             const data = await res.json();
-            allListings = await Promise.all(data.records.map(async r => {
+            airtableItems = await Promise.all(data.records.map(async r => {
                 const f = r.fields;
-                const addr = f['房源具体地址 (Address)'] || "Greater Vancouver";
-                const coords = await getCoordinates(addr); // 执行方案 B 解析 [cite: 2026-03-03]
+                const coords = await getCoordinates(f['房源具体地址 (Address)'] || "Vancouver");
                 return {
-                    source: "屋主直发",
-                    title: f['房源标题 (Listing Title)'] || "Premium Rental",
+                    id: r.id, source: "屋主直发",
+                    title: f['房源标题 (Listing Title)'] || "Premium Listing",
                     price: parseInt(String(f['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0,
                     isPromo: f['推广级别 (Promotion)'] && f['推广级别 (Promotion)'].includes('限时免费推广'),
                     image: f['房源照片 / Property Photos']?.[0]?.url || "", 
-                    url: f['房源链接 (Link)'] || "#",
-                    lat: coords[0], lng: coords[1], city: f['所属城市 (City)']
+                    desc: f['房源描述 (Description)'] || "暂无描述。",
+                    lat: coords[0], lng: coords[1], city: f['所属城市 (City)'],
+                    phone: f['联系电话 (Phone)'], email: f['电子邮箱 (Email)']
                 };
             }));
-        } catch(e) { console.error("Airtable sync error"); }
+        } catch(e) {}
+
+        // 3. 找回抓取房源合并逻辑 [cite: 2026-02-28]
+        let crawlItems = [];
+        try {
+            const crawlRes = await fetch('listings.json?t=' + Date.now());
+            crawlItems = await crawlRes.json();
+            crawlItems = crawlItems.map(i => ({...i, source: "抓取房源", lat: 49.25+(Math.random()-0.5)*0.1, lng: -123.05+(Math.random()-0.5)*0.1}));
+        } catch(e) {}
+        
+        allListings = [...airtableItems, ...crawlItems];
         updateUI();
+    }
+
+    function updateUI() {
+        const d = dict[curLang];
+        document.getElementById('post-cta-text').innerText = d.postCta;
+        document.getElementById('btn-post-now').innerText = d.btnPost;
+        document.getElementById('lang-btn').innerText = curLang === 'zh' ? 'English' : '中文';
+        document.getElementById('footer-text').innerHTML = d.footer;
+        const svcs = [{k:'ins', i:'🛡️', t: d.ins}, {k:'move', i:'📦', t: d.move}, {k:'clean', i:'🧹', t: d.clean}];
+        document.getElementById('service-ui').innerHTML = svcs.map(s => `<div class="service-item" onclick="openSOP('${s.k}')"><div style="font-size:3rem;">${s.i}</div><strong>${s.t}</strong></div>`).join('');
+        renderListings();
     }
 
     function renderListings() {
@@ -170,31 +199,46 @@
             L.marker([i.lat, i.lng]).addTo(map).bindPopup(`<b>$${i.price}</b><br>${i.title}`);
             const card = document.createElement('div'); 
             card.className = `card ${i.isPromo ? 'gold-frame' : ''}`;
+            card.onclick = () => showDetail(i); // 2. 点击进入详情页
             card.innerHTML = `
                 ${i.isPromo ? '<div class="featured-tag">FEATURED</div>' : ''}
-                <div class="card-img" style="background-image:url('${i.image || 'https://via.placeholder.com/400x300?text=Photo+Coming+Soon'}')"><div class="tag">${i.source}</div></div>
+                <div class="tag">${i.source}</div>
+                <div class="card-img" style="background-image:url('${i.image || 'https://via.placeholder.com/400x300'}')"></div>
                 <div class="card-body">
                     <div class="price">$${i.price.toLocaleString()}</div>
-                    <a href="${i.url}" target="_blank" class="listing-title-link">${i.title}</a>
-                    <div style="font-size:0.8rem; color:#94a3b8; margin-top:10px;">📍 ${i.city || 'Greater Vancouver'}</div>
+                    <span class="card-title">${i.title}</span>
                 </div>`;
             ui.appendChild(card);
         });
     }
 
-    function openModal(s) {
-        activeSvc = s; const d = dict[curLang];
-        document.getElementById('m_t1').innerText = d[s];
-        document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]} services.</p>`;
-        document.getElementById('svcModal').style.display = 'flex'; nextStep(1);
+    function showDetail(i) {
+        if(i.source === "抓取房源" && i.url) { window.open(i.url, '_blank'); return; }
+        const modal = document.getElementById('detailModal');
+        modal.innerHTML = `
+            <span class="modal-close" style="color:white; top:10px; right:20px;" onclick="closeDetail()">×</span>
+            <div class="modal-content" style="max-width:800px; text-align:left;">
+                <div style="width:100%; height:400px; background-image:url('${i.image}'); background-size:cover; background-position:center; border-radius:25px 25px 0 0;"></div>
+                <div style="padding:40px;">
+                    <h1 style="color:var(--primary); margin:0;">$${i.price} / mo</h1>
+                    <h2>${i.title}</h2>
+                    <p style="color:#666; font-size:1.1rem; line-height:1.8;">${i.desc}</p>
+                    <div style="background:#f1f5f9; padding:20px; border-radius:15px; margin-top:20px;">
+                        <strong>联系方式 / Contact:</strong><br>
+                        📞 ${i.phone || 'Protected'} | 📧 ${i.email || 'Protected'}
+                    </div>
+                    <button class="btn-action" onclick="closeDetail(); openSOP('ins');">为此房源申请租客保险 / Apply Insurance</button>
+                </div>
+            </div>
+        `;
+        modal.style.display = 'flex';
     }
+
+    function closeDetail() { document.getElementById('detailModal').style.display = 'none'; }
+    function openSOP(s) { activeSvc = s; const d = dict[curLang]; document.getElementById('m_t1').innerText = d[s]; document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]}</p>`; document.getElementById('svcModal').style.display = 'flex'; nextStep(1); }
     function closeModal() { document.getElementById('svcModal').style.display = 'none'; }
     function nextStep(s) { document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); document.getElementById('step'+s).classList.add('active'); }
-    function generateOutput() {
-        const v = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, e: document.getElementById('q_email').value, d: document.getElementById('q_dob').value, ed: document.getElementById('q_eff_date').value, a: document.getElementById('q_addr').value };
-        document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${v.n}\nPhone: ${v.p}\nEmail: ${v.e}\nDOB: ${v.d}\nDate: ${v.ed}\nAddr: ${v.a}`;
-        nextStep(4);
-    }
+    function generateOutput() { const v = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, e: document.getElementById('q_email').value, a: document.getElementById('q_addr').value }; document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${v.n}\nPhone: ${v.p}\nEmail: ${v.e}\nAddr: ${v.a}`; nextStep(4); }
     function copyText() { document.getElementById('outputBox').select(); document.execCommand('copy'); alert('Copied!'); }
     function openEmail() { window.location.href = `mailto:support@havennestapp.com?subject=Inquiry_${activeSvc}&body=${encodeURIComponent(document.getElementById('outputBox').value)}`; }
     init();
