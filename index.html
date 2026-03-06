@@ -6,42 +6,40 @@
     <title>HavenNest 安家居 - 大温房产门户 2.0 终极版</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        :root { --primary: #002147; --accent: #D4AF37; --bg: #f8fafc; --dark: #1e293b; }
+        :root { --primary: #002147; --accent: #D4AF37; --bg: #f8fafc; --dark: #1e293b; --green: #166534; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; color: var(--dark); line-height: 1.6; }
-        
-        /* 顶部视觉 */
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; }
         .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; border: 1px solid #eee; padding: 5px 15px; border-radius: 20px; transition: 0.2s; }
 
-        /* 筛选器 */
-        .filter-bar { background: white; padding: 20px 5%; display: flex; gap: 15px; flex-wrap: wrap; border-bottom: 1px solid #e2e8f0; }
-        .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
-        .filter-group label { font-size: 0.75rem; font-weight: bold; color: #94a3b8; }
-        select { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; background: #fff; }
+        #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); background: #e2e8f0; }
 
-        #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--accent); background: #e2e8f0; }
-
-        /* 服务铁三角 */
+        /* 获客铁三角 */
         .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
-        .service-item:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .service-item:hover { transform: translateY(-5px); border-color: var(--accent); }
 
-        /* 房源卡片网格 */
+        /* 屋主发布条 */
+        .post-bar { background: var(--green); color: white; padding: 18px; text-align: center; font-weight: 600; }
+        .post-btn { background: var(--accent); color: var(--green); padding: 10px 25px; border-radius: 10px; font-weight: 800; text-decoration: none; margin-left: 15px; display: inline-block; }
+
+        /* 房源网格 */
         .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; position: relative; display: flex; flex-direction: column; transition: 0.3s; }
         .card-img { height: 230px; background-size: cover; background-position: center; background-color: #eee; }
-        .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; }
+        .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
         .card-body { padding: 22px; flex-grow: 1; }
         .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; }
-        .listing-title-link { text-decoration: none; color: inherit; font-weight: bold; display: block; height: 3rem; overflow: hidden; }
+        .listing-title-link { text-decoration: none; color: inherit; font-weight: bold; display: block; height: 3rem; overflow: hidden; margin-bottom: 15px; }
+        .listing-title-link:hover { color: var(--accent); }
 
         /* SOP 弹窗 */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,33,71,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-content { background: white; width: 90%; max-width: 600px; padding: 40px; border-radius: 25px; text-align: center; position: relative; }
         .step { display: none; } .step.active { display: block; }
-        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-top: 15px; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 700; margin-top: 15px; font-size: 1rem; }
         input, textarea { width: 100%; padding: 13px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        textarea { height: 120px; }
 
         footer { text-align: center; padding: 60px 10%; color: #94a3b8; font-size: 0.85rem; background: white; border-top: 1px solid #eee; }
     </style>
@@ -49,29 +47,37 @@
 <body>
 
 <header>
-    <a href="#" class="logo">HAVENNEST</a>
+    <a href="#" class="logo">HavenNest 安家居</a>
     <div class="lang-toggle" onclick="toggleLang()" id="lang-btn">English / 中文</div>
 </header>
-
-<div class="filter-bar">
-    <div class="filter-group"><label id="lbl-city"></label><select id="f-city" onchange="applyFilters()"></select></div>
-    <div class="filter-group"><label id="lbl-rent"></label><select id="f-rent" onchange="applyFilters()"></select></div>
-    <div class="filter-group"><label id="lbl-bed"></label><select id="f-bed" onchange="applyFilters()"></select></div>
-</div>
 
 <div id="map"></div>
 
 <div class="service-center" id="service-ui"></div>
+
+<div class="post-bar">
+    <span id="post-cta-text">拥有空置房源？免费发布至平台 / Have a vacancy?</span>
+    <a href="https://airtable.com/appfs8aXtirNbrbWa/pagXqvAuxxoHDzsPF/form" target="_blank" class="post-btn" id="btn-post-now">屋主发布</a>
+</div>
 
 <div class="grid" id="listing-ui"></div>
 
 <div id="svcModal" class="modal">
     <div class="modal-content">
         <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-size:24px;" onclick="closeModal()">×</span>
-        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
-        <div id="step2" class="step"><h2 id="m_t2"></h2><p id="m_c2"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
-        <div id="step3" class="step"><h2 id="m_t3">填写申请</h2><input type="text" id="q_name"><input type="tel" id="q_phone"><input type="email" id="q_email"><input type="text" id="q_addr"><button class="btn-action" id="btn-gen" onclick="generateOutput()"></button></div>
-        <div id="step4" class="step"><h2 id="m_t4">表单已生成</h2><textarea id="outputBox" readonly></textarea><button class="btn-action" onclick="copyText()">复制文本 / Copy</button><button class="btn-action" style="background:#64748b" onclick="openEmail()">打开邮件 / Email</button></div>
+        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; color:#475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
+        <div id="step2" class="step"><h2 id="m_t2">授权告知</h2><p id="m_c2" style="text-align:left;"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
+        <div id="step3" class="step">
+            <h2 id="m_t3">填写申请信息</h2>
+            <input type="text" id="q_name">
+            <input type="tel" id="q_phone">
+            <input type="email" id="q_email">
+            <input type="text" id="q_dob">
+            <input type="text" id="q_eff_date">
+            <input type="text" id="q_addr">
+            <button class="btn-action" id="btn-gen" onclick="generateOutput()">生成申请表</button>
+        </div>
+        <div id="step4" class="step"><h2 id="m_t4">表单已生成</h2><textarea id="outputBox" readonly></textarea><button class="btn-action" onclick="copyText()">复制文本 / Copy</button><button class="btn-action" style="background:#64748b" onclick="openEmail()">调起邮件发送 / Email</button></div>
     </div>
 </div>
 
@@ -79,33 +85,34 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // 强制锁定 Martin 的 Token 和 Base ID
     const CONFIG = {
         token: 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364',
         baseId: 'appfs8aXtirNbrbWa',
         tableName: 'Table 1'
     };
 
-    let allListings = []; let curLang = 'zh';
+    let allListings = []; let curLang = 'zh'; let activeSvc = '';
     let map = L.map('map').setView([49.24, -123.05], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     const dict = {
         zh: {
-            lblCity: "城市 / CITY", lblRent: "月租金 / RENT", lblBed: "卧室 / BED", cityAll: "全部地区", rentAll: "不限", bedAll: "不限",
-            next: "理解，下一步", agree: "同意授权", gen: "生成申请表",
-            m_t2: "授权告知", m_c2: "作为持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将信息转交给承保机构进行报价。",
+            cityAll: "全部地区", postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?", btnPost: "屋主发布",
+            next: "明白，下一步", agree: "同意授权并继续", gen: "生成正式申请表", name: "您的姓名", phone: "联系电话", emailLbl: "电子邮箱", dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", addr: "租房地址",
+            m_t2: "授权告知 / Authorization", m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的 6 项信息转交给承保机构进行报价。数据受隐私法保护。",
             ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
-            footer: "免责声明：本站房源信息包含系统抓取及屋主直发。HavenNest 致力于提供真实租赁信息及持牌保险服务。&copy; 2026 HavenNest App.",
-            insPop: `<h3>为何购买租客保险？</h3><p style="color:#27ae60; font-weight:bold;">它是您生活安全的最后一道防线。</p><ul><li>财物保障：火灾偷盗赔付。</li><li>责任赔付：承担第三方过失。</li></ul>`
+            footer: "免责声明：本网站房源信息包含系统抓取及屋主直发。HavenNest 团队致力于提供最真实的租赁信息及专业的保险服务。&copy; 2026 HavenNest App.",
+            insPop: `<h3>为何必须购买租客保险？</h3><p style="color:#166534; font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
+                    <ul style="text-align:left;"><li><strong>财物保障：</strong>覆盖家具、电子产品及衣物。</li><li><strong>责任赔付：</strong>承担因过失导致房屋受损的高昂赔付。</li><li><strong>访客保障：</strong>保障访客意外受伤医疗费。</li><li><strong>额外生活费：</strong>理赔期间房屋无法居住时的酒店补助。</li></ul>`
         },
         en: {
-            lblCity: "CITY", lblRent: "RENT", lblBed: "BED", cityAll: "All Cities", rentAll: "No Limit", bedAll: "Any",
-            next: "Next Step", agree: "Authorize", gen: "Generate Form",
-            m_t2: "Authorization", m_c2: "You authorize HavenNest to transfer your details to licensed partners for quotes.",
+            cityAll: "All Cities", postCta: "Have a vacancy? Post it on HavenNest for free!", btnPost: "Post Now",
+            next: "Next", agree: "Agree & Authorize", gen: "Generate Form", name: "Full Name", phone: "Phone", emailLbl: "Email", dob: "DOB (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", addr: "Address",
+            m_t2: "Authorization", m_c2: "You authorize HavenNest to securely transfer your 6 details to our partner broker for a quote. Your privacy is protected.",
             ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
-            footer: "Disclaimer: Sourced from crawlers and direct posts. HavenNest provides accurate info and licensed insurance. &copy; 2026 HavenNest App.",
-            insPop: `<h3>Why Tenant Insurance?</h3><p style="color:#27ae60; font-weight:bold;">It's your essential safety net.</p><ul><li>Contents Coverage</li><li>Liability Protection</li></ul>`
+            footer: "Disclaimer: Sourced from automated crawlers and direct posts. HavenNest provides accurate rental info and professional insurance. &copy; 2026 HavenNest App.",
+            insPop: `<h3>Why do you need Tenant Insurance?</h3><p style="color:#166534; font-weight:bold;">It's more than just a landlord's requirement; it's the ultimate safety net for your belongings and financial peace of mind.</p>
+                    <ul style="text-align:left;"><li><strong>Contents:</strong> Replaces furniture/tech after fire/theft.</li><li><strong>Liability:</strong> Protects you from legal costs for damages.</li><li><strong>Visitors:</strong> Covers medical bills if someone gets hurt.</li><li><strong>Expenses:</strong> Pays for hotel stays during repairs.</li></ul>`
         }
     };
 
@@ -113,68 +120,70 @@
 
     function updateUI() {
         const d = dict[curLang];
-        document.getElementById('lbl-city').innerText = d.lblCity;
-        document.getElementById('lbl-rent').innerText = d.lblRent;
-        document.getElementById('lbl-bed').innerText = d.lblBed;
+        document.getElementById('post-cta-text').innerText = d.postCta;
+        document.getElementById('btn-post-now').innerText = d.btnPost;
+        document.getElementById('btn-next').innerText = d.next;
+        document.getElementById('btn-agree').innerText = d.agree;
+        document.getElementById('btn-gen').innerText = d.gen;
+        document.getElementById('q_name').placeholder = d.name;
+        document.getElementById('q_phone').placeholder = d.phone;
+        document.getElementById('q_email').placeholder = d.emailLbl;
+        document.getElementById('q_dob').placeholder = d.dob;
+        document.getElementById('q_eff_date').placeholder = d.eff;
+        document.getElementById('q_addr').placeholder = d.addr;
+        document.getElementById('m_c2').innerText = d.m_c2;
         document.getElementById('lang-btn').innerText = curLang === 'zh' ? 'English' : '中文';
         document.getElementById('footer-text').innerHTML = d.footer;
-        
-        const citySel = document.getElementById('f-city');
-        citySel.innerHTML = `<option value="All">${d.cityAll}</option><option value="Vancouver">Vancouver</option><option value="Richmond">Richmond</option><option value="Burnaby">Burnaby</option>`;
         
         const svcs = [{k:'ins', i:'🛡️', t: d.ins}, {k:'move', i:'📦', t: d.move}, {k:'clean', i:'🧹', t: d.clean}];
         document.getElementById('service-ui').innerHTML = svcs.map(s => `<div class="service-item" onclick="openModal('${s.k}')"><div style="font-size:3rem;">${s.i}</div><strong>${s.t}</strong></div>`).join('');
         
-        applyFilters();
+        renderListings();
     }
 
     async function init() {
-        updateUI();
-        // 精准对齐 image_7a9be9.png 的中英混合字段名
-        const airtableUrl = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
+        // Airtable 抓取
+        const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
         try {
-            const res = await fetch(airtableUrl, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
+            const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             const data = await res.json();
-            const airtableItems = data.records.map(r => {
+            allListings = data.records.map(r => {
                 const f = r.fields;
                 return {
                     source: "屋主直发",
-                    title: f['房源标题 (Listing Title)'] || "Premium Rental",
+                    title: f['房源标题 (Listing Title)'] || "Premium Listing",
                     price: parseInt(String(f['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0,
                     city: f['所属城市 (City)'] || "Vancouver",
-                    bed: parseInt(f['卧室数量 (Beds)']) || 1,
-                    image: f['Property Photos']?.[0]?.url || f['房源照片 (Photos)']?.[0]?.url || "",
+                    image: f['房源照片 (Photos)']?.[0]?.url || f['Property Photos']?.[0]?.url || "",
                     url: f['房源链接 (Link)'] || "#",
-                    lat: 49.24 + (Math.random()-0.5)*0.05, lng: -123.05 + (Math.random()-0.5)*0.05
+                    lat: 49.24 + (Math.random()-0.5)*0.08, lng: -123.05 + (Math.random()-0.5)*0.08
                 };
             });
-            allListings = airtableItems;
         } catch(e) { console.error("Airtable sync error"); }
 
-        // 尝试加载 JSON [cite: 2026-02-28]
+        // JSON 房源抓取
         try {
             const crawlRes = await fetch('listings.json?t=' + Date.now());
-            const crawlData = await crawlRes.json();
-            allListings = [...allListings, ...crawlData.map(i => ({...i, source: "抓取房源", lat: 49.24+(Math.random()-0.5)*0.1, lng: -123.05+(Math.random()-0.5)*0.1}))];
+            const crawlItems = await crawlRes.json();
+            allListings = [...allListings, ...crawlItems.map(i => ({...i, source: "抓取房源", lat: 49.25+(Math.random()-0.5)*0.1, lng: -123.05+(Math.random()-0.5)*0.1}))];
         } catch(e) {}
-
-        applyFilters();
+        
+        updateUI();
     }
 
-    function applyFilters() {
-        const city = document.getElementById('f-city').value;
+    function renderListings() {
         const ui = document.getElementById('listing-ui'); ui.innerHTML = '';
         map.eachLayer(l => { if(l instanceof L.Marker) map.removeLayer(l); });
 
-        allListings.filter(i => city==='All' || i.city===city).forEach(i => {
+        allListings.forEach(i => {
             L.marker([i.lat, i.lng]).addTo(map).bindPopup(`<b>$${i.price}</b><br>${i.title}`);
             const card = document.createElement('div'); card.className = 'card';
             card.innerHTML = `
                 <div class="card-img" style="background-image:url('${i.image || 'https://via.placeholder.com/400x300'}')"><div class="tag">${i.source}</div></div>
                 <div class="card-body">
-                    <div class="price">$${i.price}</div>
+                    <div class="price">$${i.price.toLocaleString()}</div>
                     <a href="${i.url}" target="_blank" class="listing-title-link">${i.title}</a>
-                    <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:10px;">📍 ${i.city}</div>
+                    <div style="font-size:0.8rem; color:#94a3b8; margin-top:10px;">📍 ${i.city || i.location || 'Greater Vancouver'}</div>
                 </div>`;
             ui.appendChild(card);
         });
@@ -187,11 +196,17 @@
         document.getElementById('svcModal').style.display = 'flex'; nextStep(1);
     }
     function closeModal() { document.getElementById('svcModal').style.display = 'none'; }
-    function nextStep(s) { 
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-        document.getElementById('step'+s).classList.add('active'); 
-        if(s===2) { document.getElementById('m_t2').innerText = dict[curLang].m_t2; document.getElementById('m_c2').innerText = dict[curLang].m_c2; document.getElementById('btn-agree').innerText = dict[curLang].agree; }
-        if(s===1) document.getElementById('btn-next').innerText = dict[curLang].next;
+    function nextStep(s) { document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); document.getElementById('step'+s).classList.add('active'); }
+    
+    function generateOutput() {
+        const vals = { n: document.getElementById('q_name').value, p: document.getElementById('q_phone').value, e: document.getElementById('q_email').value, dob: document.getElementById('q_dob').value, ed: document.getElementById('q_eff_date').value, a: document.getElementById('q_addr').value };
+        document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()} Request]\nName: ${vals.n}\nPhone: ${vals.p}\nEmail: ${vals.e}\nDOB: ${vals.dob}\nEffective: ${vals.ed}\nAddr: ${vals.a}\nConsent: Authorized`;
+        nextStep(4);
+    }
+    function copyText() { document.getElementById('outputBox').select(); document.execCommand('copy'); alert('Copied!'); }
+    function openEmail() { 
+        const body = encodeURIComponent(document.getElementById('outputBox').value);
+        window.location.href = `mailto:support@havennestapp.com?subject=Inquiry_${activeSvc}&body=${body}`; 
     }
     init();
 </script>
