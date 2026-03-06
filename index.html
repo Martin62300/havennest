@@ -3,44 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest - 专业房源门户</title>
+    <title>HavenNest - 大温房产门户 | Greater Vancouver Housing</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root { --navy: #002147; --gold: #D4AF37; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: var(--bg); color: #333; }
-        header { background: var(--navy); color: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
+        header { background: var(--navy); color: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .logo-text { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; }
         #map { height: 420px; width: 100%; border-bottom: 4px solid var(--gold); }
         .container { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .listing-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; }
+        .listing-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; display: flex; flex-direction: column; }
         .listing-info { padding: 25px; }
         .price { color: var(--navy); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
         .title { font-size: 1.15rem; font-weight: 700; height: 2.8em; overflow: hidden; margin-bottom: 20px; }
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn-main { background: var(--navy); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; grid-column: span 2; margin-bottom: 5px; }
-        .btn-sub { background: #f0f0f0; color: #555; border: none; padding: 10px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
-        .disclaimer { font-size: 0.8rem; color: #888; padding: 50px 10%; text-align: center; border-top: 1px solid #ddd; background: #fff; line-height: 1.6; }
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn-main { background: var(--navy); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; grid-column: span 2; margin-bottom: 8px; }
+        .btn-sub { background: #f0f0f0; color: #555; border: none; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+        .disclaimer { font-size: 0.8rem; color: #888; padding: 50px 10%; line-height: 1.8; border-top: 1px solid #ddd; text-align: center; background: #fff; }
         .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
-        .modal-content { background: white; margin: 5% auto; padding: 40px; border-radius: 25px; width: 90%; max-width: 500px; text-align: center; }
-        .btn-submit { background: var(--gold); color: white; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: 800; cursor: pointer; }
+        .modal-content { background: white; margin: 5% auto; padding: 45px; border-radius: 25px; width: 90%; max-width: 500px; text-align: center; }
+        .btn-submit { background: var(--gold); color: white; border: none; padding: 16px; border-radius: 12px; width: 100%; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo-text">HAVENNEST</div>
-    <div style="font-size: 0.9rem; font-weight: 600;">专家团队官方发布 / Official Team</div>
+    <div style="font-size: 0.9rem; font-weight: 600; background: rgba(255,255,255,0.1); padding: 6px 15px; border-radius: 20px;">专家团队官方发布 / Official Team</div>
 </header>
 
 <div id="map"></div>
 
 <div class="container" id="listings">
-    <h3 style="grid-column: 1/-1; text-align: center; color: #666;">正在同步房源数据...</h3>
+    <h3 style="grid-column: 1/-1; text-align: center; color: #666;">正在同步大温房源数据...</h3>
 </div>
 
 <div class="disclaimer">
     <strong>免责声明 / Disclaimer:</strong><br>
-    HavenNest 为房源信息聚合平台。房源数据来源于屋主自助发布或公开渠道。本平台不对信息的 100% 真实性负责。租客保险由持牌专家提供，搬家及清洁由合作机构提供。
+    HavenNest 为房源信息聚合平台。房源数据来源于第三方公开渠道（如 Rental.ca 等）或屋主自助发布。本平台不对房源信息的真实性承担法律责任。租客保险由持牌专家团队提供，搬家及清洁服务由合作机构提供。
 </div>
 
 <div id="serviceModal" class="modal">
@@ -55,7 +55,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // 【物理焊死区域】引号已由 Martin 改正
     const CONFIG = {
         baseId: 'appfs8aXtirNbrbWa',
         token: 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364',
@@ -83,32 +82,35 @@
             const grid = document.getElementById('listings');
             grid.innerHTML = ""; 
 
-            data.records.forEach(record => {
-                const f = record.fields;
-                // 精确对齐 image_7b10ad.png 中的字段名
-                const title = f['房源标题 (Listing Title)'] || "Luxury Listing";
-                const rent = f['月租金 (Monthly Rent)'] || "0";
-                const city = f['所属城市 (City)'] || "Greater Vancouver";
+            if (data.records && data.records.length > 0) {
+                data.records.forEach(record => {
+                    const f = record.fields;
+                    const title = f['房源标题 (Listing Title)'] || "Luxury Rental";
+                    const rent = f['月租金 (Monthly Rent)'] || "0";
+                    const city = f['所属城市 (City)'] || "Vancouver";
 
-                const card = document.createElement('div');
-                card.className = 'listing-card';
-                card.innerHTML = `
-                    <div style="width:100%; height:230px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">Photo Coming Soon</div>
-                    <div class="listing-info">
-                        <div class="price">$${rent}</div>
-                        <div class="title">${title}</div>
-                        <div style="font-size:0.9rem; color:#888; margin-bottom:20px;">📍 ${city}</div>
-                        <div class="btn-group">
-                            <button class="btn-main" onclick="openSOP('租客保险', '${title}')">申请租客保险 / Insurance</button>
-                            <button class="btn-sub" onclick="openSOP('专业搬家', '${title}')">搬家服务 / Moving</button>
-                            <button class="btn-sub" onclick="openSOP('深度清洁', '${title}')">清洁服务 / Cleaning</button>
+                    const card = document.createElement('div');
+                    card.className = 'listing-card';
+                    card.innerHTML = `
+                        <div style="width:100%; height:230px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">Photo Coming Soon</div>
+                        <div class="listing-info">
+                            <div class="price">$${rent}</div>
+                            <div class="title">${title}</div>
+                            <div style="font-size:0.9rem; color:#888; margin-bottom:20px;">📍 ${city}</div>
+                            <div class="btn-group">
+                                <button class="btn-main" onclick="openSOP('租客保险', '${title}')">申请租客保险 / Insurance</button>
+                                <button class="btn-sub" onclick="openSOP('专业搬家', '${title}')">搬家服务 / Moving</button>
+                                <button class="btn-sub" onclick="openSOP('深度清洁', '${title}')">清洁服务 / Cleaning</button>
+                            </div>
                         </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+                    `;
+                    grid.appendChild(card);
+                });
+            } else {
+                throw new Error("No records found in Table 1");
+            }
         } catch (e) {
-            document.getElementById('listings').innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: red;"><h3>数据同步异常 (Failed to fetch)</h3><p>请发布到 GitHub Pages 即可解决本地权限问题。</p></div>`;
+            document.getElementById('listings').innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: red;"><h3>数据同步异常 (Failed to fetch)</h3><p>请确保 Airtable 中的表名确实为 "Table 1" 且 Token 权限包含 data.records:read。</p></div>`;
         }
     }
 
