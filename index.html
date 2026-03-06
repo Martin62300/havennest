@@ -3,42 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest - 大温地区专业房源门户</title>
+    <title>HavenNest - 大温专业房源门户 | Greater Vancouver Housing</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root { --navy: #002147; --gold: #D4AF37; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: var(--bg); color: #333; }
         
-        /* 金色画框与推荐标签 [cite: 2026-03-04] */
-        .gold-frame { border: 2.5px solid var(--gold) !important; box-shadow: 0 4px 25px rgba(212, 175, 55, 0.4) !important; transform: translateY(-4px); z-index: 5; }
+        /* 核心特权：金色边框 [cite: 2026-02-28] */
+        .gold-frame { border: 2.5px solid var(--gold) !important; box-shadow: 0 4px 25px rgba(212, 175, 55, 0.4) !important; transform: translateY(-4px); }
         .featured-tag { position: absolute; top: 12px; right: 12px; background: var(--gold); color: white; font-size: 11px; padding: 5px 12px; border-radius: 6px; font-weight: 800; z-index: 10; }
 
-        header { background: var(--navy); color: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        header { background: var(--navy); color: white; padding: 18px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .logo-text { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; }
         #map { height: 420px; width: 100%; border-bottom: 4px solid var(--gold); }
 
-        /* 房源列表：获客铁三角布局 [cite: 2026-03-01] */
-        .container { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        .listing-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; display: flex; flex-direction: column; transition: 0.3s; }
-        .listing-card:hover { transform: translateY(-5px); }
-        .img-container { width: 100%; height: 220px; background: #eee; overflow: hidden; }
+        .container { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .listing-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; transition: 0.3s; }
+        .img-container { width: 100%; height: 230px; background: #eee; overflow: hidden; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
         
-        .listing-info { padding: 20px; flex-grow: 1; }
-        .price { color: var(--navy); font-size: 1.7rem; font-weight: 800; margin-bottom: 8px; }
-        .title { font-size: 1.1rem; font-weight: 700; height: 2.8em; overflow: hidden; margin-bottom: 20px; line-height: 1.4; }
+        .listing-info { padding: 25px; }
+        .price { color: var(--navy); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+        .title { font-size: 1.15rem; font-weight: 700; height: 2.8em; overflow: hidden; margin-bottom: 20px; line-height: 1.4; }
 
-        /* 获客铁三角按钮组 [cite: 2026-03-01, 2026-03-04] */
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn-main { background: var(--navy); color: white; border: none; padding: 13px; border-radius: 8px; font-weight: 700; cursor: pointer; grid-column: span 2; margin-bottom: 5px; font-size: 0.95rem; }
-        .btn-sub { background: #f0f0f0; color: #555; border: none; padding: 11px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+        /* 获客铁三角 [cite: 2026-03-01] */
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn-main { background: var(--navy); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; grid-column: span 2; margin-bottom: 8px; }
+        .btn-sub { background: #f0f0f0; color: #555; border: none; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
 
         /* 免责声明 */
         .disclaimer { font-size: 0.8rem; color: #888; padding: 50px 10%; line-height: 1.8; border-top: 1px solid #ddd; text-align: center; background: #fff; }
         
-        /* 弹窗样式 */
         .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,33,71,0.85); backdrop-filter: blur(8px); }
-        .modal-content { background: white; margin: 5% auto; padding: 40px; border-radius: 25px; width: 90%; max-width: 500px; text-align: center; }
+        .modal-content { background: white; margin: 5% auto; padding: 45px; border-radius: 25px; width: 90%; max-width: 500px; text-align: center; }
         input { width: 100%; padding: 15px; margin-bottom: 18px; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; }
         .btn-submit { background: var(--gold); color: white; border: none; padding: 16px; border-radius: 12px; width: 100%; font-weight: 800; cursor: pointer; }
     </style>
@@ -47,7 +44,7 @@
 
 <header>
     <div class="logo-text">HAVENNEST</div>
-    <div style="font-size: 0.9rem; font-weight: 600; background: rgba(255,255,255,0.1); padding: 6px 15px; border-radius: 20px;">专家团队 / Official Team</div>
+    <div style="font-size: 0.9rem;">专家团队官方发布 / Official Team</div>
 </header>
 
 <div id="map"></div>
@@ -63,18 +60,18 @@
 
 <div id="serviceModal" class="modal">
     <div class="modal-content">
-        <h2 id="modal-title" style="color:var(--navy); font-weight: 800; margin-bottom: 15px;">申请专属服务</h2>
+        <h2 id="modal-title" style="color:var(--navy); font-weight: 800;">申请专属服务</h2>
         <p style="color:#666; margin-bottom:25px;">请填写联系方式，专家团队将尽快与您联系。</p>
         <input type="text" id="cust-name" placeholder="您的姓名 / Full Name">
         <input type="text" id="cust-phone" placeholder="电话号码 / Phone Number">
         <button class="btn-submit" onclick="submitRequest()">提交申请并调起邮件 / Submit</button>
-        <p onclick="closeModal()" style="color:#999; margin-top:20px; cursor:pointer;">返回房源列表 / Back</p>
+        <p onclick="closeModal()" style="color:#999; margin-top:20px; cursor:pointer; font-weight: 600;">返回房源列表 / Back</p>
     </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // 【物理焊死区域】引号已锁定，字段名已根据 image_7a9be9.png 精准对齐
+    // 【物理焊死区域】引号锁定，字段名精准对齐 image_7a9be9.png
     const CONFIG = {
         baseId: 'appfs8aXtirNbrbWa',
         token: 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364',
@@ -95,27 +92,32 @@
 
     async function fetchListings() {
         try {
-            // 精准请求 Table 1
             const url = `https://api.airtable.com/v1/${CONFIG.baseId}/Table%201`;
             const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             const data = await res.json();
             
-            if (!data.records) throw new Error("Airtable 返回异常，请检查 Token 权限或 Base ID。");
-
             const grid = document.getElementById('listings');
             grid.innerHTML = ""; 
 
+            if (!data.records || data.records.length === 0) {
+                grid.innerHTML = "<h3 style='grid-column:1/-1; text-align:center;'>数据库目前为空。</h3>";
+                return;
+            }
+
             data.records.forEach(record => {
                 const f = record.fields;
-                // 11 城自动识别逻辑 [cite: 2026-03-01]
-                let community = "Greater Vancouver";
-                const cities = ['Vancouver', 'Richmond', 'Burnaby', 'Surrey', 'Coquitlam', 'Langley'];
-                cities.forEach(city => { if(f[`所属城市 (City)`] === city || f[`Comm_${city}`]) community = city; });
+                // 跳过完全空行
+                if (!f['房源标题 (Listing Title)']) return;
 
-                // 精准对齐 image_7a9be9.png 字段名
-                const title = f['房源标题 (Listing Title)'] || "Premium Rental";
+                // 精准对齐 image_7a9be9.png 中的所有字段名
+                const title = f['房源标题 (Listing Title)'] || "Luxury Listing";
                 const rent = f['月租金 (Monthly Rent)'] || "0";
+                const beds = f['卧室数量 (Beds)'] || "0";
+                const baths = f['卫浴数量 (Baths)'] || "0";
+                const dens = f['书房数量 (Dens)'] || "0";
+                const city = f['所属城市 (City)'] || "Greater Vancouver";
                 const isFeatured = f['推广级别 (Promotion)'] && f['推广级别 (Promotion)'] !== '无';
+                
                 const photo = f['Property Photos'] ? f['Property Photos'][0].url : 'https://via.placeholder.com/600x400?text=HavenNest+Home';
 
                 const card = document.createElement('div');
@@ -126,7 +128,7 @@
                     <div class="listing-info">
                         <div class="price">$${rent} <span style="font-size:1rem; font-weight:400; color:#888;">/ mo</span></div>
                         <div class="title">${title}</div>
-                        <div style="font-size:0.9rem; color:#888; margin-bottom:20px;">📍 ${community}</div>
+                        <div style="font-size:0.9rem; color:#888; margin-bottom:15px; font-weight:600;">📍 ${city} | 🛏️ ${beds} 🚿 ${baths} 📁 ${dens}</div>
                         <div class="btn-group">
                             <button class="btn-main" onclick="openSOP('租客保险', '${title}')">申请租客保险 / Insurance</button>
                             <button class="btn-sub" onclick="openSOP('专业搬家', '${title}')">搬家服务 / Moving</button>
@@ -136,13 +138,13 @@
                 `;
                 grid.appendChild(card);
 
-                // 随机位移打点保护隐私 [cite: 2026-03-04]
+                // 随机位移打点保护隐私 [cite: 2026-02-28]
                 const lat = 49.2827 + (Math.random() - 0.5) * 0.015;
                 const lng = -123.1207 + (Math.random() - 0.5) * 0.015;
                 L.marker([lat, lng]).addTo(map).bindPopup(`<b>${title}</b><br>$${rent}/mo`);
             });
         } catch (e) {
-            document.getElementById('listings').innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: red;"><h3>数据同步异常 (Failed to fetch)</h3><p>请确保 Airtable 里的表名确实为 "Table 1" 且 Token 授权了当前数据库。</p></div>`;
+            document.getElementById('listings').innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: red;"><h3>数据同步异常 (Failed to fetch)</h3><p>请确保已发布到 GitHub Pages 且 Token 授权了此 Base。</p></div>`;
         }
     }
 
