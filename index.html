@@ -3,106 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenNest - 大温地区专业房源门户</title>
+    <title>HavenNest 安家居 - 大温房产门户 2.0 终极版</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        :root { --navy: #002147; --gold: #D4AF37; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: var(--bg); color: #333; }
-        header { background: var(--navy); color: white; padding: 18px 5%; display: flex; justify-content: space-between; align-items: center; }
-        #map { height: 420px; width: 100%; border-bottom: 4px solid var(--gold); }
-        .container { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .listing-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; display: flex; flex-direction: column; }
-        .listing-info { padding: 25px; }
-        .price { color: var(--navy); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
-        .title { font-size: 1.15rem; font-weight: 700; height: 2.8em; overflow: hidden; margin-bottom: 20px; }
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .btn-main { background: var(--navy); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; grid-column: span 2; margin-bottom: 8px; }
-        .btn-sub { background: #f0f0f0; color: #555; border: none; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
-        .disclaimer { font-size: 0.8rem; color: #888; padding: 50px 10%; line-height: 1.8; border-top: 1px solid #ddd; text-align: center; background: #fff; }
+        :root { --primary: #002147; --accent: #D4AF37; --bg: #f8fafc; --dark: #1e293b; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; color: var(--dark); }
+        
+        /* 品牌头部 */
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: 1px; }
+        .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; border: 1px solid #eee; padding: 5px 15px; border-radius: 20px; }
+
+        /* 地图与筛选 */
+        #map { height: 450px; width: 100%; border-bottom: 5px solid var(--accent); background: #e2e8f0; }
+        .filter-bar { background: white; padding: 20px 5%; display: flex; gap: 15px; flex-wrap: wrap; border-bottom: 1px solid #e2e8f0; }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
+        .filter-group label { font-size: 0.75rem; font-weight: bold; color: #94a3b8; }
+        select { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; }
+
+        /* 获客铁三角 [cite: 2026-03-01] */
+        .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
+        .service-item:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+        /* 房源网格 */
+        .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; transition: 0.3s; position: relative; }
+        .card-img { height: 230px; background-size: cover; background-position: center; background-color: #eee; }
+        .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,33,71,0.8); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
+        .card-body { padding: 22px; flex-grow: 1; }
+        .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; }
+        .listing-title-link { text-decoration: none; color: inherit; display: block; height: 3rem; overflow: hidden; font-weight: bold; margin-bottom: 15px; }
+        .listing-title-link:hover { color: var(--accent); }
+        .contact-box { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+
+        /* SOP 弹窗 [cite: 2026-03-02] */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,33,71,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal-content { background: white; width: 90%; max-width: 600px; padding: 40px; border-radius: 25px; position: relative; text-align: center; }
+        .step { display: none; } .step.active { display: block; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 700; margin-top: 15px; font-size: 1rem; }
+        input { width: 100%; padding: 13px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        textarea { width: 100%; height: 120px; margin-top: 10px; padding: 12px; border-radius: 10px; border: 1px solid #ddd; }
+
+        footer { text-align: center; padding: 60px 10%; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #eee; background: white; line-height: 1.8; }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="font-size: 1.8rem; font-weight: 900; letter-spacing: 2px;">HAVENNEST</div>
-    <div style="font-size: 0.9rem;">专家团队官方发布 / Official Team</div>
+    <a href="#" class="logo">HAVENNEST</a>
+    <div class="lang-toggle" onclick="toggleLang()" id="lang-btn">English / 中文</div>
 </header>
+
+<div class="filter-bar">
+    <div class="filter-group"><label id="lbl-city">CITY</label><select id="f-city" onchange="applyFilters()"></select></div>
+    <div class="filter-group"><label id="lbl-rent">RENT</label><select id="f-rent" onchange="applyFilters()"></select></div>
+    <div class="filter-group"><label id="lbl-bed">BED</label><select id="f-bed" onchange="applyFilters()"></select></div>
+</div>
 
 <div id="map"></div>
 
-<div class="container" id="listings">
-    <h3 style="grid-column: 1/-1; text-align: center; color: #888;">正在同步 HavenNest 数据库...</h3>
+<div class="service-center" id="service-ui"></div>
+
+<div class="grid" id="listing-ui"></div>
+
+<div id="svcModal" class="modal">
+    <div class="modal-content">
+        <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-size:24px;" onclick="closeModal()">×</span>
+        <div id="step1" class="step active"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; color:#475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
+        <div id="step2" class="step"><h2 id="m_t2">授权告知</h2><p id="m_c2"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
+        <div id="step3" class="step"><h2 id="m_t3">填写申请</h2><input type="text" id="q_name"><input type="tel" id="q_phone"><input type="email" id="q_email"><input type="text" id="q_addr"><button class="btn-action" id="btn-gen" onclick="generateOutput()"></button></div>
+        <div id="step4" class="step"><h2 id="m_t4">表单已生成</h2><textarea id="outputBox" readonly></textarea><button class="btn-action" onclick="copyText()">复制文本 / Copy</button><button class="btn-action" style="background:#64748b" onclick="openEmail()">发送邮件 / Email</button></div>
+    </div>
 </div>
 
-<div class="disclaimer">
-    <strong>免责声明 / Disclaimer:</strong><br>
-    HavenNest 为房源信息聚合平台。房源数据来源于第三方公开渠道或屋主自助发布。本平台不对房源信息的真实性承担法律责任。租客保险由持牌专家团队提供，搬家及清洁服务由合作机构提供。
-</div>
+<footer><div id="footer-text"></div></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // 【物理焊死区域】引号锁定，字段名已根据 image_70375e.png 对齐
+    // 身份锁定区域
     const CONFIG = {
-        baseId: 'appfs8aXtirNbrbWa',
         token: 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364',
-        supportEmail: 'support@havennestapp.com'
+        baseId: 'appfs8aXtirNbrbWa',
+        tableName: 'Table 1'
     };
 
-    let map;
+    const cityMap = { "Vancouver": [49.2827, -123.1207], "Richmond": [49.1666, -123.1336], "Burnaby": [49.2488, -122.9805], "Surrey": [49.1913, -122.8490], "Coquitlam": [49.2838, -122.7932], "Delta": [49.0847, -123.0581] };
+    let allListings = []; let curLang = 'zh';
+    let map = L.map('map').setView([49.24, -123.05], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    const dict = {
+        zh: {
+            lblCity: "城市 / CITY", lblRent: "月租金 / RENT", lblBed: "卧室 / BED", cityAll: "全部地区", rentAll: "不限", bedAll: "不限",
+            showContact: "🔒 显示联系方式", next: "理解，下一步", agree: "同意授权", gen: "生成申请表",
+            name: "姓名", phone: "电话", emailLbl: "邮箱", addr: "房源地址",
+            m_t2: "授权告知", m_c2: "作为持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将信息转交给承保机构进行报价。数据受隐私法保护。",
+            m_t3: "申请信息填写", m_t4: "表单生成成功", ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
+            footer: "免责声明：本站房源信息包含系统抓取及屋主直发。HavenNest 致力于提供真实租赁信息及持牌保险服务。&copy; 2026 HavenNest App.",
+            insPop: `<h3>为何必须购买租客保险？</h3><p style="color:var(--primary); font-weight:bold;">它是您生活安全的最后一道防线。</p><ul style="text-align:left;"><li>财物保障：覆盖火灾偷盗赔付。</li><li>责任赔付：承担第三方过失法律赔偿。</li><li>额外生活费：房屋受损期间的食宿补助。</li></ul>`
+        },
+        en: {
+            lblCity: "CITY", lblRent: "RENT", lblBed: "BED", cityAll: "All Cities", rentAll: "No Limit", bedAll: "Any",
+            showContact: "🔒 Contact Info", next: "Next Step", agree: "Authorize", gen: "Generate Form",
+            name: "Full Name", phone: "Phone", emailLbl: "Email", addr: "Address",
+            m_t2: "Authorization", m_c2: "You authorize HavenNest to transfer your details to licensed partners for quotes. Privacy is protected by BC Law.",
+            m_t3: "Fill Details", m_t4: "Form Ready", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
+            footer: "Disclaimer: Sourced from crawlers and direct posts. HavenNest provides accurate info and licensed insurance services. &copy; 2026 HavenNest App.",
+            insPop: `<h3>Why Tenant Insurance?</h3><p style="color:var(--primary); font-weight:bold;">It is your essential safety net.</p><ul style="text-align:left;"><li>Contents: Protects belongings.</li><li>Liability: Covers accidental damages.</li><li>Expenses: Hotel stay coverage.</li></ul>`
+        }
+    };
+
+    function toggleLang() { curLang = curLang === 'zh' ? 'en' : 'zh'; updateUI(); }
+
+    function updateUI() {
+        const d = dict[curLang];
+        document.getElementById('lbl-city').innerText = d.lblCity;
+        document.getElementById('lbl-rent').innerText = d.lblRent;
+        document.getElementById('lbl-bed').innerText = d.lblBed;
+        document.getElementById('lang-btn').innerText = curLang === 'zh' ? 'English' : '中文';
+        document.getElementById('footer-text').innerHTML = d.footer;
+        
+        // 渲染城市下拉
+        const citySel = document.getElementById('f-city');
+        citySel.innerHTML = `<option value="All">${d.cityAll}</option>` + Object.keys(cityMap).map(c => `<option value="${c}">${c}</option>`).join('');
+        
+        // 渲染服务铁三角
+        const svcs = [{k:'ins', i:'🛡️', t: d.ins}, {k:'move', i:'📦', t: d.move}, {k:'clean', i:'🧹', t: d.clean}];
+        document.getElementById('service-ui').innerHTML = svcs.map(s => `<div class="service-item" onclick="openModal('${s.k}')"><div style="font-size:3rem;">${s.i}</div><strong>${s.t}</strong></div>`).join('');
+        
+        applyFilters();
+    }
 
     async function init() {
-        initMap();
-        await fetchData();
-    }
-
-    function initMap() {
-        map = L.map('map').setView([49.2827, -123.1207], 11);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-    }
-
-    async function fetchData() {
+        updateUI();
+        // Airtable 抓取：精准对齐 image_7a9be9.png 的字段
+        const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
         try {
-            const url = `https://api.airtable.com/v1/${CONFIG.baseId}/Table%201`;
             const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
-            
-            if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-
             const data = await res.json();
-            const grid = document.getElementById('listings');
-            grid.innerHTML = ""; 
-
-            data.records.forEach(record => {
-                const f = record.fields;
-                // 对齐 image_70375e.png 里的字段名
-                const title = f['房源标题 (Listing Title)'] || "Luxury Listing";
-                const rent = f['月租金 (Monthly Rent)'] || "0";
-                const city = f['所属城市 (City)'] || "Greater Vancouver";
-
-                const card = document.createElement('div');
-                card.className = 'listing-card';
-                card.innerHTML = `
-                    <div style="width:100%; height:230px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">Photo Coming Soon</div>
-                    <div class="listing-info">
-                        <div class="price">$${rent}</div>
-                        <div class="title">${title}</div>
-                        <div style="font-size:0.9rem; color:#888; margin-bottom:20px;">📍 ${city}</div>
-                        <div class="btn-group">
-                            <button class="btn-main">申请租客保险 / Insurance</button>
-                            <button class="btn-sub">搬家服务 / Moving</button>
-                            <button class="btn-sub">清洁服务 / Cleaning</button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
+            allListings = data.records.map(r => {
+                const f = recordFieldMapping(r.fields);
+                return { ...f, source: "屋主直发", lat: getCoords(f.city)[0], lng: getCoords(f.city)[1] };
             });
-        } catch (e) {
-            document.getElementById('listings').innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; color: red;">
-                    <h3>同步异常: ${e.message}</h3>
-                    <p>💡 **解决建议**：请尝试在浏览器【无痕/隐私模式】下打开网页，或关闭 AdBlock 等拦截插件后再刷新。</p>
-                </div>`;
-        }
+        } catch(e) { console.warn("Airtable sync failed, using fallback."); }
+        
+        // 抓取房源合并
+        try {
+            const crawlRes = await fetch('listings.json?t=' + Date.now());
+            const crawlData = await crawlRes.json();
+            allListings = [...allListings, ...crawlData.map(i => ({ ...i, source: "抓取房源", lat: getCoords(i.location)[0], lng: getCoords(i.location)[1] }))];
+        } catch(e) { console.warn("Local JSON missing."); }
+        
+        applyFilters();
     }
+
+    function recordFieldMapping(f) {
+        return {
+            title: f['房源标题 (Listing Title)'] || "Premium Rental",
+            price: parseInt(String(f['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0,
+            bed: parseInt(f['卧室数量 (Beds)']) || 1,
+            city: f['所属城市 (City)'] || "Vancouver",
+            image: f['Property Photos']?.[0]?.url || f['房源照片 (Photos)']?.[0]?.url || "",
+            url: f['房源链接 (Link)'] || "#",
+            phone: f['联系电话 (Phone)'] || "Protected",
+            email: f['电子邮箱 (Email)'] || "Protected"
+        };
+    }
+
+    function getCoords(city) {
+        const base = cityMap[city] || cityMap["Vancouver"];
+        return [base[0] + (Math.random()-0.5)*0.015, base[1] + (Math.random()-0.5)*0.015];
+    }
+
+    function applyFilters() {
+        const city = document.getElementById('f-city').value;
+        const bed = document.getElementById('f-bed').value;
+        const filtered = allListings.filter(i => (city==='All' || i.city===city) && (bed==='All' || i.bed >= parseInt(bed)));
+        
+        const ui = document.getElementById('listing-ui'); ui.innerHTML = '';
+        map.eachLayer(l => { if(l instanceof L.Marker) map.removeLayer(l); });
+
+        filtered.forEach(i => {
+            L.marker([i.lat, i.lng]).addTo(map).bindPopup(`<b>$${i.price}</b><br>${i.title}`);
+            const card = document.createElement('div'); card.className = 'card';
+            card.innerHTML = `
+                <div class="card-img" style="background-image:url('${i.image || 'https://via.placeholder.com/400x300'}')"><div class="tag">${i.source}</div></div>
+                <div class="card-body">
+                    <div class="price">$${i.price}</div>
+                    <a href="${i.url}" target="_blank" class="listing-title-link">${i.title}</a>
+                    <div class="contact-box" onclick="this.innerText='📞 ${i.phone} | 📧 ${i.email}'">${dict[curLang].showContact}</div>
+                </div>`;
+            ui.appendChild(card);
+        });
+    }
+
+    function openModal(s) {
+        const d = dict[curLang];
+        document.getElementById('m_t1').innerText = d[s];
+        document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]} services.</p>`;
+        document.getElementById('svcModal').style.display = 'flex';
+        nextStep(1);
+    }
+    function closeModal() { document.getElementById('svcModal').style.display = 'none'; }
+    function nextStep(s) { document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); document.getElementById('step'+s).classList.add('active'); }
     init();
 </script>
 </body>
