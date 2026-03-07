@@ -57,20 +57,11 @@
 </div>
 
 <div id="svcModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="padding:40px;">
         <span style="position:absolute; top:15px; right:20px; font-size:28px; cursor:pointer; color:#999; z-index:2300;" onclick="closeModal()">×</span>
         <div id="step1" class="step"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; color:#475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
-        <div id="step2" class="step"><h2 id="m_t2"></h2><p id="m_c2" style="text-align:left;"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
-        <div id="step3" class="step">
-            <h2 id="m_t3"></h2>
-            <input type="text" id="q_name">
-            <input type="tel" id="q_phone">
-            <input type="email" id="q_email">
-            <input type="text" id="q_dob">
-            <input type="text" id="q_eff_date">
-            <input type="text" id="q_addr">
-            <button class="btn-action" id="btn-gen" onclick="generateOutput()"></button>
-        </div>
+        <div id="step2" class="step"><h2 id="m_t2">授权告知</h2><p id="m_c2" style="text-align:left;"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
+        <div id="step3" class="step"><h2 id="m_t3"></h2><input type="text" id="q_name"><input type="tel" id="q_phone"><input type="email" id="q_email"><input type="text" id="q_dob"><input type="text" id="q_eff_date"><input type="text" id="q_addr"><button class="btn-action" id="btn-gen" onclick="generateOutput()"></button></div>
         <div id="step4" class="step"><h2 id="m_t4"></h2><textarea id="outputBox" readonly></textarea><button class="btn-action" id="btn-copy" onclick="copyText()"></button><button class="btn-action" style="background:#64748b" id="btn-email" onclick="openEmail()"></button></div>
     </div>
 </div>
@@ -92,7 +83,7 @@
     const dict = {
         zh: {
             postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?",
-            next: "明白，下一步", agree: "同意授权并继续", gen: "生成正式申请表", copy: "复制文本 / Copy", email: "调起邮件发送 / Email",
+            next: "明白，下一步", agree: "同意授权并继续", gen: "生成正式申请表", copy: "复制文本", email: "调起邮件发送",
             name: "您的姓名", phone: "联系电话", emailLbl: "电子邮箱", dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", addr: "房源具体地址",
             m_t2: "授权告知 / Authorization", m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的信息安全地转交给我们的合作经纪进行报价。您的隐私受 BC 法律保护。",
             m_t3: "申请信息填写", m_t4: "表单生成成功", ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
@@ -100,26 +91,24 @@
             insPop: `<h3>为何必须购买租客保险？</h3>
                     <p style="color:#166534; font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
                     <ul style="text-align:left; line-height:1.8;">
-                        <li><strong>财物保障：</strong>全面覆盖家具、电子产品及衣物。若因水灾、火灾或盗窃导致损失，保险将按重置价值赔付。</li>
-                        <li><strong>责任赔付：</strong>承担因过失导致的法律赔偿（如忘关水龙头淹了楼下，或火锅起火），为您挡掉天价账单。</li>
-                        <li><strong>访客保障：</strong>保障访客在您的租赁空间内意外受伤而产生的医疗或法律费用。</li>
-                        <li><strong>额外生活费：</strong>若房屋因理赔维修无法居住，保险将支付您的酒店住宿及额外食宿补助。</li>
+                        <li><strong>财物保障：</strong>全面覆盖家具、电子产品及衣物受损。</li>
+                        <li><strong>责任赔付：</strong>承担过失导致房屋受损的高昂法律赔付。</li>
+                        <li><strong>访客保障：</strong>保障访客在您空间的意外受伤。</li>
+                        <li><strong>额外生活费：</strong>理赔期间房屋无法居住时的酒店补助。</li>
                     </ul>`
         },
         en: {
             postCta: "Have a vacancy? Post it on HavenNest for free!",
             next: "Next Step", agree: "Agree & Authorize", gen: "Generate Application", copy: "Copy Text", email: "Send via Email",
-            name: "Full Name", phone: "Phone Number", emailLbl: "Email Address", dob: "Date of Birth (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", addr: "Rental Address",
-            m_t2: "Authorization", m_c2: "As a licensed professional team, we promise to protect your privacy. You authorize HavenNest to securely transfer your details to our partner broker for a quote. Your data is protected under BC law.",
-            m_t3: "Application Details", m_t4: "Form Generated", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
+            name: "Full Name", phone: "Phone Number", emailLbl: "Email Address", dob: "Date of Birth", eff: "Effective Date", addr: "Rental Address",
+            m_t2: "Authorization", m_c2: "You authorize HavenNest to transfer your details to our partner broker for a quote. Your data is protected under BC law.",
+            m_t3: "Fill Application", m_t4: "Form Ready", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
             footer: "Disclaimer: Sourced from crawlers and direct posts. &copy; 2026 HavenNest App.",
             insPop: `<h3>Why is Tenant Insurance essential?</h3>
-                    <p style="color:#166534; font-weight:bold;">It's more than just a landlord's requirement; it's the ultimate safety net for your belongings and financial peace of mind.</p>
+                    <p style="color:#166534; font-weight:bold;">It's the ultimate safety net for your belongings and financial peace of mind.</p>
                     <ul style="text-align:left; line-height:1.8;">
-                        <li><strong>Contents Coverage:</strong> Protects your furniture, electronics, and clothing. If loss occurs due to fire or theft, insurance pays based on replacement value.</li>
-                        <li><strong>Liability Protection:</strong> Covers legal costs if your negligence causes damage to others (e.g., water leaks or kitchen fires), shielding you from astronomical bills.</li>
-                        <li><strong>Visitor Protection:</strong> Covers medical or legal expenses if a visitor is accidentally injured within your rental unit.</li>
-                        <li><strong>Additional Living Expenses:</strong> If your home becomes uninhabitable during repairs, insurance covers hotel stays and extra dining costs.</li>
+                        <li><strong>Contents Coverage:</strong> Protection for furniture and electronics.</li>
+                        <li><strong>Liability Protection:</strong> Covers legal costs if you accidentally cause damage.</li>
                     </ul>`
         }
     };
@@ -127,12 +116,13 @@
     function toggleLang() { curLang = curLang === 'zh' ? 'en' : 'zh'; updateUI(); }
 
     async function getCoords(address) {
+        if(!address || address.length < 5) return null;
         try {
-            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address + ', BC')}`);
+            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address + ', BC, Canada')}`);
             const data = await res.json();
             if (data.length > 0) return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
         } catch(e) {}
-        return [49.24 + (Math.random()-0.5)*0.1, -123.05 + (Math.random()-0.5)*0.1];
+        return null;
     }
 
     async function init() {
@@ -143,17 +133,17 @@
             const data = await res.json();
             airtableItems = await Promise.all(data.records.map(async r => {
                 const f = r.fields;
-                const coords = await getCoords(f['房源具体地址 (Address)'] || "Vancouver");
+                const coords = await getCoords(f['房源具体地址 (Address)']);
                 const photos = f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'].map(p => p.url) : [];
                 return {
                     id: r.id, source: "屋主直发",
-                    title: f['房源标题 (Listing Title)'] || "Rental Listing",
+                    title: f['房源标题 (Listing Title)'] || "Rental",
                     price: parseInt(String(f['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0,
                     isPromo: f['推广级别 (Promotion)'] && f['推广级别 (Promotion)'].includes('限时免费推广'),
                     images: photos, image: photos[0] || "",
-                    desc: f['房源描述 (Description)'] || "No description.",
-                    lat: coords[0], lng: coords[1], address: f['房源具体地址 (Address)'],
-                    phone: f['联系电话 (Phone)'], email: f['电子邮箱 (Email)']
+                    desc: f['房源描述 (Description)'] || "暂无描述。",
+                    lat: coords ? coords[0] : null, lng: coords ? coords[1] : null,
+                    address: f['房源具体地址 (Address)'], phone: f['联系电话 (Phone)'], email: f['电子邮箱 (Email)']
                 };
             }));
         } catch(e) {}
@@ -162,7 +152,10 @@
         try {
             const crawlRes = await fetch('listings.json?t=' + Date.now());
             crawlItems = await crawlRes.json();
-            crawlItems = crawlItems.map(i => ({...i, source: "抓取房源", lat: 49.25+(Math.random()-0.5)*0.1, lng: -123.05+(Math.random()-0.5)*0.1}));
+            crawlItems = await Promise.all(crawlItems.map(async i => {
+                const coords = await getCoords(i.address || i.location);
+                return {...i, source: "抓取房源", lat: coords ? coords[0] : null, lng: coords ? coords[1] : null};
+            }));
         } catch(e) {}
         
         allListings = [...airtableItems, ...crawlItems];
@@ -183,7 +176,15 @@
         const ui = document.getElementById('listing-ui'); ui.innerHTML = '';
         map.eachLayer(l => { if(l instanceof L.Marker) map.removeLayer(l); });
         const grouped = {};
-        allListings.forEach(i => { const key = `${i.lat.toFixed(4)}_${i.lng.toFixed(4)}`; if(!grouped[key]) grouped[key] = []; grouped[key].push(i); });
+        
+        // 【智能打点逻辑】只有具备有效坐标的房源才上地图 [cite: 2026-03-03]
+        allListings.forEach(i => {
+            if (i.lat && i.lng) {
+                const key = `${i.lat.toFixed(4)}_${i.lng.toFixed(4)}`;
+                if(!grouped[key]) grouped[key] = [];
+                grouped[key].push(i);
+            }
+        });
 
         Object.values(grouped).forEach(items => {
             const first = items[0];
@@ -197,7 +198,7 @@
             const card = document.createElement('div');
             card.className = `card ${i.isPromo ? 'gold-frame' : ''}`;
             card.onclick = () => showDetail(i);
-            card.innerHTML = `<div class="tag">${i.source}</div><div class="card-img" style="background-image:url('${i.image}')"></div><div class="price">$${i.price.toLocaleString()}</div><span class="card-title">${i.title}</span>`;
+            card.innerHTML = `<div class="tag">${i.source}</div><div class="card-img" style="background-image:url('${i.image || 'https://via.placeholder.com/400x300'}')"></div><div class="price">$${i.price.toLocaleString()}</div><span class="card-title">${i.title}</span>`;
             ui.appendChild(card);
         });
     }
@@ -222,20 +223,10 @@
         activeSvc = s; const d = dict[curLang]; 
         document.getElementById('m_t1').innerText = d[s]; 
         document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]} services.</p>`; 
-        
-        // 核心修复：更新 Step 3 的 Placeholder 和 Step 4 的按钮文字
-        document.getElementById('q_name').placeholder = d.name;
-        document.getElementById('q_phone').placeholder = d.phone;
-        document.getElementById('q_email').placeholder = d.emailLbl;
-        document.getElementById('q_dob').placeholder = d.dob;
-        document.getElementById('q_eff_date').placeholder = d.eff;
-        document.getElementById('q_addr').placeholder = d.addr;
-        document.getElementById('btn-gen').innerText = d.gen;
-        document.getElementById('btn-copy').innerText = d.copy;
-        document.getElementById('btn-email').innerText = d.email;
-
-        document.getElementById('svcModal').style.display = 'flex'; 
-        nextStep(1); 
+        document.getElementById('q_name').placeholder = d.name; document.getElementById('q_phone').placeholder = d.phone; document.getElementById('q_email').placeholder = d.emailLbl;
+        document.getElementById('q_dob').placeholder = d.dob; document.getElementById('q_eff_date').placeholder = d.eff; document.getElementById('q_addr').placeholder = d.addr;
+        document.getElementById('btn-gen').innerText = d.gen; document.getElementById('btn-copy').innerText = d.copy; document.getElementById('btn-email').innerText = d.email;
+        document.getElementById('svcModal').style.display = 'flex'; nextStep(1); 
     }
 
     function nextStep(s) { 
