@@ -13,30 +13,33 @@
         .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; border: 1px solid #eee; padding: 5px 15px; border-radius: 20px; }
         #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); background: #e2e8f0; }
         
-        /* 筛选工具栏样式 */
+        /* 筛选栏样式 - 保持专业感 */
         .filter-bar { max-width: 1200px; margin: 20px auto 0; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
         .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
         .filter-group label { font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
-        .filter-select { padding: 10px; border-radius: 10px; border: 1px solid #ddd; background: white; font-size: 0.85rem; outline: none; }
+        .filter-select { padding: 10px; border-radius: 10px; border: 1px solid #ddd; background: white; font-size: 0.85rem; outline: none; transition: 0.3s; }
+        .filter-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,33,71,0.1); }
 
         .grid { max-width: 1200px; margin: 20px auto 30px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; position: relative; display: flex; flex-direction: column; transition: 0.3s; cursor: pointer; }
-        .card:hover { transform: translateY(-5px); }
-        .gold-frame { border: 5px solid var(--accent) !important; box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5) !important; z-index: 5; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .gold-frame { border: 5px solid var(--accent) !important; box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4) !important; z-index: 5; }
         .card-img { height: 230px; background-size: cover; background-position: center; background-color: #eee; }
         .tag { position: absolute; top: 10px; left: 10px; background: rgba(0,33,71,0.7); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; z-index: 2; }
         .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; padding: 22px 22px 0; }
         .card-title { font-weight: bold; height: 3rem; overflow: hidden; display: block; padding: 0 22px 22px; font-size: 1.1rem; }
         
+        /* Modal 样式完全保留 */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,33,71,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 95%; max-width: 800px; padding: 0; border-radius: 25px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
+        .modal-content { background: white; width: 95%; max-width: 800px; border-radius: 25px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
         .gallery-wrapper { position: relative; width: 100%; height: 480px; background: #000; border-radius: 25px 25px 0 0; overflow: hidden; }
-        .gallery-container { display: flex; height: 100%; transition: transform 0.4s; }
+        .gallery-container { display: flex; height: 100%; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .gallery-img { flex: 0 0 100%; object-fit: contain; height: 100%; }
-        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; z-index: 2100; font-size: 24px; }
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2100; }
         .step { display: none; padding: 40px; } .step.active { display: block; }
         .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; }
+        .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
+        .service-item:hover { border-color: var(--primary); transform: translateY(-3px); }
         .post-bar { background: var(--green); color: white; padding: 18px; text-align: center; font-weight: 600; }
         .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 700; margin-top: 15px; }
         input { width: 100%; padding: 13px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
@@ -63,15 +66,15 @@
     <div class="filter-group">
         <label>城市 / City</label>
         <select id="f-city" class="filter-select" onchange="renderListings()">
-            <option value="all">不限 / All</option>
+            <option value="all">所有城市 / All Cities</option>
             <option value="Vancouver">Vancouver</option>
             <option value="Burnaby">Burnaby</option>
             <option value="Richmond">Richmond</option>
             <option value="Surrey">Surrey</option>
             <option value="Coquitlam">Coquitlam</option>
+            <option value="New Westminster">New Westminster</option>
             <option value="North Vancouver">North Vancouver</option>
             <option value="West Vancouver">West Vancouver</option>
-            <option value="New Westminster">New Westminster</option>
         </select>
     </div>
     <div class="filter-group">
@@ -81,8 +84,7 @@
             <option value="0">Studio/Bachelor</option>
             <option value="1">1 Bedroom</option>
             <option value="2">2 Bedrooms</option>
-            <option value="3">3 Bedrooms</option>
-            <option value="4">4+ Bedrooms</option>
+            <option value="3">3+ Bedrooms</option>
         </select>
     </div>
     <div class="filter-group">
@@ -90,17 +92,16 @@
         <select id="f-price" class="filter-select" onchange="renderListings()">
             <option value="all">不限 / Any</option>
             <option value="0-2000">$2000 以下</option>
-            <option value="2000-3000">$2000-$3000</option>
-            <option value="3000-4500">$3000-$4500</option>
+            <option value="2000-3000">$2000 - $3000</option>
+            <option value="3000-4500">$3000 - $4500</option>
             <option value="4500-99999">$4500 以上</option>
         </select>
     </div>
     <div class="filter-group">
         <label>排序 / Sort</label>
         <select id="f-sort" class="filter-select" onchange="renderListings()">
-            <option value="new">最新发布</option>
-            <option value="low">价格：低到高</option>
-            <option value="high">价格：高到低</option>
+            <option value="low">价格：低到高 / Price: Low to High</option>
+            <option value="high">价格：高到低 / Price: High to Low</option>
         </select>
     </div>
 </div>
@@ -140,43 +141,44 @@
         tableName: 'Table 1'
     };
 
-    let allListings = []; let curLang = 'zh'; let activeSvc = '';
+    let allListings = []; let curLang = 'zh'; let curSlide = 0; let activeSvc = '';
     let map = L.map('map').setView([49.24, -123.05], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    const markerGroup = L.layerGroup().addTo(map);
 
     const dict = {
         zh: {
             postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?",
             next: "明白，下一步", agree: "同意授权并继续", gen: "生成正式申请表", copy: "复制文本", email: "邮件发送",
             name: "您的姓名", phone: "联系电话", emailLbl: "电子邮箱", dob: "出生日期 (YYYY-MM-DD)", eff: "起保日期 (YYYY-MM-DD)", addr: "房源地址",
-            m_t2: "授权告知", m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将信息转交给合作经纪。",
+            m_t2: "授权告知", m_c2: "授权 HavenNest 将信息转交给合作经纪进行报价。",
             m_t3: "申请信息填写", m_t4: "表单生成成功", ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
             footer: "房源包含系统抓取及屋主发布。&copy; 2026 HavenNest App.",
-            insPop: "<h3>为何购买租客保险？</h3><p>购买保险不仅是房东要求，更是为您提供财物和法律赔偿保障。</p>"
+            insPop: "<h3>为何购买租客保险？</h3><p>购买租客保险不仅是房东要求，更是为您自己提供财物和法律责任保障。</p>"
         },
         en: {
             postCta: "Have a vacancy? Post it on HavenNest for free!",
             next: "Next Step", agree: "Agree & Authorize", gen: "Generate Form", copy: "Copy", email: "Email",
-            name: "Full Name", phone: "Phone", emailLbl: "Email", dob: "DOB (YYYY-MM-DD)", eff: "Effective Date", addr: "Address",
-            m_t2: "Authorization", m_c2: "Licensed team protects your privacy. You authorize info transfer to our partner brokers.",
-            m_t3: "Application Form", m_t4: "Form Completed", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
+            name: "Name", phone: "Phone", emailLbl: "Email", dob: "DOB", eff: "Effective Date", addr: "Address",
+            m_t2: "Authorization", m_c2: "Authorize HavenNest to transfer details for a quote.",
+            m_t3: "Application Form", m_t4: "Success", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
             footer: "Sourced from crawlers and direct posts. &copy; 2026 HavenNest App.",
-            insPop: "<h3>Why Insurance?</h3><p>Protects your belongings and covers liability from accidents.</p>"
+            insPop: "<h3>Why Insurance?</h3><p>Protects your belongings and shielding you from astronomical legal bills.</p>"
         }
     };
 
     function toggleLang() { curLang = curLang === 'zh' ? 'en' : 'zh'; updateUI(); }
 
-    // 辅助函数：从标题中提取卧室数量 [cite: 2026-03-07]
-    function extractBeds(title) {
-        const match = title.match(/(\d+)\s*(?:br|bed|bedroom|房)/i);
-        if (match) return parseInt(match[1]);
-        if (title.toLowerCase().includes('studio') || title.toLowerCase().includes('bachelor')) return 0;
-        return 1; // 默认 1 房
+    // 辅助函数：标准化卧室数量 [cite: 2026-03-07]
+    function getBeds(title) {
+        const t = title.toLowerCase();
+        if (t.includes('studio') || t.includes('bachelor')) return 0;
+        const m = t.match(/(\d+)\s*(?:br|bed|bedroom|房)/);
+        return m ? parseInt(m[1]) : 1;
     }
 
     async function init() {
-        // 1. 加载 Airtable
+        // 1. 加载 Airtable 数据
         const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
         let airtableItems = [];
         try {
@@ -184,23 +186,22 @@
             const data = await res.json();
             airtableItems = data.records.map(r => {
                 const f = r.fields;
-                const price = parseInt(String(f['月租金 (Monthly Rent)']).replace(/\D/g, '')) || 0;
                 return {
                     id: r.id, source: "屋主直发",
-                    title: f['房源标题 (Listing Title)'] || "Luxury Rental",
-                    price: price,
+                    title: f['房源标题 (Listing Title)'] || "Airtable Rental",
+                    price: parseInt(String(f['月租金 (Monthly Rent)']).replace(/\D/g, '')) || 0,
                     isPromo: f['推广级别 (Promotion)'] && f['推广级别 (Promotion)'].includes('限时免费推广'),
                     image: f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'][0].url : "",
                     images: f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'].map(p => p.url) : [],
                     desc: f['房源描述 (Description)'] || "",
                     address: f['房源具体地址 (Address)'] || "Vancouver",
-                    lat: f['lat'], lng: f['lng'],
-                    beds: extractBeds(f['房源标题 (Listing Title)'] || "")
+                    lat: f['lat'] || null, lng: f['lng'] || null,
+                    beds: getBeds(f['房源标题 (Listing Title)'] || "")
                 };
             });
-        } catch(e) {}
+        } catch(e) { console.error("Airtable Load Error"); }
 
-        // 2. 加载 抓取数据
+        // 2. 加载抓取数据
         let crawlItems = [];
         try {
             const crawlRes = await fetch('listings.json?t=' + Date.now());
@@ -210,9 +211,9 @@
                 price: parseInt(String(i.price).replace(/\D/g, '')) || 0,
                 lat: i.lat ? parseFloat(i.lat) : null,
                 lng: i.lng ? parseFloat(i.lng) : null,
-                beds: extractBeds(i.title)
+                beds: getBeds(i.title)
             }));
-        } catch(e) {}
+        } catch(e) { console.error("Crawl Data Error"); }
         
         allListings = [...airtableItems, ...crawlItems];
         updateUI();
@@ -229,37 +230,36 @@
     }
 
     function renderListings() {
-        const city = document.getElementById('f-city').value;
-        const price = document.getElementById('f-price').value;
-        const beds = document.getElementById('f-beds').value;
-        const sort = document.getElementById('f-sort').value;
+        const cityVal = document.getElementById('f-city').value;
+        const bedVal = document.getElementById('f-beds').value;
+        const priceVal = document.getElementById('f-price').value;
+        const sortVal = document.getElementById('f-sort').value;
 
-        // 核心过滤 [cite: 2026-03-07]
+        // 核心过滤逻辑 [cite: 2026-03-07]
         let filtered = allListings.filter(i => {
-            const matchCity = city === "all" || i.address.toLowerCase().includes(city.toLowerCase());
-            const matchBeds = beds === "all" || (beds === "4" ? i.beds >= 4 : i.beds == beds);
+            const matchCity = cityVal === "all" || i.address.toLowerCase().includes(cityVal.toLowerCase());
+            const matchBed = bedVal === "all" || (bedVal === "3" ? i.beds >= 3 : i.beds == bedVal);
             let matchPrice = true;
-            if (price !== "all") {
-                const [min, max] = price.split('-').map(Number);
+            if (priceVal !== "all") {
+                const [min, max] = priceVal.split('-').map(Number);
                 matchPrice = i.price >= min && i.price <= max;
             }
-            return matchCity && matchBeds && matchPrice;
+            return matchCity && matchBed && matchPrice;
         });
 
-        // 核心排序
-        if (sort === "low") filtered.sort((a, b) => a.price - b.price);
-        if (sort === "high") filtered.sort((a, b) => b.price - a.price);
+        // 核心排序逻辑
+        if(sortVal === 'low') filtered.sort((a,b) => a.price - b.price);
+        if(sortVal === 'high') filtered.sort((a,b) => b.price - a.price);
 
-        // UI 渲染
         const ui = document.getElementById('listing-ui'); ui.innerHTML = '';
-        map.eachLayer(l => { if(l instanceof L.Marker) map.removeLayer(l); });
+        markerGroup.clearLayers();
 
         filtered.forEach(i => {
-            // 地图点位逻辑 [cite: 2026-03-03]
+            // 地图点位管理：仅带有效坐标的入图 [cite: 2026-03-03]
             if (i.lat && i.lng && !isNaN(i.lat)) {
-                L.marker([i.lat, i.lng]).addTo(map).bindPopup(`<b>$${i.price}</b><br>${i.title}<br><button onclick="window.showDetailById('${i.id || i.title}')">查看详情</button>`);
+                L.marker([i.lat, i.lng]).addTo(markerGroup).bindPopup(`<b>$${i.price}</b><br>${i.title}<br><button onclick="window.showDetailById('${i.id || i.title}')">详情</button>`);
             }
-            // 卡片逻辑
+            // 列表渲染
             const card = document.createElement('div');
             card.className = `card ${i.isPromo ? 'gold-frame' : ''}`;
             card.onclick = () => showDetail(i);
@@ -273,11 +273,11 @@
         const modal = document.getElementById('detailModal');
         const images = i.images && i.images.length > 0 ? i.images : [i.image];
         let galleryContent = images.map(img => `<img src="${img}" class="gallery-img">`).join('');
-        modal.innerHTML = `<div class="modal-content" style="text-align:left;"><span style="position:absolute; top:15px; right:20px; font-size:35px; color:white; cursor:pointer; z-index:2200;" onclick="closeDetail()">×</span><div class="gallery-wrapper"><div class="gallery-container">${galleryContent}</div></div><div style="padding:40px;"><h1>$${i.price} / mo</h1><h2>${i.title}</h2><p>${i.desc}</p><button class="btn-action" onclick="closeDetail(); openSOP('ins');">申请租客保险</button></div></div>`;
+        modal.innerHTML = `<div class="modal-content" style="text-align:left;"><span style="position:absolute; top:15px; right:20px; font-size:35px; color:white; cursor:pointer; z-index:2200;" onclick="closeDetail()">×</span><div class="gallery-wrapper"><div class="gallery-container">${galleryContent}</div></div><div style="padding:40px;"><h1>$${i.price} / mo</h1><h2>${i.title}</h2><p>${i.desc}</p><button class="btn-action" onclick="closeDetail(); openSOP('ins');">为此房源申请租客保险</button></div></div>`;
         modal.style.display = 'flex';
     }
 
-    // 以下弹窗流程函数全部保留，原封不动
+    // SOP 流程函数完全保留
     window.showDetailById = (id) => { const item = allListings.find(x => (x.id === id || x.title === id)); if(item) showDetail(item); };
     function closeDetail() { document.getElementById('detailModal').style.display = 'none'; }
     function closeModal() { document.getElementById('svcModal').style.display = 'none'; }
