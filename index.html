@@ -6,7 +6,7 @@
     <title>HavenNest 安家居 - 大温房产门户 2.0 终极版</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* 100% 还原定稿样式 - ！！！绝对不动！！！ */
+        /* 核心 UI 样式 - ！！！禁止删减！！！ [cite: 2026-03-06] */
         :root { --primary: #002147; --accent: #D4AF37; --bg: #f8fafc; --dark: #1e293b; --green: #166534; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; color: var(--dark); line-height: 1.6; }
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
@@ -14,11 +14,13 @@
         .lang-toggle { font-size: 0.9rem; font-weight: 600; cursor: pointer; color: #64748b; border: 1px solid #eee; padding: 5px 15px; border-radius: 20px; }
         #map { height: 450px; width: 100%; z-index: 10; border-bottom: 5px solid var(--primary); background: #e2e8f0; }
         
+        /* 筛选栏样式 */
         .filter-bar { max-width: 1200px; margin: 20px auto 0; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 15px; }
         .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
         .filter-group label { font-size: 0.75rem; font-weight: 700; color: #64748b; }
         .filter-select { padding: 10px; border-radius: 10px; border: 1px solid #ddd; background: white; outline: none; }
 
+        /* 宫格布局还原 */
         .grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; position: relative; display: flex; flex-direction: column; transition: 0.3s; cursor: pointer; }
         .gold-frame { border: 5px solid var(--accent) !important; box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4) !important; transform: translateY(-8px); z-index: 5; }
@@ -27,15 +29,19 @@
         .price { font-size: 1.7rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; padding: 22px 22px 0; }
         .card-title { font-weight: bold; height: 3rem; overflow: hidden; display: block; padding: 0 22px 22px; font-size: 1.1rem; }
         
+        /* 弹窗样式修复：还原间距与宽度 */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,33,71,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 95%; max-width: 800px; border-radius: 25px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
-        .gallery-wrapper { position: relative; width: 100%; height: 480px; background: #000; border-radius: 25px 25px 0 0; overflow: hidden; }
+        .modal-content { background: white; width: 95%; max-width: 800px; padding: 40px; border-radius: 25px; position: relative; max-height: 90vh; overflow-y: auto; box-sizing: border-box; }
+        .gallery-wrapper { position: relative; width: 100%; height: 400px; background: #000; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
         .gallery-container { display: flex; height: 100%; transition: transform 0.4s; }
         .gallery-img { flex: 0 0 100%; object-fit: contain; height: 100%; }
+
         .service-center { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .service-item { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 1px solid #eee; }
         .post-bar { background: var(--green); color: white; padding: 18px; text-align: center; font-weight: 600; }
-        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 700; margin-top: 15px; min-height: 50px; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 700; margin-top: 15px; font-size: 1rem; }
+        input { width: 100%; padding: 13px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
+        textarea { width: 100%; height: 180px; margin-top: 10px; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-family: monospace; }
         footer { text-align: center; padding: 60px 10%; color: #94a3b8; font-size: 0.85rem; background: white; border-top: 1px solid #eee; }
     </style>
 </head>
@@ -55,7 +61,7 @@
 </div>
 
 <div class="filter-bar">
-    <div class="filter-group"><label>城市 / City</label><select id="f-city" class="filter-select" onchange="renderListings()"><option value="all">不限 / All</option><option value="Vancouver">Vancouver</option><option value="Burnaby">Burnaby</option><option value="Richmond">Richmond</option><option value="Surrey">Surrey</option><option value="New Westminster">New Westminster</option></select></div>
+    <div class="filter-group"><label>城市 / City</label><select id="f-city" class="filter-select" onchange="renderListings()"><option value="all">不限 / All</option><option value="Vancouver">Vancouver</option><option value="Burnaby">Burnaby</option><option value="Richmond">Richmond</option><option value="Surrey">Surrey</option><option value="Coquitlam">Coquitlam</option><option value="New Westminster">New Westminster</option></select></div>
     <div class="filter-group"><label>卧室 / Beds</label><select id="f-beds" class="filter-select" onchange="renderListings()"><option value="all">不限 / Any</option><option value="0">Studio</option><option value="1">1 Bed</option><option value="2">2 Beds</option><option value="3">3+ Beds</option></select></div>
     <div class="filter-group"><label>预算 / Budget</label><select id="f-price" class="filter-select" onchange="renderListings()"><option value="all">不限 / Any</option><option value="0-2200">$2200以下</option><option value="2200-3500">$2200 - $3500</option><option value="3500-99999">$3500以上</option></select></div>
     <div class="filter-group"><label>排序 / Sort</label><select id="f-sort" class="filter-select" onchange="renderListings()"><option value="new">最新发布</option><option value="low">价格低到高</option></select></div>
@@ -68,19 +74,31 @@
 <div id="svcModal" class="modal">
     <div class="modal-content">
         <span style="position:absolute; top:15px; right:20px; font-size:28px; cursor:pointer;" onclick="closeModal()">×</span>
-        <div id="step1" class="step"><h2 id="m_t1"></h2><div id="m_c1" style="text-align:left; color:#475569;"></div><button class="btn-action" id="btn-next" onclick="nextStep(2)"></button></div>
-        <div id="step2" class="step"><h2 id="m_t2"></h2><p id="m_c2" style="text-align:left;"></p><button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button></div>
+        <div id="step1" class="step">
+            <h2 id="m_t1"></h2>
+            <div id="m_c1" style="text-align:left; color:#475569;"></div>
+            <button class="btn-action" id="btn-next" onclick="nextStep(2)"></button>
+        </div>
+        <div id="step2" class="step">
+            <h2 id="m_t2"></h2>
+            <p id="m_c2" style="text-align:left; line-height:1.8;"></p>
+            <button class="btn-action" id="btn-agree" onclick="nextStep(3)"></button>
+        </div>
         <div id="step3" class="step">
             <h2 id="m_t3"></h2>
             <input type="text" id="q_name">
             <input type="tel" id="q_phone">
             <input type="email" id="q_email">
             <input type="text" id="q_dob">
-            <input type="text" id="q_eff_date">
-            <input type="text" id="q_addr">
+            <input type="text" id="q_eff_date"> <input type="text" id="q_addr">
             <button class="btn-action" id="btn-gen" onclick="generateOutput()"></button>
         </div>
-        <div id="step4" class="step"><h2 id="m_t4"></h2><textarea id="outputBox" readonly></textarea><button class="btn-action" id="btn-copy" onclick="copyText()"></button><button class="btn-action" style="background:#64748b" id="btn-email" onclick="openEmail()"></button></div>
+        <div id="step4" class="step">
+            <h2 id="m_t4"></h2>
+            <textarea id="outputBox" readonly></textarea>
+            <button class="btn-action" id="btn-copy" onclick="copyText()"></button>
+            <button class="btn-action" style="background:#64748b" id="btn-email" onclick="openEmail()"></button>
+        </div>
     </div>
 </div>
 
@@ -97,7 +115,7 @@
     const dict = {
         zh: {
             postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?",
-            next: "明白，下一步", agree: "同意授权并继续", gen: "生成正式申请表", copy: "复制文本", email: "邮件发送",
+            next: "明白，下一步 / Next", agree: "同意授权并继续 / Agree", gen: "生成正式申请表 / Generate", copy: "复制文本 / Copy", email: "邮件发送 / Email",
             name: "您的姓名", phone: "联系电话", emailLbl: "电子邮箱", dob: "出生日期 (YYYY-MM-DD)", eff: "保单生效日期 (YYYY-MM-DD)", addr: "房源具体地址",
             m_t2: "授权告知 / Authorization", m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的信息安全地转交给我们的合作经纪进行报价。您的隐私受 BC 法律保护。",
             m_t3: "申请信息填写", m_t4: "表单生成成功", ins: "租客保险咨询", move: "专业搬家服务", clean: "退房清洁服务",
@@ -106,23 +124,23 @@
                     <p style="color:#166534; font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
                     <ul style="text-align:left; line-height:1.8;">
                         <li><strong>财物保障：</strong>全面覆盖家具、电子产品及衣物。</li>
-                        <li><strong>责任赔付：</strong>承担因意外导致的第三方财产或身体损失赔偿。</li>
-                        <li><strong>访客保障：</strong>保障访客在您的租赁空间内意外受伤的费用。</li>
-                        <li><strong>额外生活费：</strong>房屋受损无法居住时的住宿补助。</li>
+                        <li><strong>责任赔付：</strong>承担意外导致的第三方财产或人身损害赔偿。</li>
+                        <li><strong>访客保障：</strong>保障访客在您的租赁空间内受伤的费用。</li>
+                        <li><strong>额外生活费：</strong>房屋受损无法居住时的酒店及食宿补助。</li>
                     </ul>`
         },
         en: {
             postCta: "Have a vacancy? Post it on HavenNest for free!",
-            next: "Next Step", agree: "Agree & Authorize", gen: "Generate Application", copy: "Copy Text", email: "Send via Email",
-            name: "Full Name", phone: "Phone Number", emailLbl: "Email Address", dob: "DOB (YYYY-MM-DD)", eff: "Effective Date", addr: "Rental Address",
-            m_t2: "Authorization", m_c2: "Licensed team protects your privacy. You authorize info transfer to our partner broker for a quote.",
-            m_t3: "Application Details", m_t4: "Form Generated", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
-            footer: "Disclaimer: Sourced from crawlers and direct posts. &copy; 2026 HavenNest App.",
+            next: "Next Step", agree: "Agree & Authorize", gen: "Generate Form", copy: "Copy Text", email: "Send Email",
+            name: "Full Name", phone: "Phone Number", emailLbl: "Email Address", dob: "DOB (YYYY-MM-DD)", eff: "Effective Date (YYYY-MM-DD)", addr: "Rental Address",
+            m_t2: "Authorization", m_c2: "As a licensed team, we protect your privacy. You authorize HavenNest to transfer details for a quote under BC law.",
+            m_t3: "Application Details", m_t4: "Success", ins: "Tenant Insurance", move: "Moving Service", clean: "Cleaning Service",
+            footer: "Sourced from crawlers and direct posts. &copy; 2026 HavenNest App.",
             insPop: `<h3>Why is Tenant Insurance essential?</h3>
                     <p style="color:#166534; font-weight:bold;">It's the ultimate safety net for your belongings and financial peace of mind.</p>
                     <ul style="text-align:left; line-height:1.8;">
-                        <li><strong>Contents Coverage:</strong> Protects furniture and clothing.</li>
-                        <li><strong>Liability Protection:</strong> Covers legal costs if you damage others' property.</li>
+                        <li><strong>Contents Coverage:</strong> Protects your furniture and belongings.</li>
+                        <li><strong>Liability Protection:</strong> Covers accidental damage to others.</li>
                         <li><strong>Visitor Protection:</strong> Covers injuries of guests in your unit.</li>
                         <li><strong>Additional Living Expenses:</strong> Support if home is uninhabitable.</li>
                     </ul>`
@@ -139,29 +157,30 @@
     }
 
     async function init() {
-        // 1. 加载抓取数据并修复价格
+        // 1. 加载抓取数据并修复价格 [cite: 2026-03-09]
         let crawlItems = [];
         try {
             const res = await fetch('listings.json?t=' + Date.now());
             const data = await res.json();
             crawlItems = data.map(i => ({
                 ...i, 
-                price: parseInt(String(i.price).replace(/\D/g, '')) || 0, // 强制转数字
+                price: parseInt(String(i.price).replace(/\D/g, '')) || 0,
                 lat: i.lat ? parseFloat(i.lat) : null,
                 lng: i.lng ? parseFloat(i.lng) : null,
                 beds: getBeds(i.title)
             }));
         } catch(e) {}
 
-        // 2. 加载 Airtable 并修复坐标
+        // 2. 加载 Airtable
+        let airtableItems = [];
         try {
             const res = await fetch(`https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
             const data = await res.json();
-            const airtableItems = data.records.map(r => {
+            airtableItems = data.records.map(r => {
                 const f = r.fields;
                 return {
                     id: r.id, source: "屋主直发", isPromo: true,
-                    title: f['房源标题 (Listing Title)'] || "Airtable Rental",
+                    title: f['房源标题 (Listing Title)'] || "Luxury Home",
                     price: parseInt(String(f['月租金 (Monthly Rent)']).replace(/\D/g, '')) || 0,
                     image: f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'][0].url : "",
                     images: f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'].map(p => p.url) : [],
@@ -171,9 +190,9 @@
                     beds: getBeds(f['房源标题 (Listing Title)'] || "")
                 };
             });
-            allListings = [...airtableItems, ...crawlItems];
-        } catch(e) { allListings = [...crawlItems]; }
+        } catch(e) {}
         
+        allListings = [...airtableItems, ...crawlItems];
         updateUI();
     }
 
@@ -193,7 +212,6 @@
         const priceRange = document.getElementById('f-price').value;
         const sortOrder = document.getElementById('f-sort').value;
 
-        // 核心修复：筛选逻辑
         let filtered = allListings.filter(i => {
             const matchCity = city === 'all' || i.address.toLowerCase().includes(city.toLowerCase());
             const matchBed = beds === 'all' || (beds === '3' ? i.beds >= 3 : i.beds == beds);
@@ -211,7 +229,7 @@
         markerGroup.clearLayers();
 
         filtered.forEach(i => {
-            // 地图点位修复：确保屋主直发和抓取房源均有针
+            // 地图点位修复 [cite: 2026-03-03]
             if (i.lat && i.lng && !isNaN(i.lat)) {
                 L.marker([i.lat, i.lng]).addTo(markerGroup).bindPopup(`<b>$${i.price}</b><br>${i.title}<br><button onclick="window.showDetailById('${i.id || i.title}')">查看详情</button>`);
             }
@@ -228,11 +246,10 @@
         const modal = document.getElementById('detailModal');
         const images = i.images && i.images.length > 0 ? i.images : [i.image];
         let galleryContent = images.map(img => `<img src="${img}" class="gallery-img">`).join('');
-        modal.innerHTML = `<div class="modal-content" style="text-align:left;"><span style="position:absolute; top:15px; right:20px; font-size:35px; color:white; cursor:pointer; z-index:2200;" onclick="closeDetail()">×</span><div class="gallery-wrapper"><div class="gallery-container">${galleryContent}</div></div><div style="padding:40px;"><h1>$${i.price} / mo</h1><h2>${i.title}</h2><p>${i.desc}</p><button class="btn-action" onclick="closeDetail(); openSOP('ins');">申请租客保险</button></div></div>`;
+        modal.innerHTML = `<div class="modal-content" style="text-align:left;"><span style="position:absolute; top:15px; right:20px; font-size:35px; color:#999; cursor:pointer;" onclick="closeDetail()">×</span><div class="gallery-wrapper"><div class="gallery-container">${galleryContent}</div></div><div style="padding:40px;"><h1>$${i.price} / mo</h1><h2>${i.title}</h2><p>${i.desc}</p><button class="btn-action" onclick="closeDetail(); openSOP('ins');">申请租客保险 / Apply Insurance</button></div></div>`;
         modal.style.display = 'flex';
     }
 
-    // 核心修复：SOP 按钮文字刷入逻辑
     function openSOP(s) { 
         activeSvc = s; const d = dict[curLang]; 
         document.getElementById('m_t1').innerText = d[s]; 
@@ -245,7 +262,7 @@
         document.querySelectorAll('.step').forEach(el => el.style.display = 'none'); 
         document.getElementById('step'+s).style.display = 'block'; 
         const d = dict[curLang];
-        // 每次切换强制重刷当前步骤的按钮文字
+        // 强制重刷按钮文字 [cite: 2026-03-09]
         if(s===1) document.getElementById('btn-next').innerText = d.next;
         if(s===2) { document.getElementById('m_t2').innerText = d.m_t2; document.getElementById('m_c2').innerText = d.m_c2; document.getElementById('btn-agree').innerText = d.agree; }
         if(s===3) { 
