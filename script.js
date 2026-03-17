@@ -104,76 +104,6 @@ const dict = {
     }
 };
 
-// --- Utils: Geocoding with Cache ---
-const COORDS_CACHE_KEY = 'haven_coords_cache';
-let coordsCache = JSON.parse(localStorage.getItem(COORDS_CACHE_KEY) || '{}');
-
-async function getCoords(address) {
-    if (!address) return [49.24, -123.05];
-    
-    // Clean address for search
-    const searchAddr = address.includes('BC') ? address : address + ', BC, Canada';
-    
-    // Check Cache
-    if (coordsCache[searchAddr]) {
-        return coordsCache[searchAddr];
-    }
-
-    try {
-        // Sleep to avoid rate limiting (1 second between calls)
-        await new Promise(r => setTimeout(r, 1000));
-        
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchAddr)}&limit=1`, {
-            headers: { 'User-Agent': 'HavenNest-App-V2' }
-        });
-        
-        if (!res.ok) throw new Error('Network response was not ok');
-        
-        const data = await res.json();
-        if (data && data.length > 0) {
-            const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-            // Save to Cache
-            coordsCache[searchAddr] = coords;
-            localStorage.setItem(COORDS_CACHE_KEY, JSON.stringify(coordsCache));
-            return coords;
-        }
-    } catch (e) {
-        console.error('Geocoding error for:', address, e);
-    }
-    
-    // Fallback: Random offset from center to prevent marker overlap
-    return [49.24 + (Math.random() - 0.5) * 0.1, -123.05 + (Math.random() - 0.5) * 0.1];
-}
-
-// --- Core Logic ---
-async function init() {
-    updateLabels();
-    
-    // 1. Fetch Crawled Listings (First, as it's faster and local)
-    try {
-        const crawlRes = await fetch('listings.json?t=' + Date.now());
-        if (crawlRes.ok) {
-            let crawlItems = await crawlRes.json();
-            crawlItems = crawlItems.map(i => {
-                const price = typeof i.price === 'number' ? i.price : (parseInt(String(i.price).replace(/[^\d]/g, '')) || 0);
-                return {
-                    ...i, 
-                    source: "crawler", 
-                    price: price,
-                    lat: i.lat || (49.25 + (Math.random() - 0.5) * 0.1), 
-                    lng: -123.05 + (Math.random() - 0.5) * 0.1,
-                    beds: i.beds || 1,
-                    city: i.city || "Vancouver"
-                };
-            });
-            allListings = [...crawlItems];
-            filteredListings = [...allListings];
-            renderListings(filteredListings);
-        }
-    } catch (e) {
-        console.warn('Local listings.json could not be loaded via file:// protocol. Use a local server to see crawled listings.', e);
-    }
-
     // 2. Fetch Airtable Listings (Remote API, works even on file://)
     const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
     try {
@@ -185,7 +115,7 @@ async function init() {
             const f = r.fields;
             const addr = f['房源具体地址 (Address)'] || "Vancouver";
             const title = f['房源标题 (Listing Title)'] || "Rental Listing";
-            const coords = await getCoords(addr);
+            // Airtable items will now rely on pre-fetched coordinates from crawler, or have none.
             const photos = f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'].map(p => p.url) : [];
             
             let city = f['所在城市 (City)'] || "";
@@ -212,10 +142,10 @@ async function init() {
                 price: typeof f['月租金 (Monthly Rent)'] === 'number' ? f['月租金 (Monthly Rent)'] : (parseInt(String(f['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0),
                 isPromo: f['推广级别 (Promotion)'] && f['推广级别 (Promotion)'].includes('限时免费推广'),
                 images: photos, 
-                image: photos[0] || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                image: photos[0] || "", // Let CSS handle placeholder
                 desc: f['房源描述 (Description)'] || "No description.",
-                lat: coords[0], 
-                lng: coords[1], 
+                lat: f['Latitude'], // Assuming you add these fields in Airtable/crawler
+                lng: f['Longitude'],
                 address: addr,
                 phone: f['联系电话 (Phone)'], 
                 email: f['电子邮箱 (Email)'],
