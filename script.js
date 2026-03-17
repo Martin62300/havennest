@@ -104,18 +104,37 @@ const dict = {
     }
 };
 
-    // 2. Fetch Airtable Listings (Remote API, works even on file://)
+async function init() {
+    updateUI();
+    
+    // 1. Load Crawled Listings (Local JSON)
+    try {
+        const res = await fetch('listings.json');
+        if (res.ok) {
+            const crawledData = await res.json();
+            // 过滤掉没有坐标的房源，并统一数据格式
+            const validItems = crawledData.filter(i => i.lat && i.lng).map(i => ({
+                ...i,
+                id: i.id || i.title,
+                source: "crawler"
+            }));
+            allListings = [...allListings, ...validItems];
+            filterListings();
+        }
+    } catch (e) {
+        console.warn('Local listings.json not found or invalid. Run crawler.py first.');
+    }
+
+    // 2. Fetch Airtable Listings (Remote API)
     const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
     try {
         const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
         const data = await res.json();
         
-        let airtableItems = [];
         for (const r of data.records) {
             const f = r.fields;
             const addr = f['房源具体地址 (Address)'] || "Vancouver";
             const title = f['房源标题 (Listing Title)'] || "Rental Listing";
-            // Airtable items will now rely on pre-fetched coordinates from crawler, or have none.
             const photos = f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'].map(p => p.url) : [];
             
             let city = f['所在城市 (City)'] || "";
@@ -135,6 +154,10 @@ const dict = {
                 beds = (bedMatch && bedMatch[1]) ? parseInt(bedMatch[1]) : 1;
             }
 
+            // 如果 Airtable 里没有坐标，默认给一个温哥华市中心的坐标，防止报错
+            const lat = parseFloat(f['Latitude']) || 49.2827;
+            const lng = parseFloat(f['Longitude']) || -123.1207;
+
             const item = {
                 id: r.id, 
                 source: "owner",
@@ -142,10 +165,10 @@ const dict = {
                 price: typeof f['月租金 (Monthly Rent)'] === 'number' ? f['月租金 (Monthly Rent)'] : (parseInt(String(f['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0),
                 isPromo: f['推广级别 (Promotion)'] && f['推广级别 (Promotion)'].includes('限时免费推广'),
                 images: photos, 
-                image: photos[0] || "", // Let CSS handle placeholder
+                image: photos[0] || "",
                 desc: f['房源描述 (Description)'] || "No description.",
-                lat: f['Latitude'], // Assuming you add these fields in Airtable/crawler
-                lng: f['Longitude'],
+                lat: lat,
+                lng: lng,
                 address: addr,
                 phone: f['联系电话 (Phone)'], 
                 email: f['电子邮箱 (Email)'],
@@ -154,7 +177,7 @@ const dict = {
             };
             
             allListings.push(item);
-            filterListings(); // Refresh with new item
+            filterListings();
         }
     } catch (e) {
         console.error('Airtable fetch failed', e);
@@ -235,9 +258,14 @@ function renderListings(items) {
     
     const grouped = {};
     items.forEach(i => {
-        const key = `${i.lat.toFixed(4)}_${i.lng.toFixed(4)}`;
+        // 确保坐标存在且为数字
+        const lat = parseFloat(i.lat);
+        const lng = parseFloat(i.lng);
+        if (isNaN(lat) || isNaN(lng)) return;
+
+        const key = `${lat.toFixed(4)}_${lng.toFixed(4)}`;
         if (!grouped[key]) grouped[key] = [];
-        grouped[key].push(i);
+        grouped[key].push({ ...i, lat, lng });
     });
 
     Object.values(grouped).forEach(group => {
