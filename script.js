@@ -221,13 +221,23 @@ function updateUI() {
 function filterListings() {
     const city = document.getElementById('filter-city').value;
     const beds = parseInt(document.getElementById('filter-beds').value) || 0;
-    const budget = parseInt(document.getElementById('filter-budget').value) || Infinity;
+    const budgetValue = document.getElementById('filter-budget').value;
+    const budget = budgetValue ? parseInt(budgetValue) : Infinity;
     const sort = document.getElementById('sort-price').value;
 
     filteredListings = allListings.filter(i => {
-        const matchCity = !city || i.city.toLowerCase().includes(city.toLowerCase()) || i.address.toLowerCase().includes(city.toLowerCase());
+        // 增强城市匹配：检查城市字段、地址字段以及标题
+        const searchCity = city.toLowerCase();
+        const itemCity = (i.city || "").toLowerCase();
+        const itemAddr = (i.address || "").toLowerCase();
+        const itemTitle = (i.title || "").toLowerCase();
+
+        const matchCity = !city || 
+                         itemCity.includes(searchCity) || 
+                         itemAddr.includes(searchCity) || 
+                         itemTitle.includes(searchCity);
         
-        // Exact match for 1, 2, 3; At least 4 for "4"
+        // 卧室匹配逻辑
         let matchBeds = true;
         if (beds > 0) {
             if (beds === 4) {
@@ -237,12 +247,13 @@ function filterListings() {
             }
         }
         
-        const matchBudget = i.price <= budget;
+        // 预算匹配逻辑
+        const matchBudget = !budget || i.price <= budget || i.price === 0; // 0通常代表价格面议
         return matchCity && matchBeds && matchBudget;
     });
 
     if (sort === 'low-high') {
-        filteredListings.sort((a, b) => a.price - b.price);
+        filteredListings.sort((a, b) => (a.price || 0) - (b.price || 0));
     }
 
     renderListings(filteredListings);
@@ -256,36 +267,32 @@ function renderListings(items) {
     // Update Map
     map.eachLayer(l => { if (l instanceof L.Marker) map.removeLayer(l); });
     
-    const grouped = {};
+    // 增加随机偏移量以解决 Marker 重叠问题
     items.forEach(i => {
-        // 确保坐标存在且为数字
         const lat = parseFloat(i.lat);
         const lng = parseFloat(i.lng);
         if (isNaN(lat) || isNaN(lng)) return;
 
-        const key = `${lat.toFixed(4)}_${lng.toFixed(4)}`;
-        if (!grouped[key]) grouped[key] = [];
-        grouped[key].push({ ...i, lat, lng });
-    });
+        // 为每个点增加微小的随机偏移 (约 10-20 米)，防止完全重叠
+        const offsetLat = lat + (Math.random() - 0.5) * 0.0003;
+        const offsetLng = lng + (Math.random() - 0.5) * 0.0003;
 
-    Object.values(grouped).forEach(group => {
-        const first = group[0];
-        const marker = L.marker([first.lat, first.lng]).addTo(map);
-        let popupHtml = `<div style="min-width:220px; font-family:sans-serif;">
-            <b style="color:var(--primary);">${first.address || 'Location'}</b><hr style="border:0; border-top:1px solid #eee; margin:10px 0;">`;
+        const marker = L.marker([offsetLat, offsetLng]).addTo(map);
         
-        group.forEach(item => {
-            popupHtml += `
+        const popupHtml = `
+            <div style="min-width:200px; font-family:sans-serif;">
+                <b style="color:var(--primary);">${i.address || 'Location'}</b>
+                <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
                 <div style="margin-bottom:12px;">
-                    <span style="color:var(--primary); font-weight:800; font-size:1.1rem;">$${item.price}</span>
-                    <div style="font-size:12px; color:#666; margin:2px 0;">${item.title}</div>
-                    <button onclick="window.showDetailById('${item.id || item.title}')" 
+                    <span style="color:var(--primary); font-weight:800; font-size:1.1rem;">$${i.price || 'Contact'}</span>
+                    <div style="font-size:12px; color:#666; margin:2px 0;">${i.title}</div>
+                    <button onclick="window.showDetailById('${i.id || i.title}')" 
                         style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:6px; font-size:11px; cursor:pointer; width:100%;">
                         ${d.viewDetail}
                     </button>
-                </div>`;
-        });
-        marker.bindPopup(popupHtml + `</div>`);
+                </div>
+            </div>`;
+        marker.bindPopup(popupHtml);
     });
 
     // Update Grid
