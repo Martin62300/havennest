@@ -154,16 +154,27 @@ async function init() {
                 beds = (bedMatch && bedMatch[1]) ? parseInt(bedMatch[1]) : 1;
             }
 
-            // 如果 Airtable 里没有坐标，默认给一个温哥华市中心的坐标，防止报错
-            const lat = parseFloat(f['Latitude']) || 49.2827;
-            const lng = parseFloat(f['Longitude']) || -123.1207;
+            // 优化 Airtable 房源坐标逻辑
+            let lat = parseFloat(f['Latitude']);
+            let lng = parseFloat(f['Longitude']);
+            
+            // 如果 Airtable 没有填坐标，则根据城市分配默认坐标
+            if (isNaN(lat) || isNaN(lng)) {
+                if (city === "Richmond") {
+                    lat = 49.1666; // Richmond Center 附近
+                    lng = -123.1336;
+                } else {
+                    lat = 49.2827; // Vancouver 默认
+                    lng = -123.1207;
+                }
+            }
 
             const item = {
                 id: r.id, 
                 source: "owner",
                 title: title,
                 price: typeof f['月租金 (Monthly Rent)'] === 'number' ? f['月租金 (Monthly Rent)'] : (parseInt(String(f['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0),
-                isPromo: f['推广级别 (Promotion)'] && f['推广级别 (Promotion)'].includes('限时免费推广'),
+                isPromo: true, // 标记为屋主发布/推广房源
                 images: photos, 
                 image: photos[0] || "",
                 desc: f['房源描述 (Description)'] || "No description.",
@@ -254,6 +265,13 @@ function filterListings() {
 
     if (sort === 'low-high') {
         filteredListings.sort((a, b) => (a.price || 0) - (b.price || 0));
+    } else {
+        // 默认排序：屋主/推广房源 (isPromo) 置顶
+        filteredListings.sort((a, b) => {
+            if (a.isPromo && !b.isPromo) return -1;
+            if (!a.isPromo && b.isPromo) return 1;
+            return 0;
+        });
     }
 
     renderListings(filteredListings);

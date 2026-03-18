@@ -64,6 +64,41 @@ header {
     background: #e2e8f0;
 }
 
+.map-container {
+    position: relative;
+    width: 100%;
+}
+
+.map-disclaimer {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--primary);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid var(--primary);
+    white-space: nowrap;
+    pointer-events: none;
+    backdrop-filter: blur(5px);
+}
+
+@media (max-width: 768px) {
+    .map-disclaimer {
+        font-size: 0.75rem;
+        padding: 8px 15px;
+        bottom: 15px;
+        width: 90%;
+        white-space: normal;
+        text-align: center;
+    }
+}
+
 /* Service Center */
 .service-center {
     max-width: 1200px;
