@@ -324,7 +324,7 @@ class HavenNestCrawler:
         results = []
         scraper = cloudscraper.create_scraper()
         
-        ad_keywords = ['搬家', '清洁', '接送', '教练', '维修', '垃圾', '快递', '求职', '招聘', '服务', '公司', '专业', '诚聘']
+        ad_keywords = ['搬家', '清洁', '接送', '教练', '维修', '垃圾', '快递', '求职', '招聘', '服务', '公司', '专业', '诚聘', '货运', '物流', '修车']
         
         try:
             url = "https://c.vanpeople.com/zufang/"
@@ -342,6 +342,8 @@ class HavenNestCrawler:
                     title_el = item.find('a', class_='c-list-title')
                     if not title_el: continue
                     title = title_el.text.strip()
+                    
+                    # 增强过滤逻辑：标题关键词过滤
                     if any(kw in title for kw in ad_keywords): continue
                     
                     detail_url = title_el.get('href', '')
@@ -349,7 +351,10 @@ class HavenNestCrawler:
                     
                     price_el = item.find('span', class_='money')
                     price = int(re.sub(r'[^\d]', '', price_el.text)) if price_el else 0
-                    if price == 0 and any(kw in title for kw in ['公司', '专业']): continue
+                    
+                    # 增强过滤逻辑：价格为0且包含特定词汇
+                    if price == 0 and any(kw in title for kw in ['公司', '专业', '华人', '优惠', '电话', '特惠']): 
+                        continue
 
                     # 深度抓取详情页
                     print(f"  Deep crawling: {title[:20]}...")
@@ -357,21 +362,39 @@ class HavenNestCrawler:
                     detail_res.encoding = 'utf-8'
                     detail_soup = BeautifulSoup(detail_res.text, 'html.parser')
                     
-                    # 1. 提取所有图片
+                    # 1. 提取所有图片 (深度暴力搜索：JSON, 脚本, 以及各种属性)
                     images = []
-                    # 详情页通常在 .gallery 或类似结构中
-                    img_els = detail_soup.select('.view-gallery img, .swiper-slide img, .detail-images img')
-                    for img in img_els:
-                        src = img.get('src') or img.get('data-src')
-                        if src and 'vanpeople.com' in src:
-                            if not src.startswith('http'): src = "https:" + src
-                            if src not in images: images.append(src)
                     
-                    # 2. 提取描述
-                    desc_el = detail_soup.select_one('.detail-desc, .info-content, .description')
+                    # 方式 A: 搜索源代码中的图片 JSON 数组 (VanPeople 常用格式)
+                    photo_matches = re.findall(r'https?://[^\s"\'<>]+?\.(?:jpg|jpeg|png|webp)', detail_res.text)
+                    for p in photo_matches:
+                        if 'vanpeople.com' in p and ('/ad/' in p or '/images/' in p) and 'avatar' not in p and 'logo' not in p:
+                            if p not in images: images.append(p)
+
+                    # 方式 B: 如果方式 A 没找到，使用 DOM 选择器
+                    if not images:
+                        img_els = detail_soup.select('img[data-src], img[lazy-src], .view-gallery img, .swiper-slide img, .img-box img')
+                        for img in img_els:
+                            src = img.get('data-src') or img.get('lazy-src') or img.get('swiper-lazy') or img.get('src')
+                            if src:
+                                if src.startswith('//'): src = "https:" + src
+                                elif src.startswith('/'): src = "https://c.vanpeople.com" + src
+                                if 'vanpeople.com' in src and 'avatar' not in src and 'logo' not in src:
+                                    if src not in images: images.append(src)
+                    
+                    # 2. 提取描述并深度清洗
+                    desc_el = detail_soup.select_one('.detail-desc, .info-content, .description, #info-content, .text-content, .ad-detail-content')
                     desc = desc_el.text.strip() if desc_el else ""
-                    # 移除描述中的多余空白
-                    desc = re.sub(r'\n\s*\n', '\n', desc)
+                    
+                    # 移除描述中的垃圾信息
+                    junk_patterns = [
+                        r'微信扫二维码分享到朋友圈', r'联系我时请说明是在vanpeople看到的', r'重要警示：不法骗子.*',
+                        r'谨慎租房防诈骗.*', r'扫码添加微信客服', r'点击下载协议', r'我要举报', r'相关广告'
+                    ]
+                    for pattern in junk_patterns:
+                        desc = re.sub(pattern, '', desc, flags=re.DOTALL)
+                    
+                    desc = re.sub(r'\n\s*\n', '\n', desc).strip()
 
                     # 提取区域
                     loc_el = item.find('span', class_='class')

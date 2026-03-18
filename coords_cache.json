@@ -139,106 +139,6 @@
         49.1762053,
         -123.1282949
     ],
-    "delta, Vancouver, BC, Canada": [
-        49.0846258,
-        -123.057938
-    ],
-    "Vancouver, Vancouver, BC, Canada": [
-        49.2686069,
-        -123.085922
-    ],
-    "Fairview District, Vancouver, BC, Vancouver, BC, Canada": [
-        49.268764,
-        -123.1171587
-    ],
-    "South Surrey, Vancouver, BC, Canada": [
-        49.0474364,
-        -122.7823022
-    ],
-    "city of vancouver, Vancouver, BC, Canada": [
-        49.2608724,
-        -123.113952
-    ],
-    "Annieville, Vancouver, BC, Canada": [
-        49.1701526,
-        -122.9097588
-    ],
-    "PNE, TT, Vancouver, BC, Canada": [
-        49.2815249,
-        -123.0362114
-    ],
-    "Kitsilano, Vancouver, BC, Canada": [
-        49.2694099,
-        -123.155267
-    ],
-    "Surrey, Vancouver, BC, Canada": [
-        49.1913033,
-        -122.849143
-    ],
-    "Trafalgar Park, Vancouver, BC, Canada": [
-        49.2506695,
-        -123.1618286
-    ],
-    "SFU Campus, Vancouver, BC, Canada": [
-        49.1873731,
-        -122.849479
-    ],
-    "Ironwood, Vancouver, BC, Canada": [
-        49.133331,
-        -123.0921837
-    ],
-    "West Vancouver, Vancouver, BC, Canada": [
-        49.3311208,
-        -123.159479
-    ],
-    "Central Lonsdale, Vancouver, BC, Canada": [
-        49.321923,
-        -123.0718699
-    ],
-    "33633 King Rd, Abbotsford, BC, Vancouver, BC, Canada": [
-        49.031419,
-        -122.4542109
-    ],
-    "Richmond BC, Richmond, BC, Canada": [
-        49.174693,
-        -123.1516757
-    ],
-    "yaletown, Vancouver, BC, Canada": [
-        49.2763217,
-        -123.1209558
-    ],
-    "north shore, Vancouver, BC, Canada": [
-        49.5013735,
-        -123.0706573
-    ],
-    "SFU, Vancouver, BC, Canada": [
-        49.2824032,
-        -123.1085513
-    ],
-    "UBC, Vancouver, BC, Canada": [
-        49.2484638,
-        -123.2341555
-    ],
-    "Richmond, Richmond, BC, Canada": [
-        49.174693,
-        -123.1516757
-    ],
-    "Metrotown, Vancouver, BC, Canada": [
-        49.2258524,
-        -123.0038944
-    ],
-    "Maple Ridge, Vancouver, BC, Canada": [
-        49.2197345,
-        -122.599707
-    ],
-    "Coquitlam, Vancouver, BC, Canada": [
-        49.2842958,
-        -122.793281
-    ],
-    "Lynn Valley, Vancouver, BC, Canada": [
-        49.3409789,
-        -123.031168
-    ],
     "列治文, Richmond, BC, Canada": [
         49.1528003,
         -123.0908155
@@ -255,6 +155,10 @@
         49.1928337,
         -123.1829087
     ],
+    "Vancouver, Vancouver, BC, Canada": [
+        49.2686069,
+        -123.085922
+    ],
     "Vancouver, Surrey, BC, Canada": [
         49.2132871,
         -122.8278625
@@ -262,5 +166,269 @@
     "Vancouver, Burnaby, BC, Canada": [
         49.2481561,
         -123.0100584
+    ],
+    "South Vancouver, Vancouver, BC, Canada": [
+        49.2073232,
+        -123.0101843
+    ],
+    "West Broadway, Vancouver, BC, Canada": [
+        49.2642267,
+        -123.1770388
+    ],
+    "Marpole, Vancouver, BC, Canada": [
+        49.2092233,
+        -123.1361495
+    ],
+    "Surrey, Vancouver, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "9835 King George Boulevard, Surrey, BC, Vancouver, BC, Canada": [
+        49.1809451,
+        -122.8465136
+    ],
+    "North Delta, Vancouver, BC, Canada": [
+        49.1378833,
+        -122.911231
+    ],
+    "Burnaby, Burnaby, BC, Canada": [
+        49.2767096,
+        -122.917803
+    ],
+    "New Westminster, Vancouver, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "1005-901 Lougheed Hwy, Coquitlam, B.C., Vancouver, BC, Canada": [
+        49.2741529,
+        -122.789005
+    ],
+    "8860 Sierpina Drive, Richmond, Richmond, BC, Canada": [
+        49.1457913,
+        -123.1271917
+    ],
+    "city of vancouver, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "vancouver west, fairview, s granville, south granville, Vancouver, BC, Canada": [
+        49.2651663,
+        -123.1309763
+    ],
+    "Richmond, Richmond, BC, Canada": [
+        49.174693,
+        -123.1516757
+    ],
+    "Coquitlam North, Vancouver, BC, Canada": [
+        49.2439052,
+        -122.891538
+    ],
+    "North Vancouver, Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "burnaby-metrotown, Burnaby, BC, Canada": [
+        49.2313478,
+        -123.005147
+    ],
+    "surrey, Vancouver, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "939 Beatty Street, Vancouver, BC, Vancouver, BC, Canada": [
+        49.2763787,
+        -123.1161826
+    ],
+    "Port Moody, Vancouver, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "3370 Dewdney Trunk Road, Port Moody, BC, Vancouver, BC, Canada": [
+        49.2762926,
+        -122.8249738
+    ],
+    "155 E 15th St, North Vancouver, BC, Vancouver, BC, Canada": [
+        49.3218816,
+        -123.0700146
+    ],
+    "Maple Ridge, Vancouver, BC, Canada": [
+        49.2197345,
+        -122.599707
+    ],
+    "West Vancouver, Vancouver, BC, Canada": [
+        49.3311208,
+        -123.159479
+    ],
+    "Oakridge, Vancouver, BC, Canada": [
+        49.2308288,
+        -123.1311342
+    ],
+    "3730 Cambie Street, Vancouver, BC, Canada": [
+        49.2517832,
+        -123.1148822
+    ],
+    "Coquitlam, Vancouver, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "1556 West 13th Avenue, Vancouver, BC, Canada": [
+        49.2596286,
+        -123.1401103
+    ],
+    "2609 West 1st Avenue, Vancouver, BC, Canada": [
+        49.2712434,
+        -123.16471
+    ],
+    "South Surrey, Vancouver, BC, Canada": [
+        49.0474364,
+        -122.7823022
+    ],
+    "1877 Haro Street, Vancouver, BC, Canada": [
+        49.2917314,
+        -123.137391
+    ],
+    "COMMERCIAL DR., Vancouver, BC, Canada": [
+        49.2552369,
+        -123.0691228
+    ],
+    "Langley, Vancouver, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "3300 Oak St. Vancouver, BC, Vancouver, BC, Canada": [
+        49.2557654,
+        -123.1268845
+    ],
+    "Gastown, Vancouver, BC, Canada": [
+        49.2836567,
+        -123.1062358
+    ],
+    "Kitsilano, Vancouver, BC, Canada": [
+        49.2694099,
+        -123.155267
+    ],
+    "Central Lonsdale, Vancouver, BC, Canada": [
+        49.321923,
+        -123.0718699
+    ],
+    "West End, Vancouver, BC, Canada": [
+        49.2841308,
+        -123.1317949
+    ],
+    "Upper Lonsdale, North Vancouver, Vancouver, BC, Canada": [
+        49.3436242,
+        -123.07275
+    ],
+    "Port Coquitlam, B.C., Vancouver, BC, Canada": [
+        49.2621643,
+        -122.780542
+    ],
+    "Brentwood, Vancouver, BC, Canada": [
+        49.2923589,
+        -123.1395613
+    ],
+    "Downtown Vancouver, Vancouver, BC, Canada": [
+        49.2771766,
+        -123.102501
+    ],
+    "Olympic Village, Vancouver, BC, Canada": [
+        49.266648,
+        -123.1153523
+    ],
+    "PNE, East Vancouver, Vancouver, BC, Canada": [
+        49.2823238,
+        -123.0430151
+    ],
+    "Burquitlam, Vancouver, BC, Canada": [
+        49.2613309,
+        -122.8899378
+    ],
+    "richmond, Richmond, BC, Canada": [
+        49.174693,
+        -123.1516757
+    ],
+    "Central Coquitlam, Vancouver, BC, Canada": [
+        49.2748886,
+        -122.8009101
+    ],
+    "Austin Heights, Vancouver, BC, Canada": [
+        49.2497381,
+        -122.8547419
+    ],
+    "City Centre, Surrey, North Surrey, Vancouver, BC, Canada": [
+        49.0316166,
+        -122.803936
+    ],
+    "Metrotown, Vancouver, BC, Canada": [
+        49.2258524,
+        -123.0038944
+    ],
+    "Yaletown, Vancouver, BC, Canada": [
+        49.2763217,
+        -123.1209558
+    ],
+    "8220 King George Blvd, Surrey, BC, Vancouver, BC, Canada": [
+        49.1522519,
+        -122.8453373
+    ],
+    "20115 - 53A Avenue, Langley, BC, Vancouver, BC, Canada": [
+        49.0992727,
+        -122.6523992
+    ],
+    "Kensington-Cedar Cottage, Vancouver, BC, Canada": [
+        49.2463833,
+        -123.0736849
+    ],
+    "75 West 1st Ave, Vancouver, BC, Vancouver, BC, Canada": [
+        49.2703955,
+        -123.1057817
+    ],
+    "1045 Haro St, Vancouver, BC, Vancouver, BC, Canada": [
+        49.2836434,
+        -123.1249331
+    ],
+    "Vancouver, BC, Vancouver, BC, Canada": [
+        49.2686069,
+        -123.085922
+    ],
+    "Main, Vancouver, BC, Canada": [
+        49.2811147,
+        -123.0992135
+    ],
+    "surrey bc, Vancouver, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "1372 Seymour, Vancouver, BC, Canada": [
+        49.2746362,
+        -123.1274998
+    ],
+    "Yaletown BC, Vancouver, BC, Canada": [
+        49.282877,
+        -123.1205636
+    ],
+    "East Village, Vancouver, BC, Canada": [
+        49.2811829,
+        -123.0565529
+    ],
+    "Delta, Vancouver, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "2590 Lonsdale Ave, North Vancouver, BC, Vancouver, BC, Canada": [
+        49.333081,
+        -123.0715973
+    ],
+    "New westminster, Vancouver, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "Kitsilano - Vancouver, BC, Vancouver, BC, Canada": [
+        49.270038,
+        -123.1459443
+    ],
+    "Port Coquitlam, Vancouver, BC, Canada": [
+        49.2621643,
+        -122.780542
     ]
 }
