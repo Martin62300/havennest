@@ -273,18 +273,53 @@ window.showDetailById = (id) => {
 };
 
 function showDetail(i) {
-    if (i.source === "crawler" && i.url) {
-        window.open(i.url, '_blank');
-        return;
-    }
-    
     const modal = document.getElementById('detailModal');
-    const images = (i.images && i.images.length > 0) ? i.images : [i.image];
+    const images = (i.images && i.images.length > 0) ? i.images : (i.image ? [i.image] : []);
     const d = dict[curLang];
     curSlide = 0;
     
-    let galleryContent = images.map(img => `<img src="${img}" class="gallery-img">`).join('');
+    let galleryContent = images.length > 0 
+        ? images.map(img => `<img src="${img}" class="gallery-img">`).join('')
+        : `<div class="gallery-img" style="background:#f1f5f9; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:1.2rem;">No Image Available</div>`;
     
+    // 详情内容处理
+    const description = i.desc || i.description || (curLang === 'zh' ? '暂无详细描述。' : 'No detailed description available.');
+    
+    // 按钮逻辑：抓取房源显示跳转按钮，屋主房源显示联系方式
+    let actionButtons = '';
+    let contactInfo = '';
+
+    if (i.source === 'crawler' || i.source === 'VanPeople' || i.source === 'Craigslist' || i.source === 'Rentals.ca') {
+        // 系统抓取房源：显示跳转原网站按钮 + 租客保险按钮（并排）
+        actionButtons = `
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:30px;">
+                <button class="btn-action" onclick="window.open('${i.url}', '_blank')" style="background:#475569; margin-top:0;">
+                    🌐 ${curLang === 'zh' ? '查看原房源' : 'View Original'}
+                </button>
+                <button class="btn-action" onclick="closeDetail(); openSOP('ins');" style="margin-top:0;">
+                    🛡️ ${curLang === 'zh' ? '申请租客保险' : 'Apply Insurance'}
+                </button>
+            </div>
+        `;
+        contactInfo = `<div style="color:#64748b; font-style:italic; font-size:0.9rem;">${curLang === 'zh' ? '提示：此房源由系统抓取，请点击下方按钮跳转原网站查看联系方式。' : 'Note: This listing is sourced by system. Please click the button below to view contact details on the original site.'}</div>`;
+    } else {
+        // 屋主直发房源：显示联系方式 + 租客保险按钮（下方）
+        contactInfo = `
+            <div style="background:var(--bg); padding:25px; border-radius:20px; border:1px solid #e2e8f0;">
+                <h3 style="margin-top:0;">${d.contact}:</h3>
+                <div style="font-weight:600; color:var(--primary);">
+                    <div>📞 ${i.phone || '房东未提供 / Not Provided'}</div>
+                    <div>📧 ${i.email || '房东未提供 / Not Provided'}</div>
+                </div>
+            </div>
+        `;
+        actionButtons = `
+            <button class="btn-action" onclick="closeDetail(); openSOP('ins');" style="margin-top:30px;">
+                🛡️ ${curLang === 'zh' ? '为此房源申请租客保险' : 'Apply Tenant Insurance'}
+            </button>
+        `;
+    }
+
     modal.innerHTML = `
         <div class="modal-content" style="text-align:left;">
             <span style="position:absolute; top:20px; right:25px; font-size:40px; color:white; cursor:pointer; z-index:2200; text-shadow:0 0 10px rgba(0,0,0,0.5);" onclick="closeDetail()">×</span>
@@ -300,19 +335,10 @@ function showDetail(i) {
                     </div>
                 </div>
                 <h2 style="margin:15px 0 25px;">${i.title}</h2>
-                <div style="color:#475569; line-height:1.8; font-size:1.1rem; white-space:pre-wrap; margin-bottom:30px;">${i.desc}</div>
+                <div style="color:#475569; line-height:1.8; font-size:1.1rem; white-space:pre-wrap; margin-bottom:30px;">${description}</div>
                 
-                <div style="background:var(--bg); padding:25px; border-radius:20px; border:1px solid #e2e8f0;">
-                    <h3 style="margin-top:0;">${d.contact}:</h3>
-                    <div style="font-weight:600; color:var(--primary);">
-                        <div>📞 ${i.phone || '房东未提供 / Not Provided'}</div>
-                        <div>📧 ${i.email || '房东未提供 / Not Provided'}</div>
-                    </div>
-                </div>
-                
-                <button class="btn-action" onclick="closeDetail(); openSOP('ins');" style="margin-top:30px;">
-                    🛡️ 为此房源申请租客保险 / Apply Insurance
-                </button>
+                ${contactInfo}
+                ${actionButtons}
             </div>
         </div>`;
     modal.style.display = 'flex';
