@@ -97,101 +97,74 @@ const dict = {
         any: "Any",
         lowHigh: "Price: Low to High",
         default: "Default",
+        sourceCrawler: "系统抓取",
+        sourceOwner: "屋主直发",
+        viewDetail: "查看详情",
+        contact: "联系方式",
+        mapNotice: "📍 温馨提示：部分抓取房源因原网站地址信息不全，地图定位可能存在偏差，请以详情页描述为准。"
+    },
+    en: {
+        postCta: "Have a vacancy? Post it on HavenNest for free!",
+        postBtn: "Post Now",
+        next: "Next Step",
+        agree: "Agree & Authorize",
+        gen: "Generate Application",
+        copy: "Copy Text",
+        email: "Send via Email",
+        name: "Full Name",
+        phone: "Phone Number",
+        emailLbl: "Email Address",
+        dob: "Date of Birth (YYYY-MM-DD)",
+        eff: "Effective Date (YYYY-MM-DD)",
+        addr: "Rental Address",
+        m_t2: "Authorization",
+        m_c2: "As a licensed professional team, we promise to protect your privacy. You authorize HavenNest to securely transfer your details to our partner broker for a quote. Your data is protected under BC law.",
+        m_t3: "Application Details",
+        m_t4: "Form Generated",
+        ins: "Tenant Insurance",
+        move: "Moving Service",
+        clean: "Cleaning Service",
+        footer: "Disclaimer: Sourced from crawlers and direct posts. &copy; 2026 HavenNest App.",
+        insPop: `<h3>Why is Tenant Insurance essential?</h3>
+                <p style="color:#166534; font-weight:bold;">It's more than just a landlord's requirement; it's the ultimate safety net for your belongings and financial peace of mind.</p>
+                <ul style="text-align:left; line-height:1.8;">
+                    <li><strong>Contents Coverage:</strong> Protects your furniture, electronics, and clothing. If loss occurs due to fire or theft, insurance pays based on replacement value.</li>
+                    <li><strong>Liability Protection:</strong> Covers legal costs if your negligence causes damage to others (e.g., water leaks or kitchen fires), shielding you from astronomical bills.</li>
+                    <li><strong>Visitor Protection:</strong> Covers medical or legal expenses if a visitor is accidentally injured within your rental unit.</li>
+                    <li><strong>Additional Living Expenses:</strong> If your home becomes uninhabitable during repairs, insurance covers hotel stays and extra dining costs.</li>
+                </ul>`,
+        city: "City",
+        beds: "Bedrooms",
+        budget: "Budget",
+        sort: "Sort",
+        all: "All",
+        any: "Any",
+        lowHigh: "Price: Low to High",
+        default: "Default",
         sourceCrawler: "Crawled",
         sourceOwner: "Direct Post",
         viewDetail: "View Detail",
-        contact: "Contact"
+        contact: "Contact",
+        mapNotice: "📍 Friendly Reminder: Some listings may have inexact map locations due to incomplete address data. Please refer to details for accuracy."
     }
 };
 
 async function init() {
     updateUI();
     
-    // 1. Load Crawled Listings (Local JSON)
+    // 统一从 listings.json 加载所有房源（包括抓取的和屋主发布的）
     try {
         const res = await fetch('listings.json');
         if (res.ok) {
-            const crawledData = await res.json();
-            // 过滤掉没有坐标的房源，并统一数据格式
-            const validItems = crawledData.filter(i => i.lat && i.lng).map(i => ({
-                ...i,
-                id: i.id || i.title,
-                source: "crawler"
-            }));
-            allListings = [...allListings, ...validItems];
+            const data = await res.json();
+            // 过滤掉没有坐标的房源
+            allListings = data.filter(i => i.lat && i.lng);
             filterListings();
+        } else {
+            console.error('Failed to load listings.json');
         }
     } catch (e) {
         console.warn('Local listings.json not found or invalid. Run crawler.py first.');
-    }
-
-    // 2. Fetch Airtable Listings (Remote API)
-    const url = `https://api.airtable.com/v0/${CONFIG.baseId}/${encodeURIComponent(CONFIG.tableName)}`;
-    try {
-        const res = await fetch(url, { headers: { Authorization: `Bearer ${CONFIG.token}` } });
-        const data = await res.json();
-        
-        for (const r of data.records) {
-            const f = r.fields;
-            const addr = f['房源具体地址 (Address)'] || "Vancouver";
-            const title = f['房源标题 (Listing Title)'] || "Rental Listing";
-            const photos = f['房源照片 / Property Photos'] ? f['房源照片 / Property Photos'].map(p => p.url) : [];
-            
-            let city = f['所在城市 (City)'] || "";
-            if (!city) {
-                const searchStr = (title + " " + addr).toLowerCase();
-                if (searchStr.includes('richmond') || searchStr.includes('列治文') || searchStr.includes('lansdowne')) {
-                    city = "Richmond";
-                } else {
-                    city = "Vancouver";
-                }
-            }
-
-            let beds = parseInt(f['卧室数量 (Beds)']);
-            if (isNaN(beds) || beds === 0) {
-                const searchStr = (title + " " + (f['房源描述 (Description)'] || "")).toLowerCase();
-                const bedMatch = searchStr.match(/(\d+)\s*(室|房|br|bed|bedroom)/);
-                beds = (bedMatch && bedMatch[1]) ? parseInt(bedMatch[1]) : 1;
-            }
-
-            // 优化 Airtable 房源坐标逻辑
-            let lat = parseFloat(f['Latitude']);
-            let lng = parseFloat(f['Longitude']);
-            
-            // 如果 Airtable 没有填坐标，则根据城市分配默认坐标
-            if (isNaN(lat) || isNaN(lng)) {
-                if (city === "Richmond") {
-                    lat = 49.1666; // Richmond Center 附近
-                    lng = -123.1336;
-                } else {
-                    lat = 49.2827; // Vancouver 默认
-                    lng = -123.1207;
-                }
-            }
-
-            const item = {
-                id: r.id, 
-                source: "owner",
-                title: title,
-                price: typeof f['月租金 (Monthly Rent)'] === 'number' ? f['月租金 (Monthly Rent)'] : (parseInt(String(f['月租金 (Monthly Rent)']).replace(/[^\d]/g, '')) || 0),
-                isPromo: true, // 标记为屋主发布/推广房源
-                images: photos, 
-                image: photos[0] || "",
-                desc: f['房源描述 (Description)'] || "No description.",
-                lat: lat,
-                lng: lng,
-                address: addr,
-                phone: f['联系电话 (Phone)'], 
-                email: f['电子邮箱 (Email)'],
-                beds: beds,
-                city: city
-            };
-            
-            allListings.push(item);
-            filterListings();
-        }
-    } catch (e) {
-        console.error('Airtable fetch failed', e);
     }
 }
 
@@ -201,14 +174,13 @@ function updateLabels() {
     document.getElementById('post-btn-text').innerText = d.postBtn;
     document.getElementById('lang-btn').innerText = curLang === 'zh' ? 'English' : '中文';
     document.getElementById('footer-text').innerHTML = d.footer;
+    document.getElementById('map-notice').innerText = d.mapNotice;
     
     // Filter Labels
     document.getElementById('lbl-city').innerText = d.city;
     document.getElementById('lbl-beds').innerText = d.beds;
     document.getElementById('lbl-budget').innerText = d.budget;
     document.getElementById('lbl-sort').innerText = d.sort;
-
-    // Filter Options (Dynamic update would be better, but static is fine for now)
 }
 
 function updateUI() {
