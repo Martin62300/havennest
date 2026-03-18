@@ -212,20 +212,17 @@ class HavenNestCrawler:
             print(f"WARNING: Rentals extraction failed: {e}")
             return []
 
-    def crawl_craigslist(self, limit=50):
-        """改进版 Craigslist 抓取：使用网页抓取以获取图片"""
+    def crawl_craigslist(self, limit=40):
+        """改进版 Craigslist 抓取：获取图片和描述"""
         print(f"Crawling Craigslist via Web (limit {limit})... ")
         results = []
         scraper = cloudscraper.create_scraper()
         try:
             url = "https://vancouver.craigslist.org/search/apa"
             res = scraper.get(url, timeout=20)
-            if res.status_code != 200:
-                print(f"Craigslist Web Error: {res.status_code}")
-                return []
+            if res.status_code != 200: return []
             
             soup = BeautifulSoup(res.text, 'html.parser')
-            # 2024/2025 Craigslist 结构：cl-static-search-result
             posts = soup.find_all('li', class_='cl-static-search-result')
             
             for post in posts[:limit]:
@@ -235,21 +232,24 @@ class HavenNestCrawler:
                     title = title_el.text.strip()
                     
                     link_el = post.find('a')
-                    url = link_el.get('href', '')
+                    detail_url = link_el.get('href', '')
                     
                     price_el = post.find('div', class_='price')
-                    price = 0
-                    if price_el:
-                        price = int(re.sub(r'[^\d]', '', price_el.text))
+                    price = int(re.sub(r'[^\d]', '', price_el.text)) if price_el else 0
                     
-                    # 提取图片
-                    img_url = ""
-                    # Craigslist 静态版有时不直接显示 img 标签，但可以通过 data-ids 或 thumbnail 获取
-                    img_el = post.find('img')
-                    if img_el:
-                        img_url = img_el.get('src', '')
+                    # 深度抓取详情页获取图片集和描述
+                    print(f"  Deep crawling Craigslist: {title[:20]}...")
+                    d_res = scraper.get(detail_url, timeout=15)
+                    d_soup = BeautifulSoup(d_res.text, 'html.parser')
                     
-                    # 提取区域
+                    images = []
+                    for img in d_soup.select('.gallery img'):
+                        src = img.get('src')
+                        if src: images.append(src)
+                    
+                    desc_el = d_soup.select_one('#postingbody')
+                    desc = desc_el.text.replace('QR Code Link to This Post', '').strip() if desc_el else ""
+
                     loc_el = post.find('div', class_='location')
                     loc = loc_el.text.strip() if loc_el else "Vancouver"
                     
@@ -261,24 +261,26 @@ class HavenNestCrawler:
                         "source": "Craigslist",
                         "title": title,
                         "price": price,
-                        "url": url,
+                        "url": detail_url,
                         "address": loc,
                         "city": city,
-                        "beds": self.extract_beds(title),
+                        "beds": self.extract_beds(title + " " + desc),
                         "lat": None,
                         "lng": None,
-                        "image": img_url,
+                        "image": images[0] if images else "",
+                        "images": images,
+                        "desc": desc,
                         "date": datetime.now().strftime("%Y-%m-%d")
                     })
+                    time.sleep(1)
                 except: continue
             
             # 补充坐标
             print(f"Geocoding {len(results)} Craigslist items...")
-            for i, item in enumerate(results):
-                if i % 5 == 0: print(f"  Progress: {i}/{len(results)}...")
+            for item in results:
                 item['lat'], item['lng'] = self.get_lat_lng(item['address'] + ", " + item['city'])
 
-            print(f"DONE: Synced {len(results)} Craigslist listings.")
+            return results
         except Exception as e:
             print(f"WARNING: Craigslist Web crawl failed: {e}")
             return self.crawl_craigslist_rss(limit)
@@ -316,28 +318,23 @@ class HavenNestCrawler:
         except: pass
         return results
 
-    def crawl_vanpeople(self, limit=50):
-        """抓取 VanPeople (人在温哥华) 房源信息，增加广告过滤和近4周筛选"""
-        print(f"Crawling VanPeople (limit {limit})...")
+    def crawl_vanpeople(self, limit=30):
+        """抓取 VanPeople (人在温哥华) 房源信息，深度抓取详情页获取图片和描述"""
+        print(f"Crawling VanPeople (limit {limit})... ")
         results = []
         scraper = cloudscraper.create_scraper()
         
-        # 定义非租房广告关键词
-        ad_keywords = ['搬家', '清洁', '接送', '教练', '维修', '垃圾', '快递', '求职', '招聘', '服务']
+        ad_keywords = ['搬家', '清洁', '接送', '教练', '维修', '垃圾', '快递', '求职', '招聘', '服务', '公司', '专业', '诚聘']
         
         try:
             url = "https://c.vanpeople.com/zufang/"
             res = scraper.get(url, timeout=20)
             res.encoding = 'utf-8'
-            
-            if res.status_code != 200:
-                print(f"VanPeople Error: {res.status_code}")
-                return []
+            if res.status_code != 200: return []
             
             soup = BeautifulSoup(res.text, 'html.parser')
             items = soup.find_all('div', class_='c-list-contxt')
             
-            # 只抓取近4周发布的房源 (VanPeople 页面通常按时间排序，我们在这里做个简单的计数限制)
             count = 0
             for item in items:
                 if count >= limit: break
@@ -345,64 +342,72 @@ class HavenNestCrawler:
                     title_el = item.find('a', class_='c-list-title')
                     if not title_el: continue
                     title = title_el.text.strip()
+                    if any(kw in title for kw in ad_keywords): continue
                     
-                    # 1. 过滤非租房广告
-                    if any(kw in title for kw in ad_keywords):
-                        continue
-                    
-                    url = title_el.get('href', '')
-                    if url and not url.startswith('http'): url = "https://c.vanpeople.com" + url
+                    detail_url = title_el.get('href', '')
+                    if detail_url and not detail_url.startswith('http'): detail_url = "https://c.vanpeople.com" + detail_url
                     
                     price_el = item.find('span', class_='money')
-                    price = 0
-                    if price_el:
-                        price_str = re.sub(r'[^\d]', '', price_el.text)
-                        price = int(price_str) if price_str else 0
+                    price = int(re.sub(r'[^\d]', '', price_el.text)) if price_el else 0
+                    if price == 0 and any(kw in title for kw in ['公司', '专业']): continue
+
+                    # 深度抓取详情页
+                    print(f"  Deep crawling: {title[:20]}...")
+                    detail_res = scraper.get(detail_url, timeout=15)
+                    detail_res.encoding = 'utf-8'
+                    detail_soup = BeautifulSoup(detail_res.text, 'html.parser')
                     
-                    # 如果价格为0且标题包含广告词，二次过滤
-                    if price == 0 and any(kw in title for kw in ['公司', '专业', '诚聘']):
-                        continue
+                    # 1. 提取所有图片
+                    images = []
+                    # 详情页通常在 .gallery 或类似结构中
+                    img_els = detail_soup.select('.view-gallery img, .swiper-slide img, .detail-images img')
+                    for img in img_els:
+                        src = img.get('src') or img.get('data-src')
+                        if src and 'vanpeople.com' in src:
+                            if not src.startswith('http'): src = "https:" + src
+                            if src not in images: images.append(src)
+                    
+                    # 2. 提取描述
+                    desc_el = detail_soup.select_one('.detail-desc, .info-content, .description')
+                    desc = desc_el.text.strip() if desc_el else ""
+                    # 移除描述中的多余空白
+                    desc = re.sub(r'\n\s*\n', '\n', desc)
 
-                    # 提取图片
-                    img_url = ""
-                    img_container = item.find_previous_sibling('div', class_='c-list-img')
-                    if img_container:
-                        img_el = img_container.find('img')
-                        img_url = img_el.get('src', '') if img_el else ""
-                        if img_url and not img_url.startswith('http'): img_url = "https:" + img_url
-
-                    # 提取区域/城市
+                    # 提取区域
                     loc_el = item.find('span', class_='class')
                     loc = loc_el.text.strip() if loc_el else "Vancouver"
                     
                     city = "Vancouver"
                     if any(kw in loc.lower() or kw in title.lower() for kw in ['richmond', '列治文']): city = "Richmond"
                     elif any(kw in loc.lower() or kw in title.lower() for kw in ['burnaby', '本拿比']): city = "Burnaby"
-                    elif any(kw in loc.lower() or kw in title.lower() for kw in ['surrey', '素里']): city = "Surrey"
 
                     results.append({
                         "source": "VanPeople",
                         "title": title,
                         "price": price,
-                        "url": url,
+                        "url": detail_url,
                         "address": loc,
                         "city": city,
-                        "beds": self.extract_beds(title),
+                        "beds": self.extract_beds(title + " " + desc),
                         "lat": None,
                         "lng": None,
-                        "image": img_url,
+                        "image": images[0] if images else "",
+                        "images": images,
+                        "desc": desc if desc else "请点击'查看原房源'获取更多详细信息。",
                         "date": datetime.now().strftime("%Y-%m-%d")
                     })
                     count += 1
-                except: continue
+                    time.sleep(1) # 礼貌抓取
+                except Exception as e:
+                    print(f"  Error crawling detail: {e}")
+                    continue
             
             # 补充坐标
             print(f"Geocoding {len(results)} VanPeople items...")
             for i, item in enumerate(results):
-                if i % 10 == 0: print(f"  Progress: {i}/{len(results)}...")
                 item['lat'], item['lng'] = self.get_lat_lng(item['address'] + ", " + item['city'])
 
-            print(f"DONE: Synced {len(results)} VanPeople listings.")
+            return results
         except Exception as e:
             print(f"WARNING: VanPeople crawl failed: {e}")
         return results
