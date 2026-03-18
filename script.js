@@ -114,8 +114,14 @@ async function init() {
         const res = await fetch('listings.json');
         if (res.ok) {
             const data = await res.json();
-            // 过滤掉没有坐标的房源
-            allListings = data.filter(i => i.lat && i.lng);
+            // 房源过滤逻辑：确保至少有标题和价格，坐标如果没有则赋予默认值（兜底）
+            allListings = data.map(i => {
+                if (!i.lat || !i.lng) {
+                    i.lat = 49.2827;
+                    i.lng = -123.1207;
+                }
+                return i;
+            });
             filterListings();
         } else {
             console.error('Failed to load listings.json');
@@ -188,7 +194,11 @@ function filterListings() {
         }
         
         // 预算匹配逻辑
-        const matchBudget = !budget || i.price <= budget || i.price === 0; // 0通常代表价格面议
+        let matchBudget = !budget || i.price <= budget;
+        if (i.price === 0) {
+            // 如果价格是0且是屋主发布的，认为是“面议”，符合所有预算
+            matchBudget = (i.source === 'owner');
+        }
         return matchCity && matchBeds && matchBudget;
     });
 
@@ -250,12 +260,15 @@ function renderListings(items) {
         
         const sourceLabel = i.source === 'owner' ? d.sourceOwner : d.sourceCrawler;
         const bedsLabel = i.beds ? `${i.beds} Bed${i.beds > 1 ? 's' : ''}` : '';
+        const displayImage = i.image || 'https://via.placeholder.com/400x300?text=No+Image';
+        const priceNum = parseFloat(i.price) || 0;
+        const displayPrice = priceNum > 0 ? `$${priceNum.toLocaleString()}` : (curLang === 'zh' ? '价格面议' : 'Contact Owner');
         
         card.innerHTML = `
             <div class="tag">${sourceLabel}</div>
-            <div class="card-img" style="background-image:url('${i.image}')"></div>
+            <div class="card-img" style="background-image:url('${displayImage}')"></div>
             <div class="card-body">
-                <div class="price">$${i.price.toLocaleString()}</div>
+                <div class="price">${displayPrice}</div>
                 <div class="card-title">${i.title}</div>
                 <div class="card-meta">
                     <span>📍 ${i.city || 'Vancouver'}</span>
@@ -284,6 +297,8 @@ function showDetail(i) {
     
     // 详情内容处理
     const description = i.desc || i.description || (curLang === 'zh' ? '暂无详细描述。' : 'No detailed description available.');
+    const priceNum = parseFloat(i.price) || 0;
+    const displayPrice = priceNum > 0 ? `$${priceNum.toLocaleString()}` : (curLang === 'zh' ? '价格面议' : 'Contact Owner');
     
     // 按钮逻辑：抓取房源显示跳转按钮，屋主房源显示联系方式
     let actionButtons = '';
@@ -329,9 +344,9 @@ function showDetail(i) {
             </div>
             <div style="padding:40px;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h1 style="color:var(--primary); margin:0; font-size:2.5rem;">$${i.price.toLocaleString()} / mo</h1>
+                    <h1 style="color:var(--primary); margin:0; font-size:2.5rem;">${displayPrice} / mo</h1>
                     <div style="background:var(--gray-light); padding:8px 15px; border-radius:10px; font-weight:700; color:var(--primary);">
-                        ${i.beds} Bedroom${i.beds > 1 ? 's' : ''}
+                        ${i.beds || 0} Bedroom${i.beds > 1 ? 's' : ''}
                     </div>
                 </div>
                 <h2 style="margin:15px 0 25px;">${i.title}</h2>

@@ -324,7 +324,13 @@ class HavenNestCrawler:
         results = []
         scraper = cloudscraper.create_scraper()
         
-        ad_keywords = ['搬家', '清洁', '接送', '教练', '维修', '垃圾', '快递', '求职', '招聘', '服务', '公司', '专业', '诚聘', '货运', '物流', '修车']
+        ad_keywords = [
+            '搬家', '清洁', '接送', '教练', '维修', '垃圾', '快递', '求职', '招聘', '服务', '公司', '专业', '诚聘', '货运', '物流', '修车',
+            '回收', '安装', '疏通', '月子', '法律', '会计', '翻译', '补习', '宠物', '美容', '美发', '按摩', '中医', '牙医', '保险', '贷款',
+            '地产', '房产经纪', '理财', '移民', '留学', '旅游', '机票', '租车', '手机', '电脑', '网络', '卫浴', '地板', '油漆', '屋顶', '花园',
+            '除虫', '锁匠', '玻璃', '窗帘', '地毯', '家电', '家具', '钢琴', '小提琴', '吉他', '绘画', '数学', '英语', '法语', '驾校', '保姆',
+            '月嫂', '开锁', '打车', '私厨', '外卖', '团购', '二手', '闲置', '收银', '帮厨', '洗碗', '服务员', '前台', '文员', '销售', '客服'
+        ]
         
         try:
             url = "https://c.vanpeople.com/zufang/"
@@ -350,10 +356,11 @@ class HavenNestCrawler:
                     if detail_url and not detail_url.startswith('http'): detail_url = "https://c.vanpeople.com" + detail_url
                     
                     price_el = item.find('span', class_='money')
-                    price = int(re.sub(r'[^\d]', '', price_el.text)) if price_el else 0
+                    price_str = re.sub(r'[^\d]', '', price_el.text) if price_el else "0"
+                    price = int(price_str) if price_str else 0
                     
-                    # 增强过滤逻辑：价格为0且包含特定词汇
-                    if price == 0 and any(kw in title for kw in ['公司', '专业', '华人', '优惠', '电话', '特惠']): 
+                    # 增强过滤逻辑：价格为0或太低（温哥华租房通常不低于300）且不是屋主发布的
+                    if price < 100:
                         continue
 
                     # 深度抓取详情页
@@ -362,25 +369,25 @@ class HavenNestCrawler:
                     detail_res.encoding = 'utf-8'
                     detail_soup = BeautifulSoup(detail_res.text, 'html.parser')
                     
-                    # 1. 提取所有图片 (深度暴力搜索：JSON, 脚本, 以及各种属性)
+                    # 1. 提取所有图片 (深度暴力搜索)
                     images = []
                     
-                    # 方式 A: 搜索源代码中的图片 JSON 数组 (VanPeople 常用格式)
-                    photo_matches = re.findall(r'https?://[^\s"\'<>]+?\.(?:jpg|jpeg|png|webp)', detail_res.text)
-                    for p in photo_matches:
-                        if 'vanpeople.com' in p and ('/ad/' in p or '/images/' in p) and 'avatar' not in p and 'logo' not in p:
-                            if p not in images: images.append(p)
-
-                    # 方式 B: 如果方式 A 没找到，使用 DOM 选择器
+                    # 优先从具体的相册选择器提取
+                    img_els = detail_soup.select('.view-gallery img, .swiper-slide img, .img-box img, #photo-list img')
+                    for img in img_els:
+                        src = img.get('data-src') or img.get('lazy-src') or img.get('src')
+                        if src:
+                            if src.startswith('//'): src = "https:" + src
+                            elif src.startswith('/'): src = "https://c.vanpeople.com" + src
+                            if 'vanpeople.com' in src and 'avatar' not in src and 'logo' not in src:
+                                if src not in images: images.append(src)
+                    
+                    # 如果没找到，再用正则暴力提取
                     if not images:
-                        img_els = detail_soup.select('img[data-src], img[lazy-src], .view-gallery img, .swiper-slide img, .img-box img')
-                        for img in img_els:
-                            src = img.get('data-src') or img.get('lazy-src') or img.get('swiper-lazy') or img.get('src')
-                            if src:
-                                if src.startswith('//'): src = "https:" + src
-                                elif src.startswith('/'): src = "https://c.vanpeople.com" + src
-                                if 'vanpeople.com' in src and 'avatar' not in src and 'logo' not in src:
-                                    if src not in images: images.append(src)
+                        photo_matches = re.findall(r'https?://[^\s"\'<>]+?\.(?:jpg|jpeg|png|webp)', detail_res.text)
+                        for p in photo_matches:
+                            if 'vanpeople.com' in p and ('/ad/' in p or '/images/' in p) and 'avatar' not in p and 'logo' not in p:
+                                if p not in images: images.append(p)
                     
                     # 2. 提取描述并深度清洗
                     desc_el = detail_soup.select_one('.detail-desc, .info-content, .description, #info-content, .text-content, .ad-detail-content')
@@ -447,6 +454,22 @@ class HavenNestCrawler:
         new_data = self.process_airtable_listings() + self.process_manual_rentals() + \
                    self.crawl_craigslist() + self.crawl_vanpeople()
         
+        # 补充坐标并确保所有房源都有位置 (仅对新房源中缺失坐标的进行补充)
+        print(f"Final geocoding check for {len(new_data)} new items...")
+        for item in new_data:
+            if not item.get('lat') or not item.get('lng'):
+                # 只有当地址不在缓存中时才调用 API
+                addr_query = item.get('address', '') + ", " + item.get('city', 'Vancouver')
+                if addr_query + ", BC, Canada" not in self.coords_cache:
+                    print(f"  Geocoding missing: {item.get('title')[:20]}...")
+                item['lat'], item['lng'] = self.get_lat_lng(addr_query)
+            
+            # 兜底逻辑：依然没有坐标，分配一个中心点
+            if not item.get('lat') or not item.get('lng'):
+                base_lat, base_lng = (49.1666, -123.1336) if item.get('city') == "Richmond" else (49.2827, -123.1207)
+                item['lat'] = base_lat + (time.time() % 1 - 0.5) * 0.005
+                item['lng'] = base_lng + (time.time() % 1 - 0.5) * 0.005
+
         # 合并并去重
         data_map = {}
         for x in old_data:
@@ -457,12 +480,18 @@ class HavenNestCrawler:
             key = item.get('url') or item.get('id')
             if key: data_map[key] = item
         
-        # 清理旧房源逻辑改进：
+        # 清理逻辑：
         # 1. 屋主发布的推广房源 (isPromo) 永久保留
-        # 2. 抓取的房源如果超过 60 天（约2个月）则彻底删除
-        # 3. 抓取的房源建议展示近 4 周的（由前端或爬虫控制，这里执行删除逻辑）
+        # 2. 抓取的房源如果超过 45 天则删除
+        # 3. 强制过滤掉价格为 0 或低于 100 的房源（除非是屋主发布的）
+        # 4. 强制过滤包含广告关键词的房源
         
-        cutoff_delete = datetime.now() - timedelta(days=60) # 2个月强制删除
+        ad_keywords = [
+            '搬家', '清洁', '接送', '服务', '维修', '快递', '货运', '物流', '求职', '招聘', '公司', '专业', '教练',
+            '回收', '安装', '疏通', '月子', '法律', '会计', '翻译', '补习', '宠物', '美容', '美发', '按摩', '中医', '牙医', '保险', '贷款',
+            '地产', '房产经纪', '理财', '移民', '留学', '旅游', '机票', '租车', '手机', '电脑', '网络', '卫浴', '地板', '油漆', '屋顶', '花园'
+        ]
+        cutoff_delete = datetime.now() - timedelta(days=45)
         
         final = []
         for item in data_map.values():
@@ -470,6 +499,33 @@ class HavenNestCrawler:
                 final.append(item)
                 continue
             
+            # 强化过滤：价格为0或包含搬家等关键词的旧数据也要删掉
+            title = (item.get('title') or '').lower()
+            url = (item.get('url') or '').lower()
+            
+            # 处理价格：可能是字符串 "$1,500" 或数字
+            price_raw = item.get('price')
+            if isinstance(price_raw, str):
+                price = int(re.sub(r'[^\d]', '', price_raw)) if re.sub(r'[^\d]', '', price_raw) else 0
+            else:
+                price = int(price_raw or 0)
+            
+            # 1. 价格过滤：温哥华租房通常不低于300，抓取到的低价必是广告
+            if price < 300: 
+                continue
+            
+            # 2. 关键词过滤
+            if any(kw in title for kw in ad_keywords):
+                continue
+            
+            # 3. URL 关键词过滤
+            if any(kw in url for kw in ['/banyun/', '/jiesong/', '/service/', '/repair/', '/moving/']):
+                continue
+
+            # 4. 无图片过滤 (抓取到的房源如果没有图片，质量太低，不予显示)
+            if not item.get('image') and not item.get('images'):
+                continue
+
             try:
                 item_date = datetime.strptime(item.get('date', '2026-01-01'), '%Y-%m-%d')
                 if item_date > cutoff_delete:
@@ -480,6 +536,7 @@ class HavenNestCrawler:
         # 排序：推广房源置顶
         final.sort(key=lambda x: x.get('isPromo', False), reverse=True)
 
+        print(f"Cleaning summary: {len(data_map)} raw items -> {len(final)} final items.")
         print(f"Saving {len(final)} items (cleaned old listings)...")
         with open(self.filename, 'w', encoding='utf-8') as f:
             json.dump(final, f, ensure_ascii=False, indent=4)
