@@ -259,10 +259,6 @@ header {
     font-weight: 600;
 }
 
-.card-img:empty::before {
-    content: 'No Image';
-}
-
 .tag {
     position: absolute;
     top: 15px;
