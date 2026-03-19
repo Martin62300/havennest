@@ -139,69 +139,96 @@ class HavenNestCrawler:
         return 1
 
     def process_manual_rentals(self):
-        """优化版 Rentals.ca 片段提取逻辑"""
+        """处理 Rentals.ca 的原始数据 (从 rentals_raw.json 读取)"""
+        print("Processing Rentals.ca from rentals_raw.json...")
         if not os.path.exists(self.raw_rentals_file):
-            print("INFO: No rentals_raw.json found.")
+            print("  rentals_raw.json not found. Skipping.")
             return []
         
-        print(f"Scanning rentals_raw.json for Rentals.ca listings...")
-        results = []
         try:
             with open(self.raw_rentals_file, 'r', encoding='utf-8') as f:
                 content = f.read()
-
-            # 匹配 Rentals.ca 的 GraphQL 节点结构
+            
+            # 增强匹配逻辑：支持更多字段和容错
             blocks = re.findall(r'\{"node":\s*(\{.*?"__typename":\s*"RentalListing".*?\})\s*\}', content, re.DOTALL)
             if not blocks:
                 blocks = re.findall(r'(\{.*?"rentalListingName":\s*".*?".*?\})', content, re.DOTALL)
-
+            
+            results = []
             for block in blocks:
                 try:
-                    title = re.search(r'"rentalListingName":\s*"(.*?)"', block).group(1)
-                    path = re.search(r'"path":\s*"(.*?)"', block).group(1)
+                    # 1. 提取基础信息
+                    title_match = re.search(r'"rentalListingName":\s*"(.*?)"', block)
+                    if not title_match: continue
+                    title = title_match.group(1)
                     
-                    # 提取坐标：Rentals 是 [lng, lat]
+                    path_match = re.search(r'"path":\s*"(.*?)"', block)
+                    if not path_match: continue
+                    path = path_match.group(1)
+                    url = "https://rentals.ca/" + path
+                    
+                    # 2. 价格过滤：Rentals.ca 的 rentRange 可能是 [2500, 3000]
+                    rent_match = re.search(r'"rentRange":\s*\[(.*?)(?:,|$)', block)
+                    price = int(float(rent_match.group(1))) if rent_match else 0
+                    if price < 300: continue # 剔除低价广告/车位
+
+                    # 3. 广告关键词过滤
+                    ad_keywords = ['parking', 'storage', 'locker', 'garage', '车位', '储物']
+                    if any(kw in title.lower() for kw in ad_keywords): continue
+
+                    # 4. 提取坐标
                     loc_match = re.search(r'"rentalListingLocation":\s*\[(.*?),(.*?)\]', block)
                     lat = float(loc_match.group(2)) if loc_match else None
                     lng = float(loc_match.group(1)) if loc_match else None
                     
-                    # 提取价格
-                    rent_match = re.search(r'"rentRange":\s*\[(.*?)(?:,|$)', block)
-                    price = int(float(rent_match.group(1))) if rent_match else 0
-                    
-                    # 提取地址和城市
+                    # 5. 提取地址
                     street_match = re.search(r'"street":\s*"(.*?)"', block)
                     street = street_match.group(1) if street_match else ""
                     city_match = re.search(r'"cityName":\s*"(.*?)"', block)
                     city = city_match.group(1) if city_match else "Vancouver"
                     full_address = f"{street}, {city}" if street else city
 
-                    # 提取卧室
+                    # 6. 提取卧室
                     beds_match = re.search(r'"bedroomCount":\s*(\d+)', block)
                     beds = int(beds_match.group(1)) if beds_match else self.extract_beds(title)
 
-                    # 提取图片 (改进：寻找多种可能的图片字段)
-                    img_url = ""
-                    # 尝试从 gallery 提取
-                    img_match = re.search(r'"url":\s*"(https://assets\.rentsync\.com/.*?)"', block)
-                    if img_match:
-                        img_url = img_match.group(1)
-                    else:
-                        # 尝试从 thumbnail 提取
+                    # 7. 提取图片 (改进：深度寻找所有可能的图片)
+                    images = []
+                    # 寻找所有匹配 assets.rentsync.com 的 URL
+                    img_matches = re.findall(r'"url":\s*"(https://assets\.rentsync\.com/.*?)"', block)
+                    for img in img_matches:
+                        if img not in images: images.append(img)
+                    
+                    # 如果 gallery 没找到，尝试 thumbnail
+                    if not images:
                         thumb_match = re.search(r'"thumbnail":\s*"(.*?)"', block)
-                        if thumb_match: img_url = thumb_match.group(1)
+                        if thumb_match: images.append(thumb_match.group(1))
+
+                    # 8. 尝试提取简短描述 (如果存在)
+                    desc_match = re.search(r'"shortDescription":\s*"(.*?)"', block)
+                    desc = desc_match.group(1) if desc_match else ""
+                    # 处理 unicode 转义字符
+                    if desc:
+                        try:
+                            desc = desc.encode().decode('unicode_escape')
+                        except:
+                            pass
+                    else:
+                        desc = "请点击'查看原房源'获取更多详细信息。"
 
                     results.append({
                         "source": "Rentals.ca",
                         "title": title,
                         "price": price,
-                        "url": "https://rentals.ca/" + path,
+                        "url": url,
                         "address": full_address,
                         "city": city,
                         "beds": beds,
                         "lat": lat,
                         "lng": lng,
-                        "image": img_url,
+                        "image": images[0] if images else "",
+                        "images": images,
+                        "desc": desc,
                         "date": datetime.now().strftime("%Y-%m-%d")
                     })
                 except: continue
@@ -318,8 +345,8 @@ class HavenNestCrawler:
         except: pass
         return results
 
-    def crawl_vanpeople(self, limit=30):
-        """抓取 VanPeople (人在温哥华) 房源信息，深度抓取详情页获取图片和描述"""
+    def crawl_vanpeople(self, limit=60):
+        """抓取 VanPeople (人在温哥华) 房源信息，支持多页抓取"""
         print(f"Crawling VanPeople (limit {limit})... ")
         results = []
         scraper = cloudscraper.create_scraper()
@@ -332,114 +359,150 @@ class HavenNestCrawler:
             '月嫂', '开锁', '打车', '私厨', '外卖', '团购', '二手', '闲置', '收银', '帮厨', '洗碗', '服务员', '前台', '文员', '销售', '客服'
         ]
         
-        try:
-            url = "https://c.vanpeople.com/zufang/"
-            res = scraper.get(url, timeout=20)
-            res.encoding = 'utf-8'
-            if res.status_code != 200: return []
-            
-            soup = BeautifulSoup(res.text, 'html.parser')
-            items = soup.find_all('div', class_='c-list-contxt')
-            
-            count = 0
-            for item in items:
-                if count >= limit: break
-                try:
-                    title_el = item.find('a', class_='c-list-title')
-                    if not title_el: continue
-                    title = title_el.text.strip()
-                    
-                    # 增强过滤逻辑：标题关键词过滤
-                    if any(kw in title for kw in ad_keywords): continue
-                    
-                    detail_url = title_el.get('href', '')
-                    if detail_url and not detail_url.startswith('http'): detail_url = "https://c.vanpeople.com" + detail_url
-                    
-                    price_el = item.find('span', class_='money')
-                    price_str = re.sub(r'[^\d]', '', price_el.text) if price_el else "0"
-                    price = int(price_str) if price_str else 0
-                    
-                    # 增强过滤逻辑：价格为0或太低（温哥华租房通常不低于300）且不是屋主发布的
-                    if price < 100:
+        page = 1
+        while len(results) < limit:
+            try:
+                # VanPeople 分页格式通常是 zufang/index.html?page=N
+                url = f"https://c.vanpeople.com/zufang/index.html?page={page}"
+                print(f"  Fetching page {page}...")
+                res = scraper.get(url, timeout=20)
+                res.encoding = 'utf-8'
+                
+                if res.status_code != 200: break
+                
+                soup = BeautifulSoup(res.text, 'html.parser')
+                items = soup.find_all('div', class_='c-list-contxt')
+                
+                # print(f"  Found {len(items)} raw items on page {page}")
+                
+                if not items:
+                    print(f"  No items found on page {page} using primary selector. Trying alternative...")
+                    items = soup.select('a[href*="/zufang/"]')
+                    if not items: break
+                
+                for item in items:
+                    if len(results) >= limit: break
+                    try:
+                        # 兼容处理：如果是 select 出来的 a 标签
+                        if item.name == 'a' and '/zufang/' in item.get('href', ''):
+                            title_el = item
+                            parent = item.find_parent('div', class_='c-list-contxt') or item.parent
+                            price_el = parent.find('span', class_='money') if parent else None
+                        else:
+                            title_el = item.find('a', class_='c-list-title')
+                            price_el = item.find('span', class_='money')
+                        
+                        if not title_el: continue
+                        title = title_el.text.strip()
+                        if not title: continue
+                        
+                        # 增强过滤逻辑：标题关键词过滤
+                        if any(kw in title for kw in ad_keywords):
+                            # print(f"    Filtered by keyword: {title[:20]}")
+                            continue
+                        
+                        detail_url = title_el.get('href', '')
+                        if not detail_url: continue
+                        if not detail_url.startswith('http'): detail_url = "https://c.vanpeople.com" + detail_url
+                        
+                        # 再次确认是租房链接
+                        if '/zufang/' not in detail_url and 'zufang' not in detail_url: continue
+
+                        price_str = re.sub(r'[^\d]', '', price_el.text) if price_el else "0"
+                        price = int(price_str) if price_str else 0
+                        
+                        # 增强过滤逻辑：价格太低过滤
+                        if price < 100:
+                            # print(f"    Filtered by price: {title[:20]} (${price})")
+                            continue
+
+                        # 深度抓取详情页
+                        print(f"    Deep crawling: {title[:20]}...")
+                        detail_res = scraper.get(detail_url, timeout=15)
+                        detail_res.encoding = 'utf-8'
+                        detail_soup = BeautifulSoup(detail_res.text, 'html.parser')
+                        
+                        # 1. 提取房源实拍图片 (精准定位轮播图区域)
+                        images = []
+                        
+                        # 定位详情页主图/轮播图区域的选择器
+                        # 优先匹配带有 swiper-slide 的容器，这通常是主轮播图
+                        # 同时排除侧边栏 (.detail-side) 和 推荐位 (.recommend)
+                        photo_area = detail_soup.select_one('.detail-left, .view-gallery, .swiper-container, #photo-list, .img-box')
+                        if photo_area:
+                            # 尝试获取所有包含图片的链接或容器
+                            img_els = photo_area.select('img')
+                            for img in img_els:
+                                # 优先获取大图，排除缩略图和侧边栏推荐图
+                                src = img.get('data-src') or img.get('lazy-src') or img.get('src')
+                                if src:
+                                    if src.startswith('//'): src = "https:" + src
+                                    elif src.startswith('/'): src = "https://c.vanpeople.com" + src
+                                    
+                                    # 排除头像、Logo、图标以及侧边栏的广告图 (VanPeople 侧边栏图片通常包含 ad_image 或特定尺寸)
+                                    is_ad = any(k in src.lower() for k in ['avatar', 'logo', 'icon', 'ad_image', 'banner', 'recommend'])
+                                    if 'vanpeople.com' in src and not is_ad:
+                                        if src not in images: images.append(src)
+                        
+                        # 如果上述区域没找到，再尝试正则，但要增加路径限制，只找 /ad/ 目录下的图片（通常是房源图）
+                        if not images:
+                            photo_matches = re.findall(r'https?://[^\s"\'<>]+?/ad/[^\s"\'<>]+?\.(?:jpg|jpeg|png|webp)', detail_res.text)
+                            for p in photo_matches:
+                                if 'vanpeople.com' in p and all(k not in p.lower() for k in ['avatar', 'logo', 'icon']):
+                                    if p not in images: images.append(p)
+                        
+                        # 2. 提取描述并深度清洗
+                        desc_el = detail_soup.select_one('.detail-desc, .info-content, .description, #info-content, .text-content, .ad-detail-content')
+                        desc = desc_el.text.strip() if desc_el else ""
+                        
+                        junk_patterns = [
+                            r'微信扫二维码分享到朋友圈', r'联系我时请说明是在vanpeople看到的', r'重要警示：不法骗子.*',
+                            r'谨慎租房防诈骗.*', r'扫码添加微信客服', r'点击下载协议', r'我要举报', r'相关广告'
+                        ]
+                        for pattern in junk_patterns:
+                            desc = re.sub(pattern, '', desc, flags=re.DOTALL)
+                        
+                        desc = re.sub(r'\n\s*\n', '\n', desc).strip()
+
+                        # 提取区域
+                        loc_el = item.find('span', class_='class')
+                        loc = loc_el.text.strip() if loc_el else "Vancouver"
+                        
+                        city = "Vancouver"
+                        if any(kw in loc.lower() or kw in title.lower() for kw in ['richmond', '列治文']): city = "Richmond"
+                        elif any(kw in loc.lower() or kw in title.lower() for kw in ['burnaby', '本拿比']): city = "Burnaby"
+
+                        results.append({
+                            "source": "VanPeople",
+                            "title": title,
+                            "price": price,
+                            "url": detail_url,
+                            "address": loc,
+                            "city": city,
+                            "beds": self.extract_beds(title + " " + desc),
+                            "lat": None,
+                            "lng": None,
+                            "image": images[0] if images else "",
+                            "images": images,
+                            "desc": desc if desc else "请点击'查看原房源'获取更多详细信息。",
+                            "date": datetime.now().strftime("%Y-%m-%d")
+                        })
+                        time.sleep(0.5) # 稍微加快一点速度
+                    except Exception as e:
+                        print(f"    Error crawling detail: {e}")
                         continue
+                
+                page += 1
+                if page > 5: break # 最多抓取5页，防止任务太久
+            except Exception as e:
+                print(f"WARNING: VanPeople crawl failed on page {page}: {e}")
+                break
+        
+        # 补充坐标
+        print(f"Geocoding {len(results)} VanPeople items...")
+        for i, item in enumerate(results):
+            item['lat'], item['lng'] = self.get_lat_lng(item['address'] + ", " + item['city'])
 
-                    # 深度抓取详情页
-                    print(f"  Deep crawling: {title[:20]}...")
-                    detail_res = scraper.get(detail_url, timeout=15)
-                    detail_res.encoding = 'utf-8'
-                    detail_soup = BeautifulSoup(detail_res.text, 'html.parser')
-                    
-                    # 1. 提取所有图片 (深度暴力搜索)
-                    images = []
-                    
-                    # 优先从具体的相册选择器提取
-                    img_els = detail_soup.select('.view-gallery img, .swiper-slide img, .img-box img, #photo-list img')
-                    for img in img_els:
-                        src = img.get('data-src') or img.get('lazy-src') or img.get('src')
-                        if src:
-                            if src.startswith('//'): src = "https:" + src
-                            elif src.startswith('/'): src = "https://c.vanpeople.com" + src
-                            if 'vanpeople.com' in src and 'avatar' not in src and 'logo' not in src:
-                                if src not in images: images.append(src)
-                    
-                    # 如果没找到，再用正则暴力提取
-                    if not images:
-                        photo_matches = re.findall(r'https?://[^\s"\'<>]+?\.(?:jpg|jpeg|png|webp)', detail_res.text)
-                        for p in photo_matches:
-                            if 'vanpeople.com' in p and ('/ad/' in p or '/images/' in p) and 'avatar' not in p and 'logo' not in p:
-                                if p not in images: images.append(p)
-                    
-                    # 2. 提取描述并深度清洗
-                    desc_el = detail_soup.select_one('.detail-desc, .info-content, .description, #info-content, .text-content, .ad-detail-content')
-                    desc = desc_el.text.strip() if desc_el else ""
-                    
-                    # 移除描述中的垃圾信息
-                    junk_patterns = [
-                        r'微信扫二维码分享到朋友圈', r'联系我时请说明是在vanpeople看到的', r'重要警示：不法骗子.*',
-                        r'谨慎租房防诈骗.*', r'扫码添加微信客服', r'点击下载协议', r'我要举报', r'相关广告'
-                    ]
-                    for pattern in junk_patterns:
-                        desc = re.sub(pattern, '', desc, flags=re.DOTALL)
-                    
-                    desc = re.sub(r'\n\s*\n', '\n', desc).strip()
-
-                    # 提取区域
-                    loc_el = item.find('span', class_='class')
-                    loc = loc_el.text.strip() if loc_el else "Vancouver"
-                    
-                    city = "Vancouver"
-                    if any(kw in loc.lower() or kw in title.lower() for kw in ['richmond', '列治文']): city = "Richmond"
-                    elif any(kw in loc.lower() or kw in title.lower() for kw in ['burnaby', '本拿比']): city = "Burnaby"
-
-                    results.append({
-                        "source": "VanPeople",
-                        "title": title,
-                        "price": price,
-                        "url": detail_url,
-                        "address": loc,
-                        "city": city,
-                        "beds": self.extract_beds(title + " " + desc),
-                        "lat": None,
-                        "lng": None,
-                        "image": images[0] if images else "",
-                        "images": images,
-                        "desc": desc if desc else "请点击'查看原房源'获取更多详细信息。",
-                        "date": datetime.now().strftime("%Y-%m-%d")
-                    })
-                    count += 1
-                    time.sleep(1) # 礼貌抓取
-                except Exception as e:
-                    print(f"  Error crawling detail: {e}")
-                    continue
-            
-            # 补充坐标
-            print(f"Geocoding {len(results)} VanPeople items...")
-            for i, item in enumerate(results):
-                item['lat'], item['lng'] = self.get_lat_lng(item['address'] + ", " + item['city'])
-
-            return results
-        except Exception as e:
-            print(f"WARNING: VanPeople crawl failed: {e}")
         return results
 
     def run(self):
@@ -452,7 +515,15 @@ class HavenNestCrawler:
         
         # 爬取新数据
         new_data = self.process_airtable_listings() + self.process_manual_rentals() + \
-                   self.crawl_craigslist() + self.crawl_vanpeople()
+                   self.crawl_craigslist()
+        
+        # VanPeople 抓取增加异常处理
+        try:
+            vp_data = self.crawl_vanpeople()
+            if vp_data:
+                new_data += vp_data
+        except Exception as e:
+            print(f"CRITICAL: VanPeople crawl method failed: {e}")
         
         # 补充坐标并确保所有房源都有位置 (仅对新房源中缺失坐标的进行补充)
         print(f"Final geocoding check for {len(new_data)} new items...")
