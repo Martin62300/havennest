@@ -430,5 +430,45 @@
     "Port Coquitlam, Vancouver, BC, Canada": [
         49.2621643,
         -122.780542
+    ],
+    "Burnaby North, Burnaby, BC, Canada": [
+        49.1923083,
+        -122.992645
+    ],
+    "Downtown, Vancouver, BC, Canada": [
+        49.283393,
+        -123.1174563
+    ],
+    "East Burnaby, Burnaby, BC, Canada": [
+        49.2503942,
+        -122.9623468
+    ],
+    "VANCOUVER, Vancouver, BC, Canada": [
+        49.2686069,
+        -123.085922
+    ],
+    "Guildford, Surrey, Vancouver, BC, Canada": [
+        49.1930451,
+        -122.7971749
+    ],
+    "1330 WELLON STREET, Vancouver, BC, Canada": [
+        49.2925758,
+        -122.7236358
+    ],
+    "Renfrew Collingwood, Vancouver, BC, Canada": [
+        49.2484953,
+        -123.0403532
+    ],
+    "north shore, Vancouver, BC, Canada": [
+        49.5013735,
+        -123.0706573
+    ],
+    "1022 Nelson Street, Vancouver, BC, Vancouver, BC, Canada": [
+        49.2813,
+        -123.1268124
+    ],
+    "Riley Park, Vancouver, BC, Canada": [
+        49.2474381,
+        -123.1029664
     ]
 }
