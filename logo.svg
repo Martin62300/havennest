@@ -1,17 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
   <rect width="1024" height="1024" fill="#ffffff"/>
   <g transform="translate(120, 160)">
-    <path d="M392 120L0 460" fill="none" stroke="#002147" stroke-width="64" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M392 120L784 460" fill="none" stroke="#002147" stroke-width="64" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M160 460V788" fill="none" stroke="#002147" stroke-width="72" stroke-linecap="round"/>
-    <path d="M624 460V788" fill="none" stroke="#002147" stroke-width="72" stroke-linecap="round"/>
-    <path d="M160 788H624" fill="none" stroke="#002147" stroke-width="64" stroke-linecap="round"/>
+    <path d="M392 120L0 460" fill="none" stroke="#002147" stroke-width="92" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M392 120L784 460" fill="none" stroke="#002147" stroke-width="92" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <path d="M256 504V736" fill="none" stroke="#002147" stroke-width="72" stroke-linecap="round"/>
-    <path d="M528 504V736" fill="none" stroke="#002147" stroke-width="72" stroke-linecap="round"/>
-    <path d="M256 620H528" fill="none" stroke="#002147" stroke-width="72" stroke-linecap="round"/>
+    <path d="M180 460V730" fill="none" stroke="#002147" stroke-width="116" stroke-linecap="round"/>
+    <path d="M604 460V730" fill="none" stroke="#002147" stroke-width="116" stroke-linecap="round"/>
+    <path d="M180 605H604" fill="none" stroke="#002147" stroke-width="116" stroke-linecap="round"/>
 
-    <path d="M200 500V784" fill="none" stroke="#D4AF37" stroke-width="18" stroke-linecap="round" opacity="0.9"/>
-    <path d="M584 500V784" fill="none" stroke="#D4AF37" stroke-width="18" stroke-linecap="round" opacity="0.9"/>
+    <path d="M180 492V700" fill="none" stroke="#D4AF37" stroke-width="32" stroke-linecap="round" opacity="0.9"/>
+    <path d="M604 492V700" fill="none" stroke="#D4AF37" stroke-width="32" stroke-linecap="round" opacity="0.9"/>
   </g>
 </svg>
