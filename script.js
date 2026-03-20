@@ -37,7 +37,12 @@ const dict = {
         ins: "租客保险咨询 / Tenant Insurance",
         move: "专业搬家服务 / Moving Service",
         clean: "退房清洁服务 / Cleaning Service",
-        footer: "免责声明：房源包含系统抓取及屋主发布。&copy; 2026 HavenNest App.",
+        footer: `<div style="max-width:1100px; margin:0 auto; line-height:1.7;">
+                    <strong>免责声明：</strong>本站房源信息包含系统抓取与屋主直发，仅供参考，不构成任何要约或承诺。房源价格、空置情况、面积与配套等可能随时变更，请以原网站/发布者信息为准。<br>
+                    <strong>第三方来源：</strong>系统抓取房源来自第三方公开页面（如 VanPeople、Rentals.ca、Craigslist 等），版权与内容权利归原网站及发布者所有。本站与上述第三方平台无隶属或合作关系。<br>
+                    <strong>跳转与联系：</strong>系统抓取房源在本站仅展示摘要信息；联系与看房请点击“查看原房源”跳转回原网站完成。除屋主直发房源外，本站不会展示或主动收集/存储屋主、经纪人等个人联系方式。<br>
+                    <strong>风险提示：</strong>请谨防诈骗，勿提前转账或提供敏感信息。本站对第三方链接内容与交易行为不承担责任。&copy; 2026 HavenNest App.
+                 </div>`,
         insPop: `<h3>为何必须购买租客保险？</h3>
                 <p style="color:#166534; font-weight:bold;">购买租客保险不仅是房东的普遍要求，更是为您自己的生活和财产安全焊死最后一道防线。</p>
                 <ul style="text-align:left; line-height:1.8;">
@@ -81,7 +86,12 @@ const dict = {
         ins: "Tenant Insurance",
         move: "Moving Service",
         clean: "Cleaning Service",
-        footer: "Disclaimer: Sourced from crawlers and direct posts. &copy; 2026 HavenNest App.",
+        footer: `<div style="max-width:1100px; margin:0 auto; line-height:1.7;">
+                    <strong>Disclaimer:</strong> Listings on this site include both crawled content and direct owner posts and are provided for informational purposes only. Prices, availability, and details may change at any time; please verify on the original source or with the poster. <br>
+                    <strong>Third‑Party Sources:</strong> Crawled listings are sourced from public third‑party pages (e.g., VanPeople, Rentals.ca, Craigslist). All rights remain with the original websites and posters. HavenNest is not affiliated with these third‑party platforms. <br>
+                    <strong>Redirect & Contact:</strong> For crawled listings, this site shows summary information only. To contact the poster, click “View Original” to visit the original website. Except for direct owner posts, HavenNest does not display or intentionally collect/store personal contact details. <br>
+                    <strong>Safety:</strong> Beware of scams. Do not send deposits before verification. HavenNest is not responsible for third‑party content, links, or transactions. &copy; 2026 HavenNest App.
+                 </div>`,
         insPop: `<h3>Why is Tenant Insurance essential?</h3>
                 <p style="color:#166534; font-weight:bold;">It's more than just a landlord's requirement; it's the ultimate safety net for your belongings and financial peace of mind.</p>
                 <ul style="text-align:left; line-height:1.8;">
