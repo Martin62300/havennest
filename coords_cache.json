@@ -634,5 +634,49 @@
     "Point Grey, Vancouver, BC, Canada": [
         49.2638286,
         -123.185672
+    ],
+    "SFU Campus, Vancouver, BC, Canada": [
+        49.1873731,
+        -122.849479
+    ],
+    "Trafalgar Park, Vancouver, BC, Canada": [
+        49.2506695,
+        -123.1618286
+    ],
+    "PNE, TT, Vancouver, BC, Canada": [
+        49.2815249,
+        -123.0362114
+    ],
+    "501-3080 LINCOLN AVE COQUITLAM, Vancouver, BC, Canada": [
+        49.2721559,
+        -122.7571632
+    ],
+    "Vancouver., Vancouver, BC, Canada": [
+        49.2686069,
+        -123.085922
+    ],
+    "SFU, Vancouver, BC, Canada": [
+        49.2824032,
+        -123.1085513
+    ],
+    "Lynn Valley, Vancouver, BC, Canada": [
+        49.3409789,
+        -123.031168
+    ],
+    "Edmonds, Vancouver, BC, Canada": [
+        49.2121286,
+        -122.959233
+    ],
+    "Kensington -Cedar Cottage, Vancouver, BC, Canada": [
+        49.2463833,
+        -123.0736849
+    ],
+    "Marine Gateway, Vancouver, BC, Canada": [
+        49.2099067,
+        -123.1161661
+    ],
+    "East Vancouver, Vancouver, BC, Canada": [
+        49.279437,
+        -123.0666665
     ]
 }
