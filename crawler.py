@@ -324,6 +324,123 @@ class HavenNestCrawler:
                     })
                 except: continue
 
+            if not results:
+                def _extract_json_object(s, start_idx):
+                    i = start_idx
+                    while i < len(s) and s[i] != '{':
+                        i += 1
+                    if i >= len(s) or s[i] != '{':
+                        return None
+                    depth = 0
+                    in_str = False
+                    esc = False
+                    for j in range(i, len(s)):
+                        ch = s[j]
+                        if in_str:
+                            if esc:
+                                esc = False
+                            elif ch == '\\':
+                                esc = True
+                            elif ch == '"':
+                                in_str = False
+                        else:
+                            if ch == '"':
+                                in_str = True
+                            elif ch == '{':
+                                depth += 1
+                            elif ch == '}':
+                                depth -= 1
+                                if depth == 0:
+                                    return s[i:j + 1]
+                    return None
+
+                marker_idx = content.find('response:')
+                if marker_idx != -1:
+                    json_str = _extract_json_object(content, marker_idx)
+                    if json_str:
+                        try:
+                            payload = json.loads(json_str)
+                            data = (payload.get('data') or {})
+                            edges = data.get('edges') or []
+                            for edge in edges:
+                                node = (edge or {}).get('node') or {}
+                                if node.get('__typename') != 'RentalListing':
+                                    continue
+
+                                title = node.get('rentalListingName') or ''
+                                path = node.get('path') or ''
+                                if not title or not path:
+                                    continue
+                                url = "https://rentals.ca/" + path.lstrip('/')
+
+                                rent_range = node.get('rentRange') or []
+                                price = 0
+                                if isinstance(rent_range, list) and rent_range:
+                                    try:
+                                        price = int(float(rent_range[0]))
+                                    except:
+                                        price = 0
+                                if price < 300:
+                                    continue
+
+                                loc = node.get('rentalListingLocation') or []
+                                lat = None
+                                lng = None
+                                if isinstance(loc, list) and len(loc) == 2:
+                                    try:
+                                        lng = float(loc[0])
+                                        lat = float(loc[1])
+                                    except:
+                                        lat = None
+                                        lng = None
+
+                                address = node.get('address') or {}
+                                street = address.get('street') or ''
+                                city_obj = (address.get('city') or {})
+                                city = city_obj.get('cityName') or "Vancouver"
+                                full_address = f"{street}, {city}" if street else city
+
+                                beds_range = node.get('bedsRange') or []
+                                beds = self.extract_beds(title)
+                                if isinstance(beds_range, list) and beds_range:
+                                    try:
+                                        beds = int(float(beds_range[0]))
+                                    except:
+                                        pass
+
+                                images = []
+                                for img in (node.get('images') or []):
+                                    scales = (img or {}).get('scales') or []
+                                    for sc in scales:
+                                        u = (sc or {}).get('url')
+                                        if u and u not in images:
+                                            images.append(u)
+
+                                if not images:
+                                    thumb = node.get('thumbnail')
+                                    if isinstance(thumb, str) and thumb:
+                                        images.append(thumb)
+
+                                results.append({
+                                    "source": "Rentals.ca",
+                                    "title": title,
+                                    "price": price,
+                                    "url": url,
+                                    "address": full_address,
+                                    "city": city,
+                                    "beds": beds,
+                                    "lat": lat,
+                                    "lng": lng,
+                                    "image": images[0] if images else "",
+                                    "images": images,
+                                    "desc": "请点击'查看原房源'获取更多详细信息。",
+                                    "date": datetime.now().strftime("%Y-%m-%d")
+                                })
+                            if results:
+                                print(f"INFO: Rentals fallback parser extracted {len(results)} listings.")
+                        except Exception as e:
+                            print(f"WARNING: Rentals fallback parser failed: {e}")
+
             print(f"DONE: Extracted {len(results)} Rentals listings.")
             return results
         except Exception as e:
