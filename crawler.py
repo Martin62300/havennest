@@ -15,6 +15,7 @@ class HavenNestCrawler:
         self.cache_file = 'coords_cache.json'
         self.coords_cache = self._load_cache()
         self.owner_media_dir = 'owner_media'
+        self.owner_media_max_photos = 3
         # Airtable Config
         self.airtable_token = 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364'
         self.airtable_base = 'appfs8aXtirNbrbWa'
@@ -46,6 +47,24 @@ class HavenNestCrawler:
         except:
             return ''
 
+    def _cleanup_owner_media(self, keep_paths):
+        try:
+            if not os.path.exists(self.owner_media_dir):
+                return
+            keep = set([p.replace('\\', '/') for p in keep_paths if p])
+            for name in os.listdir(self.owner_media_dir):
+                path = os.path.join(self.owner_media_dir, name)
+                if not os.path.isfile(path):
+                    continue
+                rel = path.replace('\\', '/')
+                if rel not in keep:
+                    try:
+                        os.remove(path)
+                    except:
+                        pass
+        except:
+            pass
+
     def process_airtable_listings(self):
         """从 Airtable 获取屋主发布的房源并进行地理编码解析"""
         print("Fetching Airtable listings...")
@@ -63,7 +82,7 @@ class HavenNestCrawler:
                 title = f.get('房源标题 (Listing Title)', "Rental Listing")
                 raw_photos = [p.get('url') for p in f.get('房源照片 / Property Photos', []) if p.get('url')]
                 photos = []
-                for idx, purl in enumerate(raw_photos):
+                for idx, purl in enumerate(raw_photos[:self.owner_media_max_photos]):
                     local_path = self._download_owner_media(r['id'], idx, purl)
                     if local_path:
                         photos.append(local_path)
@@ -507,6 +526,13 @@ class HavenNestCrawler:
                         for pattern in junk_patterns:
                             desc = re.sub(pattern, '', desc, flags=re.DOTALL)
                         
+                        desc = re.sub(r'^\s*(联系人|联系人[:：]|联\s*系\s*人)\s*[:：].*$', '', desc, flags=re.MULTILINE | re.IGNORECASE)
+                        desc = re.sub(r'^\s*(电话|联系电话|手机|手机号码|联\s*系\s*电\s*话)\s*[:：].*$', '', desc, flags=re.MULTILINE | re.IGNORECASE)
+                        desc = re.sub(r'^\s*(微信|微信号|WeChat|wechat)\s*[:：].*$', '', desc, flags=re.MULTILINE | re.IGNORECASE)
+                        desc = re.sub(r'^\s*(邮箱|电子邮箱|Email|E-mail)\s*[:：].*$', '', desc, flags=re.MULTILINE | re.IGNORECASE)
+                        desc = re.sub(r'(\+?1[\s\-\.]?)?\(?\d{3}\)?[\s\-\.]?\d{3}[\s\-\.]?\d{4}', '', desc)
+                        desc = re.sub(r'[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}', '', desc, flags=re.IGNORECASE)
+
                         desc = re.sub(r'\n\s*\n', '\n', desc).strip()
 
                         # 提取区域
@@ -600,11 +626,20 @@ class HavenNestCrawler:
             if item.get('source') != 'owner':
                 continue
             rid = item.get('id') or ''
-            files = sorted(glob.glob(os.path.join(self.owner_media_dir, f"{rid}_*.*")))
+            files = sorted(glob.glob(os.path.join(self.owner_media_dir, f"{rid}_*.*")))[:self.owner_media_max_photos]
             files = [p.replace('\\', '/') for p in files]
             if files:
                 item['images'] = files
                 item['image'] = files[0]
+
+        keep_owner_media = []
+        for item in data_map.values():
+            if item.get('source') != 'owner':
+                continue
+            keep_owner_media.extend(item.get('images') or [])
+            if item.get('image'):
+                keep_owner_media.append(item.get('image'))
+        self._cleanup_owner_media(keep_owner_media)
         
         # 清理逻辑：
         # 1. 屋主发布的推广房源 (isPromo) 永久保留

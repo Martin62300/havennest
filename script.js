@@ -156,6 +156,24 @@ function getListingImages(i) {
     return imgs;
 }
 
+function sanitizeCrawledDescription(text) {
+    if (!text) return '';
+    let s = String(text);
+    s = s.replace(/\r/g, '');
+
+    s = s.replace(/^\s*(联系人|联系人[:：]|联\s*系\s*人)\s*[:：].*$/gmi, '');
+    s = s.replace(/^\s*(电话|联系电话|手机|手机号码|联\s*系\s*电\s*话)\s*[:：].*$/gmi, '');
+    s = s.replace(/^\s*(微信|微信号|WeChat|wechat)\s*[:：].*$/gmi, '');
+    s = s.replace(/^\s*(邮箱|电子邮箱|Email|E-mail)\s*[:：].*$/gmi, '');
+    s = s.replace(/^\s*(QQ|WhatsApp|Telegram)\s*[:：].*$/gmi, '');
+
+    s = s.replace(/(\+?1[\s\-\.]?)?\(?\d{3}\)?[\s\-\.]?\d{3}[\s\-\.]?\d{4}/g, '');
+    s = s.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '');
+
+    s = s.replace(/\n{3,}/g, '\n\n').trim();
+    return s;
+}
+
 async function init() {
     updateUI();
     
@@ -360,7 +378,10 @@ function showDetail(i) {
         : `<div class="gallery-img" style="background:#f1f5f9; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:1.2rem;">No Image Available</div>`;
     
     // 详情内容处理
-    const description = i.desc || i.description || (curLang === 'zh' ? '暂无详细描述。' : 'No detailed description available.');
+    let description = i.desc || i.description || (curLang === 'zh' ? '暂无详细描述。' : 'No detailed description available.');
+    if (i.source === 'crawler' || i.source === 'VanPeople' || i.source === 'Craigslist' || i.source === 'Rentals.ca') {
+        description = sanitizeCrawledDescription(description);
+    }
     const priceNum = parseFloat(i.price) || 0;
     const displayPrice = priceNum > 0 ? `$${priceNum.toLocaleString()}` : (curLang === 'zh' ? '价格面议' : 'Contact Owner');
     
