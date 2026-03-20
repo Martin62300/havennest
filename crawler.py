@@ -15,7 +15,7 @@ class HavenNestCrawler:
         self.cache_file = 'coords_cache.json'
         self.coords_cache = self._load_cache()
         self.owner_media_dir = 'owner_media'
-        self.owner_media_max_photos = 3
+        self.owner_media_max_photos = 5
         self.media_backend = (os.getenv('HAVENNEST_MEDIA_BACKEND') or '').strip().lower()
         self.r2_endpoint = (os.getenv('R2_ENDPOINT') or '').strip()
         self.r2_bucket = (os.getenv('R2_BUCKET') or '').strip()
