@@ -29,6 +29,13 @@ class HavenNestCrawler:
         self.airtable_base = 'appfs8aXtirNbrbWa'
         self.airtable_table = 'Table 1'
 
+        if os.getenv('GITHUB_ACTIONS') == 'true':
+            print(f"Media backend: {self.media_backend}")
+            if self.media_backend == 'r2':
+                ok = all([self.r2_bucket, self.r2_access_key_id, self.r2_secret_access_key, self.r2_public_base_url])
+                print(f"R2 config present: {ok}")
+            print(f"Airtable token present: {bool(self.airtable_token)}")
+
     def _store_owner_media(self, record_id, idx, url):
         try:
             ext = 'jpg'
@@ -653,6 +660,20 @@ class HavenNestCrawler:
         for item in new_data:
             key = item.get('url') or item.get('id')
             if key: data_map[key] = item
+
+        if self.media_backend != 'local':
+            for item in data_map.values():
+                if item.get('source') != 'owner':
+                    continue
+                imgs = item.get('images') or []
+                if isinstance(imgs, list):
+                    imgs = [u for u in imgs if isinstance(u, str) and not u.startswith('owner_media/')]
+                else:
+                    imgs = []
+                item['images'] = imgs
+                img0 = item.get('image')
+                if isinstance(img0, str) and img0.startswith('owner_media/'):
+                    item['image'] = imgs[0] if imgs else ''
 
         if self.media_backend == 'local':
             for key, item in data_map.items():
