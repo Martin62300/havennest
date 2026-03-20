@@ -136,6 +136,26 @@ function updateSeoMeta() {
     if (twDesc) twDesc.setAttribute('content', d.seoDescription);
 }
 
+function normalizeImageUrl(v) {
+    if (!v) return '';
+    if (typeof v === 'string') return v;
+    if (Array.isArray(v)) return normalizeImageUrl(v[0]);
+    if (typeof v === 'object' && typeof v.url === 'string') return v.url;
+    return '';
+}
+
+function getListingImages(i) {
+    const imgs = [];
+    const a = Array.isArray(i.images) ? i.images : [];
+    a.forEach(x => {
+        const u = normalizeImageUrl(x);
+        if (u && !imgs.includes(u)) imgs.push(u);
+    });
+    const cover = normalizeImageUrl(i.image);
+    if (cover && !imgs.includes(cover)) imgs.unshift(cover);
+    return imgs;
+}
+
 async function init() {
     updateUI();
     
@@ -291,7 +311,8 @@ function renderListings(items) {
         
         const sourceLabel = i.source === 'owner' ? d.sourceOwner : d.sourceCrawler;
         const bedsLabel = i.beds ? `${i.beds} Bed${i.beds > 1 ? 's' : ''}` : '';
-        const displayImage = i.image || 'https://via.placeholder.com/400x300?text=No+Image';
+        const images = getListingImages(i);
+        const displayImage = images[0] || 'logo.svg?v=20260320';
         const priceNum = parseFloat(i.price) || 0;
         const displayPrice = priceNum > 0 ? `$${priceNum.toLocaleString()}` : (curLang === 'zh' ? '价格面议' : 'Contact Owner');
         
@@ -318,7 +339,7 @@ window.showDetailById = (id) => {
 
 function showDetail(i) {
     const modal = document.getElementById('detailModal');
-    const images = (i.images && i.images.length > 0) ? i.images : (i.image ? [i.image] : []);
+    const images = getListingImages(i);
     const d = dict[curLang];
     curSlide = 0;
     
