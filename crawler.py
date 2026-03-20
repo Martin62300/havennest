@@ -362,8 +362,7 @@ class HavenNestCrawler:
         page = 1
         while len(results) < limit:
             try:
-                # VanPeople 分页格式通常是 zufang/index.html?page=N
-                url = f"https://c.vanpeople.com/zufang/index.html?page={page}"
+                url = "https://c.vanpeople.com/zufang/" if page == 1 else f"https://c.vanpeople.com/zufang/?page={page}"
                 print(f"  Fetching page {page}...")
                 res = scraper.get(url, timeout=20)
                 res.encoding = 'utf-8'
@@ -417,39 +416,59 @@ class HavenNestCrawler:
                             continue
 
                         # 深度抓取详情页
-                        print(f"    Deep crawling: {title[:20]}...")
                         detail_res = scraper.get(detail_url, timeout=15)
                         detail_res.encoding = 'utf-8'
                         detail_soup = BeautifulSoup(detail_res.text, 'html.parser')
                         
-                        # 1. 提取房源实拍图片 (精准定位轮播图区域)
+                        # 1. 提取房源实拍图片
                         images = []
-                        
-                        # 定位详情页主图/轮播图区域的选择器
-                        # 优先匹配带有 swiper-slide 的容器，这通常是主轮播图
-                        # 同时排除侧边栏 (.detail-side) 和 推荐位 (.recommend)
-                        photo_area = detail_soup.select_one('.detail-left, .view-gallery, .swiper-container, #photo-list, .img-box')
-                        if photo_area:
-                            # 尝试获取所有包含图片的链接或容器
-                            img_els = photo_area.select('img')
-                            for img in img_els:
-                                # 优先获取大图，排除缩略图和侧边栏推荐图
-                                src = img.get('data-src') or img.get('lazy-src') or img.get('src')
-                                if src:
-                                    if src.startswith('//'): src = "https:" + src
-                                    elif src.startswith('/'): src = "https://c.vanpeople.com" + src
-                                    
-                                    # 排除头像、Logo、图标以及侧边栏的广告图 (VanPeople 侧边栏图片通常包含 ad_image 或特定尺寸)
-                                    is_ad = any(k in src.lower() for k in ['avatar', 'logo', 'icon', 'ad_image', 'banner', 'recommend'])
-                                    if 'vanpeople.com' in src and not is_ad:
-                                        if src not in images: images.append(src)
-                        
-                        # 如果上述区域没找到，再尝试正则，但要增加路径限制，只找 /ad/ 目录下的图片（通常是房源图）
+                        mobile_url = detail_url.replace("https://c.vanpeople.com/zufang/", "https://c.vanpeople.com/m/zufang/")
+                        try:
+                            m_res = scraper.get(mobile_url, timeout=15)
+                            m_res.encoding = 'utf-8'
+                            m_soup = BeautifulSoup(m_res.text, 'html.parser')
+                            for img in m_soup.find_all('img'):
+                                src = img.get('data-src') or img.get('data-original') or img.get('lazy-src') or img.get('src')
+                                if not src: 
+                                    continue
+                                if src.startswith('//'):
+                                    src = "https:" + src
+                                elif src.startswith('/'):
+                                    src = "https://c.vanpeople.com" + src
+                                s = src.lower()
+                                if not re.search(r'\.(jpg|jpeg|png|webp)(\?|$)', s):
+                                    continue
+                                if any(bad in s for bad in ['gg/images', '/gg/', '/gp/', 'nopic', 'wechat', 'vpp_new', 'info_more', 'logo', 'avatar', 'icon', 'banner', 'ad_image', 'recommend']):
+                                    continue
+                                if not any(host in s for host in ['thumb.vancdn.com', 'img.vancdn.com', 'static.vancdn.com', 'vanpeople.com']):
+                                    continue
+                                if src not in images:
+                                    images.append(src)
+                        except:
+                            pass
+
                         if not images:
-                            photo_matches = re.findall(r'https?://[^\s"\'<>]+?/ad/[^\s"\'<>]+?\.(?:jpg|jpeg|png|webp)', detail_res.text)
-                            for p in photo_matches:
-                                if 'vanpeople.com' in p and all(k not in p.lower() for k in ['avatar', 'logo', 'icon']):
-                                    if p not in images: images.append(p)
+                            photo_area = detail_soup.select_one('.detail-left, .view-gallery, .swiper-container, #photo-list, .img-box')
+                            if photo_area:
+                                img_els = photo_area.select('img')
+                                for img in img_els:
+                                    src = img.get('data-src') or img.get('data-original') or img.get('lazy-src') or img.get('src')
+                                    if not src:
+                                        continue
+                                    if src.startswith('//'):
+                                        src = "https:" + src
+                                    elif src.startswith('/'):
+                                        src = "https://c.vanpeople.com" + src
+                                    s = src.lower()
+                                    if not re.search(r'\.(jpg|jpeg|png|webp)(\?|$)', s):
+                                        continue
+                                    if any(bad in s for bad in ['gg/images', '/gg/', '/gp/', 'nopic', 'wechat', 'vpp_new', 'info_more', 'logo', 'avatar', 'icon', 'banner', 'ad_image', 'recommend']):
+                                        continue
+                                    if src not in images:
+                                        images.append(src)
+
+                        if not images:
+                            continue
                         
                         # 2. 提取描述并深度清洗
                         desc_el = detail_soup.select_one('.detail-desc, .info-content, .description, #info-content, .text-content, .ad-detail-content')
@@ -594,6 +613,11 @@ class HavenNestCrawler:
                 continue
 
             # 4. 无图片过滤 (抓取到的房源如果没有图片，质量太低，不予显示)
+            if item.get('source') == 'VanPeople':
+                img0 = (item.get('image') or '').lower()
+                if any(bad in img0 for bad in ['gg/images', '/gg/', '/gp/', 'nopic']):
+                    continue
+
             if not item.get('image') and not item.get('images'):
                 continue
 
