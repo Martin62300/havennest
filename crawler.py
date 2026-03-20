@@ -69,8 +69,10 @@ class HavenNestCrawler:
                         CacheControl='public, max-age=31536000, immutable'
                     )
                     return f"{self.r2_public_base_url}/{key}"
-                except:
-                    return ''
+                except Exception as e:
+                    if os.getenv('GITHUB_ACTIONS') == 'true':
+                        print(f"R2 upload failed ({record_id} #{idx}): {type(e).__name__}: {e}")
+                    return url
 
             os.makedirs(self.owner_media_dir, exist_ok=True)
             filename = f"{record_id}_{idx}.{ext}"
@@ -164,6 +166,11 @@ class HavenNestCrawler:
                     "date": datetime.now().strftime('%Y-%m-%d')
                 }
                 results.append(item)
+            if os.getenv('GITHUB_ACTIONS') == 'true':
+                r2_count = sum(1 for it in results for u in (it.get('images') or []) if isinstance(u, str) and self.r2_public_base_url and u.startswith(self.r2_public_base_url))
+                airtable_count = sum(1 for it in results for u in (it.get('images') or []) if isinstance(u, str) and 'airtableusercontent.com' in u)
+                empty_count = sum(1 for it in results if not (it.get('image') or '').strip())
+                print(f"Airtable images summary: r2={r2_count}, airtable_fallback={airtable_count}, empty_cover={empty_count}")
             print(f"DONE: Processed {len(results)} Airtable listings.")
         except Exception as e:
             print(f"ERROR: Airtable processing failed: {e}")
