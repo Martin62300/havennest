@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" fill="#ffffff"/>
+  <g transform="translate(0, 40)">
+    <g transform="translate(320, 210)">
+      <path d="M192 0L384 176L356 206L336 188V412C336 428 323 441 307 441H77C61 441 48 428 48 412V188L28 206L0 176L192 0Z" fill="#002147"/>
+      <path d="M80 168H128V424H80V168Z" fill="#002147"/>
+      <path d="M256 168H304V424H256V168Z" fill="#002147"/>
+      <rect x="136" y="256" width="152" height="64" rx="6" fill="#002147"/>
+      <rect x="84" y="168" width="8" height="256" fill="#D4AF37"/>
+      <rect x="292" y="168" width="8" height="256" fill="#D4AF37"/>
+    </g>
+    <text x="512" y="770" text-anchor="middle" font-family="Segoe UI, system-ui, -apple-system, Arial, sans-serif" font-size="120" font-weight="700" fill="#002147">HavenNest</text>
+  </g>
+</svg>

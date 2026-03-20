@@ -32,11 +32,24 @@ header {
 }
 
 .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-size: 1.6rem;
     font-weight: 800;
     color: var(--primary);
     text-decoration: none;
     letter-spacing: -0.5px;
+}
+
+.logo-img {
+    height: 34px;
+    width: 34px;
+    display: block;
+}
+
+.logo-text {
+    line-height: 1;
 }
 
 .lang-toggle {

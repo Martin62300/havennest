@@ -17,6 +17,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 const dict = {
     zh: {
+        seoTitle: "HavenNest 安家居 | 大温全量房源聚合 & 一站式租房服务门户",
+        seoDescription: "HavenNest 聚合大温各大平台房源，为您提供省时省心的全方位租房支持。从专业持牌团队提供的一站式租客保险咨询，到搬家、清洁对接，全程为您把控细节，让您的温哥华迁居之旅省心无忧。",
         postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?",
         postBtn: "屋主发布 / Post Now",
         next: "明白，下一步 / Next Step",
@@ -66,6 +68,8 @@ const dict = {
         mapNotice: "📍 温馨提示：部分抓取房源因原网站地址信息不全，地图定位可能存在偏差，请以详情页描述为准。"
     },
     en: {
+        seoTitle: "Havennest | Greater Vancouver Aggregated Rental Listings & One-Stop Services",
+        seoDescription: "Havennest aggregates rental listings across Greater Vancouver to provide a seamless, time-saving experience. From professional licensed tenant insurance support to moving and cleaning services, we handle the details so you can enjoy a worry-free move.",
         postCta: "Have a vacancy? Post it on HavenNest for free!",
         postBtn: "Post Now",
         next: "Next Step",
@@ -116,6 +120,22 @@ const dict = {
     }
 };
 
+function updateSeoMeta() {
+    const d = dict[curLang];
+    document.title = d.seoTitle;
+    document.documentElement.lang = curLang === 'zh' ? 'zh-CN' : 'en';
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', d.seoDescription);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', d.seoTitle);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', d.seoDescription);
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) twTitle.setAttribute('content', d.seoTitle);
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute('content', d.seoDescription);
+}
+
 async function init() {
     updateUI();
     
@@ -158,6 +178,7 @@ function updateLabels() {
 
 function updateUI() {
     updateLabels();
+    updateSeoMeta();
     const d = dict[curLang];
     const svcs = [
         { k: 'ins', i: '🛡️', t: d.ins },
