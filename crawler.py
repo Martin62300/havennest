@@ -16,16 +16,23 @@ class HavenNestCrawler:
         self.coords_cache = self._load_cache()
         self.owner_media_dir = 'owner_media'
         self.owner_media_max_photos = 3
+        self.media_backend = (os.getenv('HAVENNEST_MEDIA_BACKEND') or '').strip().lower()
+        self.r2_endpoint = (os.getenv('R2_ENDPOINT') or '').strip()
+        self.r2_bucket = (os.getenv('R2_BUCKET') or '').strip()
+        self.r2_access_key_id = (os.getenv('R2_ACCESS_KEY_ID') or '').strip()
+        self.r2_secret_access_key = (os.getenv('R2_SECRET_ACCESS_KEY') or '').strip()
+        self.r2_public_base_url = (os.getenv('R2_PUBLIC_BASE_URL') or '').strip().rstrip('/')
+        if not self.media_backend:
+            self.media_backend = 'r2' if (self.r2_bucket and self.r2_access_key_id and self.r2_secret_access_key and self.r2_public_base_url) else 'local'
         # Airtable Config
-        self.airtable_token = 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364'
+        self.airtable_token = (os.getenv('AIRTABLE_TOKEN') or '').strip()
         self.airtable_base = 'appfs8aXtirNbrbWa'
         self.airtable_table = 'Table 1'
 
-    def _download_owner_media(self, record_id, idx, url):
+    def _store_owner_media(self, record_id, idx, url):
         try:
-            os.makedirs(self.owner_media_dir, exist_ok=True)
             ext = 'jpg'
-            r = requests.get(url, stream=True, timeout=20, headers={'User-Agent': 'HavenNest_Bot_v2.5.0'})
+            r = requests.get(url, timeout=20, headers={'User-Agent': 'HavenNest_Bot_v2.5.0'})
             ct = (r.headers.get('content-type') or '').lower()
             if 'image/png' in ct:
                 ext = 'png'
@@ -33,16 +40,38 @@ class HavenNestCrawler:
                 ext = 'webp'
             elif 'image/jpeg' in ct or 'image/jpg' in ct:
                 ext = 'jpg'
+            if r.status_code != 200:
+                return ''
+
+            if self.media_backend == 'r2':
+                try:
+                    import boto3
+                    s3 = boto3.client(
+                        's3',
+                        endpoint_url=self.r2_endpoint or None,
+                        aws_access_key_id=self.r2_access_key_id,
+                        aws_secret_access_key=self.r2_secret_access_key,
+                        region_name='auto'
+                    )
+                    key = f"owner/{record_id}/{idx}.{ext}"
+                    s3.put_object(
+                        Bucket=self.r2_bucket,
+                        Key=key,
+                        Body=r.content,
+                        ContentType=ct.split(';')[0] if ct else None,
+                        CacheControl='public, max-age=31536000, immutable'
+                    )
+                    return f"{self.r2_public_base_url}/{key}"
+                except:
+                    return ''
+
+            os.makedirs(self.owner_media_dir, exist_ok=True)
             filename = f"{record_id}_{idx}.{ext}"
             path = os.path.join(self.owner_media_dir, filename)
             if os.path.exists(path) and os.path.getsize(path) > 0:
                 return path.replace('\\', '/')
-            if r.status_code != 200:
-                return ''
             with open(path, 'wb') as f:
-                for chunk in r.iter_content(chunk_size=1024 * 64):
-                    if chunk:
-                        f.write(chunk)
+                f.write(r.content)
             return path.replace('\\', '/')
         except:
             return ''
@@ -68,6 +97,9 @@ class HavenNestCrawler:
     def process_airtable_listings(self):
         """从 Airtable 获取屋主发布的房源并进行地理编码解析"""
         print("Fetching Airtable listings...")
+        if not self.airtable_token:
+            print("ERROR: AIRTABLE_TOKEN not set.")
+            return []
         url = f"https://api.airtable.com/v0/{self.airtable_base}/{self.airtable_table}"
         headers = {"Authorization": f"Bearer {self.airtable_token}"}
         
@@ -83,9 +115,9 @@ class HavenNestCrawler:
                 raw_photos = [p.get('url') for p in f.get('房源照片 / Property Photos', []) if p.get('url')]
                 photos = []
                 for idx, purl in enumerate(raw_photos[:self.owner_media_max_photos]):
-                    local_path = self._download_owner_media(r['id'], idx, purl)
-                    if local_path:
-                        photos.append(local_path)
+                    stored = self._store_owner_media(r['id'], idx, purl)
+                    if stored:
+                        photos.append(stored)
                 
                 # 城市识别
                 city = f.get('所在城市 (City)', "")
@@ -622,24 +654,25 @@ class HavenNestCrawler:
             key = item.get('url') or item.get('id')
             if key: data_map[key] = item
 
-        for key, item in data_map.items():
-            if item.get('source') != 'owner':
-                continue
-            rid = item.get('id') or ''
-            files = sorted(glob.glob(os.path.join(self.owner_media_dir, f"{rid}_*.*")))[:self.owner_media_max_photos]
-            files = [p.replace('\\', '/') for p in files]
-            if files:
-                item['images'] = files
-                item['image'] = files[0]
+        if self.media_backend == 'local':
+            for key, item in data_map.items():
+                if item.get('source') != 'owner':
+                    continue
+                rid = item.get('id') or ''
+                files = sorted(glob.glob(os.path.join(self.owner_media_dir, f"{rid}_*.*")))[:self.owner_media_max_photos]
+                files = [p.replace('\\', '/') for p in files]
+                if files:
+                    item['images'] = files
+                    item['image'] = files[0]
 
-        keep_owner_media = []
-        for item in data_map.values():
-            if item.get('source') != 'owner':
-                continue
-            keep_owner_media.extend(item.get('images') or [])
-            if item.get('image'):
-                keep_owner_media.append(item.get('image'))
-        self._cleanup_owner_media(keep_owner_media)
+            keep_owner_media = []
+            for item in data_map.values():
+                if item.get('source') != 'owner':
+                    continue
+                keep_owner_media.extend(item.get('images') or [])
+                if item.get('image'):
+                    keep_owner_media.append(item.get('image'))
+            self._cleanup_owner_media(keep_owner_media)
         
         # 清理逻辑：
         # 1. 屋主发布的推广房源 (isPromo) 永久保留

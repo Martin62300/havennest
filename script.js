@@ -36,9 +36,9 @@ const dict = {
         m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的信息安全地转交给我们的合作经纪进行报价。您的隐私受 BC 法律保护。",
         m_t3: "申请信息填写 / Application Details",
         m_t4: "表单生成成功 / Form Generated",
-        ins: "租客保险咨询 / Tenant Insurance",
-        move: "专业搬家服务 / Moving Service",
-        clean: "退房清洁服务 / Cleaning Service",
+        ins: "租客保险咨询",
+        move: "专业搬家服务",
+        clean: "退房清洁服务",
         footer: `<div style="max-width:1100px; margin:0 auto; line-height:1.7;">
                     <strong>免责声明：</strong>本站房源信息包含系统抓取与屋主直发，仅供参考，不构成任何要约或承诺。房源价格、空置情况、面积与配套等可能随时变更，请以原网站/发布者信息为准。<br>
                     <strong>第三方来源：</strong>系统抓取房源来自第三方公开页面（如 VanPeople、Rentals.ca、Craigslist 等），版权与内容权利归原网站及发布者所有。本站与上述第三方平台无隶属或合作关系。<br>
@@ -164,6 +164,7 @@ function sanitizeCrawledDescription(text) {
     s = s.replace(/^\s*(联系人|联系人[:：]|联\s*系\s*人)\s*[:：].*$/gmi, '');
     s = s.replace(/^\s*(电话|联系电话|手机|手机号码|联\s*系\s*电\s*话)\s*[:：].*$/gmi, '');
     s = s.replace(/^\s*(微信|微信号|WeChat|wechat)\s*[:：].*$/gmi, '');
+    s = s.replace(/(微信号|微信|WeChat|wechat)\s*[:：]?\s*\n\s*[A-Za-z0-9._-]{5,}\s*$/gmi, '');
     s = s.replace(/^\s*(邮箱|电子邮箱|Email|E-mail)\s*[:：].*$/gmi, '');
     s = s.replace(/^\s*(QQ|WhatsApp|Telegram)\s*[:：].*$/gmi, '');
 
