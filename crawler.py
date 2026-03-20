@@ -2,6 +2,7 @@ import json
 import os
 import re
 import time
+import glob
 import requests
 from datetime import datetime, timedelta
 import cloudscraper
@@ -13,10 +14,37 @@ class HavenNestCrawler:
         self.raw_rentals_file = 'rentals_raw.json'
         self.cache_file = 'coords_cache.json'
         self.coords_cache = self._load_cache()
+        self.owner_media_dir = 'owner_media'
         # Airtable Config
         self.airtable_token = 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364'
         self.airtable_base = 'appfs8aXtirNbrbWa'
         self.airtable_table = 'Table 1'
+
+    def _download_owner_media(self, record_id, idx, url):
+        try:
+            os.makedirs(self.owner_media_dir, exist_ok=True)
+            ext = 'jpg'
+            r = requests.get(url, stream=True, timeout=20, headers={'User-Agent': 'HavenNest_Bot_v2.5.0'})
+            ct = (r.headers.get('content-type') or '').lower()
+            if 'image/png' in ct:
+                ext = 'png'
+            elif 'image/webp' in ct:
+                ext = 'webp'
+            elif 'image/jpeg' in ct or 'image/jpg' in ct:
+                ext = 'jpg'
+            filename = f"{record_id}_{idx}.{ext}"
+            path = os.path.join(self.owner_media_dir, filename)
+            if os.path.exists(path) and os.path.getsize(path) > 0:
+                return path.replace('\\', '/')
+            if r.status_code != 200:
+                return ''
+            with open(path, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=1024 * 64):
+                    if chunk:
+                        f.write(chunk)
+            return path.replace('\\', '/')
+        except:
+            return ''
 
     def process_airtable_listings(self):
         """从 Airtable 获取屋主发布的房源并进行地理编码解析"""
@@ -33,7 +61,12 @@ class HavenNestCrawler:
                 f = r.get('fields', {})
                 addr = f.get('房源具体地址 (Address)', "Vancouver")
                 title = f.get('房源标题 (Listing Title)', "Rental Listing")
-                photos = [p['url'] for p in f.get('房源照片 / Property Photos', [])]
+                raw_photos = [p.get('url') for p in f.get('房源照片 / Property Photos', []) if p.get('url')]
+                photos = []
+                for idx, purl in enumerate(raw_photos):
+                    local_path = self._download_owner_media(r['id'], idx, purl)
+                    if local_path:
+                        photos.append(local_path)
                 
                 # 城市识别
                 city = f.get('所在城市 (City)', "")
@@ -51,14 +84,7 @@ class HavenNestCrawler:
                     desc = f.get('房源描述 (Description)', "")
                     beds = self.extract_beds(title + " " + desc)
 
-                # 地理编码解析 (核心修复：由爬虫统一解析地址)
-                lat, lng = self.get_lat_lng(addr)
-                if not lat or not lng:
-                    # 如果解析失败，根据城市分配默认坐标
-                    if city == "Richmond":
-                        lat, lng = 49.1666, -123.1336
-                    else:
-                        lat, lng = 49.2827, -123.1207
+                lat, lng = None, None
 
                 item = {
                     "id": r['id'],
@@ -569,6 +595,16 @@ class HavenNestCrawler:
         for item in new_data:
             key = item.get('url') or item.get('id')
             if key: data_map[key] = item
+
+        for key, item in data_map.items():
+            if item.get('source') != 'owner':
+                continue
+            rid = item.get('id') or ''
+            files = sorted(glob.glob(os.path.join(self.owner_media_dir, f"{rid}_*.*")))
+            files = [p.replace('\\', '/') for p in files]
+            if files:
+                item['images'] = files
+                item['image'] = files[0]
         
         # 清理逻辑：
         # 1. 屋主发布的推广房源 (isPromo) 永久保留

@@ -138,7 +138,7 @@ function updateSeoMeta() {
 
 function normalizeImageUrl(v) {
     if (!v) return '';
-    if (typeof v === 'string') return v;
+    if (typeof v === 'string') return v.trim();
     if (Array.isArray(v)) return normalizeImageUrl(v[0]);
     if (typeof v === 'object' && typeof v.url === 'string') return v.url;
     return '';
@@ -256,10 +256,22 @@ function filterListings() {
     if (sort === 'low-high') {
         filteredListings.sort((a, b) => (a.price || 0) - (b.price || 0));
     } else {
-        // 默认排序：屋主/推广房源 (isPromo) 置顶
+        const sourcePriority = curLang === 'zh'
+            ? { 'VanPeople': 0, 'Rentals.ca': 1, 'Craigslist': 2, 'owner': -1 }
+            : { 'Rentals.ca': 0, 'Craigslist': 1, 'VanPeople': 2, 'owner': -1 };
+
+        const getPri = (x) => {
+            const k = x.source || '';
+            return (k in sourcePriority) ? sourcePriority[k] : 99;
+        };
+
+        // 默认排序：屋主/推广房源 (isPromo) 置顶，其次按当前语言偏好排序来源
         filteredListings.sort((a, b) => {
             if (a.isPromo && !b.isPromo) return -1;
             if (!a.isPromo && b.isPromo) return 1;
+            const pa = getPri(a);
+            const pb = getPri(b);
+            if (pa !== pb) return pa - pb;
             return 0;
         });
     }
