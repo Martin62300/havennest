@@ -606,5 +606,33 @@
     "5088 Kwantlen St, Richmond, Richmond, BC, Canada": [
         49.1762053,
         -123.1282949
+    ],
+    "Vancouver. Cambie, Vancouver, BC, Canada": [
+        49.2548858,
+        -123.1152086
+    ],
+    "Burnaby Vancouver Metrotown, Burnaby, BC, Canada": [
+        49.2325415,
+        -123.0108671
+    ],
+    "Burnaby South, Burnaby, BC, Canada": [
+        49.2073232,
+        -123.0101843
+    ],
+    "Killarney, Vancouver, BC, Canada": [
+        49.2242738,
+        -123.0462504
+    ],
+    "Dunbar, Vancouver, BC, Canada": [
+        49.2475814,
+        -123.1849498
+    ],
+    "Grandview Woodland, Vancouver, BC, Canada": [
+        49.2705588,
+        -123.0679417
+    ],
+    "Point Grey, Vancouver, BC, Canada": [
+        49.2638286,
+        -123.185672
     ]
 }
