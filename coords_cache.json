@@ -534,5 +534,33 @@
     "Yaletown, Vancouver, Vancouver, BC, Canada": [
         49.2763217,
         -123.1209558
+    ],
+    "Vancouver, Cambie, Vancouver, BC, Canada": [
+        49.2358451,
+        -123.1359794
+    ],
+    "521 Cottonwood Ave, Coquitlam, Vancouver, BC, Canada": [
+        49.2592018,
+        -122.891205
+    ],
+    "vancouver, Vancouver, BC, Canada": [
+        49.2686069,
+        -123.085922
+    ],
+    "NEW WESTMINSTER, Vancouver, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "Renfrew, Vancouver, BC, Canada": [
+        49.2589451,
+        -123.045255
+    ],
+    "1000 Brunette Avenue, Coquitlam, BC, Vancouver, BC, Canada": [
+        49.2374731,
+        -122.8669631
+    ],
+    "Strathcona, Vancouver, BC, Canada": [
+        49.279554,
+        -123.0899788
     ]
 }
