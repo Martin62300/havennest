@@ -562,5 +562,49 @@
     "Strathcona, Vancouver, BC, Canada": [
         49.279554,
         -123.0899788
+    ],
+    "1500 Alberni Street, Vancouver, Vancouver, BC, Canada": [
+        49.289379,
+        -123.1305658
+    ],
+    "Vancouver  Coal Harbour  Downtown, Vancouver, BC, Canada": [
+        49.2848766,
+        -123.121224
+    ],
+    "Seafair, Vancouver, BC, Canada": [
+        49.1483406,
+        -123.1813869
+    ],
+    "Coquitlam, Maillardville, Vancouver, BC, Canada": [
+        49.2347477,
+        -122.8796082
+    ],
+    "13350 Central Avenue, Vancouver, BC, Canada": [
+        49.190149,
+        -122.852487
+    ],
+    "Surrey BC, Vancouver, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "UBC, Vancouver, BC, Canada": [
+        49.2484638,
+        -123.2341555
+    ],
+    "Mount Pleasant, Vancouver, BC, Canada": [
+        49.2633296,
+        -123.0965885
+    ],
+    "20159 88 Ave, Langley, BC, Vancouver, BC, Canada": [
+        49.1651453,
+        -122.6644506
+    ],
+    "5088 Kwantlen St, RIchmond, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "5088 Kwantlen St, Richmond, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
     ]
 }
