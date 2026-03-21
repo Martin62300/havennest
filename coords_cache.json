@@ -678,5 +678,65 @@
     "East Vancouver, Vancouver, BC, Canada": [
         49.279437,
         -123.0666665
+    ],
+    "False Creek North, Vancouver, BC, Canada": [
+        49.2734138,
+        -123.1125398
+    ],
+    "RICHMOND, Richmond, BC, Canada": [
+        49.174693,
+        -123.1516757
+    ],
+    "burnaby, Burnaby, BC, Canada": [
+        49.2767096,
+        -122.917803
+    ],
+    "VICTORIA FRASERVIEW, Vancouver, BC, Canada": [
+        49.2184156,
+        -123.0732871
+    ],
+    "new westminster, Vancouver, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "MARPOLE, Vancouver, BC, Canada": [
+        49.2092233,
+        -123.1361495
+    ],
+    "BRENTWOOD  BURNABY, Burnaby, BC, Canada": [
+        49.256239,
+        -122.9957848
+    ],
+    "SUNSET SOUTH VANCOUVER, Vancouver, BC, Canada": [
+        49.225652,
+        -123.0911079
+    ],
+    "NORTH BURNABY, Burnaby, BC, Canada": [
+        49.1923083,
+        -122.992645
+    ],
+    "METROTOWN, Vancouver, BC, Canada": [
+        49.2258524,
+        -123.0038944
+    ],
+    "EDMONDS, Vancouver, BC, Canada": [
+        49.2121286,
+        -122.959233
+    ],
+    "GUILDFORD, Vancouver, BC, Canada": [
+        49.1930451,
+        -122.7971749
+    ],
+    "LANGLEY, Vancouver, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "COQUITLAM, Vancouver, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "metrotown, Vancouver, BC, Canada": [
+        49.2258524,
+        -123.0038944
     ]
 }
