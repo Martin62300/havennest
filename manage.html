@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理房源 | HavenNest</title>
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="stylesheet" href="style.css?v=20260320">
+</head>
+<body>
+<header>
+    <a href="./" class="logo"><img src="logo.svg?v=20260320" alt="HavenNest" class="logo-img"><span class="logo-text">HAVENNEST</span></a>
+    <div class="lang-toggle" id="lang-btn" onclick="location.href='./'">返回首页</div>
+</header>
+
+<div style="max-width:900px; margin: 40px auto; padding: 0 20px;">
+    <div style="background: var(--white); border-radius: 20px; box-shadow: var(--shadow); padding: 24px;">
+        <h2 style="margin: 0 0 10px; color: var(--primary);">房源管理</h2>
+        <div style="color:#64748b; line-height:1.6; margin-bottom: 18px;">请输入你邮件里收到的管理链接 token（通常会自动带入）。</div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+            <input id="token" type="text" placeholder="token" style="flex: 1; min-width: 260px;">
+            <button class="btn-action" style="margin-top:0; width:auto; padding: 12px 18px;" onclick="loadListing()">加载</button>
+        </div>
+
+        <div id="msg" style="margin-top:14px; color:#64748b;"></div>
+    </div>
+
+    <div id="panel" style="display:none; margin-top: 18px; background: var(--white); border-radius: 20px; box-shadow: var(--shadow); padding: 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap: 12px; flex-wrap:wrap;">
+            <h3 style="margin:0; color: var(--primary);">编辑信息</h3>
+            <div id="statusPill" style="background: #f1f5f9; padding: 8px 12px; border-radius: 999px; font-weight: 700; color: var(--primary);"></div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+            <div>
+                <label style="font-weight:700; color:#334155;">标题</label>
+                <input id="f_title" type="text">
+            </div>
+            <div>
+                <label style="font-weight:700; color:#334155;">月租金</label>
+                <input id="f_price" type="text" placeholder="例如 2900">
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+            <div>
+                <label style="font-weight:700; color:#334155;">地址</label>
+                <input id="f_addr" type="text">
+            </div>
+            <div>
+                <label style="font-weight:700; color:#334155;">城市</label>
+                <input id="f_city" type="text">
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+            <div>
+                <label style="font-weight:700; color:#334155;">卧室数</label>
+                <input id="f_beds" type="text" placeholder="例如 2">
+            </div>
+        </div>
+
+        <div style="margin-top: 14px;">
+            <label style="font-weight:700; color:#334155;">描述</label>
+            <textarea id="f_desc" style="height: 160px;"></textarea>
+        </div>
+
+        <div style="display:flex; gap: 12px; flex-wrap:wrap; margin-top: 16px;">
+            <button class="btn-action" style="margin-top:0; width:auto; padding: 12px 18px;" onclick="saveListing()">保存修改</button>
+            <button class="btn-action" style="margin-top:0; width:auto; padding: 12px 18px; background:#475569;" onclick="setOffline()">下架</button>
+            <button class="btn-action" style="margin-top:0; width:auto; padding: 12px 18px; background:#0f766e;" onclick="setOnline()">上架</button>
+            <button class="btn-action" style="margin-top:0; width:auto; padding: 12px 18px; background:#b91c1c;" onclick="deleteListing()">删除</button>
+        </div>
+
+        <div id="panelMsg" style="margin-top:14px; color:#64748b;"></div>
+    </div>
+</div>
+
+<script src="manage.js?v=20260320"></script>
+</body>
+</html>
+

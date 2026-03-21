@@ -171,6 +171,9 @@ function sanitizeCrawledDescription(text) {
     s = s.replace(/(\+?1[\s\-\.]?)?\(?\d{3}\)?[\s\-\.]?\d{3}[\s\-\.]?\d{4}/g, '');
     s = s.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '');
 
+    s = s.replace(/http:\\\\+/gi, 'http://');
+    s = s.replace(/\bhttp:\/\//gi, 'https://');
+
     s = s.replace(/\n{3,}/g, '\n\n').trim();
     return s;
 }
