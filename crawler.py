@@ -119,6 +119,9 @@ class HavenNestCrawler:
             
             for r in data.get('records', []):
                 f = r.get('fields', {})
+                status = (f.get('Status') or f.get('status') or f.get('状态 (Status)') or '').strip().lower()
+                if status in ['inactive', 'deleted', 'off', 'disabled']:
+                    continue
                 addr = f.get('房源具体地址 (Address)', "Vancouver")
                 title = f.get('房源标题 (Listing Title)', "Rental Listing")
                 raw_photos = [p.get('url') for p in f.get('房源照片 / Property Photos', []) if p.get('url')]

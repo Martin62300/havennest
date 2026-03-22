@@ -1,4 +1,7 @@
-const API_BASE = '';
+const API_BASE = (() => {
+    const v = new URLSearchParams(location.search).get('api') || '';
+    return v.trim().replace(/\/+$/g, '');
+})();
 
 function qs(k) {
     return new URLSearchParams(location.search).get(k) || '';
@@ -18,7 +21,7 @@ function getToken() {
 }
 
 function apiUrl(path) {
-    return `${API_BASE}${path}`;
+    return API_BASE ? `${API_BASE}${path}` : path;
 }
 
 async function apiGet(path) {
@@ -72,7 +75,10 @@ window.loadListing = async () => {
         setText('msg', '已加载');
     } catch (e) {
         setPanelVisible(false);
-        setText('msg', e.message || '加载失败');
+        const baseHint = !API_BASE
+            ? '（当前页面未配置管理 API：请使用最新邮件里的管理链接；或在链接末尾加上 &api=你的Worker地址。Worker地址在 Cloudflare → Workers & Pages → havennest-manage → Triggers 里复制。）'
+            : '';
+        setText('msg', `${e.message || '加载失败'}${baseHint}`);
     }
 };
 
@@ -144,4 +150,3 @@ window.deleteListing = async () => {
 
 document.getElementById('token').value = qs('token');
 if (qs('token')) window.loadListing();
-

@@ -1,9 +1,3 @@
-const CONFIG = {
-    token: 'pat2AFw6PJ7WRwGTy.11c7c578063429d1757a89ca9abb523e122370c8f13ede3990c7b090bde6b364',
-    baseId: 'appfs8aXtirNbrbWa',
-    tableName: 'Table 1'
-};
-
 let allListings = [];
 let filteredListings = [];
 let curLang = 'zh';
@@ -21,6 +15,7 @@ const dict = {
         seoDescription: "HavenNest 聚合大温各大平台房源，为您提供省时省心的全方位租房支持。从专业持牌团队提供的一站式租客保险咨询，到搬家、清洁对接，全程为您把控细节，让您的温哥华迁居之旅省心无忧。",
         postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?",
         postBtn: "屋主发布 / Post Now",
+        singleKeyBtn: "SingleKey 背调",
         next: "明白，下一步 / Next Step",
         agree: "同意授权并继续 / Agree & Authorize",
         gen: "生成正式申请表 / Generate Application",
@@ -72,6 +67,7 @@ const dict = {
         seoDescription: "Havennest aggregates rental listings across Greater Vancouver to provide a seamless, time-saving experience. From professional licensed tenant insurance support to moving and cleaning services, we handle the details so you can enjoy a worry-free move.",
         postCta: "Have a vacancy? Post it on HavenNest for free!",
         postBtn: "Post Now",
+        singleKeyBtn: "SingleKey Screening",
         next: "Next Step",
         agree: "Agree & Authorize",
         gen: "Generate Application",
@@ -207,6 +203,8 @@ function updateLabels() {
     const d = dict[curLang];
     document.getElementById('post-cta-text').innerText = d.postCta;
     document.getElementById('post-btn-text').innerText = d.postBtn;
+    const sk = document.getElementById('singlekey-btn');
+    if (sk) sk.innerText = d.singleKeyBtn;
     document.getElementById('lang-btn').innerText = curLang === 'zh' ? 'English' : '中文';
     document.getElementById('footer-text').innerHTML = d.footer;
     document.getElementById('map-notice').innerText = d.mapNotice;
