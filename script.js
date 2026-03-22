@@ -190,6 +190,26 @@ async function init() {
                 }
                 return i;
             });
+            try {
+                const r = await fetch('/api/public/listings', { method: 'GET' });
+                if (r.ok) {
+                    const j = await r.json();
+                    const owners = Array.isArray(j.listings) ? j.listings : [];
+                    const byId = new Map(allListings.map(x => [x.id || x.title, x]));
+                    owners.forEach(x => {
+                        const k = x.id || x.title;
+                        if (!k) return;
+                        if (!byId.has(k)) {
+                            if (!x.lat || !x.lng) {
+                                x.lat = 49.2827;
+                                x.lng = -123.1207;
+                            }
+                            byId.set(k, x);
+                        }
+                    });
+                    allListings = Array.from(byId.values());
+                }
+            } catch (e) {}
             filterListings();
         } else {
             console.error('Failed to load listings.json');
