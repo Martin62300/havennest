@@ -21,6 +21,9 @@
         <div style="color:#475569; line-height:1.8; font-size: 1.05rem;">
             填写表单发布房源后，你将收到一封房源管理链接邮件，可用于后续修改、下架或删除。
         </div>
+        <div id="submitted-note" style="display:none; margin-top: 14px; padding: 14px 16px; border-radius: 14px; background: #ecfdf5; color: #065f46; font-weight: 800;">
+            已提交成功，请查收邮件获取房源管理按钮（如未收到请查看垃圾邮箱）。
+        </div>
 
         <div style="display:flex; gap: 14px; flex-wrap:wrap; margin-top: 18px;">
             <a class="post-btn" style="display:inline-flex; align-items:center; justify-content:center; padding: 12px 18px; text-decoration:none;" href="https://airtable.com/appfs8aXtirNbrbWa/pagXqvAuxxoHDzsPF/form" target="_blank" rel="noopener noreferrer">
@@ -30,5 +33,13 @@
 
     </div>
 </div>
+
+<script>
+    const submitted = new URLSearchParams(location.search).get('submitted');
+    if (submitted === '1' || submitted === 'true') {
+        const el = document.getElementById('submitted-note');
+        if (el) el.style.display = 'block';
+    }
+</script>
 </body>
 </html>
