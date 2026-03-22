@@ -738,5 +738,25 @@
     "metrotown, Vancouver, BC, Canada": [
         49.2258524,
         -123.0038944
+    ],
+    "Grandview Heights, Vancouver, BC, Canada": [
+        49.0461414,
+        -122.7554645
+    ],
+    "East Vancouver, Killarney, Vancouver, BC, Canada": [
+        49.2199318,
+        -123.0408408
+    ],
+    "Burnaby. B C, Burnaby, BC, Canada": [
+        49.263684,
+        -122.9297977
+    ],
+    "East Vancouver Killarney, Vancouver, BC, Canada": [
+        49.2192761,
+        -123.0415126
+    ],
+    "Richmond, BC, Richmond, BC, Canada": [
+        49.174693,
+        -123.1516757
     ]
 }
