@@ -52,6 +52,15 @@ header {
     line-height: 1;
 }
 
+.logo-cn {
+    line-height: 1;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--primary);
+    opacity: 0.92;
+    letter-spacing: 0.5px;
+}
+
 .lang-toggle {
     font-size: 0.9rem;
     font-weight: 600;
@@ -462,6 +471,10 @@ footer {
     .logo-text {
         font-size: 1.3rem;
         letter-spacing: 0.5px;
+    }
+    .logo-cn {
+        font-size: 0.95rem;
+        letter-spacing: 0.4px;
     }
     .logo-img {
         height: 40px;

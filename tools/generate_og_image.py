@@ -1,4 +1,7 @@
 import os
+import io
+import urllib.parse
+import urllib.request
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 
@@ -63,13 +66,32 @@ def main():
         font_price = ImageFont.load_default()
         font_meta = ImageFont.load_default()
 
+    def try_cn_font(size, bold=False):
+        candidates = [
+            ("msyh.ttc", 0),
+            ("msyhbd.ttc", 0),
+            ("simhei.ttf", 0),
+            ("simsun.ttc", 0),
+        ]
+        for name, idx in candidates:
+            try:
+                return ImageFont.truetype(name, size, index=idx)
+            except Exception:
+                pass
+        return font_title if bold else font_sub
+
+    font_title_cn = try_cn_font(38, bold=True)
+    font_sub_cn = try_cn_font(22, bold=False)
+    font_meta_cn = try_cn_font(14, bold=False)
+    font_tag_cn = try_cn_font(13, bold=True)
+
     d.text((logo_x + 74, screen_y0 + 34), "HAVENNEST", fill=(255, 255, 255), font=font_brand)
 
     text_x = screen_x0 + 32
     title_y = screen_y0 + header_h + 26
     sub_y = title_y + 44
-    d.text((text_x, title_y), "HavenNest 安家居 | 大温全量房源聚合", fill=(11, 27, 51), font=font_title)
-    d.text((text_x, sub_y), "聚合各大平台房源，从保险到搬家省时省心", fill=slate, font=font_sub)
+    d.text((text_x, title_y), "HavenNest 安家居 | 大温全量房源聚合", fill=(11, 27, 51), font=font_title_cn)
+    d.text((text_x, sub_y), "聚合各大平台房源，从保险到搬家省时省心", fill=slate, font=font_sub_cn)
 
     container_y = sub_y + 80
     container_x0 = screen_x0 + 70
@@ -99,11 +121,11 @@ def main():
         d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=(255, 255, 255), outline=(226, 232, 240), width=2)
         img_h = int(h * 0.62)
         d.rounded_rectangle([x, y, x + w, y + img_h], radius=18, fill=(203, 213, 225))
-        pill_w = max(72, 10 + int(d.textlength(tag, font=font_tag)))
+        pill_w = max(72, 10 + int(d.textlength(tag, font=font_tag_cn)))
         d.rounded_rectangle([x + 14, y + 12, x + 14 + pill_w, y + 34], radius=11, fill=(11, 18, 32, 180))
-        d.text((x + 22, y + 16), tag, fill=(255, 255, 255), font=font_tag)
+        d.text((x + 22, y + 16), tag, fill=(255, 255, 255), font=font_tag_cn)
         d.text((x + 16, y + img_h + 18), price, fill=(11, 27, 51), font=font_price)
-        d.text((x + 16, y + img_h + 44), meta, fill=slate, font=font_meta)
+        d.text((x + 16, y + img_h + 44), meta, fill=slate, font=font_meta_cn)
 
     x1 = grid_x0
     x2 = grid_x0 + cell_w + col_gap
@@ -121,8 +143,31 @@ def main():
     d.text((container_x0 + 340, icons_y + 12), "📦 搬家服务", fill=(11, 27, 51), font=font_meta)
     d.text((container_x0 + 590, icons_y + 12), "🧹 清洁服务", fill=(11, 27, 51), font=font_meta)
 
+    qr_data = "https://havennestapp.com"
+    try:
+        qs = urllib.parse.urlencode({"size": "260x260", "data": qr_data})
+        qr_url = f"https://api.qrserver.com/v1/create-qr-code/?{qs}"
+        with urllib.request.urlopen(qr_url, timeout=10) as resp:
+            qr_png = resp.read()
+        qr = Image.open(io.BytesIO(qr_png)).convert("RGB")
+        qr = qr.resize((178, 178), Image.Resampling.NEAREST)
+
+        qr_pad = 14
+        qr_bg_w = qr.size[0] + qr_pad * 2
+        qr_bg_h = qr.size[1] + qr_pad * 2 + 34
+        qr_x1 = screen_x1 - 34
+        qr_y1 = screen_y1 - 26
+        qr_x0 = qr_x1 - qr_bg_w
+        qr_y0 = qr_y1 - qr_bg_h
+
+        d.rounded_rectangle([qr_x0, qr_y0, qr_x1, qr_y1], radius=20, fill=(255, 255, 255), outline=(226, 232, 240), width=2)
+        img.paste(qr, (qr_x0 + qr_pad, qr_y0 + qr_pad))
+        d.text((qr_x0 + qr_pad, qr_y1 - 26), "扫码看房源", fill=slate, font=font_meta_cn)
+    except Exception:
+        pass
+
     out_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "og-image.jpg")
-    img.save(out_path, "JPEG", quality=92, optimize=True, progressive=True)
+    img.save(out_path, "JPEG", quality=92, optimize=True, progressive=False)
 
 
 if __name__ == "__main__":
