@@ -806,5 +806,37 @@
     "Vancouver Shaughnessy, Vancouver, BC, Canada": [
         49.2414874,
         -123.139528
+    ],
+    "15160 108 Ave, Surrey, BC, Vancouver, BC, Canada": [
+        49.198726,
+        -122.8001851
+    ],
+    "White Rock, Vancouver, BC, Canada": [
+        49.0235357,
+        -122.797924
+    ],
+    "Vancouver Downtown, Vancouver, BC, Canada": [
+        49.2779085,
+        -123.1089417
+    ],
+    "South Granville, Vancouver, BC, Canada": [
+        49.2634716,
+        -123.1386887
+    ],
+    "COMMERCIAL, Vancouver, BC, Canada": [
+        49.2629509,
+        -123.0684944
+    ],
+    "North Burnaby, Burnaby, BC, Canada": [
+        49.1923083,
+        -122.992645
+    ],
+    "coquitlam, Vancouver, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "6655 Buswell St, Richmond, BC, Richmond, BC, Canada": [
+        49.1650135,
+        -123.1340569
     ]
 }
