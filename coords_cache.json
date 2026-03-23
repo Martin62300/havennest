@@ -758,5 +758,53 @@
     "Richmond, BC, Richmond, BC, Canada": [
         49.174693,
         -123.1516757
+    ],
+    "VGH, Vancouver, BC, Canada": [
+        49.2618427,
+        -123.1226691
+    ],
+    "Vancouver West End, Vancouver, BC, Canada": [
+        49.2908635,
+        -123.1453973
+    ],
+    "MISSION, Vancouver, BC, Canada": [
+        49.2818114,
+        -123.0909986
+    ],
+    "Cloverdale, Vancouver, BC, Canada": [
+        49.1161848,
+        -122.7214847
+    ],
+    "hastings sunrise, Vancouver, BC, Canada": [
+        49.2775935,
+        -123.0439199
+    ],
+    "lynn valley, Vancouver, BC, Canada": [
+        49.3409789,
+        -123.031168
+    ],
+    "burnaby lake, Burnaby, BC, Canada": [
+        49.2449078,
+        -122.9534569
+    ],
+    "Richmond BC, Richmond, BC, Canada": [
+        49.174693,
+        -123.1516757
+    ],
+    "Sullivan Heights, Surrey, Vancouver, BC, Canada": [
+        49.1159452,
+        -122.8218657
+    ],
+    "2615 Columbia Street, Vancouver, BC, Vancouver, BC, Canada": [
+        49.2619384,
+        -123.1098522
+    ],
+    "False Creek, Vancouver, BC, Canada": [
+        49.2745516,
+        -123.1060401
+    ],
+    "Vancouver Shaughnessy, Vancouver, BC, Canada": [
+        49.2414874,
+        -123.139528
     ]
 }
