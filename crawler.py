@@ -36,6 +36,63 @@ class HavenNestCrawler:
                 print(f"R2 config present: {ok}")
             print(f"Airtable token present: {bool(self.airtable_token)}")
 
+    def infer_city(self, text):
+        if not text:
+            return ""
+        s = str(text).lower()
+        mapping = [
+            ("richmond", "Richmond"), ("列治文", "Richmond"), ("lansdowne", "Richmond"),
+            ("burnaby", "Burnaby"), ("本拿比", "Burnaby"),
+            ("surrey", "Surrey"), ("素里", "Surrey"),
+            ("coquitlam", "Coquitlam"), ("高贵林", "Coquitlam"),
+            ("new westminster", "New Westminster"), ("新西敏", "New Westminster"),
+            ("delta", "Delta"), ("三角洲", "Delta"),
+            ("langley", "Langley"), ("兰里", "Langley"),
+            ("north vancouver", "North Vancouver"), ("北温", "North Vancouver"),
+            ("west vancouver", "West Vancouver"), ("西温", "West Vancouver"),
+            ("port coquitlam", "Port Coquitlam"), ("poco", "Port Coquitlam"),
+            ("port moody", "Port Moody"), ("满地宝", "Port Moody"),
+            ("maple ridge", "Maple Ridge"), ("枫树岭", "Maple Ridge"),
+            ("vancouver", "Vancouver"), ("温哥华", "Vancouver"),
+        ]
+        for k, city in mapping:
+            if k in s:
+                return city
+        return ""
+
+    def build_geocode_query(self, address, city):
+        a = (address or "").strip()
+        c = (city or "").strip()
+        a = re.sub(r"\s+", " ", a)
+        c = re.sub(r"\s+", " ", c)
+
+        city_from_a = self.infer_city(a)
+        city_from_all = self.infer_city(" ".join([a, c]))
+        if not c and city_from_a:
+            c = city_from_a
+        if c and city_from_a and city_from_a != c and city_from_all:
+            c = city_from_all
+
+        if city_from_a and a.lower() == city_from_a.lower():
+            a = ""
+            if not c:
+                c = city_from_a
+
+        if "-" in a and city_from_a and a.lower().startswith(city_from_a.lower() + " -"):
+            tail = a.split("-", 1)[1].strip()
+            if tail:
+                a = tail
+                if not c:
+                    c = city_from_a
+
+        if a and c and (c.lower() in a.lower()):
+            return a
+        return (a + ", " + c).strip(", ").strip() if (a or c) else "Vancouver"
+
+    def geocode_item(self, item):
+        q = self.build_geocode_query(item.get("address", ""), item.get("city", ""))
+        return self.get_lat_lng(q)
+
     def _store_owner_media(self, record_id, idx, url):
         try:
             ext = 'jpg'
@@ -133,12 +190,11 @@ class HavenNestCrawler:
                 
                 # 城市识别
                 city = f.get('所在城市 (City)', "")
+                inferred = self.infer_city(title + " " + addr)
+                if inferred and (not city or city.strip().lower() == "vancouver"):
+                    city = inferred
                 if not city:
-                    search_str = (title + " " + addr).lower()
-                    if any(k in search_str for k in ['richmond', '列治文', 'lansdowne']):
-                        city = "Richmond"
-                    else:
-                        city = "Vancouver"
+                    city = "Vancouver"
 
                 # 卧室数量识别
                 beds = f.get('卧室数量 (Beds)')
@@ -491,9 +547,7 @@ class HavenNestCrawler:
                     loc_el = post.find('div', class_='location')
                     loc = loc_el.text.strip() if loc_el else "Vancouver"
                     
-                    city = "Vancouver"
-                    if any(kw in loc.lower() for kw in ['richmond', '列治文']): city = "Richmond"
-                    elif any(kw in loc.lower() for kw in ['burnaby', '本拿比']): city = "Burnaby"
+                    city = self.infer_city(loc + " " + title) or "Vancouver"
                     
                     results.append({
                         "source": "Craigslist",
@@ -516,7 +570,7 @@ class HavenNestCrawler:
             # 补充坐标
             print(f"Geocoding {len(results)} Craigslist items...")
             for item in results:
-                item['lat'], item['lng'] = self.get_lat_lng(item['address'] + ", " + item['city'])
+                item['lat'], item['lng'] = self.geocode_item(item)
 
             return results
         except Exception as e:
@@ -544,8 +598,7 @@ class HavenNestCrawler:
                     lng = float(item.find('geo:long').text) if item.find('geo:long') else None
                     loc_match = re.search(r'\((.*?)\)$', title)
                     loc = loc_match.group(1) if loc_match else "Vancouver"
-                    city = "Vancouver"
-                    if "richmond" in loc.lower(): city = "Richmond"
+                    city = self.infer_city(loc + " " + title) or "Vancouver"
                     
                     results.append({
                         "source": "Craigslist", "title": title, "price": price, "url": url,
@@ -701,20 +754,26 @@ class HavenNestCrawler:
 
                         desc = re.sub(r'\n\s*\n', '\n', desc).strip()
 
-                        # 提取区域
                         loc_el = item.find('span', class_='class')
-                        loc = loc_el.text.strip() if loc_el else "Vancouver"
-                        
-                        city = "Vancouver"
-                        if any(kw in loc.lower() or kw in title.lower() for kw in ['richmond', '列治文']): city = "Richmond"
-                        elif any(kw in loc.lower() or kw in title.lower() for kw in ['burnaby', '本拿比']): city = "Burnaby"
+                        loc = loc_el.text.strip() if loc_el else ""
+
+                        detail_text = detail_soup.get_text("\n", strip=True)
+                        addr2 = ""
+                        m = re.search(r'(?:联系地址|地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text)
+                        if m:
+                            addr2 = m.group(1)
+                        addr2 = re.sub(r'\s*查看地图.*$', '', addr2).strip()
+                        addr2 = re.sub(r'\s+', ' ', addr2)
+
+                        city = self.infer_city(" ".join([title, loc, addr2, detail_text])) or "Vancouver"
+                        address = addr2 or loc or city
 
                         results.append({
                             "source": "VanPeople",
                             "title": title,
                             "price": price,
                             "url": detail_url,
-                            "address": loc,
+                            "address": address,
                             "city": city,
                             "beds": self.extract_beds(title + " " + desc),
                             "lat": None,
@@ -738,7 +797,7 @@ class HavenNestCrawler:
         # 补充坐标
         print(f"Geocoding {len(results)} VanPeople items...")
         for i, item in enumerate(results):
-            item['lat'], item['lng'] = self.get_lat_lng(item['address'] + ", " + item['city'])
+            item['lat'], item['lng'] = self.geocode_item(item)
 
         return results
 
@@ -770,9 +829,12 @@ class HavenNestCrawler:
         # 补充坐标并确保所有房源都有位置 (仅对新房源中缺失坐标的进行补充)
         print(f"Final geocoding check for {len(new_data)} new items...")
         for item in new_data:
+            inferred = self.infer_city(" ".join([str(item.get('title','')), str(item.get('address','')), str(item.get('desc',''))]))
+            if inferred and (not item.get('city') or str(item.get('city')).strip().lower() == "vancouver"):
+                item['city'] = inferred
             if not item.get('lat') or not item.get('lng'):
                 # 只有当地址不在缓存中时才调用 API
-                addr_query = item.get('address', '') + ", " + item.get('city', 'Vancouver')
+                addr_query = self.build_geocode_query(item.get('address', ''), item.get('city', 'Vancouver'))
                 if addr_query + ", BC, Canada" not in self.coords_cache:
                     print(f"  Geocoding missing: {item.get('title')[:20]}...")
                 item['lat'], item['lng'] = self.get_lat_lng(addr_query)
