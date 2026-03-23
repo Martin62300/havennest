@@ -335,18 +335,30 @@ function renderListings(items) {
     
     // Update Map
     map.eachLayer(l => { if (l instanceof L.Marker) map.removeLayer(l); });
-    
-    // 增加随机偏移量以解决 Marker 重叠问题
+
+    const coordCounts = {};
     items.forEach(i => {
         const lat = parseFloat(i.lat);
         const lng = parseFloat(i.lng);
         if (isNaN(lat) || isNaN(lng)) return;
+        const key = `${lat.toFixed(6)},${lng.toFixed(6)}`;
+        coordCounts[key] = (coordCounts[key] || 0) + 1;
+    });
 
-        // 为每个点增加微小的随机偏移 (约 10-20 米)，防止完全重叠
-        const offsetLat = lat + (Math.random() - 0.5) * 0.0003;
-        const offsetLng = lng + (Math.random() - 0.5) * 0.0003;
+    items.forEach(i => {
+        const lat = parseFloat(i.lat);
+        const lng = parseFloat(i.lng);
+        if (isNaN(lat) || isNaN(lng)) return;
+        const key = `${lat.toFixed(6)},${lng.toFixed(6)}`;
 
-        const marker = L.marker([offsetLat, offsetLng]).addTo(map);
+        let mLat = lat;
+        let mLng = lng;
+        if ((coordCounts[key] || 0) > 1) {
+            mLat = lat + (Math.random() - 0.5) * 0.0003;
+            mLng = lng + (Math.random() - 0.5) * 0.0003;
+        }
+
+        const marker = L.marker([mLat, mLng]).addTo(map);
         
         const popupHtml = `
             <div style="min-width:200px; font-family:sans-serif;">
