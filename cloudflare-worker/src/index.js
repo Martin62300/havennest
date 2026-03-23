@@ -84,7 +84,31 @@ function normalizeStatus(v) {
   return (v || "").toString().trim().toLowerCase()
 }
 
-function allowedUpdateFields(body) {
+function firstExistingKey(fields, keys, fallback = "") {
+  for (const k of keys) {
+    if (Object.prototype.hasOwnProperty.call(fields, k)) return k
+  }
+  return fallback || keys[0] || ""
+}
+
+function firstFieldValue(fields, keys, fallback = "") {
+  for (const k of keys) {
+    const v = fields[k]
+    if (v !== undefined && v !== null && String(v).trim() !== "") return v
+  }
+  return fallback
+}
+
+function parseFirstInt(v) {
+  if (typeof v === "number" && Number.isFinite(v)) return Math.trunc(v)
+  const s = (v ?? "").toString()
+  const m = s.match(/(\d+)/)
+  if (!m) return NaN
+  const n = Number(m[1])
+  return Number.isFinite(n) ? Math.trunc(n) : NaN
+}
+
+function allowedUpdateFields(body, existingFields) {
   const out = {}
   if (typeof body.title === "string") out["房源标题 (Listing Title)"] = body.title.trim()
   if (typeof body.price === "number") out["月租金 (Monthly Rent)"] = body.price
@@ -93,11 +117,12 @@ function allowedUpdateFields(body) {
     if (!Number.isNaN(n)) out["月租金 (Monthly Rent)"] = Math.floor(n)
   }
   if (typeof body.address === "string") out["房源具体地址 (Address)"] = body.address.trim()
-  if (typeof body.city === "string") out["所在城市 (City)"] = body.city.trim()
-  if (typeof body.beds === "number") out["卧室数量 (Beds)"] = body.beds
-  if (typeof body.beds === "string" && body.beds.trim()) {
-    const n = Number(body.beds.trim().replace(/[^0-9]/g, ""))
-    if (!Number.isNaN(n)) out["卧室数量 (Beds)"] = n
+  if (typeof body.city === "string") {
+    out["所属城市 (City)"] = body.city.trim()
+  }
+  if (typeof body.beds !== "undefined") {
+    // 直接传递字符串或数字，Airtable 的字段如果是 Single Select 会要求严格匹配选项字符串
+    out["卧室数量 (Beds)"] = String(body.beds).trim()
   }
   if (typeof body.desc === "string") out["房源描述 (Description)"] = body.desc
   return out
@@ -215,7 +240,7 @@ async function apiManage(env, req, url) {
         title: fields["房源标题 (Listing Title)"] || "",
         price: fields["月租金 (Monthly Rent)"] || 0,
         address: fields["房源具体地址 (Address)"] || "",
-        city: fields["所在城市 (City)"] || "",
+        city: firstFieldValue(fields, ["所属城市 (City)", "所在城市 (City)"], ""),
         beds: fields["卧室数量 (Beds)"] || "",
         desc: fields["房源描述 (Description)"] || "",
         status: status || "active"
@@ -225,7 +250,7 @@ async function apiManage(env, req, url) {
 
   if (req.method === "PATCH") {
     const body = await req.json().catch(() => ({}))
-    const updates = allowedUpdateFields(body)
+    const updates = allowedUpdateFields(body, fields)
     if (Object.keys(updates).length === 0) return jsonResponse({ ok: false, error: "no_valid_fields" }, 400)
     await airtableRequest(env, `/${encodeURIComponent(table)}/${encodeURIComponent(rec.id)}`, {
       method: "PATCH",
@@ -252,10 +277,18 @@ async function apiManage(env, req, url) {
       return jsonResponse({ ok: true })
     }
     if (action === "delete") {
-      await airtableRequest(env, `/${encodeURIComponent(table)}/${encodeURIComponent(rec.id)}`, {
-        method: "PATCH",
-        body: JSON.stringify({ fields: { "Status": "deleted" } })
-      })
+      const nowDate = new Date().toISOString().slice(0, 10)
+      try {
+        await airtableRequest(env, `/${encodeURIComponent(table)}/${encodeURIComponent(rec.id)}`, {
+          method: "PATCH",
+          body: JSON.stringify({ fields: { "Status": "deleted", "manage_deleted_at": nowDate } })
+        })
+      } catch (e) {
+        await airtableRequest(env, `/${encodeURIComponent(table)}/${encodeURIComponent(rec.id)}`, {
+          method: "PATCH",
+          body: JSON.stringify({ fields: { "Status": "deleted" } })
+        })
+      }
       return jsonResponse({ ok: true })
     }
     return jsonResponse({ ok: false, error: "unknown_action" }, 400)
@@ -268,12 +301,36 @@ function normalizeOwnerListingFromFields(recordId, fields) {
   const title = (fields["房源标题 (Listing Title)"] || "Rental Listing").toString()
   const addr = (fields["房源具体地址 (Address)"] || "Vancouver").toString()
   const status = normalizeStatus(getStatusField(fields)) || "active"
-  const city = (fields["所在城市 (City)"] || "").toString()
-  const bedsRaw = fields["卧室数量 (Beds)"]
-  const priceRaw = fields["月租金 (Monthly Rent)"]
+  
+  let city = firstFieldValue(fields, ["所属城市 (City)", "所在城市 (City)"], "").toString()
+  if (!city) {
+    const searchStr = (title + " " + addr).toLowerCase()
+    if (searchStr.includes("richmond") || searchStr.includes("列治文") || searchStr.includes("lansdowne")) {
+      city = "Richmond"
+    } else if (searchStr.includes("burnaby") || searchStr.includes("本拿比")) {
+      city = "Burnaby"
+    } else {
+      city = "Vancouver"
+    }
+  }
 
+  const bedsRaw = fields["卧室数量 (Beds)"]
+  let bedsNum = parseFirstInt(bedsRaw)
+  if (Number.isNaN(bedsNum)) {
+    const descStr = (fields["房源描述 (Description)"] || "").toString().toLowerCase()
+    const searchStr = (title + " " + descStr).toLowerCase()
+    const match = searchStr.match(/(\d+)\s*(?:室|房|br|bed|bedroom)/)
+    if (match) {
+      bedsNum = Number(match[1])
+    } else if (searchStr.includes("studio") || searchStr.includes("bachelor")) {
+      bedsNum = 0
+    } else {
+      bedsNum = 1
+    }
+  }
+
+  const priceRaw = fields["月租金 (Monthly Rent)"]
   const priceNum = typeof priceRaw === "number" ? priceRaw : Number(String(priceRaw || "").replace(/[^0-9.]/g, ""))
-  const bedsNum = typeof bedsRaw === "number" ? bedsRaw : Number(String(bedsRaw || "").replace(/[^0-9]/g, ""))
 
   const rawPhotos = Array.isArray(fields["房源照片 / Property Photos"]) ? fields["房源照片 / Property Photos"] : []
   const photos = rawPhotos.map(x => (x && x.url ? String(x.url) : "")).filter(Boolean)
@@ -331,7 +388,7 @@ async function apiPublicListings(env) {
 
 async function purgeDeletedRecords(env) {
   const table = getEnvString(env, "AIRTABLE_TABLE_NAME", "Table 1")
-  const daysRaw = getEnvString(env, "PURGE_DELETED_AFTER_DAYS", "7")
+  const daysRaw = getEnvString(env, "PURGE_DELETED_AFTER_DAYS", "0")
   const days = Math.max(0, Number(daysRaw) || 0)
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000
 
@@ -348,8 +405,11 @@ async function purgeDeletedRecords(env) {
     const data = await airtableRequest(env, `/${encodeURIComponent(table)}?${params.toString()}`, { method: "GET" })
     const records = Array.isArray(data.records) ? data.records : []
     for (const r of records) {
+      const f = r && r.fields ? r.fields : {}
+      const deletedAt = f && f["manage_deleted_at"] ? Date.parse(String(f["manage_deleted_at"])) : NaN
       const createdTime = r && r.createdTime ? Date.parse(r.createdTime) : NaN
-      if (Number.isFinite(createdTime) && createdTime > cutoff) continue
+      const t = Number.isFinite(deletedAt) ? deletedAt : createdTime
+      if (Number.isFinite(t) && t > cutoff) continue
       await airtableRequest(env, `/${encodeURIComponent(table)}/${encodeURIComponent(r.id)}`, { method: "DELETE" })
     }
     offset = typeof data.offset === "string" ? data.offset : ""

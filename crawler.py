@@ -750,8 +750,13 @@ class HavenNestCrawler:
                 try: old_data = json.load(f)
                 except: old_data = []
         
+        # 移除旧数据中的 owner 房源，因为我们将完全依赖本次 Airtable 的抓取结果
+        # 这样如果 Airtable 中删除了房源，网站上也会同步删除
+        old_data = [x for x in old_data if x.get('source') != 'owner']
+        
         # 爬取新数据
-        new_data = self.process_airtable_listings() + self.process_manual_rentals() + \
+        airtable_data = self.process_airtable_listings()
+        new_data = airtable_data + self.process_manual_rentals() + \
                    self.crawl_craigslist()
         
         # VanPeople 抓取增加异常处理
