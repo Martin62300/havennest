@@ -197,9 +197,23 @@ async function init() {
                     const owners = Array.isArray(j.listings) ? j.listings : [];
                     const nonOwners = allListings.filter(x => (x.source || '') !== 'owner');
                     owners.forEach(x => {
-                        if (!x.lat || !x.lng) {
-                            x.lat = 49.2827;
-                            x.lng = -123.1207;
+                        // 尝试从爬虫已经生成的本地静态数据中恢复真实坐标
+                        const existing = data.find(old => old.id === x.id);
+                        if (existing && existing.lat && existing.lng) {
+                            x.lat = existing.lat;
+                            x.lng = existing.lng;
+                        } else {
+                            // 如果是今天刚发布的全新房源（爬虫还没跑），则根据城市给一个大致的默认中心点
+                            if (x.city === 'Richmond') {
+                                x.lat = 49.1666;
+                                x.lng = -123.1336;
+                            } else if (x.city === 'Burnaby') {
+                                x.lat = 49.2488;
+                                x.lng = -122.9805;
+                            } else {
+                                x.lat = 49.2827; // Vancouver Default
+                                x.lng = -123.1207;
+                            }
                         }
                     });
                     allListings = nonOwners.concat(owners);
