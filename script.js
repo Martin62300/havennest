@@ -195,19 +195,14 @@ async function init() {
                 if (r.ok) {
                     const j = await r.json();
                     const owners = Array.isArray(j.listings) ? j.listings : [];
-                    const byId = new Map(allListings.map(x => [x.id || x.title, x]));
+                    const nonOwners = allListings.filter(x => (x.source || '') !== 'owner');
                     owners.forEach(x => {
-                        const k = x.id || x.title;
-                        if (!k) return;
-                        if (!byId.has(k)) {
-                            if (!x.lat || !x.lng) {
-                                x.lat = 49.2827;
-                                x.lng = -123.1207;
-                            }
-                            byId.set(k, x);
+                        if (!x.lat || !x.lng) {
+                            x.lat = 49.2827;
+                            x.lng = -123.1207;
                         }
                     });
-                    allListings = Array.from(byId.values());
+                    allListings = nonOwners.concat(owners);
                 }
             } catch (e) {}
             filterListings();
