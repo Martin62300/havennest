@@ -195,28 +195,31 @@ async function init() {
                 if (r.ok) {
                     const j = await r.json();
                     const owners = Array.isArray(j.listings) ? j.listings : [];
-                    const nonOwners = allListings.filter(x => (x.source || '') !== 'owner');
-                    owners.forEach(x => {
-                        // 尝试从爬虫已经生成的本地静态数据中恢复真实坐标
-                        const existing = data.find(old => old.id === x.id);
-                        if (existing && existing.lat && existing.lng) {
-                            x.lat = existing.lat;
-                            x.lng = existing.lng;
-                        } else {
-                            // 如果是今天刚发布的全新房源（爬虫还没跑），则根据城市给一个大致的默认中心点
-                            if (x.city === 'Richmond') {
-                                x.lat = 49.1666;
-                                x.lng = -123.1336;
-                            } else if (x.city === 'Burnaby') {
-                                x.lat = 49.2488;
-                                x.lng = -122.9805;
+                    const baseOwners = allListings.filter(x => (x.source || '') === 'owner');
+                    const baseOwnerMap = {};
+                    baseOwners.forEach(x => { if (x && x.id) baseOwnerMap[x.id] = x; });
+                    const mergedOwners = owners.map(x => {
+                        const existing = x && x.id ? baseOwnerMap[x.id] : null;
+                        const merged = existing ? { ...existing, ...x } : { ...x };
+                        if ((!merged.lat || !merged.lng) && existing && existing.lat && existing.lng) {
+                            merged.lat = existing.lat;
+                            merged.lng = existing.lng;
+                        }
+                        if (!merged.lat || !merged.lng) {
+                            if (merged.city === 'Richmond') {
+                                merged.lat = 49.1666;
+                                merged.lng = -123.1336;
+                            } else if (merged.city === 'Burnaby') {
+                                merged.lat = 49.2488;
+                                merged.lng = -122.9805;
                             } else {
-                                x.lat = 49.2827; // Vancouver Default
-                                x.lng = -123.1207;
+                                merged.lat = 49.2827;
+                                merged.lng = -123.1207;
                             }
                         }
+                        return merged;
                     });
-                    allListings = nonOwners.concat(owners);
+                    allListings = allListings.filter(x => (x.source || '') !== 'owner').concat(mergedOwners);
                 }
             } catch (e) {}
             filterListings();
