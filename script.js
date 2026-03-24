@@ -391,7 +391,7 @@ function renderListings(items) {
     map.eachLayer(l => { if (l instanceof L.Marker) map.removeLayer(l); });
 
     const escapeHtml = (s) => String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    const escapeJsStr = (s) => String(s || '').replace(/\\/g, '\\\\').replace(/'/g, \"\\\\'\").replace(/\\r?\\n/g, ' ');
+    const escapeJsStr = (s) => String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r?\n/g, ' ');
 
     const normalizeAddrKey = (addr) => {
         let s = (addr || '').toString().trim().toLowerCase();
