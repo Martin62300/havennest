@@ -32,6 +32,19 @@
 
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
+    <script>
+        // 基本防盗/防抓取：禁用右键菜单
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        // 禁用常见的开发者工具快捷键
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123 || // F12
+               (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || // Ctrl+Shift+I/J/C
+               (e.ctrlKey && e.keyCode === 85)) { // Ctrl+U
+                e.preventDefault();
+            }
+        });
+    </script>
+
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",

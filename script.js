@@ -707,12 +707,10 @@ function showDetail(i) {
     } else {
         // 屋主直发房源：显示联系方式 + 租客保险按钮（下方）
         contactInfo = `
-            <div style="background:var(--bg); padding:25px; border-radius:20px; border:1px solid #e2e8f0;">
-                <h3 style="margin-top:0;">${d.contact}:</h3>
-                <div style="font-weight:600; color:var(--primary);">
-                    <div>📞 ${i.phone || '房东未提供 / Not Provided'}</div>
-                    <div>📧 ${i.email || '房东未提供 / Not Provided'}</div>
-                </div>
+            <div id="contact-info-container" style="background:var(--bg); padding:25px; border-radius:20px; border:1px solid #e2e8f0; text-align:center;">
+                <button class="btn-action" style="margin:0; width:auto; padding:10px 30px;" onclick="fetchContact('${i.id}')">
+                    🔒 ${curLang === 'zh' ? '点击获取屋主联系方式' : 'Click to View Contact'}
+                </button>
             </div>
         `;
         actionButtons = `
@@ -745,6 +743,32 @@ function showDetail(i) {
         </div>`;
     modal.style.display = 'flex';
 }
+
+window.fetchContact = async (id) => {
+    const container = document.getElementById('contact-info-container');
+    if (!container) return;
+    
+    container.innerHTML = `<div style="color:#64748b;">${curLang === 'zh' ? '加载中...' : 'Loading...'}</div>`;
+    
+    try {
+        const r = await fetch(`/api/public/contact?id=${encodeURIComponent(id)}`);
+        if (r.ok) {
+            const data = await r.json();
+            if (data.ok) {
+                container.innerHTML = `
+                    <h3 style="margin-top:0; text-align:left;">${dict[curLang].contact || 'Contact'}:</h3>
+                    <div style="font-weight:600; color:var(--primary); text-align:left;">
+                        <div>📞 ${data.phone || (curLang === 'zh' ? '未提供' : 'Not Provided')}</div>
+                        <div>📧 ${data.email || (curLang === 'zh' ? '未提供' : 'Not Provided')}</div>
+                    </div>
+                `;
+                return;
+            }
+        }
+    } catch(e) {}
+    
+    container.innerHTML = `<div style="color:red;">${curLang === 'zh' ? '加载失败，请稍后重试' : 'Failed to load'}</div>`;
+};
 
 function changeSlide(dir) {
     const con = document.getElementById('gallery-con');

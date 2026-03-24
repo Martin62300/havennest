@@ -349,8 +349,6 @@ function normalizeOwnerListingFromFields(recordId, fields) {
     image: photos[0] || "",
     images: photos,
     desc: (fields["房源描述 (Description)"] || "").toString(),
-    phone: (fields["联系电话 (Phone)"] || "").toString(),
-    email: (fields["电子邮箱 (Email)"] || "").toString(),
     isPromo: true,
     date: new Date().toISOString().slice(0, 10),
     status
@@ -384,6 +382,25 @@ async function apiPublicListings(env) {
     200,
     { "cache-control": "public, max-age=60" }
   )
+}
+
+async function apiPublicContact(env, url) {
+  const id = url.searchParams.get("id")
+  if (!id) return jsonResponse({ ok: false, error: "missing_id" }, 400)
+
+  const table = getEnvString(env, "AIRTABLE_TABLE_NAME", "Table 1")
+  const data = await airtableRequest(env, `/${encodeURIComponent(table)}/${encodeURIComponent(id)}`, { method: "GET" })
+  
+  if (data.error) {
+    return jsonResponse({ ok: false, error: "not_found" }, 404)
+  }
+
+  const fields = data.fields || {}
+  return jsonResponse({
+    ok: true,
+    phone: (fields["联系电话 (Phone)"] || "").toString(),
+    email: (fields["电子邮箱 (Email)"] || "").toString()
+  }, 200, { "cache-control": "no-store" }) // 防止被CDN缓存
 }
 
 async function purgeDeletedRecords(env) {
@@ -432,6 +449,9 @@ export default {
       }
       if (url.pathname === "/api/public/listings" && req.method === "GET") {
         return withCors(await apiPublicListings(env), origin)
+      }
+      if (url.pathname === "/api/public/contact" && req.method === "GET") {
+        return withCors(await apiPublicContact(env, url), origin)
       }
       return withCors(jsonResponse({ ok: false, error: "not_found" }, 404), origin)
     } catch (e) {
