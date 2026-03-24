@@ -1,48 +1,83 @@
 import os
 import io
+import json
+import random
 import urllib.parse
 import urllib.request
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
+def get_listings():
+    listings = []
+    try:
+        listings_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'listings.json')
+        if os.path.exists(listings_file):
+            with open(listings_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                
+                owners = [x for x in data if x.get('source') == 'owner' and x.get('image')]
+                others = [x for x in data if x.get('source') != 'owner' and x.get('image')]
+                
+                if owners: listings.append(owners[0])
+                for src in ['Rentals.ca', 'VanPeople', 'Craigslist']:
+                    items = [x for x in others if x.get('source') == src]
+                    if items: listings.append(items[0])
+                    if len(listings) >= 4: break
+                    
+                while len(listings) < 4 and others:
+                    item = random.choice(others)
+                    if item not in listings:
+                        listings.append(item)
+    except Exception as e:
+        print(f"Error loading listings: {e}")
+    
+    # Fallback dummy data
+    while len(listings) < 4:
+        listings.append({
+            'source': 'System',
+            'price': 2500,
+            'city': 'Vancouver',
+            'beds': 1,
+            'image': ''
+        })
+    return listings[:4]
+
+def crop_center(img, target_w, target_h):
+    w, h = img.size
+    ratio_w = target_w / w
+    ratio_h = target_h / h
+    ratio = max(ratio_w, ratio_h)
+    new_w = int(w * ratio)
+    new_h = int(h * ratio)
+    img = img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+    left = (new_w - target_w) // 2
+    top = (new_h - target_h) // 2
+    return img.crop((left, top, left + target_w, top + target_h))
+
+def download_image(url):
+    if not url: return None
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = resp.read()
+        return Image.open(io.BytesIO(data)).convert('RGB')
+    except Exception:
+        return None
 
 def main():
+    # 使用 1080x1440 这种更适合小红书/朋友圈竖屏浏览的比例，或者保持 1200x630 但做满内容
+    # 按照用户要求：“作为图片有些小了”，可能是指之前内容在中间缩成一小块。现在做全屏铺满设计。
     width, height = 1200, 630
     navy = (0x00, 0x21, 0x47)
     gold = (0xD4, 0xAF, 0x37)
     slate = (0x33, 0x41, 0x55)
 
-    img = Image.new("RGB", (width, height), "#f6f8fb")
-
-    margin = 52
-    screen_x0, screen_y0 = margin, 36
-    screen_x1, screen_y1 = width - margin, height - 26
-
-    shadow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    sh = ImageDraw.Draw(shadow)
-    sh.rounded_rectangle(
-        [screen_x0 - 6, screen_y0 - 6, screen_x1 + 6, screen_y1 + 12],
-        radius=34,
-        fill=(11, 27, 51, 35),
-    )
-    shadow = shadow.filter(ImageFilter.GaussianBlur(12))
-    img = Image.alpha_composite(img.convert("RGBA"), shadow).convert("RGB")
+    img = Image.new("RGB", (width, height), "#ffffff")
     d = ImageDraw.Draw(img)
 
-    d.rounded_rectangle(
-        [screen_x0 - 10, screen_y0 - 10, screen_x1 + 10, screen_y1 + 10],
-        radius=34,
-        fill=(255, 255, 255),
-    )
-    d.rounded_rectangle(
-        [screen_x0, screen_y0, screen_x1, screen_y1],
-        radius=28,
-        fill=(249, 250, 251),
-    )
+    header_h = 120
+    d.rectangle([0, 0, width, header_h], fill=navy)
 
-    header_h = 110
-    d.rectangle([screen_x0, screen_y0, screen_x1, screen_y0 + header_h], fill=navy)
-
-    logo_x, logo_y = screen_x0 + 32, screen_y0 + 28
+    logo_x, logo_y = 60, 30
     d.line([(logo_x + 28, logo_y), (logo_x, logo_y + 26)], fill=(255, 255, 255), width=6)
     d.line([(logo_x + 28, logo_y), (logo_x + 56, logo_y + 26)], fill=(255, 255, 255), width=6)
     d.line([(logo_x + 10, logo_y + 28), (logo_x + 10, logo_y + 62)], fill=(255, 255, 255), width=10)
@@ -52,123 +87,116 @@ def main():
     d.line([(logo_x + 46, logo_y + 34), (logo_x + 46, logo_y + 58)], fill=gold, width=3)
 
     try:
-        font_title = ImageFont.truetype("arialbd.ttf", 38)
-        font_sub = ImageFont.truetype("arial.ttf", 22)
-        font_brand = ImageFont.truetype("arialbd.ttf", 26)
-        font_tag = ImageFont.truetype("arialbd.ttf", 13)
-        font_price = ImageFont.truetype("arialbd.ttf", 22)
-        font_meta = ImageFont.truetype("arialbd.ttf", 14)
+        font_brand = ImageFont.truetype("arialbd.ttf", 36)
+        font_title_cn = ImageFont.truetype("msyhbd.ttc", 46)
+        font_sub_cn = ImageFont.truetype("msyh.ttc", 26)
+        font_price = ImageFont.truetype("arialbd.ttf", 32)
+        font_meta_cn = ImageFont.truetype("msyh.ttc", 20)
+        font_tag_cn = ImageFont.truetype("msyhbd.ttc", 16)
+        font_qr_cn = ImageFont.truetype("msyhbd.ttc", 22)
     except Exception:
-        font_title = ImageFont.load_default()
-        font_sub = ImageFont.load_default()
         font_brand = ImageFont.load_default()
-        font_tag = ImageFont.load_default()
+        font_title_cn = ImageFont.load_default()
+        font_sub_cn = ImageFont.load_default()
         font_price = ImageFont.load_default()
-        font_meta = ImageFont.load_default()
+        font_meta_cn = ImageFont.load_default()
+        font_tag_cn = ImageFont.load_default()
+        font_qr_cn = ImageFont.load_default()
 
-    def try_cn_font(size, bold=False):
-        candidates = [
-            ("msyh.ttc", 0),
-            ("msyhbd.ttc", 0),
-            ("simhei.ttf", 0),
-            ("simsun.ttc", 0),
-        ]
-        for name, idx in candidates:
-            try:
-                return ImageFont.truetype(name, size, index=idx)
-            except Exception:
-                pass
-        return font_title if bold else font_sub
+    d.text((logo_x + 80, 40), "HAVENNEST 安家居", fill=(255, 255, 255), font=font_brand)
+    
+    # 居中大标题
+    title = "大温全量房源聚合门户"
+    sub = "真实屋主直发 · 全网房源追踪 · 一站式安家服务"
+    title_w = d.textlength(title, font=font_title_cn)
+    sub_w = d.textlength(sub, font=font_sub_cn)
+    
+    d.text(((width - title_w) // 2, header_h + 30), title, fill=(11, 27, 51), font=font_title_cn)
+    d.text(((width - sub_w) // 2, header_h + 90), sub, fill=slate, font=font_sub_cn)
 
-    font_title_cn = try_cn_font(38, bold=True)
-    font_sub_cn = try_cn_font(22, bold=False)
-    font_meta_cn = try_cn_font(14, bold=False)
-    font_tag_cn = try_cn_font(13, bold=True)
+    # 绘制 4 个房源卡片
+    listings = get_listings()
+    
+    grid_y = header_h + 160
+    card_w = 230
+    card_h = 260
+    gap = 30
+    start_x = 50
 
-    d.text((logo_x + 74, screen_y0 + 34), "HAVENNEST", fill=(255, 255, 255), font=font_brand)
+    for i, item in enumerate(listings):
+        x = start_x + i * (card_w + gap)
+        y = grid_y
+        
+        # 背景
+        d.rounded_rectangle([x, y, x + card_w, y + card_h], radius=16, fill=(248, 250, 252), outline=(226, 232, 240), width=2)
+        
+        # 图片
+        img_h = 140
+        cover = download_image(item.get('image'))
+        if cover:
+            cover = crop_center(cover, card_w, img_h)
+            # Create rounded mask for top corners
+            mask = Image.new("L", (card_w, img_h), 0)
+            mask_d = ImageDraw.Draw(mask)
+            mask_d.rounded_rectangle([0, 0, card_w, img_h + 16], radius=16, fill=255)
+            img.paste(cover, (x, y), mask)
+        else:
+            d.rounded_rectangle([x, y, x + card_w, y + img_h], radius=16, fill=(226, 232, 240))
+        
+        # 遮盖下半部分的圆角，让图片只在上面有圆角
+        d.rectangle([x, y + img_h - 16, x + card_w, y + img_h], fill=(255,255,255) if cover else (226, 232, 240))
+        if cover:
+            cover_bottom_strip = cover.crop((0, img_h-16, card_w, img_h))
+            img.paste(cover_bottom_strip, (x, y + img_h - 16))
 
-    text_x = screen_x0 + 32
-    title_y = screen_y0 + header_h + 26
-    sub_y = title_y + 44
-    d.text((text_x, title_y), "HavenNest 安家居 | 大温全量房源聚合", fill=(11, 27, 51), font=font_title_cn)
-    d.text((text_x, sub_y), "聚合各大平台房源，从保险到搬家省时省心", fill=slate, font=font_sub_cn)
+        # 标签
+        tag = "屋主直发" if item.get('source') == 'owner' else item.get('source', 'System')
+        tag_w = d.textlength(tag, font=font_tag_cn)
+        d.rounded_rectangle([x + 10, y + 10, x + 10 + tag_w + 16, y + 36], radius=13, fill=(11, 27, 51, 200))
+        d.text((x + 18, y + 15), tag, fill=(255, 255, 255), font=font_tag_cn)
+        
+        # 价格与信息
+        price = f"${item.get('price', 0):,}"
+        city = item.get('city', 'Vancouver')
+        beds = item.get('beds', 1)
+        meta = f"{city} | {beds} Bed{'s' if beds > 1 else ''}"
+        
+        d.text((x + 16, y + img_h + 20), price, fill=navy, font=font_price)
+        d.text((x + 16, y + img_h + 65), meta, fill=slate, font=font_meta_cn)
 
-    container_y = sub_y + 80
-    container_x0 = screen_x0 + 70
-    container_x1 = screen_x1 - 70
-    container_y1 = container_y + 260
-
-    shadow2 = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    sd = ImageDraw.Draw(shadow2)
-    sd.rounded_rectangle([container_x0, container_y, container_x1, container_y1], radius=26, fill=(11, 27, 51, 40))
-    shadow2 = shadow2.filter(ImageFilter.GaussianBlur(14))
-    img = Image.alpha_composite(img.convert("RGBA"), shadow2).convert("RGB")
-    d = ImageDraw.Draw(img)
-    d.rounded_rectangle([container_x0, container_y, container_x1, container_y1], radius=26, fill=(255, 255, 255))
-
-    pad = 22
-    grid_x0 = container_x0 + pad
-    grid_y0 = container_y + pad
-    col_gap = 20
-    row_gap = 18
-    cell_w = (container_x1 - container_x0 - pad * 2 - col_gap) // 2
-    cell_h_top = 140
-    cell_h_bottom = 120
-
-    def draw_card(x, y, w, h, tag, price, meta, featured=False):
-        if featured:
-            d.rounded_rectangle([x - 4, y - 4, x + w + 4, y + h + 4], radius=22, outline=gold, width=6)
-        d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=(255, 255, 255), outline=(226, 232, 240), width=2)
-        img_h = int(h * 0.62)
-        d.rounded_rectangle([x, y, x + w, y + img_h], radius=18, fill=(203, 213, 225))
-        pill_w = max(72, 10 + int(d.textlength(tag, font=font_tag_cn)))
-        d.rounded_rectangle([x + 14, y + 12, x + 14 + pill_w, y + 34], radius=11, fill=(11, 18, 32, 180))
-        d.text((x + 22, y + 16), tag, fill=(255, 255, 255), font=font_tag_cn)
-        d.text((x + 16, y + img_h + 18), price, fill=(11, 27, 51), font=font_price)
-        d.text((x + 16, y + img_h + 44), meta, fill=slate, font=font_meta_cn)
-
-    x1 = grid_x0
-    x2 = grid_x0 + cell_w + col_gap
-    y1 = grid_y0
-    y2 = grid_y0 + cell_h_top + row_gap
-
-    draw_card(x1, y1, cell_w, cell_h_top, "屋主直发", "$3,100", "Downtown 1BR", featured=True)
-    draw_card(x2, y1, cell_w, cell_h_top, "Rentals.ca", "$2,250", "Burnaby 2BR")
-    draw_card(x1, y2, cell_w, cell_h_bottom, "VanPeople", "$2,900", "Richmond 2BR")
-    draw_card(x2, y2, cell_w, cell_h_bottom, "Craigslist", "$2,480", "Surrey 1BR")
-
-    icons_y = screen_y1 - 56
-    d.rounded_rectangle([container_x0, icons_y, container_x1, icons_y + 44], radius=18, fill=(255, 255, 255))
-    d.text((container_x0 + 80, icons_y + 12), "🛡️ 租客保险", fill=(11, 27, 51), font=font_meta)
-    d.text((container_x0 + 340, icons_y + 12), "📦 搬家服务", fill=(11, 27, 51), font=font_meta)
-    d.text((container_x0 + 590, icons_y + 12), "🧹 清洁服务", fill=(11, 27, 51), font=font_meta)
-
+    # 二维码区域 (放在右侧)
     qr_data = "https://havennestapp.com"
     try:
-        qs = urllib.parse.urlencode({"size": "260x260", "data": qr_data})
+        qs = urllib.parse.urlencode({"size": "300x300", "data": qr_data})
         qr_url = f"https://api.qrserver.com/v1/create-qr-code/?{qs}"
         with urllib.request.urlopen(qr_url, timeout=10) as resp:
             qr_png = resp.read()
         qr = Image.open(io.BytesIO(qr_png)).convert("RGB")
-        qr = qr.resize((178, 178), Image.Resampling.NEAREST)
+        qr_size = 200
+        qr = qr.resize((qr_size, qr_size), Image.Resampling.LANCZOS)
 
-        qr_pad = 14
-        qr_bg_w = qr.size[0] + qr_pad * 2
-        qr_bg_h = qr.size[1] + qr_pad * 2 + 34
-        qr_x1 = screen_x1 - 34
-        qr_y1 = screen_y1 - 26
-        qr_x0 = qr_x1 - qr_bg_w
-        qr_y0 = qr_y1 - qr_bg_h
+        qr_x = width - qr_size - 60
+        qr_y = header_h + 160
+        
+        # 画二维码背景框
+        d.rounded_rectangle([qr_x - 15, qr_y - 15, qr_x + qr_size + 15, qr_y + qr_size + 60], radius=20, fill=(255, 255, 255), outline=gold, width=3)
+        img.paste(qr, (qr_x, qr_y))
+        
+        # 二维码下方文字
+        d.text((qr_x + 35, qr_y + qr_size + 15), "长按扫码选房", fill=navy, font=font_qr_cn)
+        
+    except Exception as e:
+        print(f"QR Error: {e}")
 
-        d.rounded_rectangle([qr_x0, qr_y0, qr_x1, qr_y1], radius=20, fill=(255, 255, 255), outline=(226, 232, 240), width=2)
-        img.paste(qr, (qr_x0 + qr_pad, qr_y0 + qr_pad))
-        d.text((qr_x0 + qr_pad, qr_y1 - 26), "扫码看房源", fill=slate, font=font_meta_cn)
-    except Exception:
-        pass
+    # 底部服务保障
+    footer_y = height - 60
+    d.rectangle([0, footer_y, width, height], fill=(241, 245, 249))
+    footer_text = "✅ 免费发布房源   ✅ 全网租房抓取   ✅ 权威租客保险   ✅ 专业搬家清洁"
+    fw = d.textlength(footer_text, font=font_sub_cn)
+    d.text(((width - fw) // 2, footer_y + 12), footer_text, fill=navy, font=font_sub_cn)
 
     out_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "og-image.jpg")
-    img.save(out_path, "JPEG", quality=92, optimize=True, progressive=False)
-
+    img.save(out_path, "JPEG", quality=95)
 
 if __name__ == "__main__":
     main()
