@@ -305,8 +305,59 @@ function filterListings() {
         return matchCity && matchBeds && matchBudget;
     });
 
+    const getDateTs = (x) => {
+        const s = (x && x.date ? String(x.date) : "").trim();
+        const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (!m) return 0;
+        const y = Number(m[1]);
+        const mo = Number(m[2]) - 1;
+        const d = Number(m[3]);
+        const ts = Date.UTC(y, mo, d);
+        return Number.isFinite(ts) ? ts : 0;
+    };
+
+    const priceAsc = (a, b) => {
+        const ap = Number(a.price) || 0;
+        const bp = Number(b.price) || 0;
+        const aUnknown = ap <= 0;
+        const bUnknown = bp <= 0;
+        if (aUnknown && bUnknown) return 0;
+        if (aUnknown) return 1;
+        if (bUnknown) return -1;
+        return ap - bp;
+    };
+
+    const priceDesc = (a, b) => {
+        const ap = Number(a.price) || 0;
+        const bp = Number(b.price) || 0;
+        const aUnknown = ap <= 0;
+        const bUnknown = bp <= 0;
+        if (aUnknown && bUnknown) return 0;
+        if (aUnknown) return 1;
+        if (bUnknown) return -1;
+        return bp - ap;
+    };
+
+    const bedsAsc = (a, b) => (Number(a.beds) || 0) - (Number(b.beds) || 0);
+    const bedsDesc = (a, b) => (Number(b.beds) || 0) - (Number(a.beds) || 0);
+    const dateNewOld = (a, b) => getDateTs(b) - getDateTs(a);
+
+    const withPromoPin = (cmp) => (a, b) => {
+        if (a.isPromo && !b.isPromo) return -1;
+        if (!a.isPromo && b.isPromo) return 1;
+        return cmp(a, b);
+    };
+
     if (sort === 'low-high') {
-        filteredListings.sort((a, b) => (a.price || 0) - (b.price || 0));
+        filteredListings.sort(withPromoPin(priceAsc));
+    } else if (sort === 'high-low') {
+        filteredListings.sort(withPromoPin(priceDesc));
+    } else if (sort === 'beds-low-high') {
+        filteredListings.sort(withPromoPin(bedsAsc));
+    } else if (sort === 'beds-high-low') {
+        filteredListings.sort(withPromoPin(bedsDesc));
+    } else if (sort === 'date-new-old') {
+        filteredListings.sort(withPromoPin(dateNewOld));
     } else {
         const sourcePriority = curLang === 'zh'
             ? { 'VanPeople': 0, 'Rentals.ca': 1, 'Craigslist': 2, 'owner': -1 }
@@ -339,43 +390,130 @@ function renderListings(items) {
     // Update Map
     map.eachLayer(l => { if (l instanceof L.Marker) map.removeLayer(l); });
 
-    const coordCounts = {};
+    const escapeHtml = (s) => String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const escapeJsStr = (s) => String(s || '').replace(/\\/g, '\\\\').replace(/'/g, \"\\\\'\").replace(/\\r?\\n/g, ' ');
+
+    const normalizeAddrKey = (addr) => {
+        let s = (addr || '').toString().trim().toLowerCase();
+        if (!s) return '';
+        s = s.replace(/^(\d{1,6})\s*-\s*(\d{1,6})\b/, '$2');
+        s = s.replace(/\b(?:unit|apt|apartment|suite|ste|#)\s*([a-z0-9-]+)\b/gi, '');
+        s = s.replace(/\s+/g, ' ');
+        s = s.replace(/[.,]/g, ' ');
+        s = s.replace(/\s+/g, ' ').trim();
+        return s;
+    };
+
+    const sortKey = document.getElementById('sort-price').value;
+    const getDateTs = (x) => {
+        const s = (x && x.date ? String(x.date) : "").trim();
+        const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (!m) return 0;
+        const y = Number(m[1]);
+        const mo = Number(m[2]) - 1;
+        const d = Number(m[3]);
+        const ts = Date.UTC(y, mo, d);
+        return Number.isFinite(ts) ? ts : 0;
+    };
+
+    const cmpForPopup = (a, b) => {
+        if (a.isPromo && !b.isPromo) return -1;
+        if (!a.isPromo && b.isPromo) return 1;
+        const ap = Number(a.price) || 0;
+        const bp = Number(b.price) || 0;
+        const aUnknown = ap <= 0;
+        const bUnknown = bp <= 0;
+        const priceAsc = () => {
+            if (aUnknown && bUnknown) return 0;
+            if (aUnknown) return 1;
+            if (bUnknown) return -1;
+            return ap - bp;
+        };
+        const priceDesc = () => {
+            if (aUnknown && bUnknown) return 0;
+            if (aUnknown) return 1;
+            if (bUnknown) return -1;
+            return bp - ap;
+        };
+        if (sortKey === 'low-high') return priceAsc();
+        if (sortKey === 'high-low') return priceDesc();
+        if (sortKey === 'beds-low-high') return (Number(a.beds) || 0) - (Number(b.beds) || 0);
+        if (sortKey === 'beds-high-low') return (Number(b.beds) || 0) - (Number(a.beds) || 0);
+        if (sortKey === 'date-new-old') return getDateTs(b) - getDateTs(a);
+        return 0;
+    };
+
+    const groups = new Map();
     items.forEach(i => {
         const lat = parseFloat(i.lat);
         const lng = parseFloat(i.lng);
         if (isNaN(lat) || isNaN(lng)) return;
-        const key = `${lat.toFixed(6)},${lng.toFixed(6)}`;
-        coordCounts[key] = (coordCounts[key] || 0) + 1;
+        const addrKey = normalizeAddrKey(i.address || '');
+        const coordKey = `${lat.toFixed(5)},${lng.toFixed(5)}`;
+        const key = `${addrKey || coordKey}|${coordKey}`;
+        const g = groups.get(key) || { lat, lng, items: [] };
+        g.items.push(i);
+        groups.set(key, g);
     });
 
-    items.forEach(i => {
-        const lat = parseFloat(i.lat);
-        const lng = parseFloat(i.lng);
+    const groupList = Array.from(groups.values());
+    const coordCounts = {};
+    groupList.forEach(g => {
+        const lat = parseFloat(g.lat);
+        const lng = parseFloat(g.lng);
+        const k = `${lat.toFixed(6)},${lng.toFixed(6)}`;
+        coordCounts[k] = (coordCounts[k] || 0) + 1;
+    });
+
+    groupList.forEach(g => {
+        const lat = parseFloat(g.lat);
+        const lng = parseFloat(g.lng);
         if (isNaN(lat) || isNaN(lng)) return;
-        const key = `${lat.toFixed(6)},${lng.toFixed(6)}`;
+        const k = `${lat.toFixed(6)},${lng.toFixed(6)}`;
 
         let mLat = lat;
         let mLng = lng;
-        if ((coordCounts[key] || 0) > 1) {
+        if ((coordCounts[k] || 0) > 1) {
             mLat = lat + (Math.random() - 0.5) * 0.0003;
             mLng = lng + (Math.random() - 0.5) * 0.0003;
         }
 
         const marker = L.marker([mLat, mLng]).addTo(map);
-        
-        const popupHtml = `
-            <div style="min-width:200px; font-family:sans-serif;">
-                <b style="color:var(--primary);">${i.address || 'Location'}</b>
-                <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
-                <div style="margin-bottom:12px;">
-                    <span style="color:var(--primary); font-weight:800; font-size:1.1rem;">$${i.price || 'Contact'}</span>
-                    <div style="font-size:12px; color:#666; margin:2px 0;">${i.title}</div>
-                    <button onclick="window.showDetailById('${i.id || i.title}')" 
-                        style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:6px; font-size:11px; cursor:pointer; width:100%;">
+
+        const sorted = g.items.slice().sort(cmpForPopup);
+        const headerAddr = sorted[0] && sorted[0].address ? sorted[0].address : 'Location';
+        const header = `<b style="color:var(--primary);">${escapeHtml(headerAddr)}</b>`;
+        const countBadge = g.items.length > 1 ? `<div style="font-size:12px; color:#64748b; margin-top:4px;">${g.items.length} ${curLang === 'zh' ? '套房源' : 'listings'}</div>` : '';
+
+        const rows = sorted.map(i => {
+            const priceNum = parseFloat(i.price) || 0;
+            const displayPrice = priceNum > 0 ? `$${priceNum.toLocaleString()}` : (curLang === 'zh' ? '价格面议' : 'Contact');
+            const bedsLabel = i.beds || i.beds === 0 ? `${i.beds}` : '';
+            const id = escapeJsStr(i.id || i.title);
+            return `
+                <div style="display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-top:1px solid #eef2f7;">
+                    <div style="flex:1; min-width:0;">
+                        <div style="font-weight:800; color:var(--primary);">${escapeHtml(displayPrice)}</div>
+                        <div style="font-size:12px; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(i.title || '')}</div>
+                        <div style="font-size:11px; color:#64748b;">${escapeHtml(i.city || '')}${bedsLabel !== '' ? ` · ${escapeHtml(bedsLabel)} BR` : ''}</div>
+                    </div>
+                    <button onclick="window.showDetailById('${id}')" style="background:var(--primary); color:white; border:none; padding:7px 10px; border-radius:8px; font-size:11px; cursor:pointer; white-space:nowrap;">
                         ${d.viewDetail}
                     </button>
                 </div>
-            </div>`;
+            `;
+        }).join('');
+
+        const listWrapStyle = g.items.length > 4 ? 'max-height:240px; overflow:auto;' : '';
+        const popupHtml = `
+            <div style="min-width:240px; font-family:sans-serif;">
+                ${header}
+                ${countBadge}
+                <div style="${listWrapStyle} margin-top:10px;">
+                    ${rows}
+                </div>
+            </div>
+        `;
         marker.bindPopup(popupHtml);
     });
 

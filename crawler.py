@@ -42,9 +42,13 @@ class HavenNestCrawler:
         s = str(text).lower()
         mapping = [
             ("richmond", "Richmond"), ("列治文", "Richmond"), ("lansdowne", "Richmond"),
+            ("brighouse", "Richmond"), ("steveston", "Richmond"),
             ("burnaby", "Burnaby"), ("本拿比", "Burnaby"),
+            ("metrotown", "Burnaby"), ("lougheed", "Burnaby"),
             ("surrey", "Surrey"), ("素里", "Surrey"),
+            ("guildford", "Surrey"), ("whalley", "Surrey"), ("newton", "Surrey"), ("central city", "Surrey"),
             ("coquitlam", "Coquitlam"), ("高贵林", "Coquitlam"),
+            ("coquitlam centre", "Coquitlam"),
             ("new westminster", "New Westminster"), ("新西敏", "New Westminster"),
             ("delta", "Delta"), ("三角洲", "Delta"),
             ("langley", "Langley"), ("兰里", "Langley"),
@@ -92,6 +96,29 @@ class HavenNestCrawler:
     def geocode_item(self, item):
         q = self.build_geocode_query(item.get("address", ""), item.get("city", ""))
         return self.get_lat_lng(q)
+
+    def is_suspicious_coordinate(self, item):
+        try:
+            lat = item.get('lat')
+            lng = item.get('lng')
+            if not isinstance(lat, (int, float)) or not isinstance(lng, (int, float)):
+                return False
+            text = " ".join([str(item.get('title', '')), str(item.get('address', '')), str(item.get('desc', ''))]).lower()
+            inferred = self.infer_city(text)
+            yvr = (49.17 < lat < 49.21) and (-123.22 < lng < -123.14)
+            if yvr and inferred == "Richmond" and not any(k in text for k in ['yvr', 'airport', 'sea island', 'templeton']):
+                q = self.build_geocode_query(item.get('address', ''), item.get('city', ''))
+                k = (q + ", BC, Canada").strip()
+                if k in self.coords_cache:
+                    try:
+                        del self.coords_cache[k]
+                        self._save_cache()
+                    except:
+                        pass
+                return True
+            return False
+        except:
+            return False
 
     def _store_owner_media(self, record_id, idx, url):
         try:
@@ -337,6 +364,10 @@ class HavenNestCrawler:
                     city_match = re.search(r'"cityName":\s*"(.*?)"', block)
                     city = city_match.group(1) if city_match else "Vancouver"
                     full_address = f"{street}, {city}" if street else city
+                    inferred_city = self.infer_city(" ".join([title, full_address]))
+                    if inferred_city and (not city or city.strip().lower() == "vancouver"):
+                        city = inferred_city
+                        full_address = f"{street}, {city}" if street else city
 
                     # 6. 提取卧室
                     beds_match = re.search(r'"bedroomCount":\s*(\d+)', block)
@@ -458,6 +489,10 @@ class HavenNestCrawler:
                                 city_obj = (address.get('city') or {})
                                 city = city_obj.get('cityName') or "Vancouver"
                                 full_address = f"{street}, {city}" if street else city
+                                inferred_city = self.infer_city(" ".join([title, full_address]))
+                                if inferred_city and (not city or city.strip().lower() == "vancouver"):
+                                    city = inferred_city
+                                    full_address = f"{street}, {city}" if street else city
 
                                 beds_range = node.get('bedsRange') or []
                                 beds = self.extract_beds(title)
@@ -832,6 +867,9 @@ class HavenNestCrawler:
             inferred = self.infer_city(" ".join([str(item.get('title','')), str(item.get('address','')), str(item.get('desc',''))]))
             if inferred and (not item.get('city') or str(item.get('city')).strip().lower() == "vancouver"):
                 item['city'] = inferred
+            if self.is_suspicious_coordinate(item):
+                item['lat'] = None
+                item['lng'] = None
             if not item.get('lat') or not item.get('lng'):
                 # 只有当地址不在缓存中时才调用 API
                 addr_query = self.build_geocode_query(item.get('address', ''), item.get('city', 'Vancouver'))

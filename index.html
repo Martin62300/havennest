@@ -59,7 +59,7 @@
         }
     </script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css?v=20260320">
+    <link rel="stylesheet" href="style.css?v=20260324">
 </head>
 <body>
 
@@ -117,6 +117,10 @@
         <select id="sort-price" class="filter-select" onchange="filterListings()">
             <option value="default">默认 / Default</option>
             <option value="low-high">价格从低到高 / Price: Low to High</option>
+            <option value="high-low">价格从高到低 / Price: High to Low</option>
+            <option value="beds-low-high">房间数量从少到多 / Beds: Low to High</option>
+            <option value="beds-high-low">房间数量从多到少 / Beds: High to Low</option>
+            <option value="date-new-old">发布时间从新到旧 / Date: New to Old</option>
         </select>
     </div>
 </div>
@@ -183,6 +187,6 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=202603231"></script>
+<script src="script.js?v=20260324"></script>
 </body>
 </html>

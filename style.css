@@ -485,8 +485,36 @@ footer {
         font-size: 0.85rem;
     }
     .filter-bar {
-        flex-direction: column;
-        align-items: stretch;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 12px;
+        margin: 12px 14px 18px;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 33, 71, 0.08);
+        position: sticky;
+        top: 70px;
+        z-index: 1200;
+        backdrop-filter: blur(8px);
+    }
+    .filter-label {
+        display: none;
+    }
+    .filter-group {
+        margin: 0;
+    }
+    .filter-select {
+        width: 100%;
+        height: 44px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        background: #f8fafc;
+    }
+    .sort-group {
+        grid-column: 1 / -1;
     }
     .service-center {
         grid-template-columns: 1fr;
