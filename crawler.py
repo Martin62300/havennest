@@ -257,8 +257,6 @@ class HavenNestCrawler:
                     "image": photos[0] if photos else "",
                     "images": photos,
                     "desc": f.get('房源描述 (Description)', "No description."),
-                    "phone": f.get('联系电话 (Phone)'),
-                    "email": f.get('电子邮箱 (Email)'),
                     "isPromo": True, # 屋主发布的房源默认为推广房源
                     "date": datetime.now().strftime('%Y-%m-%d')
                 }
