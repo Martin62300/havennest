@@ -690,5 +690,89 @@
     "6383 Salish Dr, Vancouver, BC, Canada": [
         49.2286843,
         -123.1974614
+    ],
+    "Tsawwassen, Vancouver, BC, Canada": [
+        49.0242843,
+        -123.0762236
+    ],
+    "North Burnaby, BC, Canada": [
+        49.1923083,
+        -122.992645
+    ],
+    "Queensborough, Vancouver, BC, Canada": [
+        49.1858979,
+        -122.9458379
+    ],
+    "Renfrew VE, Vancouver, BC, Canada": [
+        49.2484953,
+        -123.0403532
+    ],
+    "Delta, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "East Vancouver, BC, Canada": [
+        49.279437,
+        -123.0666665
+    ],
+    "Coquitlam Centre, BC, Canada": [
+        49.2797656,
+        -122.7985807
+    ],
+    "6911 Shawnigan Place, Richmond, BC, Canada": [
+        49.1419756,
+        -123.1488628
+    ],
+    "Granville Gilbert, Richmond, BC, Canada": [
+        49.163723,
+        -123.1476546
+    ],
+    "Sunnymede Crescent, Richmond, BC, Canada": [
+        49.1544644,
+        -123.1406498
+    ],
+    "Kelmore Road, Richmond, BC, Canada": [
+        49.1501202,
+        -123.1846956
+    ],
+    "8740 Citation Drive, Richmond, BC, Canada": [
+        49.1633074,
+        -123.1264594
+    ],
+    "7071 Buttermere Place, Richmond, BC, Canada": [
+        49.1360734,
+        -123.1462557
+    ],
+    "11511 Steveston Highway, Richmond, BC, Canada": [
+        49.1336754,
+        -123.071924
+    ],
+    "10931 Bamberton Drive, Richmond, BC, Canada": [
+        49.1387631,
+        -123.145703
+    ],
+    "Whiteoak Drive, Richmond, BC, Canada": [
+        49.1446726,
+        -123.14982
+    ],
+    "Garrison Court, Richmond, BC, Canada": [
+        49.1656722,
+        -123.1609307
+    ],
+    "Bird Road, Richmond, BC, Canada": [
+        49.1895365,
+        -123.0972195
+    ],
+    "Taseko Crescent, Richmond, BC, Canada": [
+        49.1682899,
+        -123.1562869
+    ],
+    "6420 Comstock Road, Richmond, BC, Canada": [
+        49.1608476,
+        -123.1533409
+    ],
+    "6655 Buswell St, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
     ]
 }
