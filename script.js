@@ -3,6 +3,7 @@ let filteredListings = [];
 let curLang = 'zh';
 let curSlide = 0;
 let activeSvc = '';
+let viewMode = 'card';
 let map = L.map('map', { scrollWheelZoom: false }).setView([49.24, -123.05], 11);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -13,24 +14,24 @@ const dict = {
     zh: {
         seoTitle: "HavenNest 安家居 | 大温全量房源聚合 & 一站式租房服务门户",
         seoDescription: "HavenNest 聚合大温各大平台房源，为您提供省时省心的全方位租房支持。从专业持牌团队提供的一站式租客保险咨询，到搬家、清洁对接，全程为您把控细节，让您的温哥华迁居之旅省心无忧。",
-        postCta: "拥有空置房源？免费发布至平台 / Have a vacancy?",
-        postBtn: "屋主发布 / Post Now",
+        postCta: "拥有空置房源？免费发布至平台",
+        postBtn: "屋主发布",
         singleKeyBtn: "SingleKey 背调",
-        next: "明白，下一步 / Next Step",
-        agree: "同意授权并继续 / Agree & Authorize",
-        gen: "生成正式申请表 / Generate Application",
-        copy: "复制文本 / Copy",
-        email: "调起邮件发送 / Email",
-        name: "您的姓名 / Full Name",
-        phone: "联系电话 / Phone",
-        emailLbl: "电子邮箱 / Email",
-        dob: "出生日期 / Date of Birth (YYYY-MM-DD)",
-        eff: "保单生效日期 / Effective Date (YYYY-MM-DD)",
-        addr: "房源具体地址 / Address",
-        m_t2: "授权告知 / Authorization",
+        next: "明白，下一步",
+        agree: "同意授权并继续",
+        gen: "生成正式申请表",
+        copy: "复制文本",
+        email: "打开邮件发送",
+        name: "您的姓名",
+        phone: "联系电话",
+        emailLbl: "电子邮箱",
+        dob: "出生日期（YYYY-MM-DD）",
+        eff: "保单生效日期（YYYY-MM-DD）",
+        addr: "房源具体地址",
+        m_t2: "授权告知",
         m_c2: "作为大温专业持牌专家团队，我们承诺保护您的隐私。本人授权 HavenNest 将提供的信息安全地转交给我们的合作经纪进行报价。您的隐私受 BC 法律保护。",
-        m_t3: "申请信息填写 / Application Details",
-        m_t4: "表单生成成功 / Form Generated",
+        m_t3: "申请信息填写",
+        m_t4: "表单生成成功",
         ins: "租客保险咨询",
         move: "专业搬家服务",
         clean: "退房清洁服务",
@@ -49,12 +50,22 @@ const dict = {
                     <li><strong>额外生活费：</strong>若房屋因理赔维修无法居住，保险将支付您的酒店住宿及额外食宿补助。</li>
                 </ul>`,
         city: "城市",
-        beds: "卧室",
+        beds: "卧室数量",
         budget: "预算",
         sort: "排序",
+        view: "显示方式",
+        viewCard: "大图模式",
+        viewCompact: "小图模式",
+        allCities: "全部城市",
+        anyBeds: "不限卧室",
+        noLimitBudget: "不限预算",
         all: "全部",
         any: "不限",
         lowHigh: "价格从低到高",
+        highLow: "价格从高到低",
+        bedsLowHigh: "房间数量从少到多",
+        bedsHighLow: "房间数量从多到少",
+        dateNewOld: "发布时间从新到旧",
         default: "默认",
         sourceCrawler: "系统抓取",
         sourceOwner: "屋主直发",
@@ -104,9 +115,19 @@ const dict = {
         beds: "Bedrooms",
         budget: "Budget",
         sort: "Sort",
+        view: "View",
+        viewCard: "Cards",
+        viewCompact: "Compact",
+        allCities: "All Cities",
+        anyBeds: "Any Beds",
+        noLimitBudget: "No Limit",
         all: "All",
         any: "Any",
         lowHigh: "Price: Low to High",
+        highLow: "Price: High to Low",
+        bedsLowHigh: "Beds: Low to High",
+        bedsHighLow: "Beds: High to Low",
+        dateNewOld: "Date: New to Old",
         default: "Default",
         sourceCrawler: "Crawled",
         sourceOwner: "Direct Post",
@@ -174,7 +195,48 @@ function sanitizeCrawledDescription(text) {
     return s;
 }
 
+function toggleFilterPanel() {
+    const bar = document.getElementById('filter-bar');
+    if (!bar) return;
+    bar.classList.toggle('collapsed');
+}
+
+function setViewMode(mode) {
+    viewMode = (mode === 'compact') ? 'compact' : 'card';
+    try { localStorage.setItem('viewMode', viewMode); } catch (e) {}
+    renderListings(filteredListings);
+}
+
+function getBathsValue(i) {
+    const direct = i && (i.baths ?? i.bathrooms ?? i.bath ?? i.ba);
+    if (typeof direct === 'number' && Number.isFinite(direct)) return direct;
+    if (typeof direct === 'string' && direct.trim()) {
+        const n = Number(direct.trim());
+        if (Number.isFinite(n)) return n;
+    }
+    const text = `${i && i.title ? i.title : ''} ${i && i.desc ? i.desc : ''}`.toLowerCase();
+    const m = text.match(/(\d+(?:\.\d+)?)\s*(?:bath|baths|ba|卫生间|卫|浴)/);
+    if (m) {
+        const n = Number(m[1]);
+        return Number.isFinite(n) ? n : null;
+    }
+    return null;
+}
+
 async function init() {
+    try {
+        const stored = localStorage.getItem('viewMode');
+        if (stored === 'compact' || stored === 'card') viewMode = stored;
+    } catch (e) {}
+
+    const viewSel = document.getElementById('view-mode');
+    if (viewSel) viewSel.value = viewMode;
+
+    const bar = document.getElementById('filter-bar');
+    if (bar) {
+        if (window.innerWidth <= 768) bar.classList.add('collapsed');
+    }
+
     updateUI();
     
     // 统一从 listings.json 加载所有房源（包括抓取的和屋主发布的）
@@ -246,6 +308,43 @@ function updateLabels() {
     document.getElementById('lbl-beds').innerText = d.beds;
     document.getElementById('lbl-budget').innerText = d.budget;
     document.getElementById('lbl-sort').innerText = d.sort;
+    const lblView = document.getElementById('lbl-view');
+    if (lblView) lblView.innerText = d.view;
+
+    const citySel = document.getElementById('filter-city');
+    if (citySel && citySel.options && citySel.options.length > 0) {
+        citySel.options[0].text = d.allCities;
+    }
+
+    const bedsSel = document.getElementById('filter-beds');
+    if (bedsSel && bedsSel.options && bedsSel.options.length > 0) {
+        bedsSel.options[0].text = d.anyBeds;
+        if (bedsSel.options.length > 1) bedsSel.options[1].text = curLang === 'zh' ? '1卧' : '1 BR';
+        if (bedsSel.options.length > 2) bedsSel.options[2].text = curLang === 'zh' ? '2卧' : '2 BR';
+        if (bedsSel.options.length > 3) bedsSel.options[3].text = curLang === 'zh' ? '3卧' : '3 BR';
+        if (bedsSel.options.length > 4) bedsSel.options[4].text = curLang === 'zh' ? '4卧+' : '4+ BR';
+    }
+
+    const budgetSel = document.getElementById('filter-budget');
+    if (budgetSel && budgetSel.options && budgetSel.options.length > 0) {
+        budgetSel.options[0].text = d.noLimitBudget;
+    }
+
+    const sortSel = document.getElementById('sort-price');
+    if (sortSel && sortSel.options && sortSel.options.length >= 6) {
+        sortSel.options[0].text = d.default;
+        sortSel.options[1].text = d.lowHigh;
+        sortSel.options[2].text = d.highLow;
+        sortSel.options[3].text = d.bedsLowHigh;
+        sortSel.options[4].text = d.bedsHighLow;
+        sortSel.options[5].text = d.dateNewOld;
+    }
+
+    const viewSel = document.getElementById('view-mode');
+    if (viewSel && viewSel.options && viewSel.options.length >= 2) {
+        viewSel.options[0].text = d.viewCard;
+        viewSel.options[1].text = d.viewCompact;
+    }
 }
 
 function updateUI() {
@@ -518,30 +617,49 @@ function renderListings(items) {
     });
 
     // Update Grid
+    ui.className = viewMode === 'compact' ? 'grid compact' : 'grid';
     items.forEach(i => {
         const card = document.createElement('div');
-        card.className = `card ${i.isPromo ? 'gold-frame' : ''}`;
+        card.className = `card ${viewMode === 'compact' ? 'compact' : ''} ${i.isPromo ? 'gold-frame' : ''}`;
         card.onclick = () => showDetail(i);
         
         const sourceLabel = i.source === 'owner' ? d.sourceOwner : d.sourceCrawler;
         const bedsLabel = i.beds ? `${i.beds} Bed${i.beds > 1 ? 's' : ''}` : '';
+        const bathsVal = getBathsValue(i);
+        const bathsLabel = bathsVal !== null ? `${bathsVal} Bath${bathsVal > 1 ? 's' : ''}` : '';
         const images = getListingImages(i);
         const displayImage = images[0] || 'logo.svg?v=20260320';
         const priceNum = parseFloat(i.price) || 0;
         const displayPrice = priceNum > 0 ? `$${priceNum.toLocaleString()}` : (curLang === 'zh' ? '价格面议' : 'Contact Owner');
         
-        card.innerHTML = `
-            <div class="tag">${sourceLabel}</div>
-            <div class="card-img" style="background-image:url('${displayImage}')"></div>
-            <div class="card-body">
-                <div class="price">${displayPrice}</div>
-                <div class="card-title">${i.title}</div>
-                <div class="card-meta">
-                    <span>📍 ${i.city || 'Vancouver'}</span>
-                    <span>🛏️ ${bedsLabel}</span>
+        if (viewMode === 'compact') {
+            card.innerHTML = `
+                <div class="tag">${sourceLabel}</div>
+                <div class="card-img" style="background-image:url('${displayImage}')"></div>
+                <div class="card-body">
+                    <div class="price">${displayPrice}</div>
+                    <div class="card-title">${i.title}</div>
+                    <div class="card-meta">
+                        <span>📍 ${i.city || 'Vancouver'}</span>
+                        <span>🛏️ ${bedsLabel}</span>
+                        ${bathsLabel ? `<span>🛁 ${bathsLabel}</span>` : ''}
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        } else {
+            card.innerHTML = `
+                <div class="tag">${sourceLabel}</div>
+                <div class="card-img" style="background-image:url('${displayImage}')"></div>
+                <div class="card-body">
+                    <div class="price">${displayPrice}</div>
+                    <div class="card-title">${i.title}</div>
+                    <div class="card-meta">
+                        <span>📍 ${i.city || 'Vancouver'}</span>
+                        <span>🛏️ ${bedsLabel}</span>
+                    </div>
+                </div>
+            `;
+        }
         ui.appendChild(card);
     });
 }
@@ -644,7 +762,13 @@ function openSOP(s) {
     const d = dict[curLang];
     
     document.getElementById('m_t1').innerText = d[s];
-    document.getElementById('m_c1').innerHTML = s === 'ins' ? d.insPop : `<p>Professional ${d[s]} services.</p>`;
+    if (s === 'ins') {
+        document.getElementById('m_c1').innerHTML = d.insPop;
+    } else {
+        document.getElementById('m_c1').innerHTML = curLang === 'zh'
+            ? `<p style="text-align:left; color:#475569; font-size: 1.05rem; line-height:1.8;">我们提供专业${d[s]}对接服务。请点击下一步填写信息，我们会尽快联系您确认需求并安排报价。</p>`
+            : `<p>Professional ${d[s]} services. Click next to leave your details and we’ll follow up shortly.</p>`;
+    }
     
     // Inputs placeholders
     document.getElementById('q_name').placeholder = d.name;
@@ -692,7 +816,9 @@ function generateOutput() {
         return;
     }
 
-    document.getElementById('outputBox').value = `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${v.n}\nPhone: ${v.p}\nEmail: ${v.e}\nDOB: ${v.dob}\nEffective: ${v.ed}\nAddr: ${v.a}`;
+    document.getElementById('outputBox').value = curLang === 'zh'
+        ? `[HavenNest ${activeSvc.toUpperCase()}]\n姓名：${v.n}\n电话：${v.p}\n邮箱：${v.e}\n出生日期：${v.dob}\n生效日期：${v.ed}\n地址：${v.a}`
+        : `[HavenNest ${activeSvc.toUpperCase()}]\nName: ${v.n}\nPhone: ${v.p}\nEmail: ${v.e}\nDOB: ${v.dob}\nEffective: ${v.ed}\nAddr: ${v.a}`;
     nextStep(4);
 }
 

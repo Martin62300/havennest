@@ -59,7 +59,7 @@
         }
     </script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css?v=202603242">
+    <link rel="stylesheet" href="style.css?v=20260325">
 </head>
 <body>
 
@@ -80,48 +80,69 @@
 <div class="service-center" id="service-ui"></div>
 
 <!-- Filter Bar -->
-<div class="filter-bar">
-    <div class="filter-group">
-        <label class="filter-label" id="lbl-city">城市 / City</label>
-        <select id="filter-city" class="filter-select" onchange="filterListings()">
-            <option value="">全部 / All Cities</option>
-            <option value="Vancouver">Vancouver</option>
-            <option value="Richmond">Richmond</option>
-            <option value="Burnaby">Burnaby</option>
-            <option value="Surrey">Surrey</option>
-            <option value="Coquitlam">Coquitlam</option>
-        </select>
+<div class="filter-bar" id="filter-bar">
+    <div class="filter-row primary">
+        <button class="filter-toggle" id="filter-toggle" type="button" onclick="toggleFilterPanel()" aria-label="Filter">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                <path d="M3 5h18l-7 8v5l-4 2v-7L3 5z" fill="currentColor"></path>
+            </svg>
+        </button>
+
+        <div class="filter-group">
+            <label class="filter-label" id="lbl-city">城市 / City</label>
+            <select id="filter-city" class="filter-select" onchange="filterListings()">
+                <option value=""></option>
+                <option value="Vancouver">Vancouver</option>
+                <option value="Richmond">Richmond</option>
+                <option value="Burnaby">Burnaby</option>
+                <option value="Surrey">Surrey</option>
+                <option value="Coquitlam">Coquitlam</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label" id="lbl-beds">卧室 / Bedrooms</label>
+            <select id="filter-beds" class="filter-select" onchange="filterListings()">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4+</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label" id="lbl-budget">预算 / Max Budget</label>
+            <select id="filter-budget" class="filter-select" onchange="filterListings()">
+                <option value=""></option>
+                <option value="2000">$2,000</option>
+                <option value="3000">$3,000</option>
+                <option value="4000">$4,000</option>
+                <option value="5000">$5,000</option>
+            </select>
+        </div>
     </div>
-    <div class="filter-group">
-        <label class="filter-label" id="lbl-beds">卧室 / Bedrooms</label>
-        <select id="filter-beds" class="filter-select" onchange="filterListings()">
-            <option value="">全部 / Any</option>
-            <option value="1">1卧 / 1 BR</option>
-            <option value="2">2卧 / 2 BR</option>
-            <option value="3">3卧 / 3 BR</option>
-            <option value="4">4卧+ / 4 BR+</option>
-        </select>
-    </div>
-    <div class="filter-group">
-        <label class="filter-label" id="lbl-budget">预算 / Max Budget</label>
-        <select id="filter-budget" class="filter-select" onchange="filterListings()">
-            <option value="">不限 / No Limit</option>
-            <option value="2000">$2,000</option>
-            <option value="3000">$3,000</option>
-            <option value="4000">$4,000</option>
-            <option value="5000">$5,000</option>
-        </select>
-    </div>
-    <div class="filter-group sort-group">
-        <label class="filter-label" id="lbl-sort">排序 / Sort</label>
-        <select id="sort-price" class="filter-select" onchange="filterListings()">
-            <option value="default">默认 / Default</option>
-            <option value="low-high">价格从低到高 / Price: Low to High</option>
-            <option value="high-low">价格从高到低 / Price: High to Low</option>
-            <option value="beds-low-high">房间数量从少到多 / Beds: Low to High</option>
-            <option value="beds-high-low">房间数量从多到少 / Beds: High to Low</option>
-            <option value="date-new-old">发布时间从新到旧 / Date: New to Old</option>
-        </select>
+
+    <div class="filter-row secondary" id="filter-secondary">
+        <div class="filter-group sort-group">
+            <label class="filter-label" id="lbl-sort">排序 / Sort</label>
+            <select id="sort-price" class="filter-select" onchange="filterListings()">
+                <option value="default"></option>
+                <option value="low-high"></option>
+                <option value="high-low"></option>
+                <option value="beds-low-high"></option>
+                <option value="beds-high-low"></option>
+                <option value="date-new-old"></option>
+            </select>
+        </div>
+
+        <div class="filter-group view-group">
+            <label class="filter-label" id="lbl-view">显示 / View</label>
+            <select id="view-mode" class="filter-select" onchange="setViewMode(this.value)">
+                <option value="card"></option>
+                <option value="compact"></option>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -187,6 +208,6 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=fix6023"></script>
+<script src="script.js?v=20260325"></script>
 </body>
 </html>
