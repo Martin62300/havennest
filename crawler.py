@@ -40,24 +40,35 @@ class HavenNestCrawler:
         if not text:
             return ""
         s = str(text).lower()
+        # 优先级：先匹配具体的片区/大学，再匹配大城市名，防止“UBC,列治文”这种冲突导致错误覆盖
         mapping = [
-            ("richmond", "Richmond"), ("列治文", "Richmond"), ("lansdowne", "Richmond"),
-            ("brighouse", "Richmond"), ("steveston", "Richmond"),
-            ("burnaby", "Burnaby"), ("本拿比", "Burnaby"), ("bby", "Burnaby"),
-            ("metrotown", "Burnaby"), ("lougheed", "Burnaby"), ("brentwood", "Burnaby"), ("edmonds", "Burnaby"),
-            ("surrey", "Surrey"), ("素里", "Surrey"),
+            # 温哥华高优先级片区
+            ("ubc", "Vancouver"), ("温西", "Vancouver"), ("温东", "Vancouver"), 
+            ("downtown", "Vancouver"), ("dt", "Vancouver"), ("yaletown", "Vancouver"),
+            ("marine dr", "Vancouver"),
+            # 本拿比高优先级片区
+            ("metrotown", "Burnaby"), ("lougheed", "Burnaby"), ("brentwood", "Burnaby"), ("edmonds", "Burnaby"), ("edmond", "Burnaby"),
+            ("bby", "Burnaby"),
+            # 其他片区
+            ("burquitlam", "Coquitlam"), ("coquitlam centre", "Coquitlam"),
+            ("lansdowne", "Richmond"), ("brighouse", "Richmond"), ("steveston", "Richmond"),
             ("guildford", "Surrey"), ("whalley", "Surrey"), ("newton", "Surrey"), ("central city", "Surrey"),
-            ("coquitlam", "Coquitlam"), ("高贵林", "Coquitlam"), ("burquitlam", "Coquitlam"),
-            ("coquitlam centre", "Coquitlam"),
+            ("poco", "Port Coquitlam"),
+            
+            # 基础城市名 (优先级较低，放在后面)
+            ("vancouver", "Vancouver"), ("温哥华", "Vancouver"),
+            ("richmond", "Richmond"), ("列治文", "Richmond"),
+            ("burnaby", "Burnaby"), ("本拿比", "Burnaby"),
+            ("surrey", "Surrey"), ("素里", "Surrey"),
+            ("coquitlam", "Coquitlam"), ("高贵林", "Coquitlam"),
             ("new westminster", "New Westminster"), ("新西敏", "New Westminster"),
             ("delta", "Delta"), ("三角洲", "Delta"),
             ("langley", "Langley"), ("兰里", "Langley"),
             ("north vancouver", "North Vancouver"), ("北温", "North Vancouver"),
             ("west vancouver", "West Vancouver"), ("西温", "West Vancouver"),
-            ("port coquitlam", "Port Coquitlam"), ("poco", "Port Coquitlam"), ("高贵林港", "Port Coquitlam"),
+            ("port coquitlam", "Port Coquitlam"), ("高贵林港", "Port Coquitlam"),
             ("port moody", "Port Moody"), ("满地宝", "Port Moody"),
             ("maple ridge", "Maple Ridge"), ("枫树岭", "Maple Ridge"),
-            ("vancouver", "Vancouver"), ("温哥华", "Vancouver"), ("温西", "Vancouver"), ("温东", "Vancouver"), ("downtown", "Vancouver"), ("dt", "Vancouver"), ("yaletown", "Vancouver"),
         ]
         for k, city in mapping:
             if k in s:

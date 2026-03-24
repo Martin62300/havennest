@@ -846,5 +846,97 @@
     "1644 NELSON ST., Vancouver, BC, Canada": [
         49.2875222,
         -123.1363046
+    ],
+    "south vancouver, BC, Canada": [
+        49.2073232,
+        -123.0101843
+    ],
+    "Central Richmond, BC, Canada": [
+        49.1784094,
+        -123.1230521
+    ],
+    "Victoria, Vancouver, BC, Canada": [
+        49.2326907,
+        -123.0500765
+    ],
+    "6671 Maple Road, Richmond, BC, Canada": [
+        49.1470506,
+        -123.1495281
+    ],
+    "5599 Cooney Rd, Richmond, BC, Canada": [
+        49.1733266,
+        -123.1319772
+    ],
+    "Garry Street Steveston, Richmond, BC, Canada": [
+        49.1293059,
+        -123.1755221
+    ],
+    "12891 Jack Bell Drive, Richmond, BC, Canada": [
+        49.1782632,
+        -123.0837623
+    ],
+    "Lucas Road, Richmond, BC, Canada": [
+        49.1515702,
+        -123.1351571
+    ],
+    "6200 Minoru Boulevard, Richmond, BC, Canada": [
+        49.1668277,
+        -123.1401171
+    ],
+    "Ash Street, Richmond, BC, Canada": [
+        49.1555233,
+        -123.119758
+    ],
+    "5880 Dover Crescent, Richmond, BC, Canada": [
+        49.1730454,
+        -123.1613934
+    ],
+    "Minoru Boulevard, Richmond, BC, Canada": [
+        49.1664888,
+        -123.1409295
+    ],
+    "Kerrisdale, Richmond, BC, Canada": [
+        49.1323486,
+        -123.0991858
+    ],
+    "5520 Gibbons Drive, Richmond, BC, Canada": [
+        49.1732355,
+        -123.176016
+    ],
+    "WEST END, Vancouver, BC, Canada": [
+        49.2841308,
+        -123.1317949
+    ],
+    "North Vancouver , Edgemont, BC, Canada": [
+        49.3320622,
+        -123.0894623
+    ],
+    "Yaletown- Vancouver, BC, Canada": [
+        49.2744449,
+        -123.1298151
+    ],
+    "13350 Central Avenue, Surrey, BC, Canada": [
+        49.190149,
+        -122.852487
+    ],
+    "Bolivar Heights, Vancouver, BC, Canada": [
+        49.1375521,
+        -122.6889612
+    ],
+    "West Cambie, Vancouver, BC, Canada": [
+        49.1809997,
+        -123.1135323
+    ],
+    "Joyce Collingwood, Vancouver, BC, Canada": [
+        49.2384111,
+        -123.0317846
+    ],
+    "metrotown, Burnaby, BC, Canada": [
+        49.2258524,
+        -123.0038944
+    ],
+    "Metrotown, Burnaby, BC, Canada": [
+        49.2258524,
+        -123.0038944
     ]
 }
