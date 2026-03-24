@@ -399,7 +399,8 @@ async function apiPublicContact(env, url) {
   return jsonResponse({
     ok: true,
     phone: (fields["联系电话 (Phone)"] || "").toString(),
-    email: (fields["电子邮箱 (Email)"] || "").toString()
+    email: (fields["电子邮箱 (Email)"] || "").toString(),
+    wechat: (fields["微信号 (WeChat)"] || "").toString()
   }, 200, { "cache-control": "no-store" }) // 防止被CDN缓存
 }
 

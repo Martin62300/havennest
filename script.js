@@ -760,6 +760,7 @@ window.fetchContact = async (id) => {
                     <div style="font-weight:600; color:var(--primary); text-align:left;">
                         <div>📞 ${data.phone || (curLang === 'zh' ? '未提供' : 'Not Provided')}</div>
                         <div>📧 ${data.email || (curLang === 'zh' ? '未提供' : 'Not Provided')}</div>
+                        <div>💬 WeChat: ${data.wechat || (curLang === 'zh' ? '未提供' : 'Not Provided')}</div>
                     </div>
                 `;
                 return;
