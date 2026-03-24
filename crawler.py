@@ -43,21 +43,21 @@ class HavenNestCrawler:
         mapping = [
             ("richmond", "Richmond"), ("列治文", "Richmond"), ("lansdowne", "Richmond"),
             ("brighouse", "Richmond"), ("steveston", "Richmond"),
-            ("burnaby", "Burnaby"), ("本拿比", "Burnaby"),
-            ("metrotown", "Burnaby"), ("lougheed", "Burnaby"),
+            ("burnaby", "Burnaby"), ("本拿比", "Burnaby"), ("bby", "Burnaby"),
+            ("metrotown", "Burnaby"), ("lougheed", "Burnaby"), ("brentwood", "Burnaby"), ("edmonds", "Burnaby"),
             ("surrey", "Surrey"), ("素里", "Surrey"),
             ("guildford", "Surrey"), ("whalley", "Surrey"), ("newton", "Surrey"), ("central city", "Surrey"),
-            ("coquitlam", "Coquitlam"), ("高贵林", "Coquitlam"),
+            ("coquitlam", "Coquitlam"), ("高贵林", "Coquitlam"), ("burquitlam", "Coquitlam"),
             ("coquitlam centre", "Coquitlam"),
             ("new westminster", "New Westminster"), ("新西敏", "New Westminster"),
             ("delta", "Delta"), ("三角洲", "Delta"),
             ("langley", "Langley"), ("兰里", "Langley"),
             ("north vancouver", "North Vancouver"), ("北温", "North Vancouver"),
             ("west vancouver", "West Vancouver"), ("西温", "West Vancouver"),
-            ("port coquitlam", "Port Coquitlam"), ("poco", "Port Coquitlam"),
+            ("port coquitlam", "Port Coquitlam"), ("poco", "Port Coquitlam"), ("高贵林港", "Port Coquitlam"),
             ("port moody", "Port Moody"), ("满地宝", "Port Moody"),
             ("maple ridge", "Maple Ridge"), ("枫树岭", "Maple Ridge"),
-            ("vancouver", "Vancouver"), ("温哥华", "Vancouver"),
+            ("vancouver", "Vancouver"), ("温哥华", "Vancouver"), ("温西", "Vancouver"), ("温东", "Vancouver"), ("downtown", "Vancouver"), ("dt", "Vancouver"), ("yaletown", "Vancouver"),
         ]
         for k, city in mapping:
             if k in s:

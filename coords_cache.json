@@ -826,5 +826,25 @@
     "5766 Gilbert Road, Richmond, BC, Canada": [
         49.1721052,
         -123.1464684
+    ],
+    "939 Beatty Street, Vancouver, BC, BC, Canada": [
+        49.2763787,
+        -123.1161826
+    ],
+    "white rock, Vancouver, BC, Canada": [
+        49.0235357,
+        -122.797924
+    ],
+    "UBC Vancouver, BC, Canada": [
+        49.2484638,
+        -123.2341555
+    ],
+    "995 Adair Avenue, Coquitlam, BC, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
+    "1644 NELSON ST., Vancouver, BC, Canada": [
+        49.2875222,
+        -123.1363046
     ]
 }
