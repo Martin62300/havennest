@@ -774,5 +774,57 @@
     "6655 Buswell St, Richmond, BC, BC, Canada": [
         49.1650135,
         -123.1340569
+    ],
+    "KITSILANO, Vancouver, BC, Canada": [
+        49.2694099,
+        -123.155267
+    ],
+    "Alberni Street, Vancouver, BC, Canada": [
+        49.2872269,
+        -123.1267113
+    ],
+    "Burnaby North, BC, Canada": [
+        49.1923083,
+        -122.992645
+    ],
+    "Downtown Vancouver, BC, Canada": [
+        49.2771766,
+        -123.102501
+    ],
+    "5233 Gilbert Road, Richmond, BC, Canada": [
+        49.1753656,
+        -123.1461102
+    ],
+    "Kilby Court, Richmond, BC, Canada": [
+        49.1869095,
+        -123.1146975
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "13560 Westminster Highway, Richmond, BC, Canada": [
+        49.168161,
+        -122.9739467
+    ],
+    "Seaport Avenue, Richmond, BC, Canada": [
+        49.1434176,
+        -123.0969514
+    ],
+    "5520 Langtree ave Richmond, BC, Canada": [
+        49.1587716,
+        -123.1622637
+    ],
+    "10031 Blundell Road, Richmond, BC, Canada": [
+        49.1555262,
+        -123.077635
+    ],
+    "Springfield Drive Steveston, Richmond, BC, Canada": [
+        49.1355968,
+        -123.1886392
+    ],
+    "5766 Gilbert Road, Richmond, BC, Canada": [
+        49.1721052,
+        -123.1464684
     ]
 }
