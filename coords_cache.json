@@ -151,10 +151,6 @@
         49.263684,
         -122.9297977
     ],
-    "Vancouver, Richmond, BC, Canada": [
-        49.1928337,
-        -123.1829087
-    ],
     "Vancouver, Vancouver, BC, Canada": [
         49.2686069,
         -123.085922
@@ -431,13 +427,157 @@
         49.2621643,
         -122.780542
     ],
+    "Vancouver west, Vancouver, BC, Canada": [
+        49.2888506,
+        -123.1160655
+    ],
+    "Ladner, Delta, Vancouver, BC, Canada": [
+        49.0975074,
+        -123.07851
+    ],
+    "Capitol Hill Burnaby, Burnaby, BC, Canada": [
+        49.2898426,
+        -122.9841016
+    ],
+    "Downtown West End - Vancouver, Vancouver, BC, Canada": [
+        49.2880899,
+        -123.128409
+    ],
+    "20460 Douglas Crescent, Langley, Vancouver, BC, Canada": [
+        49.103021,
+        -122.6546819
+    ],
+    "20221 53A Avenue, Langley, Vancouver, BC, Canada": [
+        49.0992727,
+        -122.6523992
+    ],
+    "677 41st Ave W, Vancouver, Vancouver, BC, Canada": [
+        49.2339831,
+        -123.1204554
+    ],
+    "Lower lonsdale, Vancouver, BC, Canada": [
+        49.3126714,
+        -123.077839
+    ],
+    "Joyce-Collingwood, Vancouver, BC, Canada": [
+        49.2384111,
+        -123.0317846
+    ],
+    "Quilchena, Vancouver, BC, Canada": [
+        49.2438384,
+        -123.1490945
+    ],
+    "Lower Lonsdale, Vancouver, BC, Canada": [
+        49.3126714,
+        -123.077839
+    ],
+    "Brighouse, Richmond, Richmond, BC, Canada": [
+        49.1708367,
+        -123.1372351
+    ],
+    "north shore, Vancouver, BC, Canada": [
+        49.5013735,
+        -123.0706573
+    ],
+    "Walnut Grove, Vancouver, BC, Canada": [
+        49.1690609,
+        -122.648082
+    ],
+    "LANGLEY, Vancouver, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "North Vancouver City, Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "Vancouver B,c, Vancouver, BC, Canada": [
+        49.2779085,
+        -123.1089417
+    ],
     "Burnaby North, Burnaby, BC, Canada": [
         49.1923083,
         -122.992645
     ],
+    "Canyon Heights, Vancouver, BC, Canada": [
+        49.3512484,
+        -123.089353
+    ],
+    "Maillardville, Vancouver, BC, Canada": [
+        49.2390286,
+        -122.8679547
+    ],
+    "Fleetwood, Vancouver, BC, Canada": [
+        49.1606136,
+        -122.7967458
+    ],
+    "South Granville, Vancouver, BC, Canada": [
+        49.2634716,
+        -123.1386887
+    ],
+    "Kerrisdale, Vancouver, BC, Canada": [
+        49.2337984,
+        -123.155269
+    ],
+    "vancouver, Vancouver, BC, Canada": [
+        49.2686069,
+        -123.085922
+    ],
+    "North road coquitlam, Vancouver, BC, Canada": [
+        49.2439052,
+        -122.891538
+    ],
+    "White Rock, Vancouver, BC, Canada": [
+        49.0235357,
+        -122.797924
+    ],
+    "Klahanie Port Moody, Vancouver, BC, Canada": [
+        49.2798443,
+        -122.836998
+    ],
+    "downtown, Vancouver, BC, Canada": [
+        49.283393,
+        -123.1174563
+    ],
+    "4728 BRENTWOOD DRIVE, Vancouver, BC, Canada": [
+        49.2666489,
+        -122.99689
+    ],
+    "SURREY, Vancouver, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "Northshore, Vancouver, BC, Canada": [
+        49.304703,
+        -123.0307862
+    ],
+    "Westend, Vancouver, BC, Canada": [
+        49.2911359,
+        -123.1346179
+    ],
+    "Arbutus Ridge, Vancouver, BC, Canada": [
+        49.2462132,
+        -123.1612616
+    ],
     "Downtown, Vancouver, BC, Canada": [
         49.283393,
         -123.1174563
+    ],
+    "Fairview, Vancouver, BC, Canada": [
+        49.2641128,
+        -123.1268352
+    ],
+    "Latimer Heights Langley, Vancouver, BC, Canada": [
+        49.1534263,
+        -122.6660814
+    ],
+    "Joyce Stn, Vancouver, Vancouver, BC, Canada": [
+        49.2383663,
+        -123.031678
+    ],
+    "Vancouver West Dunbar, Vancouver, BC, Canada": [
+        49.238661,
+        -123.1851684
     ],
     "East Burnaby, Burnaby, BC, Canada": [
         49.2503942,
@@ -451,89 +591,33 @@
         49.1930451,
         -122.7971749
     ],
-    "1330 WELLON STREET, Vancouver, BC, Canada": [
-        49.2925758,
-        -122.7236358
+    "Vancouver East Killarney, Vancouver, BC, Canada": [
+        49.2199318,
+        -123.0408408
     ],
-    "Renfrew Collingwood, Vancouver, BC, Canada": [
-        49.2484953,
-        -123.0403532
+    "PNE, Vancouver, BC, Canada": [
+        49.2823238,
+        -123.0430151
     ],
-    "north shore, Vancouver, BC, Canada": [
-        49.5013735,
-        -123.0706573
+    "Hastings-Sunrise, Vancouver, BC, Canada": [
+        49.2775935,
+        -123.0439199
     ],
-    "1022 Nelson Street, Vancouver, BC, Vancouver, BC, Canada": [
-        49.2813,
-        -123.1268124
+    "Upper Lonsdale North Vancouver, Vancouver, BC, Canada": [
+        49.3320622,
+        -123.0894623
     ],
-    "Riley Park, Vancouver, BC, Canada": [
-        49.2474381,
-        -123.1029664
+    "Fraserview, Vancouver, BC, Canada": [
+        49.2073232,
+        -123.0101843
     ],
-    "Joyce-Collingwood, Vancouver, BC, Canada": [
-        49.2384111,
-        -123.0317846
+    "Mount Pleasant, Vancouver, BC, Canada": [
+        49.2633296,
+        -123.0965885
     ],
-    "Metrotown Royal Oak, Vancouver, BC, Canada": [
-        49.2216376,
-        -122.9885423
-    ],
-    "Delta  Tsawwassen, Vancouver, BC, Canada": [
-        49.0022357,
-        -123.0680798
-    ],
-    "Collingwood, Vancouver, BC, Canada": [
-        49.2341639,
-        -123.0358605
-    ],
-    "Victoria-Fraserview, Vancouver, Vancouver, BC, Canada": [
-        49.2184156,
-        -123.0732871
-    ],
-    "Central Maple Ridge, Vancouver, BC, Canada": [
-        49.226327,
-        -122.5830343
-    ],
-    "Knight, Vancouver, Vancouver, BC, Canada": [
-        49.2708454,
-        -123.0789062
-    ],
-    "16561 17A Ave Surrey, Vancouver, BC, Canada": [
-        49.0341292,
-        -122.7647826
-    ],
-    "2085 SKYLINE CRT Burnaby, Burnaby, BC, Canada": [
-        49.2653018,
-        -123.0048172
-    ],
-    "South slope, Burnaby, Burnaby, BC, Canada": [
-        49.2140369,
-        -123.0000972
-    ],
-    "4539 Cambie Street Vancouver, Vancouver, BC, Canada": [
-        49.2445066,
-        -123.1169192
-    ],
-    "7288 Heather Street Richmond, Richmond, BC, Canada": [
-        49.1596694,
-        -123.1226057
-    ],
-    "11571 Thorpe Road Richmond, Richmond, BC, Canada": [
-        49.1832768,
-        -123.09363
-    ],
-    "6288 No. 3 Road Richmond, Richmond, BC, Canada": [
-        49.1102782,
-        -123.1383004
-    ],
-    "Renfrew, Vancouver, Vancouver, BC, Canada": [
-        49.2589451,
-        -123.045255
-    ],
-    "Yaletown, Vancouver, Vancouver, BC, Canada": [
-        49.2763217,
-        -123.1209558
+    "east vancouver, Vancouver, BC, Canada": [
+        49.279437,
+        -123.0666665
     ],
     "Vancouver, Cambie, Vancouver, BC, Canada": [
         49.2358451,
@@ -543,301 +627,49 @@
         49.2592018,
         -122.891205
     ],
-    "vancouver, Vancouver, BC, Canada": [
-        49.2686069,
-        -123.085922
-    ],
-    "NEW WESTMINSTER, Vancouver, BC, Canada": [
-        49.2067726,
-        -122.9108818
-    ],
-    "Renfrew, Vancouver, BC, Canada": [
-        49.2589451,
-        -123.045255
-    ],
-    "1000 Brunette Avenue, Coquitlam, BC, Vancouver, BC, Canada": [
-        49.2374731,
-        -122.8669631
-    ],
-    "Strathcona, Vancouver, BC, Canada": [
-        49.279554,
-        -123.0899788
-    ],
-    "1500 Alberni Street, Vancouver, Vancouver, BC, Canada": [
-        49.289379,
-        -123.1305658
-    ],
-    "Vancouver  Coal Harbour  Downtown, Vancouver, BC, Canada": [
-        49.2848766,
-        -123.121224
-    ],
-    "Seafair, Vancouver, BC, Canada": [
-        49.1483406,
-        -123.1813869
-    ],
-    "Coquitlam, Maillardville, Vancouver, BC, Canada": [
-        49.2347477,
-        -122.8796082
-    ],
-    "13350 Central Avenue, Vancouver, BC, Canada": [
-        49.190149,
-        -122.852487
-    ],
-    "Surrey BC, Vancouver, BC, Canada": [
-        49.1913033,
-        -122.849143
-    ],
-    "UBC, Vancouver, BC, Canada": [
-        49.2484638,
-        -123.2341555
-    ],
-    "Mount Pleasant, Vancouver, BC, Canada": [
-        49.2633296,
-        -123.0965885
-    ],
-    "20159 88 Ave, Langley, BC, Vancouver, BC, Canada": [
-        49.1651453,
-        -122.6644506
-    ],
-    "5088 Kwantlen St, RIchmond, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "5088 Kwantlen St, Richmond, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "Vancouver. Cambie, Vancouver, BC, Canada": [
-        49.2548858,
-        -123.1152086
-    ],
-    "Burnaby Vancouver Metrotown, Burnaby, BC, Canada": [
-        49.2325415,
-        -123.0108671
-    ],
-    "Burnaby South, Burnaby, BC, Canada": [
-        49.2073232,
-        -123.0101843
-    ],
-    "Killarney, Vancouver, BC, Canada": [
-        49.2242738,
-        -123.0462504
-    ],
-    "Dunbar, Vancouver, BC, Canada": [
-        49.2475814,
-        -123.1849498
-    ],
-    "Grandview Woodland, Vancouver, BC, Canada": [
-        49.2705588,
-        -123.0679417
-    ],
-    "Point Grey, Vancouver, BC, Canada": [
-        49.2638286,
-        -123.185672
-    ],
-    "SFU Campus, Vancouver, BC, Canada": [
-        49.1873731,
-        -122.849479
-    ],
-    "Trafalgar Park, Vancouver, BC, Canada": [
-        49.2506695,
-        -123.1618286
-    ],
-    "PNE, TT, Vancouver, BC, Canada": [
-        49.2815249,
-        -123.0362114
-    ],
-    "501-3080 LINCOLN AVE COQUITLAM, Vancouver, BC, Canada": [
-        49.2721559,
-        -122.7571632
-    ],
-    "Vancouver., Vancouver, BC, Canada": [
-        49.2686069,
-        -123.085922
-    ],
-    "SFU, Vancouver, BC, Canada": [
-        49.2824032,
-        -123.1085513
-    ],
-    "Lynn Valley, Vancouver, BC, Canada": [
-        49.3409789,
-        -123.031168
-    ],
-    "Edmonds, Vancouver, BC, Canada": [
-        49.2121286,
-        -122.959233
-    ],
-    "Kensington -Cedar Cottage, Vancouver, BC, Canada": [
-        49.2463833,
-        -123.0736849
-    ],
-    "Marine Gateway, Vancouver, BC, Canada": [
-        49.2099067,
-        -123.1161661
-    ],
-    "East Vancouver, Vancouver, BC, Canada": [
-        49.279437,
-        -123.0666665
-    ],
-    "False Creek North, Vancouver, BC, Canada": [
-        49.2734138,
-        -123.1125398
-    ],
-    "RICHMOND, Richmond, BC, Canada": [
-        49.174693,
-        -123.1516757
-    ],
-    "burnaby, Burnaby, BC, Canada": [
-        49.2767096,
-        -122.917803
-    ],
-    "VICTORIA FRASERVIEW, Vancouver, BC, Canada": [
-        49.2184156,
-        -123.0732871
-    ],
-    "new westminster, Vancouver, BC, Canada": [
-        49.2067726,
-        -122.9108818
-    ],
-    "MARPOLE, Vancouver, BC, Canada": [
-        49.2092233,
-        -123.1361495
-    ],
-    "BRENTWOOD  BURNABY, Burnaby, BC, Canada": [
-        49.256239,
-        -122.9957848
-    ],
-    "SUNSET SOUTH VANCOUVER, Vancouver, BC, Canada": [
-        49.225652,
-        -123.0911079
-    ],
-    "NORTH BURNABY, Burnaby, BC, Canada": [
-        49.1923083,
-        -122.992645
-    ],
-    "METROTOWN, Vancouver, BC, Canada": [
-        49.2258524,
-        -123.0038944
-    ],
-    "EDMONDS, Vancouver, BC, Canada": [
-        49.2121286,
-        -122.959233
-    ],
-    "GUILDFORD, Vancouver, BC, Canada": [
-        49.1930451,
-        -122.7971749
-    ],
-    "LANGLEY, Vancouver, BC, Canada": [
-        49.1039289,
-        -122.657047
-    ],
-    "COQUITLAM, Vancouver, BC, Canada": [
-        49.2842958,
-        -122.793281
-    ],
-    "metrotown, Vancouver, BC, Canada": [
-        49.2258524,
-        -123.0038944
-    ],
-    "Grandview Heights, Vancouver, BC, Canada": [
-        49.0461414,
-        -122.7554645
-    ],
-    "East Vancouver, Killarney, Vancouver, BC, Canada": [
-        49.2199318,
-        -123.0408408
-    ],
-    "Burnaby. B C, Burnaby, BC, Canada": [
-        49.263684,
-        -122.9297977
-    ],
-    "East Vancouver Killarney, Vancouver, BC, Canada": [
-        49.2192761,
-        -123.0415126
-    ],
-    "Richmond, BC, Richmond, BC, Canada": [
-        49.174693,
-        -123.1516757
-    ],
-    "VGH, Vancouver, BC, Canada": [
-        49.2618427,
-        -123.1226691
-    ],
-    "Vancouver West End, Vancouver, BC, Canada": [
-        49.2908635,
-        -123.1453973
-    ],
-    "MISSION, Vancouver, BC, Canada": [
-        49.2818114,
-        -123.0909986
-    ],
-    "Cloverdale, Vancouver, BC, Canada": [
-        49.1161848,
-        -122.7214847
-    ],
-    "hastings sunrise, Vancouver, BC, Canada": [
-        49.2775935,
-        -123.0439199
-    ],
-    "lynn valley, Vancouver, BC, Canada": [
-        49.3409789,
-        -123.031168
-    ],
-    "burnaby lake, Burnaby, BC, Canada": [
-        49.2449078,
-        -122.9534569
-    ],
-    "Richmond BC, Richmond, BC, Canada": [
-        49.174693,
-        -123.1516757
-    ],
-    "Sullivan Heights, Surrey, Vancouver, BC, Canada": [
-        49.1159452,
-        -122.8218657
-    ],
-    "2615 Columbia Street, Vancouver, BC, Vancouver, BC, Canada": [
-        49.2619384,
-        -123.1098522
-    ],
-    "False Creek, Vancouver, BC, Canada": [
-        49.2745516,
-        -123.1060401
-    ],
-    "Vancouver Shaughnessy, Vancouver, BC, Canada": [
-        49.2414874,
-        -123.139528
-    ],
-    "15160 108 Ave, Surrey, BC, Vancouver, BC, Canada": [
-        49.198726,
-        -122.8001851
-    ],
-    "White Rock, Vancouver, BC, Canada": [
-        49.0235357,
-        -122.797924
+    "Rocky Point, Vancouver, BC, Canada": [
+        49.2763558,
+        -122.8343095
     ],
     "Vancouver Downtown, Vancouver, BC, Canada": [
         49.2779085,
         -123.1089417
     ],
-    "South Granville, Vancouver, BC, Canada": [
-        49.2634716,
-        -123.1386887
+    "New, Vancouver, BC, Canada": [
+        49.2894913,
+        -123.0365936
     ],
-    "COMMERCIAL, Vancouver, BC, Canada": [
-        49.2629509,
-        -123.0684944
+    "6391 Livingstone Place, Richmond, BC, Canada": [
+        49.162078,
+        -123.1536094
     ],
-    "North Burnaby, Burnaby, BC, Canada": [
-        49.1923083,
-        -122.992645
+    "11220 Seaport Avenue, Richmond, BC, Canada": [
+        49.1434176,
+        -123.0969514
     ],
-    "coquitlam, Vancouver, BC, Canada": [
-        49.2842958,
-        -122.793281
+    "8120 Colonial Drive, Richmond, BC, Canada": [
+        49.1535566,
+        -123.1707698
     ],
-    "6655 Buswell St, Richmond, BC, Richmond, BC, Canada": [
-        49.1650135,
-        -123.1340569
+    "8155 Capstan Way, Richmond, BC, Canada": [
+        49.1892069,
+        -123.133402
+    ],
+    "4614 Kitcher Place, Richmond, BC, Canada": [
+        49.1804699,
+        -123.1086054
+    ],
+    "Sapphire pl Richmond, BC, Canada": [
+        49.1666991,
+        -123.1671825
+    ],
+    "3200 Corvette Way, Richmond, BC, Canada": [
+        49.1901689,
+        -123.1331016
+    ],
+    "Killarney, Vancouver, BC, Canada": [
+        49.2242738,
+        -123.0462504
     ],
     "New Westminster, BC, Canada": [
         49.2067726,
@@ -858,89 +690,5 @@
     "6383 Salish Dr, Vancouver, BC, Canada": [
         49.2286843,
         -123.1974614
-    ],
-    "New Westminster BC, BC, Canada": [
-        49.2183176,
-        -122.9333884
-    ],
-    "8220 King George Blvd, Surrey, BC, BC, Canada": [
-        49.1522519,
-        -122.8453373
-    ],
-    "Ambleside - West Vancouver, BC, Canada": [
-        49.3396251,
-        -123.1486097
-    ],
-    "Arbutus, Vancouver, BC, Canada": [
-        49.2462132,
-        -123.1612616
-    ],
-    "3200 Corvette Way, Richmond, BC, Canada": [
-        49.1901689,
-        -123.1331016
-    ],
-    "8740 Citation Drive, Richmond, BC, Canada": [
-        49.1633074,
-        -123.1264594
-    ],
-    "8155 Capstan Way, Richmond, BC, Canada": [
-        49.1892069,
-        -123.133402
-    ],
-    "Kelmore Road, Richmond, BC, Canada": [
-        49.1501202,
-        -123.1846956
-    ],
-    "11220 Seaport Avenue, Richmond, BC, Canada": [
-        49.1434176,
-        -123.0969514
-    ],
-    "6911 Shawnigan Place, Richmond, BC, Canada": [
-        49.1419756,
-        -123.1488628
-    ],
-    "4614 Kitcher Place, Richmond, BC, Canada": [
-        49.1804699,
-        -123.1086054
-    ],
-    "Granville Gilbert, Richmond, BC, Canada": [
-        49.163723,
-        -123.1476546
-    ],
-    "Sunnymede Crescent, Richmond, BC, Canada": [
-        49.1544644,
-        -123.1406498
-    ],
-    "East Vancouver, Richmond, BC, Canada": [
-        49.1878499,
-        -123.072334
-    ],
-    "8120 Colonial Drive, Richmond, BC, Canada": [
-        49.1535566,
-        -123.1707698
-    ],
-    "Sapphire pl Richmond, BC, Canada": [
-        49.1666991,
-        -123.1671825
-    ],
-    "Tolmie Avenue, Richmond, BC, Canada": [
-        49.1688816,
-        -123.1899105
-    ],
-    "14th Avenue, Richmond, BC, Canada": [
-        49.163168,
-        -123.137414
-    ],
-    "granville, Richmond, BC, Canada": [
-        49.1632741,
-        -123.1177659
-    ],
-    "Francis Road, Richmond, BC, Canada": [
-        49.1483636,
-        -123.163425
-    ],
-    "6655 Buswell St, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
     ]
 }
