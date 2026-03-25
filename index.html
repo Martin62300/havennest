@@ -95,8 +95,12 @@
 <div class="service-center" id="service-ui"></div>
 
 <!-- Filter Bar -->
-<div class="filter-bar" id="filter-bar">
-    <div class="filter-row primary">
+<div class="filter-bar-container">
+    <div class="filter-map-hint" id="filter-map-hint">
+        💡 提示：此处的筛选条件会同步过滤上方地图中的房源
+    </div>
+    <div class="filter-bar" id="filter-bar">
+        <div class="filter-row primary">
         <button class="filter-toggle" id="filter-toggle" type="button" onclick="toggleFilterPanel()" aria-label="Toggle">
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
                 <path d="M6.293 9.293a1 1 0 0 1 1.414 0L12 13.586l4.293-4.293a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 0-1.414z" fill="currentColor"></path>
@@ -159,6 +163,7 @@
             </select>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Post CTA -->

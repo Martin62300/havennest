@@ -73,7 +73,8 @@ const dict = {
         sourceOwner: "屋主直发",
         viewDetail: "查看详情",
         contact: "联系方式",
-        mapNotice: "📍 温馨提示：部分抓取房源因原网站地址信息不全，地图定位可能存在偏差，请以详情页描述为准。"
+        mapNotice: "📍 温馨提示：部分抓取房源因原网站地址信息不全，地图定位可能存在偏差，请以详情页描述为准。",
+        filterHint: "💡 提示：此处的筛选条件会同步过滤上方地图中的房源"
     },
     en: {
         seoTitle: "Havennest | Greater Vancouver Aggregated Rental Listings & One-Stop Services",
@@ -135,7 +136,8 @@ const dict = {
         sourceOwner: "Direct Post",
         viewDetail: "View Detail",
         contact: "Contact",
-        mapNotice: "📍 Friendly Reminder: Some listings may have inexact map locations due to incomplete address data. Please refer to details for accuracy."
+        mapNotice: "📍 Friendly Reminder: Some listings may have inexact map locations due to incomplete address data. Please refer to details for accuracy.",
+        filterHint: "💡 Tip: Filters applied here will also update the listings shown on the map above."
     }
 };
 
@@ -405,6 +407,11 @@ function updateLabels() {
     if (viewSel && viewSel.options && viewSel.options.length >= 2) {
         viewSel.options[0].text = d.viewCard;
         viewSel.options[1].text = d.viewCompact;
+    }
+
+    const mapHint = document.getElementById('filter-map-hint');
+    if (mapHint) {
+        mapHint.innerText = d.filterHint;
     }
 }
 

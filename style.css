@@ -160,9 +160,24 @@ header {
 }
 
 /* Filters & Sorting */
-.filter-bar {
+.filter-bar-container {
     max-width: 1200px;
     margin: 20px auto;
+    padding: 0 20px;
+}
+
+.filter-map-hint {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 8px;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-bar {
+    width: 100%;
     padding: 20px;
     background: var(--white);
     border-radius: 20px;
