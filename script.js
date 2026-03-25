@@ -4,6 +4,8 @@ let curLang = 'zh';
 let curSlide = 0;
 let activeSvc = '';
 let viewMode = 'card';
+let pendingListingKey = '';
+let currentListingKey = '';
 let map = L.map('map', { scrollWheelZoom: false }).setView([49.24, -123.05], 11);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -238,6 +240,11 @@ async function init() {
     }
 
     updateUI();
+
+    try {
+        const url = new URL(window.location.href);
+        pendingListingKey = (url.searchParams.get('listing') || '').toString().trim();
+    } catch (e) {}
     
     // 统一从 listings.json 加载所有房源（包括抓取的和屋主发布的）
     try {
@@ -285,6 +292,7 @@ async function init() {
                 }
             } catch (e) {}
             filterListings();
+            openListingFromUrlIfNeeded();
         } else {
             console.error('Failed to load listings.json');
         }
@@ -292,6 +300,59 @@ async function init() {
         console.warn('Local listings.json not found or invalid. Run crawler.py first.');
     }
 }
+
+function getListingKeyFromItem(i) {
+    if (i && i.id) return `id:${i.id}`;
+    if (i && i.url) return `url:${i.url}`;
+    return '';
+}
+
+function findListingByKey(key) {
+    const k = (key || '').toString().trim();
+    if (!k) return null;
+    if (k.startsWith('id:')) {
+        const id = k.slice(3);
+        return allListings.find(x => x && x.id === id) || null;
+    }
+    if (k.startsWith('url:')) {
+        const u = k.slice(4);
+        return allListings.find(x => x && x.url === u) || null;
+    }
+    return allListings.find(x => (x && (x.id === k || x.title === k))) || null;
+}
+
+function setListingParam(key, mode) {
+    try {
+        const url = new URL(window.location.href);
+        if (key) url.searchParams.set('listing', key);
+        else url.searchParams.delete('listing');
+        const m = mode === 'replace' ? 'replaceState' : 'pushState';
+        history[m]({ listing: key || '' }, '', url.toString());
+    } catch (e) {}
+}
+
+function openListingFromUrlIfNeeded() {
+    if (!pendingListingKey) return;
+    const item = findListingByKey(pendingListingKey);
+    if (!item) return;
+    showDetail(item, { fromUrl: true });
+    pendingListingKey = '';
+}
+
+window.addEventListener('popstate', () => {
+    let key = '';
+    try {
+        const url = new URL(window.location.href);
+        key = (url.searchParams.get('listing') || '').toString().trim();
+    } catch (e) {}
+    if (!key) {
+        currentListingKey = '';
+        closeDetail(true);
+        return;
+    }
+    const item = findListingByKey(key);
+    if (item) showDetail(item, { fromUrl: true });
+});
 
 function updateLabels() {
     const d = dict[curLang];
@@ -665,15 +726,22 @@ function renderListings(items) {
 }
 
 window.showDetailById = (id) => {
-    const item = allListings.find(x => (x.id === id || x.title === id));
+    const item = findListingByKey(id);
     if (item) showDetail(item);
 };
 
-function showDetail(i) {
+function showDetail(i, opts) {
     const modal = document.getElementById('detailModal');
     const images = getListingImages(i);
     const d = dict[curLang];
     curSlide = 0;
+    const fromUrl = !!(opts && opts.fromUrl);
+    const key = getListingKeyFromItem(i);
+    if (key) {
+        currentListingKey = key;
+        if (!fromUrl) setListingParam(key, 'push');
+        else setListingParam(key, 'replace');
+    }
     
     let galleryContent = images.length > 0 
         ? images.map(img => `<img src="${img}" class="gallery-img">`).join('')
@@ -779,7 +847,14 @@ function changeSlide(dir) {
     con.style.transform = `translateX(-${curSlide * 100}%)`;
 }
 
-function closeDetail() { document.getElementById('detailModal').style.display = 'none'; }
+function closeDetail(silent) {
+    document.getElementById('detailModal').style.display = 'none';
+    if (silent) return;
+    if (currentListingKey) {
+        currentListingKey = '';
+        setListingParam('', 'push');
+    }
+}
 function closeModal() { document.getElementById('svcModal').style.display = 'none'; }
 
 function openSOP(s) {
