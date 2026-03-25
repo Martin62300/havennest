@@ -103,11 +103,11 @@ def main():
         font_tag_cn = ImageFont.load_default()
         font_qr_cn = ImageFont.load_default()
 
-    d.text((logo_x + 80, 40), "HAVENNEST 安家居", fill=(255, 255, 255), font=font_brand)
+    d.text((logo_x + 80, 40), "HAVENNEST", fill=(255, 255, 255), font=font_brand)
     
-    # 居中大标题
-    title = "大温全量房源聚合门户"
-    sub = "真实屋主直发 · 全网房源追踪 · 一站式安家服务"
+    # 居中大标题 (英文)
+    title = "Vancouver's Ultimate Rental Hub"
+    sub = "Verified Listings · Daily Updates · Full-Service Support"
     title_w = d.textlength(title, font=font_title_cn)
     sub_w = d.textlength(sub, font=font_sub_cn)
     
@@ -120,8 +120,8 @@ def main():
     grid_y = header_h + 160
     card_w = 230
     card_h = 260
-    gap = 30
-    start_x = 50
+    gap = 25
+    start_x = 60
 
     for i, item in enumerate(listings):
         x = start_x + i * (card_w + gap)
@@ -149,8 +149,8 @@ def main():
             cover_bottom_strip = cover.crop((0, img_h-16, card_w, img_h))
             img.paste(cover_bottom_strip, (x, y + img_h - 16))
 
-        # 标签
-        tag = "屋主直发" if item.get('source') == 'owner' else item.get('source', 'System')
+        # 标签 (英文)
+        tag = "Owner Direct" if item.get('source') == 'owner' else "System Pick"
         tag_w = d.textlength(tag, font=font_tag_cn)
         d.rounded_rectangle([x + 10, y + 10, x + 10 + tag_w + 16, y + 36], radius=13, fill=(11, 27, 51, 200))
         d.text((x + 18, y + 15), tag, fill=(255, 255, 255), font=font_tag_cn)
@@ -164,34 +164,35 @@ def main():
         d.text((x + 16, y + img_h + 20), price, fill=navy, font=font_price)
         d.text((x + 16, y + img_h + 65), meta, fill=slate, font=font_meta_cn)
 
-    # 二维码区域 (放在右侧)
+    # 二维码区域 (放在右侧，缩小并下移防止遮挡卡片)
     qr_data = "https://havennestapp.com"
     try:
-        qs = urllib.parse.urlencode({"size": "300x300", "data": qr_data})
+        qs = urllib.parse.urlencode({"size": "200x200", "data": qr_data})
         qr_url = f"https://api.qrserver.com/v1/create-qr-code/?{qs}"
         with urllib.request.urlopen(qr_url, timeout=10) as resp:
             qr_png = resp.read()
         qr = Image.open(io.BytesIO(qr_png)).convert("RGB")
-        qr_size = 200
+        qr_size = 140
         qr = qr.resize((qr_size, qr_size), Image.Resampling.LANCZOS)
 
-        qr_x = width - qr_size - 60
-        qr_y = header_h + 160
+        # 调整二维码位置：往右边靠，往下放一点，避免挡住第四个房源
+        qr_x = width - qr_size - 40
+        qr_y = header_h + 200
         
         # 画二维码背景框
-        d.rounded_rectangle([qr_x - 15, qr_y - 15, qr_x + qr_size + 15, qr_y + qr_size + 60], radius=20, fill=(255, 255, 255), outline=gold, width=3)
+        d.rounded_rectangle([qr_x - 10, qr_y - 10, qr_x + qr_size + 10, qr_y + qr_size + 40], radius=15, fill=(255, 255, 255), outline=gold, width=3)
         img.paste(qr, (qr_x, qr_y))
         
         # 二维码下方文字
-        d.text((qr_x + 35, qr_y + qr_size + 15), "长按扫码选房", fill=navy, font=font_qr_cn)
+        d.text((qr_x + 18, qr_y + qr_size + 10), "Scan to View", fill=navy, font=font_tag_cn)
         
     except Exception as e:
         print(f"QR Error: {e}")
 
     # 底部服务保障
-    footer_y = height - 60
+    footer_y = height - 50
     d.rectangle([0, footer_y, width, height], fill=(241, 245, 249))
-    footer_text = "✅ 免费发布房源   ✅ 全网租房抓取   ✅ 权威租客保险   ✅ 专业搬家清洁"
+    footer_text = "✅ Post for Free   ✅ All-in-One Aggregation   ✅ Tenant Insurance   ✅ Move & Clean"
     fw = d.textlength(footer_text, font=font_sub_cn)
     d.text(((width - fw) // 2, footer_y + 12), footer_text, fill=navy, font=font_sub_cn)
 
