@@ -196,8 +196,11 @@ def main():
     fw = d.textlength(footer_text, font=font_sub_cn)
     d.text(((width - fw) // 2, footer_y + 12), footer_text, fill=navy, font=font_sub_cn)
 
-    out_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "og-image.jpg")
+    out_dir = os.path.dirname(os.path.dirname(__file__))
+    out_path = os.path.join(out_dir, "og-image.jpg")
+    out_path_fb = os.path.join(out_dir, "og-image-fb.jpg")
     img.save(out_path, "JPEG", quality=95)
+    img.save(out_path_fb, "JPEG", quality=95)
 
 if __name__ == "__main__":
     main()
