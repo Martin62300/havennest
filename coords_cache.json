@@ -791,10 +791,6 @@
         49.2771766,
         -123.102501
     ],
-    "5233 Gilbert Road, Richmond, BC, Canada": [
-        49.1753656,
-        -123.1461102
-    ],
     "Kilby Court, Richmond, BC, Canada": [
         49.1869095,
         -123.1146975
@@ -1254,5 +1250,109 @@
     "2850 Mara Drive, Vancouver, BC, Canada": [
         49.2591468,
         -122.8096677
+    ],
+    "Sullivan Heights, Surrey, BC, Canada": [
+        49.1159452,
+        -122.8218657
+    ],
+    "Burnaby, BC, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "8643 Logan Street, Vancouver, BC, Canada": [
+        49.2075627,
+        -123.1253907
+    ],
+    "Burnaby. B C, BC, Canada": [
+        49.263684,
+        -122.9297977
+    ],
+    "Port Coquitlam, BC, Canada": [
+        49.2621643,
+        -122.780542
+    ],
+    "Coal Harbour, Vancouver, BC, Canada": [
+        49.2903749,
+        -123.1292813
+    ],
+    "Tsawwassen  Delta, BC, Canada": [
+        49.0022357,
+        -123.0680798
+    ],
+    "Delta  Tsawwassen, BC, Canada": [
+        49.0022357,
+        -123.0680798
+    ],
+    "8171 Saba Road, Vancouver, BC, Canada": [
+        49.1690567,
+        -123.1347663
+    ],
+    "6808 minoru boulevard, Vancouver, BC, Canada": [
+        49.164444,
+        -123.1397445
+    ],
+    "6888 Cooney Road, Vancouver, BC, Canada": [
+        49.1642099,
+        -123.1311397
+    ],
+    "7100 Saint Albans Road, Vancouver, BC, Canada": [
+        49.1616481,
+        -123.1305903
+    ],
+    "11591 Railway Avenue Steveston, Richmond, BC, Canada": [
+        49.1233015,
+        -123.1698148
+    ],
+    "308 Alderson Avenue, Vancouver, BC, Canada": [
+        49.2420839,
+        -122.8911101
+    ],
+    "5233 Gilbert Road, Vancouver, BC, Canada": [
+        49.1753656,
+        -123.1461102
+    ],
+    "8131 Nunavut Lane Marpole, Vancouver, BC, Canada": [
+        49.2107411,
+        -123.1165369
+    ],
+    "5880 Dover Crescent, Vancouver, BC, Canada": [
+        49.1730454,
+        -123.1613934
+    ],
+    "Ash Street, Vancouver, BC, Canada": [
+        49.2540367,
+        -123.1182727
+    ],
+    "9830 whalley Blvd surrey, BC, Canada": [
+        49.1819108,
+        -122.8416193
+    ],
+    "8699 Hazelbridge Way, Vancouver, BC, Canada": [
+        49.1870288,
+        -123.1323183
+    ],
+    "Lochdale, Vancouver, BC, Canada": [
+        49.274058,
+        -122.9535075
+    ],
+    "2085 Skyline Drive, Vancouver, BC, Canada": [
+        49.2655518,
+        -123.0046375
+    ],
+    "5468 Chaffey Avenue, Vancouver, BC, Canada": [
+        49.2349764,
+        -123.0070488
+    ],
+    "Reid Street Renfrew-Collingwood, Vancouver, BC, Canada": [
+        49.2430889,
+        -123.0368938
+    ],
+    "8415 Granville Street Marpole, Vancouver, BC, Canada": [
+        49.2102008,
+        -123.1409094
+    ],
+    "5233 Gilbert Road, Richmond, BC, Canada": [
+        49.1753656,
+        -123.1461102
     ]
 }
