@@ -1354,5 +1354,121 @@
     "5233 Gilbert Road, Richmond, BC, Canada": [
         49.1753656,
         -123.1461102
+    ],
+    "Richmond Central, BC, Canada": [
+        49.1775883,
+        -123.1230339
+    ],
+    "3370 Dewdney Trunk Road, Port Moody, BC, BC, Canada": [
+        49.2762926,
+        -122.8249738
+    ],
+    "7841 Woodhurst Drive, Burnaby, BC, Canada": [
+        49.263418,
+        -122.9353598
+    ],
+    "Burke Mountain Coquitlam, BC, Canada": [
+        49.293177,
+        -122.7554676
+    ],
+    "985 Adair Avenue, Coquitlam, BC, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
+    "Murrayville, Vancouver, BC, Canada": [
+        49.088493,
+        -122.6133013
+    ],
+    "Metrotown Royal Oak, Burnaby, BC, Canada": [
+        49.2216376,
+        -122.9885423
+    ],
+    "3768 nithsdale st Burnaby bc, Vancouver, BC, Canada": [
+        49.2513223,
+        -123.0210108
+    ],
+    "8715 Cook cres, Vancouver, BC, Canada": [
+        49.168445,
+        -123.1292621
+    ],
+    "west 46th Ave Vancouver, BC, Canada": [
+        49.2296256,
+        -123.1373832
+    ],
+    "General Currie Road, Vancouver, BC, Canada": [
+        49.1591625,
+        -123.129134
+    ],
+    "Frances Street, Vancouver, BC, Canada": [
+        49.2794349,
+        -123.0737905
+    ],
+    "5928 birney ave, Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
+    ],
+    "2668 East 1st Avenue East Vancouver, BC, Canada": [
+        49.2687429,
+        -123.0459772
+    ],
+    "15733 85 Avenue, Vancouver, BC, Canada": [
+        49.1597294,
+        -122.7878886
+    ],
+    "9877 Whalley Boulevard Whalley, Surrey, BC, Canada": [
+        49.2059037,
+        -122.866837
+    ],
+    "10031 Blundell Road, Vancouver, BC, Canada": [
+        49.1555262,
+        -123.077635
+    ],
+    "4788 Hazel Street Metrotown, Burnaby, BC, Canada": [
+        49.2284354,
+        -122.9973304
+    ],
+    "4885 Fairlawn dr Burnaby, Vancouver, BC, Canada": [
+        49.2736168,
+        -122.9965532
+    ],
+    "6463 Silver Avenue Metrotown, Burnaby, BC, Canada": [
+        49.2248459,
+        -123.0069043
+    ],
+    "6240 McKay Avenue Metrotown, Burnaby, BC, Canada": [
+        49.2245547,
+        -123.0081305
+    ],
+    "4458 Beresford Street Metrotown, Burnaby, BC, Canada": [
+        49.2262474,
+        -123.0056476
+    ],
+    "3200 River Road, Vancouver, BC, Canada": [
+        49.1742897,
+        -123.1899714
+    ],
+    "1708 West 59th Avenue Marpole, Vancouver, BC, Canada": [
+        49.2174922,
+        -123.1454628
+    ],
+    "Westminster Hwy, Vancouver, BC, Canada": [
+        49.1711818,
+        -122.972306
+    ],
+    "University Crescent, Vancouver, BC, Canada": [
+        49.2794076,
+        -122.9051373
+    ],
+    "Saint Albans Road, Vancouver, BC, Canada": [
+        49.1591382,
+        -123.1309502
+    ],
+    "8500 Ackroyd Road, Vancouver, BC, Canada": [
+        49.1713835,
+        -123.1289104
+    ],
+    "8677 Capstan Way, Vancouver, BC, Canada": [
+        49.1875523,
+        -123.1233983
     ]
 }
