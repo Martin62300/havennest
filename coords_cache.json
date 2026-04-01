@@ -1563,10 +1563,6 @@
         49.1805682,
         -123.1509202
     ],
-    "5199 Brighouse Way, Richmond, BC, Canada": [
-        49.1729405,
-        -123.1556078
-    ],
     "wesbrook, Vancouver, BC, Canada": [
         49.2658051,
         -123.2061582
@@ -1724,6 +1720,98 @@
         -122.7804663
     ],
     "5177 Brighouse Way, Richmond, BC, Canada": [
+        49.1729405,
+        -123.1556078
+    ],
+    "Cambie Village, Vancouver, BC, Canada": [
+        49.255414,
+        -123.1151378
+    ],
+    "North Delta, BC, Canada": [
+        49.1378833,
+        -122.911231
+    ],
+    "Lynn Valley, Vancouver, BC, Canada": [
+        49.3409789,
+        -123.031168
+    ],
+    "WEST POINT GREY, Vancouver, BC, Canada": [
+        49.2673667,
+        -123.2025827
+    ],
+    "North Coquitlam, BC, Canada": [
+        49.2439052,
+        -122.891538
+    ],
+    "UBC, Vancouver, BC, Canada": [
+        49.2484638,
+        -123.2341555
+    ],
+    "Whalley, Surrey, BC, Canada": [
+        49.1969637,
+        -122.8644728
+    ],
+    "Arbutus, Vancouver, BC, Canada": [
+        49.2462132,
+        -123.1612616
+    ],
+    "Edgemont, North Vancouver, BC, Canada": [
+        49.328728,
+        -123.0936356
+    ],
+    "Upper Lonsdale, North Vancouver, BC, Canada": [
+        49.3436242,
+        -123.07275
+    ],
+    "Renfrew, Vancouver, BC, Canada": [
+        49.2589451,
+        -123.045255
+    ],
+    "Richmond Brighouse, BC, Canada": [
+        49.1681069,
+        -123.1362733
+    ],
+    "4567 Lougheed Highway, Burnaby, BC, Canada": [
+        49.2680771,
+        -123.0003298
+    ],
+    "7428 14th Avenue, Burnaby, BC, Canada": [
+        49.2159354,
+        -122.9438102
+    ],
+    "9623 Manchester Dr, Burnaby, BC, Canada": [
+        49.2471072,
+        -122.8979858
+    ],
+    "3483 W 38th Avenue, Vancouver BC V6N 2X8, BC, Canada": [
+        49.2379302,
+        -123.1815037
+    ],
+    "East 45th Avenue South Vancouver, BC, Canada": [
+        49.2292443,
+        -123.094334
+    ],
+    "13778 100 Avenue Whalley, Surrey, BC, Canada": [
+        49.1844303,
+        -122.8838861
+    ],
+    "Frances Street, Burnaby, BC, Canada": [
+        49.279127,
+        -122.9865369
+    ],
+    "Production Way, Burnaby, BC, Canada": [
+        49.2601847,
+        -122.915672
+    ],
+    "2727 Kingsway Renfrew-Collingwood, Burnaby, BC, Canada": [
+        49.2323821,
+        -123.0234986
+    ],
+    "3162 Euclid Avenue Renfrew-Collingwood, Vancouver, BC, Canada": [
+        49.2383854,
+        -123.0389825
+    ],
+    "5199 Brighouse Way, Richmond, BC, Canada": [
         49.1729405,
         -123.1556078
     ]
