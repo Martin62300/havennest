@@ -1902,5 +1902,101 @@
     "105 Boulevard Whalley, Surrey, BC, Canada": [
         49.1936834,
         -122.8287408
+    ],
+    "S. Surrey, BC, Canada": [
+        49.0474364,
+        -122.7823022
+    ],
+    "Richmond Center, BC, Canada": [
+        49.1718525,
+        -123.1388182
+    ],
+    "Vancouver, east Vancouver, BC, Canada": [
+        49.2647262,
+        -123.0803715
+    ],
+    "East Vancouver, Killarney, BC, Canada": [
+        49.2192761,
+        -123.0415126
+    ],
+    "Gauthier Avenue, Vancouver, BC, Canada": [
+        49.2377349,
+        -122.8814388
+    ],
+    "Alberta Road, Vancouver, BC, Canada": [
+        49.165719,
+        -123.1209942
+    ],
+    "6911 Shawnigan Place, Vancouver, BC, Canada": [
+        49.1419756,
+        -123.1488628
+    ],
+    "Minoru Boulevard, Vancouver, BC, Canada": [
+        49.1669172,
+        -123.1407428
+    ],
+    "6061 Olympic Street Southlands, Vancouver, BC, Canada": [
+        49.2312983,
+        -123.1900149
+    ],
+    "9830 Whalley Boulevard Whalley, Surrey, BC, Canada": [
+        49.2059037,
+        -122.866837
+    ],
+    "5380 Oben Street Renfrew-Collingwood, Vancouver, BC, Canada": [
+        49.2351864,
+        -123.0262669
+    ],
+    "4583 Neville Street, Vancouver, BC, Canada": [
+        49.2141481,
+        -123.0000712
+    ],
+    "9811 Ferndale Road, Vancouver, BC, Canada": [
+        49.1686294,
+        -123.1184666
+    ],
+    "418 West 64th Avenue Marpole, Vancouver, BC, Canada": [
+        49.2121265,
+        -123.1150141
+    ],
+    "6098 Station Street Metrotown, Burnaby, BC, Canada": [
+        49.2275175,
+        -123.0027767
+    ],
+    "Williams Road, Vancouver, BC, Canada": [
+        49.1409069,
+        -123.1410945
+    ],
+    "16702 16a Avenue, Vancouver, BC, Canada": [
+        49.0322387,
+        -122.8288393
+    ],
+    "3331 Number 3 Road, Vancouver, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "8608 Hazelbridge Way, Vancouver, BC, Canada": [
+        49.1870288,
+        -123.1323183
+    ],
+    "13359 Old Yale Road Whalley, Surrey, BC, Canada": [
+        49.2035114,
+        -122.8911595
+    ],
+    "6888 Station Hill Drive, Vancouver, BC, Canada": [
+        49.2098737,
+        -122.9592221
+    ],
+    "6119 Cooney Road, Vancouver, BC, Canada": [
+        49.1692999,
+        -123.1318529
+    ],
+    "8480 Elsmore Road, Vancouver, BC, Canada": [
+        49.1541537,
+        -123.1887349
+    ],
+    "Central Avenue Whalley, Surrey, BC, Canada": [
+        49.1919501,
+        -122.8250651
     ]
 }
