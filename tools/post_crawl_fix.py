@@ -21,6 +21,13 @@ CITY_CENTERS = {
     "Burnaby": (49.2488, -122.9805),
     "Coquitlam": (49.2830, -122.7932),
     "Surrey": (49.1913, -122.8490),
+    "Port Coquitlam": (49.2622, -122.7811),
+    "Port Moody": (49.2830, -122.8300),
+    "New Westminster": (49.2062, -122.9111),
+    "Delta": (49.0840, -123.0580),
+    "Langley": (49.1044, -122.6607),
+    "Maple Ridge": (49.2195, -122.6019),
+    "White Rock": (49.0253, -122.8026),
 }
  
 CITY_BBOX = {
@@ -29,6 +36,13 @@ CITY_BBOX = {
     "Burnaby": (49.20, 49.32, -123.10, -122.88),
     "Coquitlam": (49.20, 49.35, -122.93, -122.74),
     "Surrey": (49.03, 49.30, -122.98, -122.65),
+    "Port Coquitlam": (49.22, 49.30, -122.83, -122.72),
+    "Port Moody": (49.25, 49.32, -122.88, -122.79),
+    "New Westminster": (49.18, 49.24, -122.94, -122.86),
+    "Delta": (49.00, 49.20, -123.20, -122.90),
+    "Langley": (49.02, 49.18, -122.78, -122.47),
+    "Maple Ridge": (49.16, 49.32, -122.75, -122.45),
+    "White Rock": (49.00, 49.05, -122.83, -122.77),
 }
  
 COMMUNITY_BBOX = {
@@ -70,9 +84,130 @@ COMMUNITY_SYNONYMS = {
     "austin heights": "Austin Heights",
     "coquitlam centre": "Coquitlam Centre",
     "coquitlam center": "Coquitlam Centre",
+    "whalley (city centre)": "Whalley",
+    "white rock (border area)": "White Rock",
 }
  
 COMMUNITY_BBOX_CACHE_PATH = os.path.join(ROOT, "community_bbox_cache.json")
+
+COMMUNITY_VOCAB = {
+    "Richmond": [
+        "Bridgeport",
+        "Brighouse",
+        "Broadmoor",
+        "Burkeville",
+        "Finn Slough",
+        "Golden Village",
+        "Sea Island",
+        "Seafair",
+        "Southarm",
+        "Steveston",
+        "Thompson",
+        "West Cambie",
+    ],
+    "Burnaby": [
+        "Big Bend",
+        "Brentwood",
+        "Buckingham Heights",
+        "Burnaby Heights",
+        "Cascade Heights",
+        "Eastburn",
+        "Garden Village",
+        "Lochdale",
+        "Maywood",
+        "Metrotown",
+        "Middlegate",
+        "Montecito",
+        "South Slope",
+        "Sullivan Heights",
+    ],
+    "Vancouver": [
+        "Downtown",
+        "West End",
+        "Yaletown",
+        "Coal Harbour",
+        "Kitsilano",
+        "Kerrisdale",
+        "Marpole",
+        "Mount Pleasant",
+        "Strathcona",
+        "Grandview-Woodland",
+        "Shaughnessy",
+        "Dunbar",
+        "Point Grey",
+        "Killarney",
+        "Renfrew-Collingwood",
+    ],
+    "Surrey": [
+        "Whalley (City Centre)",
+        "Guildford",
+        "Fleetwood",
+        "Newton",
+        "Cloverdale",
+        "South Surrey",
+        "Morgan Creek",
+        "White Rock (Border Area)",
+    ],
+    "Coquitlam": [
+        "Maillardville",
+        "Coquitlam West",
+        "Burke Mountain",
+        "Westwood Plateau",
+        "Austin Heights",
+        "Central Coquitlam",
+        "Ranch Park",
+    ],
+    "Port Coquitlam": [
+        "Mary Hill",
+        "Citadel Heights",
+        "Oxford Heights",
+        "Riverwood",
+        "Glenwood",
+        "Central Pt Coquitlam",
+    ],
+    "Port Moody": [
+        "Heritage Mountain",
+        "Newport Village",
+        "Klahanie",
+        "Glenayre",
+        "Ioco",
+        "Moody Centre",
+        "College Park",
+    ],
+    "Delta": [
+        "Ladner",
+        "Tsawwassen",
+        "North Delta",
+        "Sunshine Hills",
+        "Tilbury",
+    ],
+    "New Westminster": [
+        "Queensborough",
+        "Uptown",
+        "Downtown",
+        "West End",
+        "Brow of the Hill",
+        "Sapperton",
+        "Victoria Hill",
+    ],
+    "Langley": [
+        "Walnut Grove",
+        "Willoughby Heights",
+        "Brookswood",
+        "Aldergrove",
+        "Fort Langley",
+        "Murrayville",
+        "Langley City",
+    ],
+    "Maple Ridge": [
+        "Haney",
+        "Albion",
+        "Silver Valley",
+        "Cottonwood",
+        "Whonnock",
+        "Webster's Corners",
+    ],
+}
 
  
 def _is_number(x: Any) -> bool:
@@ -112,6 +247,55 @@ def _normalize_community(v: Any) -> str:
     low = s.lower()
     return COMMUNITY_SYNONYMS.get(low, s)
  
+def _community_aliases(name: str) -> list:
+    s = (name or "").strip()
+    if not s:
+        return []
+    out = [s]
+    if "(" in s and ")" in s:
+        head = s.split("(", 1)[0].strip()
+        if head and head not in out:
+            out.append(head)
+        inside = s.split("(", 1)[1].rsplit(")", 1)[0].strip()
+        if inside and inside not in out:
+            out.append(inside)
+    return out
+
+
+def _build_alias_pattern(alias: str) -> str:
+    a = (alias or "").strip().lower().replace("’", "'")
+    a = a.replace("&", " and ")
+    a = re.sub(r"\s+", " ", a).strip()
+    if not a:
+        return ""
+    p = re.escape(a)
+    p = p.replace(r"\ ", r"\s+")
+    p = p.replace(r"\-", r"[\s\-]+")
+    p = p.replace("'", r"['’]")
+    return r"(?<![a-z])" + p + r"(?![a-z])"
+
+
+def _infer_community_from_text(city: str, text: str) -> str:
+    city0 = (city or "").strip()
+    if not city0:
+        return ""
+    vocab = COMMUNITY_VOCAB.get(city0) or []
+    if not vocab:
+        return ""
+    t = (text or "").lower().replace("’", "'")
+    best = ""
+    best_len = 0
+    for name in vocab:
+        for alias in _community_aliases(name):
+            pat = _build_alias_pattern(alias)
+            if not pat:
+                continue
+            if re.search(pat, t, flags=re.IGNORECASE):
+                if len(alias) > best_len:
+                    best = name
+                    best_len = len(alias)
+    return best
+
  
 def _coords_from_bbox(item: Dict[str, Any], box: Tuple[float, float, float, float]) -> Tuple[float, float]:
     lat_min, lat_max, lng_min, lng_max = box
@@ -215,8 +399,176 @@ def _get_community_bbox(
     return box
 
 
+def _looks_like_city_only_address(addr: str, cur_city: str) -> bool:
+    a = (addr or "").strip()
+    if not a:
+        return True
+    if re.search(r"\d", a):
+        return False
+    low = a.lower()
+    city_names = [x.lower() for x in CITY_CENTERS.keys()]
+    if low in city_names and low != (cur_city or "").strip().lower():
+        return True
+    if low in ["vancouver", "richmond", "burnaby", "surrey", "coquitlam"]:
+        return low != (cur_city or "").strip().lower()
+    return False
+
+
+_CN_NUM = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
+
+
+def _cn_to_int(s: str) -> int:
+    t = (s or "").strip()
+    if not t:
+        return 0
+    if t.isdigit():
+        try:
+            return int(t)
+        except Exception:
+            return 0
+    if t in _CN_NUM:
+        return _CN_NUM[t]
+    return 0
+
+
+def _normalize_street_name(s: str) -> str:
+    t = (s or "").strip()
+    if not t:
+        return ""
+    t = re.sub(r"\s+", " ", t)
+    t = t.replace("’", "'")
+    t = re.sub(r"\bstn\b", "station", t, flags=re.IGNORECASE)
+    m = re.search(r"([一二三四五六七八九十0-9]+)\s*号\s*路", t)
+    if m:
+        n = _cn_to_int(m.group(1))
+        if n:
+            return f"No. {n} Road"
+    m = re.search(r"\bno\.?\s*(\d+)\b", t, flags=re.IGNORECASE)
+    if m and "road" in t.lower():
+        return f"No. {int(m.group(1))} Road"
+    t = re.sub(r"(大道|大街)$", " Ave", t)
+    t = re.sub(r"(街)$", " St", t)
+    t = re.sub(r"(路)$", " Rd", t)
+    t = re.sub(r"\s+", " ", t).strip()
+    return t
+
+
+def _extract_intersection(text: str) -> Tuple[str, str]:
+    t = (text or "")
+    if not t:
+        return ("", "")
+    m = re.search(r"([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:与|和|&|and)\s*([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:交汇处|交界处|路口|交叉口|intersection|cross)", t, flags=re.IGNORECASE)
+    if m:
+        a = _normalize_street_name(m.group(1))
+        b = _normalize_street_name(m.group(2))
+        return (a, b)
+    return ("", "")
+
+
+def _extract_street(text: str) -> str:
+    t = (text or "")
+    if not t:
+        return ""
+    m = re.search(r"([A-Za-z][A-Za-z0-9.'\-\s]{2,}?)\s*(?:Road|Rd|Street|St|Avenue|Ave)\b", t, flags=re.IGNORECASE)
+    if m:
+        return _normalize_street_name(m.group(0))
+    m = re.search(r"([A-Za-z][A-Za-z0-9.'\-\s]{2,}?)\s*(?:路|街|大道)\b", t, flags=re.IGNORECASE)
+    if m:
+        return _normalize_street_name(m.group(0))
+    m = re.search(r"([一二三四五六七八九十0-9]+)\s*号\s*路", t)
+    if m:
+        return _normalize_street_name(m.group(0))
+    return ""
+
+
+def _is_source_map(coord_source: str) -> bool:
+    s = (coord_source or "").strip().lower()
+    return s.startswith("source_map")
+
+
+def _near_city_center(city: str, lat: float, lng: float) -> bool:
+    base = CITY_CENTERS.get(city) or CITY_CENTERS["Vancouver"]
+    try:
+        return abs(float(lat) - float(base[0])) <= 0.02 and abs(float(lng) - float(base[1])) <= 0.02
+    except Exception:
+        return False
+
+
+def _clean_extracted_addr(s: str) -> str:
+    t = (s or "").strip()
+    if not t:
+        return ""
+    t = re.sub(r"\s*查看地图.*$", "", t).strip()
+    t = re.sub(r"(?i)^\s*#\s*[0-9x]{1,6}\s*-\s*", "", t)
+    t = re.sub(r"(?i)^\s*\d+\s*xx\s*-\s*", "", t)
+    t = re.sub(r"(?i)^\s*\d+\s*x{2,4}\b", "", t).strip()
+    t = re.sub(r"\s+", " ", t)
+    return t
+
+
+def _extract_detailed_address(text: str) -> str:
+    t = text or ""
+    if not t:
+        return ""
+    candidates = []
+    for pat in [
+        r"(?im)^\s*address\s*:\s*(.+?)\s*$",
+        r"(?im)^\s*addr\s*:\s*(.+?)\s*$",
+        r"(?im)^\s*location\s*:\s*(.+?)\s*$",
+        r"(?im)^\s*联系地址\s*(?:[:：])?\s*(.+?)\s*$",
+        r"(?im)^\s*地址\s*(?:[:：])?\s*(.+?)\s*$",
+    ]:
+        for m in re.finditer(pat, t):
+            v = _clean_extracted_addr(m.group(1))
+            if v:
+                candidates.append(v)
+    if not candidates:
+        return ""
+    candidates = [c for c in candidates if re.search(r"\d", c)]
+    if not candidates:
+        return ""
+    candidates.sort(key=len, reverse=True)
+    return candidates[0]
+
+
+def _try_geocode_query(
+    c: HavenNestCrawler,
+    query: str,
+    cur_city: str,
+    cur_comm: str,
+    box: Optional[Tuple[float, float, float, float]],
+    max_geocode: int,
+    geocode_used: int,
+) -> Tuple[Optional[Tuple[float, float]], int]:
+    if not query:
+        return (None, geocode_used)
+    if geocode_used >= max_geocode:
+        return (None, geocode_used)
+    cache_key = _cache_key_from_query(query)
+    if cache_key in c.coords_cache:
+        try:
+            del c.coords_cache[cache_key]
+        except Exception:
+            pass
+    geocode_used += 1
+    coords = c.get_lat_lng(query)
+    try:
+        new_lat = float(coords[0]) if coords and coords[0] is not None else None
+        new_lng = float(coords[1]) if coords and coords[1] is not None else None
+    except Exception:
+        new_lat, new_lng = None, None
+    if new_lat is None or new_lng is None:
+        return (None, geocode_used)
+    if cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng)):
+        return (None, geocode_used)
+    if box and cur_comm and not _in_box(box, float(new_lat), float(new_lng)):
+        return (None, geocode_used)
+    return ((new_lat, new_lng), geocode_used)
+
+
  
 def _fallback_coords(city: str) -> Tuple[float, float]:
+    base = CITY_CENTERS.get(city) or CITY_CENTERS["Vancouver"]
     return (float(base[0]), float(base[1]))
  
  
@@ -226,6 +578,7 @@ def main():
         raise SystemExit(f"listings.json not found: {listings_path}")
  
     max_geocode = int(os.getenv("MAX_GEOCODE", "30") or "30")
+    max_priority_geocode = int(os.getenv("MAX_PRIORITY_GEOCODE", "10") or "10")
  
     with open(listings_path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -242,6 +595,7 @@ def main():
     re_geocoded = 0
     center_fallback = 0
     geocode_used = 0
+    priority_geocode_used = 0
  
     for item in data:
         source = (item.get("source") or "").strip().lower()
@@ -291,28 +645,95 @@ def main():
         needs_coords = not coords_ok
  
         raw_comm = item.get("community") or item.get("neighborhood") or item.get("area")
+        if not raw_comm and cur_city:
+            inferred_comm = _infer_community_from_text(cur_city, text)
+            if inferred_comm:
+                raw_comm = inferred_comm
+                item["community"] = inferred_comm
         cur_comm = _normalize_community(raw_comm)
         if cur_comm and item.get("community") != cur_comm:
             item["community"] = cur_comm
         addr_for_check = str(item.get("address") or "")
+        addr_clean = _clean_extracted_addr(addr_for_check)
+        if addr_clean and addr_clean != addr_for_check:
+            item["address"] = addr_clean
+            addr_for_check = addr_clean
         has_detail_addr = bool(re.search(r"\d", addr_for_check))
         coord_source = (item.get("coord_source") or "").strip().lower()
+        is_source_map = _is_source_map(coord_source)
+        priority_needs_geocode = False
+
+        if not has_detail_addr and _looks_like_city_only_address(addr_for_check, cur_city):
+            item["address"] = f"{cur_comm}, {cur_city}".strip(", ").strip() if cur_comm else (cur_city or "Vancouver")
+            addr_for_check = str(item.get("address") or "")
  
+        extracted_addr = ""
+        if not has_detail_addr:
+            extracted_addr = _extract_detailed_address(text)
+            if extracted_addr:
+                item["address"] = extracted_addr
+                addr_for_check = extracted_addr
+                has_detail_addr = True
+
         if coords_ok:
             if c.is_suspicious_coordinate(item):
-                needs_coords = True
+                needs_coords = not is_source_map
             elif cur_city in CITY_BBOX and not _in_bbox(cur_city, float(lat), float(lng)):
-                needs_coords = True
-            elif cur_city in CITY_BBOX and cur_comm and not has_detail_addr:
+                needs_coords = not is_source_map
+            elif cur_city and cur_comm and not has_detail_addr:
                 box = COMMUNITY_BBOX.get((cur_city, cur_comm))
                 if not box and comm_enabled:
                     box = _get_community_bbox(cur_city, cur_comm, community_cache, comm_budget, comm_sleep)
                 if box and not _in_box(box, float(lat), float(lng)):
-                    needs_coords = coord_source != "source_map"
+                    needs_coords = not is_source_map
+
+            if has_detail_addr and (not is_source_map) and _near_city_center(cur_city, float(lat), float(lng)):
+                needs_coords = True
+                priority_needs_geocode = True
+
+            if (not has_detail_addr) and (not is_source_map) and _near_city_center(cur_city, float(lat), float(lng)):
+                a, b = _extract_intersection(text)
+                s = _extract_street(text)
+                if a and b:
+                    needs_coords = True
+                elif s and cur_comm:
+                    needs_coords = True
  
         if not needs_coords:
             continue
-        if cur_city in CITY_BBOX and cur_comm and not has_detail_addr:
+
+        box_for_comm = None
+        if cur_city and cur_comm and comm_enabled:
+            box_for_comm = COMMUNITY_BBOX.get((cur_city, cur_comm)) or _get_community_bbox(cur_city, cur_comm, community_cache, comm_budget, comm_sleep)
+
+        if (not has_detail_addr) and (not is_source_map):
+            a, b = _extract_intersection(text)
+            if a and b:
+                for street in [a, b]:
+                    q = f"{street}, {cur_comm}, {cur_city}, BC, Canada"
+                    coords2, geocode_used = _try_geocode_query(c, q, cur_city, cur_comm, None, max_geocode, geocode_used)
+                    if coords2:
+                        item["lat"] = float(coords2[0])
+                        item["lng"] = float(coords2[1])
+                        item["coord_source"] = "text_intersection"
+                        changed_coords += 1
+                        re_geocoded += 1
+                        continue
+                if item.get("coord_source") == "text_intersection":
+                    continue
+            s = _extract_street(text)
+            if s and cur_comm:
+                q = f"{s}, {cur_comm}, {cur_city}, BC, Canada"
+                coords2, geocode_used = _try_geocode_query(c, q, cur_city, cur_comm, None, max_geocode, geocode_used)
+                if coords2:
+                    item["lat"] = float(coords2[0])
+                    item["lng"] = float(coords2[1])
+                    item["coord_source"] = "text_street"
+                    changed_coords += 1
+                    re_geocoded += 1
+                    continue
+
+        if cur_city and cur_comm and not has_detail_addr:
             box = COMMUNITY_BBOX.get((cur_city, cur_comm))
             if not box and comm_enabled:
                 box = _get_community_bbox(cur_city, cur_comm, community_cache, comm_budget, comm_sleep)
@@ -332,8 +753,17 @@ def main():
                 changed_coords += 1
                 center_fallback += 1
                 continue
+        if cur_city in CITY_BBOX and (not has_detail_addr):
+            city_box = CITY_BBOX.get(cur_city)
+            if city_box:
+                new_lat, new_lng = _coords_from_bbox(item, city_box)
+                item["lat"] = float(new_lat)
+                item["lng"] = float(new_lng)
+                changed_coords += 1
+                center_fallback += 1
+                continue
  
-        query = c.build_geocode_query(addr, cur_city)
+        query = c.build_geocode_query(str(item.get("address") or ""), cur_city)
         cache_key = _cache_key_from_query(query)
         if cache_key in c.coords_cache:
             try:
@@ -343,8 +773,13 @@ def main():
  
         new_lat = None
         new_lng = None
-        if geocode_used < max_geocode:
+        allow_geocode = geocode_used < max_geocode
+        if (not allow_geocode) and bool(priority_needs_geocode) and (priority_geocode_used < max_priority_geocode):
+            allow_geocode = True
+            priority_geocode_used += 1
+        elif allow_geocode:
             geocode_used += 1
+        if allow_geocode:
             coords = c.get_lat_lng(query)
             try:
                 new_lat = float(coords[0]) if coords and coords[0] is not None else None
