@@ -944,7 +944,7 @@ class HavenNestCrawler:
 
                         detail_text = detail_soup.get_text("\n", strip=True)
                         addr2 = ""
-                        m = re.search(r'(?:联系地址|地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text)
+                        m = re.search(r'(?m)^(?:联系地址|地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text)
                         if m:
                             addr2 = m.group(1)
                         addr2 = re.sub(r'\s*查看地图.*$', '', addr2).strip()
