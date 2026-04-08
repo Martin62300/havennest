@@ -209,6 +209,20 @@ COMMUNITY_VOCAB = {
     ],
 }
 
+BUILDING_VOCAB = {
+    "Richmond": [
+        ("concord gardens", "Concord Gardens"),
+        ("river green 2", "River Green 2"),
+        ("rivergreen 2", "River Green 2"),
+        ("river green", "River Green"),
+        ("rivergreen", "River Green"),
+    ],
+    "Burnaby": [
+        ("concord brentwood", "Concord Brentwood"),
+        ("concord metrotown", "Concord Metrotown"),
+    ],
+}
+
  
 def _is_number(x: Any) -> bool:
     return isinstance(x, (int, float)) and not isinstance(x, bool)
@@ -297,6 +311,20 @@ def _infer_community_from_text(city: str, text: str) -> str:
     return best
 
  
+def _infer_building_query(city: str, text: str) -> str:
+    city0 = (city or "").strip()
+    if not city0:
+        return ""
+    vocab = BUILDING_VOCAB.get(city0) or []
+    if not vocab:
+        return ""
+    t = (text or "").lower()
+    for needle, building in vocab:
+        if needle in t:
+            return f"{building}, {city0}, BC, Canada"
+    return ""
+
+
 def _coords_from_bbox(item: Dict[str, Any], box: Tuple[float, float, float, float]) -> Tuple[float, float]:
     lat_min, lat_max, lng_min, lng_max = box
     u = _stable_u(item, "lat")
@@ -522,6 +550,17 @@ def _extract_detailed_address(text: str) -> str:
             v = _clean_extracted_addr(m.group(1))
             if v:
                 candidates.append(v)
+    lines = [x.strip() for x in (t.splitlines() if isinstance(t, str) else [])]
+    for i, line in enumerate(lines):
+        low = line.replace("：", ":").strip().lower()
+        if low in ["联系地址", "联系地址:", "地址", "地址:"]:
+            j = i + 1
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            if j < len(lines):
+                v = _clean_extracted_addr(lines[j])
+                if v:
+                    candidates.append(v)
     if not candidates:
         return ""
     candidates = [c for c in candidates if re.search(r"\d", c)]
@@ -578,7 +617,8 @@ def main():
         raise SystemExit(f"listings.json not found: {listings_path}")
  
     max_geocode = int(os.getenv("MAX_GEOCODE", "30") or "30")
-    max_priority_geocode = int(os.getenv("MAX_PRIORITY_GEOCODE", "10") or "10")
+    max_priority_geocode = int(os.getenv("MAX_PRIORITY_GEOCODE", "60") or "60")
+    max_building_geocode = int(os.getenv("MAX_BUILDING_GEOCODE", "10") or "10")
  
     with open(listings_path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -596,6 +636,7 @@ def main():
     center_fallback = 0
     geocode_used = 0
     priority_geocode_used = 0
+    building_geocode_used = 0
  
     for item in data:
         source = (item.get("source") or "").strip().lower()
@@ -705,6 +746,18 @@ def main():
         box_for_comm = None
         if cur_city and cur_comm and comm_enabled:
             box_for_comm = COMMUNITY_BBOX.get((cur_city, cur_comm)) or _get_community_bbox(cur_city, cur_comm, community_cache, comm_budget, comm_sleep)
+
+        if (not has_detail_addr) and (not cur_comm) and (not is_source_map) and cur_city and (building_geocode_used < max_building_geocode):
+            bq = _infer_building_query(cur_city, text)
+            if bq:
+                coords2, building_geocode_used = _try_geocode_query(c, bq, cur_city, "", None, max_building_geocode, building_geocode_used)
+                if coords2:
+                    item["lat"] = float(coords2[0])
+                    item["lng"] = float(coords2[1])
+                    item["coord_source"] = "building_name"
+                    changed_coords += 1
+                    re_geocoded += 1
+                    continue
 
         if (not has_detail_addr) and (not is_source_map):
             a, b = _extract_intersection(text)
