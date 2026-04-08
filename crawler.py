@@ -36,44 +36,108 @@ class HavenNestCrawler:
                 print(f"R2 config present: {ok}")
             print(f"Airtable token present: {bool(self.airtable_token)}")
 
-    def infer_city(self, text):
+    def infer_city_info(self, text):
         if not text:
-            return ""
+            return {"city": "", "key": "", "strength": 0}
         s = str(text).lower()
-        # 优先级：先匹配具体的片区/大学，再匹配大城市名，防止“UBC,列治文”这种冲突导致错误覆盖
-        mapping = [
-            # 温哥华高优先级片区
-            ("ubc", "Vancouver"), ("温西", "Vancouver"), ("温东", "Vancouver"), 
-            ("downtown", "Vancouver"), ("dt", "Vancouver"), ("yaletown", "Vancouver"),
-            ("marine dr", "Vancouver"),
-            # 本拿比高优先级片区
-            ("metrotown", "Burnaby"), ("lougheed", "Burnaby"), ("brentwood", "Burnaby"), ("edmonds", "Burnaby"), ("edmond", "Burnaby"),
+        s_strip = s.strip()
+
+        starts = [
+            ("rmd", "Richmond"),
+            ("richmond", "Richmond"),
+            ("列治文", "Richmond"),
+            ("coquitlam", "Coquitlam"),
+            ("高贵林", "Coquitlam"),
             ("bby", "Burnaby"),
-            # 其他片区
-            ("burquitlam", "Coquitlam"), ("coquitlam centre", "Coquitlam"),
-            ("lansdowne", "Richmond"), ("brighouse", "Richmond"), ("steveston", "Richmond"),
-            ("guildford", "Surrey"), ("whalley", "Surrey"), ("newton", "Surrey"), ("central city", "Surrey"),
-            ("poco", "Port Coquitlam"),
-            
-            # 基础城市名 (优先级较低，放在后面)
-            ("vancouver", "Vancouver"), ("温哥华", "Vancouver"),
-            ("richmond", "Richmond"), ("列治文", "Richmond"),
-            ("burnaby", "Burnaby"), ("本拿比", "Burnaby"),
-            ("surrey", "Surrey"), ("素里", "Surrey"),
-            ("coquitlam", "Coquitlam"), ("高贵林", "Coquitlam"),
-            ("new westminster", "New Westminster"), ("新西敏", "New Westminster"),
-            ("delta", "Delta"), ("三角洲", "Delta"),
-            ("langley", "Langley"), ("兰里", "Langley"),
-            ("north vancouver", "North Vancouver"), ("北温", "North Vancouver"),
-            ("west vancouver", "West Vancouver"), ("西温", "West Vancouver"),
-            ("port coquitlam", "Port Coquitlam"), ("高贵林港", "Port Coquitlam"),
-            ("port moody", "Port Moody"), ("满地宝", "Port Moody"),
-            ("maple ridge", "Maple Ridge"), ("枫树岭", "Maple Ridge"),
+            ("burnaby", "Burnaby"),
+            ("本拿比", "Burnaby"),
+            ("surrey", "Surrey"),
+            ("素里", "Surrey"),
+            ("vancouver", "Vancouver"),
+            ("温哥华", "Vancouver"),
         ]
-        for k, city in mapping:
-            if k in s:
-                return city
-        return ""
+        for key, city in starts:
+            if s_strip.startswith(key):
+                return {"city": city, "key": key, "strength": 2}
+
+        def has_token(token):
+            return re.search(rf'(?<![a-z0-9]){re.escape(token)}(?![a-z0-9])', s) is not None
+
+        rules = [
+            ("west coquitlam", "Coquitlam", 4),
+            ("coquitlam west", "Coquitlam", 4),
+            ("高贵林西", "Coquitlam", 4),
+            ("burqitlam", "Coquitlam", 4),
+            ("burquitlam", "Coquitlam", 3),
+            ("coquitlam centre", "Coquitlam", 3),
+            ("westwood plateau", "Coquitlam", 3),
+            ("burke mountain", "Coquitlam", 3),
+
+            ("lansdowne", "Richmond", 3),
+            ("brighouse", "Richmond", 3),
+            ("steveston", "Richmond", 3),
+
+            ("metrotown", "Burnaby", 3),
+            ("brentwood", "Burnaby", 3),
+            ("lougheed", "Burnaby", 3),
+            ("edmonds", "Burnaby", 3),
+            ("edmond", "Burnaby", 3),
+
+            ("guildford", "Surrey", 3),
+            ("whalley", "Surrey", 3),
+            ("newton", "Surrey", 3),
+            ("central city", "Surrey", 3),
+
+            ("ubc", "Vancouver", 3),
+            ("downtown", "Vancouver", 3),
+            ("yaletown", "Vancouver", 3),
+            ("marine dr", "Vancouver", 3),
+            ("温西", "Vancouver", 3),
+            ("温东", "Vancouver", 3),
+
+            ("rmd", "Richmond", 2),
+            ("bby", "Burnaby", 2),
+            ("poco", "Port Coquitlam", 2),
+
+            ("richmond", "Richmond", 1),
+            ("列治文", "Richmond", 1),
+            ("burnaby", "Burnaby", 1),
+            ("本拿比", "Burnaby", 1),
+            ("coquitlam", "Coquitlam", 1),
+            ("高贵林", "Coquitlam", 1),
+            ("surrey", "Surrey", 1),
+            ("素里", "Surrey", 1),
+            ("vancouver", "Vancouver", 1),
+            ("温哥华", "Vancouver", 1),
+            ("new westminster", "New Westminster", 1),
+            ("新西敏", "New Westminster", 1),
+            ("delta", "Delta", 1),
+            ("三角洲", "Delta", 1),
+            ("langley", "Langley", 1),
+            ("兰里", "Langley", 1),
+            ("north vancouver", "North Vancouver", 1),
+            ("北温", "North Vancouver", 1),
+            ("west vancouver", "West Vancouver", 1),
+            ("西温", "West Vancouver", 1),
+            ("port coquitlam", "Port Coquitlam", 1),
+            ("高贵林港", "Port Coquitlam", 1),
+            ("port moody", "Port Moody", 1),
+            ("满地宝", "Port Moody", 1),
+            ("maple ridge", "Maple Ridge", 1),
+            ("枫树岭", "Maple Ridge", 1),
+        ]
+
+        for key, city, strength in rules:
+            if " " in key:
+                if key in s:
+                    return {"city": city, "key": key, "strength": strength}
+            else:
+                if has_token(key) or key in s:
+                    return {"city": city, "key": key, "strength": strength}
+        return {"city": "", "key": "", "strength": 0}
+
+    def infer_city(self, text):
+        return self.infer_city_info(text).get("city", "")
 
     def build_geocode_query(self, address, city):
         a = (address or "").strip()
@@ -119,7 +183,8 @@ class HavenNestCrawler:
             yvr = (49.17 < lat < 49.21) and (-123.22 < lng < -123.14)
             if yvr and inferred == "Richmond" and not any(k in text for k in ['yvr', 'airport', 'sea island', 'templeton']):
                 q = self.build_geocode_query(item.get('address', ''), item.get('city', ''))
-                k = (q + ", BC, Canada").strip()
+                clean_addr = re.sub(r'[^\w\s,.-]', '', q).strip()
+                k = f"{clean_addr}, BC, Canada"
                 if k in self.coords_cache:
                     try:
                         del self.coords_cache[k]
@@ -227,7 +292,7 @@ class HavenNestCrawler:
                         photos.append(stored)
                 
                 # 城市识别
-                city = f.get('所在城市 (City)', "")
+                city = f.get('所属城市 (City)') or f.get('所在城市 (City)') or ""
                 inferred = self.infer_city(title + " " + addr)
                 if inferred and (not city or city.strip().lower() == "vancouver"):
                     city = inferred
@@ -313,15 +378,37 @@ class HavenNestCrawler:
 
     def extract_beds(self, text):
         """通用卧室数量提取逻辑"""
-        if not text: return 1
-        text = text.lower()
-        # 匹配 "2 beds", "2br", "2室", "2房"
-        match = re.search(r'(\d+)\s*(?:室|房|br|bed|bedroom)', text)
-        if match:
-            return int(match.group(1))
         # 匹配 "studio", "bachelor"
+        if not text:
+            return 1
+        text = str(text).lower()
         if "studio" in text or "bachelor" in text:
             return 0
+        # 匹配 "2 beds", "2br", "2室", "2房", "2卧"
+        match = re.search(r'(\d+)\s*(?:bed(?:room)?s?|br|室|房|卧)', text)
+        if match:
+            try:
+                return int(match.group(1))
+            except:
+                pass
+        # 匹配 "2b2b" / "2bd2ba"
+        match = re.search(r'(\d+)\s*b(?:d|ed)?\s*(\d+)\s*b(?:a|ath)?', text)
+        if match:
+            try:
+                return int(match.group(1))
+            except:
+                pass
+        # 匹配中文数字："两房"、"二室"、"三卧"
+        cn_map = {
+            "零": 0, "〇": 0,
+            "一": 1, "二": 2, "两": 2, "三": 3, "四": 4, "五": 5,
+            "六": 6, "七": 7, "八": 8, "九": 9, "十": 10
+        }
+        m = re.search(r'([零〇一二两三四五六七八九十])\s*(?:室|房|卧)', text)
+        if m:
+            v = cn_map.get(m.group(1))
+            if isinstance(v, int):
+                return v
         return 1
 
     def process_manual_rentals(self):
@@ -373,8 +460,10 @@ class HavenNestCrawler:
                     city_match = re.search(r'"cityName":\s*"(.*?)"', block)
                     city = city_match.group(1) if city_match else "Vancouver"
                     full_address = f"{street}, {city}" if street else city
-                    inferred_city = self.infer_city(" ".join([title, full_address]))
-                    if inferred_city and (not city or city.strip().lower() == "vancouver"):
+                    info = self.infer_city_info(" ".join([title, full_address]))
+                    inferred_city = info.get("city") or ""
+                    strength = int(info.get("strength") or 0)
+                    if inferred_city and (not city or city.strip().lower() == "vancouver" or (strength >= 2 and city.strip().lower() != inferred_city.lower())):
                         city = inferred_city
                         full_address = f"{street}, {city}" if street else city
 
@@ -498,8 +587,10 @@ class HavenNestCrawler:
                                 city_obj = (address.get('city') or {})
                                 city = city_obj.get('cityName') or "Vancouver"
                                 full_address = f"{street}, {city}" if street else city
-                                inferred_city = self.infer_city(" ".join([title, full_address]))
-                                if inferred_city and (not city or city.strip().lower() == "vancouver"):
+                                info = self.infer_city_info(" ".join([title, full_address]))
+                                inferred_city = info.get("city") or ""
+                                strength = int(info.get("strength") or 0)
+                                if inferred_city and (not city or city.strip().lower() == "vancouver" or (strength >= 2 and city.strip().lower() != inferred_city.lower())):
                                     city = inferred_city
                                     full_address = f"{street}, {city}" if street else city
 

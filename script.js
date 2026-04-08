@@ -256,8 +256,22 @@ async function init() {
             // 房源过滤逻辑：确保至少有标题和价格，坐标如果没有则赋予默认值（兜底）
             allListings = data.map(i => {
                 if (!i.lat || !i.lng) {
-                    i.lat = 49.2827;
-                    i.lng = -123.1207;
+                    if (i.city === 'Richmond') {
+                        i.lat = 49.1666;
+                        i.lng = -123.1336;
+                    } else if (i.city === 'Burnaby') {
+                        i.lat = 49.2488;
+                        i.lng = -122.9805;
+                    } else if (i.city === 'Coquitlam') {
+                        i.lat = 49.2830;
+                        i.lng = -122.7932;
+                    } else if (i.city === 'Surrey') {
+                        i.lat = 49.1913;
+                        i.lng = -122.8490;
+                    } else {
+                        i.lat = 49.2827;
+                        i.lng = -123.1207;
+                    }
                 }
                 return i;
             });
@@ -442,16 +456,9 @@ function filterListings() {
     const sort = document.getElementById('sort-price').value;
 
     filteredListings = allListings.filter(i => {
-        // 增强城市匹配：检查城市字段、地址字段以及标题
         const searchCity = city.toLowerCase();
         const itemCity = (i.city || "").toLowerCase();
-        const itemAddr = (i.address || "").toLowerCase();
-        const itemTitle = (i.title || "").toLowerCase();
-
-        const matchCity = !city || 
-                         itemCity.includes(searchCity) || 
-                         itemAddr.includes(searchCity) || 
-                         itemTitle.includes(searchCity);
+        const matchCity = !city || itemCity === searchCity;
         
         // 卧室匹配逻辑
         let matchBeds = true;
