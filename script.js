@@ -227,6 +227,103 @@ function getBathsValue(i) {
     return null;
 }
 
+const CITY_CENTERS = {
+    Vancouver: [49.2827, -123.1207],
+    Richmond: [49.1666, -123.1336],
+    Burnaby: [49.2488, -122.9805],
+    Coquitlam: [49.2830, -122.7932],
+    Surrey: [49.1913, -122.8490]
+};
+
+const COMMUNITY_SYNONYMS = {
+    "thompson community": "Thompson",
+    "thompson community centre": "Thompson",
+    "rmd thompson": "Thompson",
+    "列治文 thompson": "Thompson",
+    "brighouse": "Brighouse",
+    "richmond centre": "City Centre",
+    "richmond center": "City Centre",
+    "city centre": "City Centre",
+    "west cambie": "West Cambie",
+    "east cambie": "East Cambie",
+    "steveston": "Steveston",
+    "metrotown": "Metrotown",
+    "brentwood": "Brentwood",
+    "edmonds": "Edmonds",
+    "highgate": "Highgate",
+    "coquitlam west": "Coquitlam West",
+    "west coquitlam": "Coquitlam West",
+    "burquitlam": "Burquitlam",
+    "austin heights": "Austin Heights",
+    "coquitlam centre": "Coquitlam Centre",
+    "coquitlam center": "Coquitlam Centre"
+};
+
+const COMMUNITY_BBOX = {
+    "Richmond||Thompson": [49.145, 49.185, -123.165, -123.105],
+    "Richmond||Brighouse": [49.155, 49.175, -123.145, -123.105],
+    "Richmond||City Centre": [49.160, 49.185, -123.150, -123.105],
+    "Richmond||West Cambie": [49.175, 49.205, -123.190, -123.120],
+    "Richmond||East Cambie": [49.175, 49.205, -123.110, -123.055],
+    "Richmond||Steveston": [49.115, 49.145, -123.205, -123.145],
+    "Burnaby||Metrotown": [49.210, 49.245, -123.030, -122.980],
+    "Burnaby||Brentwood": [49.260, 49.285, -123.020, -122.980],
+    "Burnaby||Edmonds": [49.205, 49.235, -123.030, -122.950],
+    "Burnaby||Highgate": [49.205, 49.230, -123.015, -122.980],
+    "Coquitlam||Coquitlam West": [49.240, 49.280, -122.905, -122.840],
+    "Coquitlam||Burquitlam": [49.250, 49.290, -122.915, -122.850],
+    "Coquitlam||Austin Heights": [49.255, 49.290, -122.870, -122.820],
+    "Coquitlam||Coquitlam Centre": [49.265, 49.310, -122.850, -122.770]
+};
+
+function normalizeCommunityName(v) {
+    const s = (v || "").toString().trim();
+    if (!s) return "";
+    const low = s.toLowerCase();
+    return COMMUNITY_SYNONYMS[low] || s;
+}
+
+function stableU(item, salt) {
+    const k = String((item && (item.id || item.url || item.title)) || "");
+    const s = `${salt}|${k}`;
+    let h = 2166136261;
+    for (let i = 0; i < s.length; i++) {
+        h ^= s.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+    }
+    return (h >>> 0) / 0xFFFFFFFF;
+}
+
+function coordsFromBox(item, box) {
+    const [latMin, latMax, lngMin, lngMax] = box;
+    const u = stableU(item, "lat");
+    const v = stableU(item, "lng");
+    const lat = latMin + u * (latMax - latMin);
+    const lng = lngMin + v * (lngMax - lngMin);
+    return [lat, lng];
+}
+
+function ensureListingCoords(i) {
+    if (i && Number.isFinite(Number(i.lat)) && Number.isFinite(Number(i.lng))) return i;
+    const city = (i && i.city ? String(i.city) : "Vancouver").trim() || "Vancouver";
+    const commRaw = (i && (i.community || i.neighborhood || i.area)) ? String(i.community || i.neighborhood || i.area) : "";
+    const comm = normalizeCommunityName(commRaw);
+    if (comm) {
+        const key = `${city}||${comm}`;
+        const box = COMMUNITY_BBOX[key];
+        if (box) {
+            const [lat, lng] = coordsFromBox(i || {}, box);
+            i.lat = lat;
+            i.lng = lng;
+            return i;
+        }
+    }
+    const center = CITY_CENTERS[city] || CITY_CENTERS.Vancouver;
+    i.lat = center[0];
+    i.lng = center[1];
+    return i;
+}
+
 async function init() {
     try {
         const stored = localStorage.getItem('viewMode');
@@ -255,25 +352,7 @@ async function init() {
             const data = await res.json();
             // 房源过滤逻辑：确保至少有标题和价格，坐标如果没有则赋予默认值（兜底）
             allListings = data.map(i => {
-                if (!i.lat || !i.lng) {
-                    if (i.city === 'Richmond') {
-                        i.lat = 49.1666;
-                        i.lng = -123.1336;
-                    } else if (i.city === 'Burnaby') {
-                        i.lat = 49.2488;
-                        i.lng = -122.9805;
-                    } else if (i.city === 'Coquitlam') {
-                        i.lat = 49.2830;
-                        i.lng = -122.7932;
-                    } else if (i.city === 'Surrey') {
-                        i.lat = 49.1913;
-                        i.lng = -122.8490;
-                    } else {
-                        i.lat = 49.2827;
-                        i.lng = -123.1207;
-                    }
-                }
-                return i;
+                return ensureListingCoords(i);
             });
             try {
                 const r = await fetch('/api/public/listings', { method: 'GET' });
@@ -290,19 +369,7 @@ async function init() {
                             merged.lat = existing.lat;
                             merged.lng = existing.lng;
                         }
-                        if (!merged.lat || !merged.lng) {
-                            if (merged.city === 'Richmond') {
-                                merged.lat = 49.1666;
-                                merged.lng = -123.1336;
-                            } else if (merged.city === 'Burnaby') {
-                                merged.lat = 49.2488;
-                                merged.lng = -122.9805;
-                            } else {
-                                merged.lat = 49.2827;
-                                merged.lng = -123.1207;
-                            }
-                        }
-                        return merged;
+                        return ensureListingCoords(merged);
                     });
                     allListings = allListings.filter(x => (x.source || '') !== 'owner').concat(mergedOwners);
                 }

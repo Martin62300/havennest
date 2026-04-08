@@ -169,6 +169,10 @@ class HavenNestCrawler:
         return (a + ", " + c).strip(", ").strip() if (a or c) else "Vancouver"
 
     def geocode_item(self, item):
+        lat = item.get("lat")
+        lng = item.get("lng")
+        if isinstance(lat, (int, float)) and isinstance(lng, (int, float)):
+            return lat, lng
         q = self.build_geocode_query(item.get("address", ""), item.get("city", ""))
         return self.get_lat_lng(q)
 
@@ -282,7 +286,7 @@ class HavenNestCrawler:
                 status = (f.get('Status') or f.get('status') or f.get('状态 (Status)') or '').strip().lower()
                 if status in ['inactive', 'deleted', 'off', 'disabled']:
                     continue
-                addr = f.get('房源具体地址 (Address)', "Vancouver")
+                addr_raw = (f.get('房源具体地址 (Address)') or '').strip()
                 title = f.get('房源标题 (Listing Title)', "Rental Listing")
                 raw_photos = [p.get('url') for p in f.get('房源照片 / Property Photos', []) if p.get('url')]
                 photos = []
@@ -291,13 +295,32 @@ class HavenNestCrawler:
                     if stored:
                         photos.append(stored)
                 
+                community = ""
+                try:
+                    for k, v in f.items():
+                        lk = str(k).lower()
+                        if not any(s in lk for s in ['community', 'neighbourhood', 'neighborhood', '社区']):
+                            continue
+                        if isinstance(v, str) and v.strip():
+                            community = v.strip()
+                            break
+                        if isinstance(v, list) and v and isinstance(v[0], str) and v[0].strip():
+                            community = v[0].strip()
+                            break
+                except:
+                    community = ""
+ 
                 # 城市识别
                 city = f.get('所属城市 (City)') or f.get('所在城市 (City)') or ""
-                inferred = self.infer_city(title + " " + addr)
+                inferred = self.infer_city(title + " " + addr_raw + " " + community)
                 if inferred and (not city or city.strip().lower() == "vancouver"):
                     city = inferred
                 if not city:
                     city = "Vancouver"
+ 
+                addr = addr_raw
+                if not addr:
+                    addr = f"{community}, {city}".strip(", ").strip() if community else city
 
                 # 卧室数量识别
                 beds = f.get('卧室数量 (Beds)')
@@ -316,6 +339,7 @@ class HavenNestCrawler:
                     "url": f"https://havennestapp.com/listing/{r['id']}", # 伪链接，详情由前端Modal展示
                     "address": addr,
                     "city": city,
+                    "community": community,
                     "beds": beds,
                     "lat": lat,
                     "lng": lng,
@@ -899,6 +923,46 @@ class HavenNestCrawler:
                             addr2 = m.group(1)
                         addr2 = re.sub(r'\s*查看地图.*$', '', addr2).strip()
                         addr2 = re.sub(r'\s+', ' ', addr2)
+ 
+                        community = ""
+                        for candidate in [addr2, loc]:
+                            if candidate and "-" in candidate:
+                                parts = [p.strip() for p in candidate.split("-", 1)]
+                                if len(parts) == 2 and parts[0] in ["Vancouver", "Richmond", "Burnaby", "Surrey", "Coquitlam"]:
+                                    community = parts[1]
+                                    break
+                        if not community:
+                            m = re.search(r'\b(Vancouver|Richmond|Burnaby|Surrey|Coquitlam)\s*-\s*([A-Za-z][A-Za-z\s]+)', detail_text)
+                            if m:
+                                community = m.group(2).strip()
+ 
+                        map_lat, map_lng = None, None
+                        coord_source = ""
+                        try:
+                            iframe = detail_soup.select_one('iframe[src*="lat="][src*="lng="]')
+                            src = (iframe.get('src') or '').strip() if iframe else ''
+                            if src and src.startswith('/'):
+                                src = "https://c.vanpeople.com" + src
+                            src2 = src
+                            if not src2:
+                                raw_html = detail_res.text or ""
+                                msrc = re.search(r'(?i)https?://[^\s"\']*googlemap\.html\?[^\s"\']*', raw_html)
+                                if msrc:
+                                    src2 = msrc.group(0)
+                                else:
+                                    msrc2 = re.search(r'(?i)["\'](/googlemap\.html\?[^"\']+)["\']', raw_html)
+                                    if msrc2:
+                                        src2 = msrc2.group(1)
+                                        if src2.startswith('/'):
+                                            src2 = "https://c.vanpeople.com" + src2
+                            mlat = re.search(r'(?i)[?&]lat=([-\d.]+)', src2)
+                            mlng = re.search(r'(?i)[?&]lng=([-\d.]+)', src2)
+                            if mlat and mlng:
+                                map_lat = float(mlat.group(1))
+                                map_lng = float(mlng.group(1))
+                                coord_source = "source_map"
+                        except:
+                            map_lat, map_lng = None, None
 
                         city = self.infer_city(" ".join([title, loc, addr2, detail_text])) or "Vancouver"
                         address = addr2 or loc or city
@@ -910,9 +974,11 @@ class HavenNestCrawler:
                             "url": detail_url,
                             "address": address,
                             "city": city,
+                            "community": community,
                             "beds": self.extract_beds(title + " " + desc),
-                            "lat": None,
-                            "lng": None,
+                            "lat": map_lat,
+                            "lng": map_lng,
+                            "coord_source": coord_source,
                             "image": images[0] if images else "",
                             "images": images,
                             "desc": desc if desc else "请点击'查看原房源'获取更多详细信息。",
@@ -979,7 +1045,14 @@ class HavenNestCrawler:
             
             # 兜底逻辑：依然没有坐标，分配一个中心点
             if not item.get('lat') or not item.get('lng'):
-                base_lat, base_lng = (49.1666, -123.1336) if item.get('city') == "Richmond" else (49.2827, -123.1207)
+                centers = {
+                    "Vancouver": (49.2827, -123.1207),
+                    "Richmond": (49.1666, -123.1336),
+                    "Burnaby": (49.2488, -122.9805),
+                    "Coquitlam": (49.2830, -122.7932),
+                    "Surrey": (49.1913, -122.8490),
+                }
+                base_lat, base_lng = centers.get(item.get('city')) or centers["Vancouver"]
                 item['lat'] = base_lat + (time.time() % 1 - 0.5) * 0.005
                 item['lng'] = base_lng + (time.time() % 1 - 0.5) * 0.005
 
