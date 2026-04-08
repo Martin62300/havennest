@@ -5,6 +5,7 @@ import time
 import glob
 import requests
 from datetime import datetime, timedelta
+from urllib.parse import parse_qs, unquote_plus, urlparse
 import cloudscraper
 from bs4 import BeautifulSoup
 
@@ -707,17 +708,42 @@ class HavenNestCrawler:
                     loc = loc_el.text.strip() if loc_el else "Vancouver"
                     
                     city = self.infer_city(loc + " " + title) or "Vancouver"
+
+                    coord_source = ""
+                    lat, lng = None, None
+                    try:
+                        m = d_soup.select_one('#map[data-latitude][data-longitude]')
+                        if m:
+                            lat = float(m.get('data-latitude'))
+                            lng = float(m.get('data-longitude'))
+                            coord_source = "source_map"
+                    except:
+                        lat, lng = None, None
+
+                    address = ""
+                    try:
+                        a = d_soup.select_one('.mapaddress')
+                        address = a.get_text(" ", strip=True) if a else ""
+                    except:
+                        address = ""
+                    if not address:
+                        m = re.search(r'(?im)^\s*(?:address|addr|location)\s*:\s*(.+?)\s*$', desc)
+                        if m:
+                            address = m.group(1).strip()
+                    if not address:
+                        address = loc
                     
                     results.append({
                         "source": "Craigslist",
                         "title": title,
                         "price": price,
                         "url": detail_url,
-                        "address": loc,
+                        "address": address,
                         "city": city,
                         "beds": self.extract_beds(title + " " + desc),
-                        "lat": None,
-                        "lng": None,
+                        "lat": lat,
+                        "lng": lng,
+                        "coord_source": coord_source,
                         "image": images[0] if images else "",
                         "images": images,
                         "desc": desc,
@@ -938,6 +964,7 @@ class HavenNestCrawler:
  
                         map_lat, map_lng = None, None
                         coord_source = ""
+                        map_query = ""
                         try:
                             iframe = detail_soup.select_one('iframe[src*="lat="][src*="lng="]')
                             src = (iframe.get('src') or '').strip() if iframe else ''
@@ -961,11 +988,30 @@ class HavenNestCrawler:
                                 map_lat = float(mlat.group(1))
                                 map_lng = float(mlng.group(1))
                                 coord_source = "source_map"
+                            else:
+                                iframe2 = detail_soup.select_one('iframe[src*="maps.google.com/maps/embed"], iframe[src*="google.com/maps/embed"], iframe[src*="maps/embed/v1/place"]')
+                                src3 = (iframe2.get('src') or '').strip() if iframe2 else ''
+                                if src3:
+                                    q = parse_qs(urlparse(src3).query).get('q', [''])[0]
+                                    q = unquote_plus(q or '').strip()
+                                    if q:
+                                        q2 = re.sub(r'(?i),?\s*canada\s*$', '', q).strip().strip(',')
+                                        map_query = q2 or q
+                                        coord_source = "source_map_query"
                         except:
                             map_lat, map_lng = None, None
 
-                        city = self.infer_city(" ".join([title, loc, addr2, detail_text])) or "Vancouver"
-                        address = addr2 or loc or city
+                        raw_html2 = detail_res.text or ""
+                        open_maps_q = ""
+                        try:
+                            mm = re.search(r'(?i)https?://(?:www\.)?google\.com/maps/\?q=([^\s"\'<>]+)', raw_html2)
+                            if mm:
+                                open_maps_q = unquote_plus(mm.group(1) or '').strip()
+                        except:
+                            open_maps_q = ""
+
+                        city = self.infer_city(" ".join([title, loc, addr2, detail_text, map_query, open_maps_q])) or "Vancouver"
+                        address = addr2 or loc or open_maps_q or map_query or city
 
                         results.append({
                             "source": "VanPeople",
