@@ -43,6 +43,12 @@ jobs:
  
       - name: Post-crawl fix (city/beds/coords)
         run: python tools/post_crawl_fix.py
+        env:
+          MAX_GEOCODE: "30"
+          MAX_PRIORITY_GEOCODE: "60"
+          MAX_BUILDING_GEOCODE: "10"
+          MAX_COMMUNITY_GEOBOX: "10"
+          COMMUNITY_GEOBOX_SLEEP: "1.2"
 
       - name: Commit and push changes
         run: |
