@@ -48,6 +48,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add listings.json coords_cache.json
+          git add listings.json coords_cache.json community_bbox_cache.json
           git commit -m "Auto-update listings: $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
           git push
