@@ -1038,7 +1038,8 @@ class HavenNestCrawler:
                         except:
                             open_maps_q = ""
 
-                        city = self.infer_city(" ".join([title, loc, addr2, detail_text, map_query, open_maps_q])) or "Vancouver"
+                        city_hint_text = " ".join([x for x in [title, loc, addr2, map_query, open_maps_q, desc] if x])
+                        city = self.infer_city(city_hint_text) or "Vancouver"
                         address = addr2 or loc or open_maps_q or map_query or city
 
                         results.append({
