@@ -1243,18 +1243,6 @@
         49.2904176,
         -123.1292197
     ],
-    "4733 Hazel St, Burnaby, BC, Canada": [
-        49.2290753,
-        -122.9974603
-    ],
-    "1477 Continental Street, Vancouver, BC, Canada": [
-        49.2744852,
-        -123.1309054
-    ],
-    "1045 Haro Street, Vancouver, BC, Canada": [
-        49.2836434,
-        -123.1249331
-    ],
     "825 Nicola Street, Vancouver, BC, Canada": [
         49.2886428,
         -123.1316557
@@ -1262,10 +1250,6 @@
     "1924 Barclay Street, Vancouver, BC, Canada": [
         49.2912412,
         -123.1398192
-    ],
-    "2488 Granville Street, Vancouver, BC, Canada": [
-        49.2640031,
-        -123.1383055
     ],
     "1202 Harwood Street, Vancouver, BC, Canada": [
         49.2804291,
@@ -1359,12 +1343,76 @@
         49.0858633,
         -122.6772235
     ],
+    "6420 Comstock Road, Richmond, BC, Canada": [
+        49.1608476,
+        -123.1533409
+    ],
+    "6699 Nelson Avenue, Burnaby, BC, Canada": [
+        49.2101378,
+        -122.9942068
+    ],
+    "6168 Wilson Avenue Metrotown, Burnaby, BC, Canada": [
+        49.2279306,
+        -123.0103557
+    ],
+    "8000 Westminster Highway Richmond, BC, Canada": [
+        49.168161,
+        -122.9739467
+    ],
+    "7075 Frederick Avenue, Burnaby, BC, Canada": [
+        49.2195297,
+        -123.001805
+    ],
+    "6511 Sussex Avenue Metrotown, Burnaby, BC, Canada": [
+        49.2245944,
+        -123.0027579
+    ],
+    "Kingsway, Burnaby, BC, Canada": [
+        49.2152709,
+        -122.9405492
+    ],
+    "9333 Tomicki Avenue, Richmond, BC, Canada": [
+        49.1808425,
+        -123.1204848
+    ],
+    "Kensington Avenue, Burnaby, BC, Canada": [
+        49.2608315,
+        -122.9658616
+    ],
+    "6463 Silver Avenue Metrotown, Burnaby, BC, Canada": [
+        49.2248459,
+        -123.0069043
+    ],
+    "680 Quayside Drive 660, New Westminster, BC, Canada": [
+        49.1998089,
+        -122.9142434
+    ],
+    "4769 Hazel Street, Burnaby, BC, Canada": [
+        49.22905,
+        -122.9968569
+    ],
+    "2488 Granville Street, Vancouver, BC, Canada": [
+        49.2640031,
+        -123.1383055
+    ],
+    "4733 Hazel St, Burnaby, BC, Canada": [
+        49.2290753,
+        -122.9974603
+    ],
+    "1045 Haro Street, Vancouver, BC, Canada": [
+        49.2836434,
+        -123.1249331
+    ],
+    "1477 Continental Street, Vancouver, BC, Canada": [
+        49.2744852,
+        -123.1309054
+    ],
     "855 Jervis Street, Vancouver, BC, Canada": [
         49.2866205,
         -123.1295863
     ],
-    "6420 Comstock Road, Richmond, BC, Canada": [
-        49.1608476,
-        -123.1533409
+    "939 Beatty Street, Vancouver, BC, Canada": [
+        49.2763787,
+        -123.1161826
     ]
 }
