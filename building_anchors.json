@@ -1,0 +1,170 @@
+{
+  "Richmond": [
+    {
+      "canonical": "River Green 2",
+      "anchor_query": "6688 Pearson Way, Richmond, BC",
+      "aliases": ["river green 2", "rivergreen 2", "hollybridge at river green"]
+    },
+    {
+      "canonical": "River Green",
+      "anchor_query": "River Green, Richmond, BC",
+      "aliases": ["river green", "rivergreen", "river green 1", "rivergreen 1"]
+    },
+    {
+      "canonical": "Concord Gardens",
+      "anchor_query": "Concord Gardens, Richmond, BC",
+      "aliases": ["concord gardens", "concord gardens north", "concord gardens south", "concord gardens central", "concord gardens west", "concord gardens estates"]
+    },
+    {
+      "canonical": "ViewStar",
+      "anchor_query": "ViewStar, Richmond, BC",
+      "aliases": ["viewstar", "郡苑"]
+    },
+    {
+      "canonical": "Cascade City",
+      "anchor_query": "Cascade City, Richmond, BC",
+      "aliases": ["cascade city"]
+    },
+    {
+      "canonical": "Quintet",
+      "anchor_query": "Quintet, Richmond, BC",
+      "aliases": ["quintet"]
+    },
+    {
+      "canonical": "Wall Centre Richmond",
+      "anchor_query": "Wall Centre Richmond, Richmond, BC",
+      "aliases": ["wall centre richmond", "wall centre"]
+    },
+    {
+      "canonical": "Orchid",
+      "anchor_query": "Orchid, Richmond, BC",
+      "aliases": ["orchid"]
+    },
+    {
+      "canonical": "Lotus",
+      "anchor_query": "Lotus, Richmond, BC",
+      "aliases": ["lotus"]
+    },
+    {
+      "canonical": "FLO",
+      "anchor_query": "FLO, Richmond, BC",
+      "aliases": ["flo"]
+    },
+    {
+      "canonical": "Paddocks Townhouses",
+      "anchor_query": "Paddocks townhouses, Richmond, BC",
+      "aliases": ["paddocks townhouses", "paddocks townhouse", "the paddocks"]
+    }
+  ],
+  "Burnaby": [
+    {
+      "canonical": "The Amazing Brentwood",
+      "anchor_query": "The Amazing Brentwood, Burnaby, BC",
+      "aliases": ["the amazing brentwood", "amazing brentwood", "tab"]
+    },
+    {
+      "canonical": "Concord Brentwood",
+      "anchor_query": "Concord Brentwood, Burnaby, BC",
+      "aliases": ["concord brentwood", "hillside west", "hillside east"]
+    },
+    {
+      "canonical": "Solo District",
+      "anchor_query": "Solo District, Burnaby, BC",
+      "aliases": ["solo district", "stratus", "altus", "cirrus"]
+    },
+    {
+      "canonical": "Gilmore Place",
+      "anchor_query": "Gilmore Place, Burnaby, BC",
+      "aliases": ["gilmore place"]
+    },
+    {
+      "canonical": "Station Square",
+      "anchor_query": "Station Square, Burnaby, BC",
+      "aliases": ["station square"]
+    },
+    {
+      "canonical": "Gold House",
+      "anchor_query": "Gold House, Burnaby, BC",
+      "aliases": ["gold house"]
+    },
+    {
+      "canonical": "Concord Metrotown",
+      "anchor_query": "Concord Metrotown, Burnaby, BC",
+      "aliases": ["concord metrotown"]
+    },
+    {
+      "canonical": "The City of Lougheed",
+      "anchor_query": "The City of Lougheed, Burnaby, BC",
+      "aliases": ["the city of lougheed", "city of lougheed", "col"]
+    }
+  ],
+  "Vancouver": [
+    {
+      "canonical": "Vancouver House",
+      "anchor_query": "Vancouver House, Vancouver, BC",
+      "aliases": ["vancouver house"]
+    },
+    {
+      "canonical": "Shangri-La",
+      "anchor_query": "Shangri-La, Vancouver, BC",
+      "aliases": ["shangri-la", "shangri la", "香格里拉"]
+    },
+    {
+      "canonical": "Paradox",
+      "anchor_query": "Paradox Hotel Vancouver, Vancouver, BC",
+      "aliases": ["paradox", "trump tower"]
+    },
+    {
+      "canonical": "TELUS Garden",
+      "anchor_query": "TELUS Garden, Vancouver, BC",
+      "aliases": ["telus garden"]
+    },
+    {
+      "canonical": "Olympic Village",
+      "anchor_query": "Olympic Village, Vancouver, BC",
+      "aliases": ["olympic village", "奥运村"]
+    },
+    {
+      "canonical": "Marine Gateway",
+      "anchor_query": "Marine Gateway, Vancouver, BC",
+      "aliases": ["marine gateway"]
+    },
+    {
+      "canonical": "Oakridge Park",
+      "anchor_query": "Oakridge Park, Vancouver, BC",
+      "aliases": ["oakridge park", "oakridge"]
+    }
+  ],
+  "Surrey": [
+    {
+      "canonical": "3 Civic Plaza",
+      "anchor_query": "3 Civic Plaza, Surrey, BC",
+      "aliases": ["3 civic plaza"]
+    },
+    {
+      "canonical": "King George Hub",
+      "anchor_query": "King George Hub, Surrey, BC",
+      "aliases": ["king george hub"]
+    }
+  ],
+  "Coquitlam": [
+    {
+      "canonical": "567 Clarke + Como",
+      "anchor_query": "567 Clarke + Como, Coquitlam, BC",
+      "aliases": ["567 clarke", "clarke + como", "clarke and como"]
+    }
+  ],
+  "New Westminster": [
+    {
+      "canonical": "Pier West",
+      "anchor_query": "Pier West, New Westminster, BC",
+      "aliases": ["pier west"]
+    },
+    {
+      "canonical": "RiverSky",
+      "anchor_query": "RiverSky, New Westminster, BC",
+      "aliases": ["riversky", "river sky"]
+    }
+  ]
+}
+

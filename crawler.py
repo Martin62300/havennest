@@ -727,6 +727,17 @@ class HavenNestCrawler:
                     except:
                         address = ""
                     if not address:
+                        try:
+                            page_text = d_soup.get_text("\n", strip=True)
+                            m = re.search(
+                                r"(?im)^\s*(\d{3,6}\s+[^\n,]{2,}(?:\s+[^\n,]{2,})*,\s*[A-Za-z\s]+,\s*BC\b[^\n]*)\s*$",
+                                page_text,
+                            )
+                            if m:
+                                address = m.group(1).strip()
+                        except:
+                            address = ""
+                    if not address:
                         m = re.search(r'(?im)^\s*(?:address|addr|location)\s*:\s*(.+?)\s*$', desc)
                         if m:
                             address = m.group(1).strip()

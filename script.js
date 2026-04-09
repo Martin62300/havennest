@@ -232,7 +232,14 @@ const CITY_CENTERS = {
     Richmond: [49.1666, -123.1336],
     Burnaby: [49.2488, -122.9805],
     Coquitlam: [49.2830, -122.7932],
-    Surrey: [49.1913, -122.8490]
+    Surrey: [49.1913, -122.8490],
+    "Port Coquitlam": [49.2622, -122.7811],
+    "Port Moody": [49.2830, -122.8300],
+    "New Westminster": [49.2062, -122.9111],
+    Delta: [49.0840, -123.0580],
+    Langley: [49.1044, -122.6607],
+    "Maple Ridge": [49.2195, -122.6019],
+    "White Rock": [49.0253, -122.8026]
 };
 
 const COMMUNITY_SYNONYMS = {
@@ -256,7 +263,9 @@ const COMMUNITY_SYNONYMS = {
     "burquitlam": "Burquitlam",
     "austin heights": "Austin Heights",
     "coquitlam centre": "Coquitlam Centre",
-    "coquitlam center": "Coquitlam Centre"
+    "coquitlam center": "Coquitlam Centre",
+    "whalley (city centre)": "Whalley",
+    "white rock (border area)": "White Rock"
 };
 
 const COMMUNITY_BBOX = {
@@ -275,6 +284,8 @@ const COMMUNITY_BBOX = {
     "Coquitlam||Austin Heights": [49.255, 49.290, -122.870, -122.820],
     "Coquitlam||Coquitlam Centre": [49.265, 49.310, -122.850, -122.770]
 };
+
+let DYNAMIC_COMMUNITY_BBOX = {};
 
 function normalizeCommunityName(v) {
     const s = (v || "").toString().trim();
@@ -310,7 +321,8 @@ function ensureListingCoords(i) {
     const comm = normalizeCommunityName(commRaw);
     if (comm) {
         const key = `${city}||${comm}`;
-        const box = COMMUNITY_BBOX[key];
+        const key2 = `${city.toLowerCase()}||${comm.toLowerCase()}`;
+        const box = COMMUNITY_BBOX[key] || DYNAMIC_COMMUNITY_BBOX[key2];
         if (box) {
             const [lat, lng] = coordsFromBox(i || {}, box);
             i.lat = lat;
@@ -347,6 +359,13 @@ async function init() {
     
     // 统一从 listings.json 加载所有房源（包括抓取的和屋主发布的）
     try {
+        try {
+            const bbRes = await fetch('community_bbox_cache.json');
+            if (bbRes.ok) {
+                const bb = await bbRes.json();
+                if (bb && typeof bb === 'object') DYNAMIC_COMMUNITY_BBOX = bb;
+            }
+        } catch (e) {}
         const res = await fetch('listings.json');
         if (res.ok) {
             const data = await res.json();
