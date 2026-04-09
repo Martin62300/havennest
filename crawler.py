@@ -279,11 +279,17 @@ class HavenNestCrawler:
         
         results = []
         try:
-            res = requests.get(url, headers=headers, timeout=15)
-            data = res.json()
-            
-            for r in data.get('records', []):
-                f = r.get('fields', {})
+            offset = ""
+            guard = 0
+            while guard < 10:
+                guard += 1
+                params = {"pageSize": 100}
+                if offset:
+                    params["offset"] = offset
+                res = requests.get(url, headers=headers, params=params, timeout=15)
+                data = res.json()
+                for r in data.get('records', []):
+                    f = r.get('fields', {})
                 status = (f.get('Status') or f.get('status') or f.get('状态 (Status)') or '').strip().lower()
                 if status in ['inactive', 'deleted', 'off', 'disabled']:
                     continue
@@ -300,7 +306,7 @@ class HavenNestCrawler:
                 try:
                     for k, v in f.items():
                         lk = str(k).lower()
-                        if not any(s in lk for s in ['community', 'neighbourhood', 'neighborhood', '社区']):
+                        if not any(s in lk for s in ['community', 'neighbourhood', 'neighborhood', '社区', 'comm_']) and not lk.startswith('comm'):
                             continue
                         if isinstance(v, str) and v.strip():
                             community = v.strip()
@@ -351,6 +357,9 @@ class HavenNestCrawler:
                     "date": datetime.now().strftime('%Y-%m-%d')
                 }
                 results.append(item)
+                offset = data.get("offset") or ""
+                if not offset:
+                    break
             if os.getenv('GITHUB_ACTIONS') == 'true':
                 r2_count = sum(1 for it in results for u in (it.get('images') or []) if isinstance(u, str) and self.r2_public_base_url and u.startswith(self.r2_public_base_url))
                 airtable_count = sum(1 for it in results for u in (it.get('images') or []) if isinstance(u, str) and 'airtableusercontent.com' in u)
