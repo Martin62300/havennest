@@ -321,11 +321,12 @@ async function apiManage(env, req, url) {
 
 function normalizeOwnerListingFromFields(recordId, fields) {
   const title = (fields["房源标题 (Listing Title)"] || "Rental Listing").toString()
-  const addr = (fields["房源具体地址 (Address)"] || "Vancouver").toString()
   const status = normalizeStatus(getStatusField(fields)) || "active"
   
   let city = firstFieldValue(fields, ["所属城市 (City)", "所在城市 (City)"], "").toString()
-  const searchStr = (title + " " + addr).toLowerCase()
+  const community = firstFieldValueByContains(fields, ["community", "neighborhood", "neighbourhood", "社区", "comm_"], "").toString()
+  let addr = (fields["房源具体地址 (Address)"] || "").toString().trim()
+  const searchStr = (title + " " + addr + " " + community).toLowerCase()
   const inferCity = () => {
     if (searchStr.includes("west coquitlam") || searchStr.includes("coquitlam west") || searchStr.includes("高贵林西")) return "Coquitlam"
     if (searchStr.includes("burquitlam") || searchStr.includes("burqitlam")) return "Coquitlam"
@@ -344,6 +345,7 @@ function normalizeOwnerListingFromFields(recordId, fields) {
     if (inferred) city = inferred
   }
   if (!city) city = "Vancouver"
+  if (!addr) addr = (community ? `${community}, ${city}` : city)
 
   const bedsRaw = fields["卧室数量 (Beds)"]
   let bedsNum = parseFirstInt(bedsRaw)
@@ -365,7 +367,6 @@ function normalizeOwnerListingFromFields(recordId, fields) {
 
   const rawPhotos = Array.isArray(fields["房源照片 / Property Photos"]) ? fields["房源照片 / Property Photos"] : []
   const photos = rawPhotos.map(x => (x && x.url ? String(x.url) : "")).filter(Boolean)
-  const community = firstFieldValueByContains(fields, ["community", "neighborhood", "neighbourhood", "社区"], "").toString()
 
   return {
     id: recordId,
