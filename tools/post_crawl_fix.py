@@ -211,17 +211,75 @@ COMMUNITY_VOCAB = {
 
 BUILDING_VOCAB = {
     "Richmond": [
-        ("concord gardens", "Concord Gardens"),
-        ("river green 2", "River Green 2"),
-        ("rivergreen 2", "River Green 2"),
-        ("river green", "River Green"),
-        ("rivergreen", "River Green"),
+        ("river green 2", "6688 Pearson Way, Richmond, BC"),
+        ("rivergreen 2", "6688 Pearson Way, Richmond, BC"),
+        ("river green", "River Green, Richmond, BC"),
+        ("rivergreen", "River Green, Richmond, BC"),
+        ("concord gardens", "Concord Gardens, Richmond, BC"),
+        ("viewstar", "ViewStar, Richmond, BC"),
+        ("郡苑", "ViewStar, Richmond, BC"),
+        ("hollybridge", "Hollybridge at River Green, Richmond, BC"),
+        ("cascade city", "Cascade City, Richmond, BC"),
+        ("orchid", "Orchid, Richmond, BC"),
+        ("lotus", "Lotus, Richmond, BC"),
+        ("flo", "FLO, Richmond, BC"),
+        ("quintet", "Quintet, Richmond, BC"),
+        ("wall centre richmond", "Wall Centre Richmond, Richmond, BC"),
+        ("paddocks townhouses", "Paddocks townhouses, Richmond, BC"),
     ],
     "Burnaby": [
-        ("concord brentwood", "Concord Brentwood"),
-        ("concord metrotown", "Concord Metrotown"),
+        ("the amazing brentwood", "The Amazing Brentwood, Burnaby, BC"),
+        ("amazing brentwood", "The Amazing Brentwood, Burnaby, BC"),
+        ("concord brentwood", "Concord Brentwood, Burnaby, BC"),
+        ("solo district", "Solo District, Burnaby, BC"),
+        ("gilmore place", "Gilmore Place, Burnaby, BC"),
+        ("station square", "Station Square, Burnaby, BC"),
+        ("the sovereign", "The Sovereign, Burnaby, BC"),
+        ("gold house", "Gold House, Burnaby, BC"),
+        ("sun towers", "Sun Towers, Burnaby, BC"),
+        ("silver towers", "Silver Towers, Burnaby, BC"),
+        ("concord metrotown", "Concord Metrotown, Burnaby, BC"),
+        ("city of lougheed", "The City of Lougheed, Burnaby, BC"),
+    ],
+    "Vancouver": [
+        ("vancouver house", "Vancouver House, Vancouver, BC"),
+        ("shangri-la", "Shangri-La, Vancouver, BC"),
+        ("shangri la", "Shangri-La, Vancouver, BC"),
+        ("paradox", "Paradox Hotel Vancouver, Vancouver, BC"),
+        ("pacific rim", "Fairmont Pacific Rim, Vancouver, BC"),
+        ("telus garden", "TELUS Garden, Vancouver, BC"),
+        ("the butterfly", "The Butterfly, Vancouver, BC"),
+        ("olympic village", "Olympic Village, Vancouver, BC"),
+        ("marine gateway", "Marine Gateway, Vancouver, BC"),
+        ("oakridge park", "Oakridge Park, Vancouver, BC"),
+        ("oakridge", "Oakridge, Vancouver, BC"),
+        ("w1", "W1, Vancouver, BC"),
+        ("marine club", "Marine Club, Vancouver, BC"),
+    ],
+    "Surrey": [
+        ("3 civic plaza", "3 Civic Plaza, Surrey, BC"),
+        ("park boulevard", "Park Boulevard, Surrey, BC"),
+        ("park place", "Park Place, Surrey, BC"),
+        ("king george hub", "King George Hub, Surrey, BC"),
+        ("evolve", "Evolve, Surrey, BC"),
+        ("prime", "Prime, Surrey, BC"),
+        ("georgetown", "Georgetown, Surrey, BC"),
+    ],
+    "Coquitlam": [
+        ("567 clarke", "567 Clarke + Como, Coquitlam, BC"),
+        ("clarke + como", "567 Clarke + Como, Coquitlam, BC"),
+        ("clarke and como", "567 Clarke + Como, Coquitlam, BC"),
+        ("the marquee", "The Marquee, Coquitlam, BC"),
+        ("uptown", "Uptown, Coquitlam, BC"),
+    ],
+    "New Westminster": [
+        ("pier west", "Pier West, New Westminster, BC"),
+        ("riversky", "RiverSky, New Westminster, BC"),
+        ("river sky", "RiverSky, New Westminster, BC"),
     ],
 }
+
+BUILDING_ANCHORS_PATH = os.path.join(ROOT, "building_anchors.json")
 
  
 def _is_number(x: Any) -> bool:
@@ -321,8 +379,45 @@ def _infer_building_query(city: str, text: str) -> str:
     t = (text or "").lower()
     for needle, building in vocab:
         if needle in t:
-            return f"{building}, {city0}, BC, Canada"
+            b = str(building).strip()
+            if not b:
+                return ""
+            if re.search(r"(?i)\b(canada|bc)\b", b):
+                return b
+            if re.search(r"(?i)\b(vancouver|richmond|burnaby|surrey|coquitlam|new westminster)\b", b):
+                return b
+            return f"{b}, {city0}, BC, Canada"
     return ""
+
+
+def _load_building_vocab() -> Dict[str, list]:
+    merged: Dict[str, list] = {}
+    for city, items in (BUILDING_VOCAB or {}).items():
+        merged[city] = list(items) if isinstance(items, list) else []
+    try:
+        if os.path.exists(BUILDING_ANCHORS_PATH):
+            with open(BUILDING_ANCHORS_PATH, "r", encoding="utf-8") as f:
+                raw = json.load(f)
+            if isinstance(raw, dict):
+                for city, arr in raw.items():
+                    if not isinstance(city, str) or not isinstance(arr, list):
+                        continue
+                    out = merged.get(city, [])
+                    for rec in arr:
+                        if not isinstance(rec, dict):
+                            continue
+                        anchor = str(rec.get("anchor_query") or "").strip()
+                        aliases = rec.get("aliases") or []
+                        if not anchor or not isinstance(aliases, list):
+                            continue
+                        for a in aliases:
+                            s = str(a or "").strip().lower()
+                            if s:
+                                out.append((s, anchor))
+                    merged[city] = out
+    except Exception:
+        pass
+    return merged
 
 
 def _coords_from_bbox(item: Dict[str, Any], box: Tuple[float, float, float, float]) -> Tuple[float, float]:
@@ -624,6 +719,8 @@ def main():
         data = json.load(f)
  
     c = HavenNestCrawler()
+    global BUILDING_VOCAB
+    BUILDING_VOCAB = _load_building_vocab()
     community_cache = _load_community_bbox_cache()
     comm_budget = {"remaining": int(os.getenv("MAX_COMMUNITY_GEOBOX", "10") or "10")}
     comm_sleep = float(os.getenv("COMMUNITY_GEOBOX_SLEEP", "1.2") or "1.2")
