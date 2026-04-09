@@ -5,6 +5,9 @@ on:
     - cron: '0 11 * * *' # 每天凌晨 3 点 (UTC 时间是 11 点)
   workflow_dispatch: # 允许手动触发
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 permissions:
   contents: write
 
