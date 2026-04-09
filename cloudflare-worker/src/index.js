@@ -98,6 +98,19 @@ function firstFieldValue(fields, keys, fallback = "") {
   }
   return fallback
 }
+ 
+function firstFieldValueByContains(fields, needles, fallback = "") {
+  const ns = (needles || []).map(x => String(x || "").toLowerCase()).filter(Boolean)
+  if (!fields || !ns.length) return fallback
+  for (const k of Object.keys(fields)) {
+    const lk = String(k || "").toLowerCase()
+    if (!ns.some(n => lk.includes(n))) continue
+    const v = fields[k]
+    if (typeof v === "string" && v.trim()) return v.trim()
+    if (Array.isArray(v) && v.length && typeof v[0] === "string" && v[0].trim()) return v[0].trim()
+  }
+  return fallback
+}
 
 function parseFirstInt(v) {
   if (typeof v === "number" && Number.isFinite(v)) return Math.trunc(v)
@@ -118,7 +131,16 @@ function allowedUpdateFields(body, existingFields) {
   }
   if (typeof body.address === "string") out["房源具体地址 (Address)"] = body.address.trim()
   if (typeof body.city === "string") {
-    out["所属城市 (City)"] = body.city.trim()
+    const v = body.city.trim()
+    const hasOwned = Object.prototype.hasOwnProperty.call(existingFields, "所属城市 (City)")
+    const hasLocated = Object.prototype.hasOwnProperty.call(existingFields, "所在城市 (City)")
+    if (hasOwned && hasLocated) {
+      out["所属城市 (City)"] = v
+      out["所在城市 (City)"] = v
+    } else {
+      const k = firstExistingKey(existingFields, ["所属城市 (City)", "所在城市 (City)"], "所属城市 (City)")
+      out[k] = v
+    }
   }
   if (typeof body.beds !== "undefined") {
     // 直接传递字符串或数字，Airtable 的字段如果是 Single Select 会要求严格匹配选项字符串
@@ -303,16 +325,25 @@ function normalizeOwnerListingFromFields(recordId, fields) {
   const status = normalizeStatus(getStatusField(fields)) || "active"
   
   let city = firstFieldValue(fields, ["所属城市 (City)", "所在城市 (City)"], "").toString()
-  if (!city) {
-    const searchStr = (title + " " + addr).toLowerCase()
-    if (searchStr.includes("richmond") || searchStr.includes("列治文") || searchStr.includes("lansdowne")) {
-      city = "Richmond"
-    } else if (searchStr.includes("burnaby") || searchStr.includes("本拿比")) {
-      city = "Burnaby"
-    } else {
-      city = "Vancouver"
-    }
+  const searchStr = (title + " " + addr).toLowerCase()
+  const inferCity = () => {
+    if (searchStr.includes("west coquitlam") || searchStr.includes("coquitlam west") || searchStr.includes("高贵林西")) return "Coquitlam"
+    if (searchStr.includes("burquitlam") || searchStr.includes("burqitlam")) return "Coquitlam"
+    if (searchStr.includes("coquitlam") || searchStr.includes("高贵林")) return "Coquitlam"
+    if (searchStr.includes("lansdowne") || searchStr.includes("brighouse") || searchStr.includes("steveston")) return "Richmond"
+    if (searchStr.includes("richmond") || searchStr.includes("列治文") || searchStr.includes("rmd")) return "Richmond"
+    if (searchStr.includes("metrotown") || searchStr.includes("brentwood") || searchStr.includes("lougheed") || searchStr.includes("edmonds")) return "Burnaby"
+    if (searchStr.includes("burnaby") || searchStr.includes("本拿比") || searchStr.includes("bby")) return "Burnaby"
+    if (searchStr.includes("guildford") || searchStr.includes("whalley") || searchStr.includes("newton")) return "Surrey"
+    if (searchStr.includes("surrey") || searchStr.includes("素里")) return "Surrey"
+    if (searchStr.includes("vancouver") || searchStr.includes("温哥华")) return "Vancouver"
+    return ""
   }
+  const inferred = inferCity()
+  if (!city || city.toLowerCase() === "vancouver") {
+    if (inferred) city = inferred
+  }
+  if (!city) city = "Vancouver"
 
   const bedsRaw = fields["卧室数量 (Beds)"]
   let bedsNum = parseFirstInt(bedsRaw)
@@ -334,6 +365,7 @@ function normalizeOwnerListingFromFields(recordId, fields) {
 
   const rawPhotos = Array.isArray(fields["房源照片 / Property Photos"]) ? fields["房源照片 / Property Photos"] : []
   const photos = rawPhotos.map(x => (x && x.url ? String(x.url) : "")).filter(Boolean)
+  const community = firstFieldValueByContains(fields, ["community", "neighborhood", "neighbourhood", "社区"], "").toString()
 
   return {
     id: recordId,
@@ -343,6 +375,7 @@ function normalizeOwnerListingFromFields(recordId, fields) {
     url: `https://havennestapp.com/listing/${recordId}`,
     address: addr,
     city,
+    community,
     beds: Number.isFinite(bedsNum) ? bedsNum : 0,
     lat: null,
     lng: null,
