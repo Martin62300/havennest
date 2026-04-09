@@ -694,6 +694,10 @@ class HavenNestCrawler:
                     # 深度抓取详情页获取图片集和描述
                     print(f"  Deep crawling Craigslist: {title[:20]}...")
                     d_res = scraper.get(detail_url, timeout=15)
+                    if d_res.status_code != 200:
+                        continue
+                    if re.search(r'(?i)this posting has been deleted|flagged for removal|posting has expired|has expired', d_res.text or ""):
+                        continue
                     d_soup = BeautifulSoup(d_res.text, 'html.parser')
                     
                     images = []
@@ -878,6 +882,10 @@ class HavenNestCrawler:
                         # 深度抓取详情页
                         detail_res = scraper.get(detail_url, timeout=15)
                         detail_res.encoding = 'utf-8'
+                        if detail_res.status_code != 200:
+                            continue
+                        if re.search(r'您想访问的信息已经被删除|信息已经被删除|已经被删除', detail_res.text or ""):
+                            continue
                         detail_soup = BeautifulSoup(detail_res.text, 'html.parser')
                         
                         # 1. 提取房源实拍图片
@@ -1116,8 +1124,11 @@ class HavenNestCrawler:
         # 合并并去重
         data_map = {}
         for x in old_data:
+            if not x.get('isPromo'):
+                continue
             key = x.get('url') or x.get('id')
-            if key: data_map[key] = x
+            if key:
+                data_map[key] = x
 
         for item in new_data:
             key = item.get('url') or item.get('id')
