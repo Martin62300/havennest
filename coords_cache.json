@@ -1475,10 +1475,6 @@
         49.2290017,
         -123.1987757
     ],
-    "4769 Hazel Street, Burnaby, BC, Canada": [
-        49.22905,
-        -122.9968569
-    ],
     "680 Quayside Drive 660, New Westminster, BC, Canada": [
         49.1998089,
         -122.9142434
@@ -1491,20 +1487,72 @@
         49.2763787,
         -123.1161826
     ],
-    "1045 Haro Street, Vancouver, BC, Canada": [
-        49.2836434,
-        -123.1249331
+    "1477 Continental Street, Vancouver, BC, Canada": [
+        49.2744852,
+        -123.1309054
+    ],
+    "8200 Rosemary Avenue Richmond, BC, Canada": [
+        49.1340928,
+        -123.1283175
+    ],
+    "263 Jardine Street, New Westminster, BC, Canada": [
+        49.1845425,
+        -122.9480809
+    ],
+    "6468 Cooney Road, Richmond, BC, Canada": [
+        49.1634168,
+        -123.1314126
+    ],
+    "15355 26 Avenue, Surrey, BC, Canada": [
+        49.0493174,
+        -122.7968598
+    ],
+    "Laburnum Street Shaughnessy, Vancouver, BC, Canada": [
+        49.2372957,
+        -123.1504964
+    ],
+    "8888 Osler Street Marpole, Vancouver, BC, Canada": [
+        49.204878,
+        -123.1310772
+    ],
+    "3400 West 7th Avenue Kitsilano, Vancouver, BC, Canada": [
+        49.265965,
+        -123.1784931
+    ],
+    "Metrotown Station Loop Metrotown, Burnaby, BC, Canada": [
+        49.2260035,
+        -123.0024029
+    ],
+    "3375 Fieldstone Avenue Killarney, Vancouver, BC, Canada": [
+        49.2080218,
+        -123.0343545
+    ],
+    "8133 Cook Road, Richmond, BC, Canada": [
+        49.1668191,
+        -123.1351005
+    ],
+    "Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
     ],
     "825 Nicola Street, Vancouver, BC, Canada": [
         49.2886428,
         -123.1316557
     ],
-    "1477 Continental Street, Vancouver, BC, Canada": [
-        49.2744852,
-        -123.1309054
+    "1661 Davie Street, Vancouver, BC, Canada": [
+        49.2858372,
+        -123.1390281
     ],
     "4733 Hazel St, Burnaby, BC, Canada": [
         49.2290753,
         -122.9974603
+    ],
+    "4769 Hazel Street, Burnaby, BC, Canada": [
+        49.22905,
+        -122.9968569
+    ],
+    "1045 Haro Street, Vancouver, BC, Canada": [
+        49.2836434,
+        -123.1249331
     ]
 }
