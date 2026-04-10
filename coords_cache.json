@@ -1247,10 +1247,6 @@
         49.2912412,
         -123.1398192
     ],
-    "1202 Harwood Street, Vancouver, BC, Canada": [
-        49.2804291,
-        -123.1361011
-    ],
     "930 Seymour Street, Vancouver, BC, Canada": [
         49.2791201,
         -123.1207378
@@ -1379,10 +1375,6 @@
         49.2248459,
         -123.0069043
     ],
-    "855 Jervis Street, Vancouver, BC, Canada": [
-        49.2866205,
-        -123.1295863
-    ],
     "485 West 42nd Avenue Oakridge, Vancouver, BC, Canada": [
         49.2328917,
         -123.124552
@@ -1479,17 +1471,9 @@
         49.1998089,
         -122.9142434
     ],
-    "2488 Granville Street, Vancouver, BC, Canada": [
-        49.2640031,
-        -123.1383055
-    ],
     "939 Beatty Street, Vancouver, BC, Canada": [
         49.2763787,
         -123.1161826
-    ],
-    "1477 Continental Street, Vancouver, BC, Canada": [
-        49.2744852,
-        -123.1309054
     ],
     "8200 Rosemary Avenue Richmond, BC, Canada": [
         49.1340928,
@@ -1535,14 +1519,6 @@
         49.163168,
         -123.137414
     ],
-    "825 Nicola Street, Vancouver, BC, Canada": [
-        49.2886428,
-        -123.1316557
-    ],
-    "1661 Davie Street, Vancouver, BC, Canada": [
-        49.2858372,
-        -123.1390281
-    ],
     "4733 Hazel St, Burnaby, BC, Canada": [
         49.2290753,
         -122.9974603
@@ -1551,8 +1527,104 @@
         49.22905,
         -122.9968569
     ],
+    "6976 Heather Street Oakridge, Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
+    "11620 Seabrook Crescent, Richmond, BC, Canada": [
+        49.1398514,
+        -123.0953576
+    ],
+    "2471 w 45th ave vancouver West Vancouver, BC, Canada": [
+        49.2294941,
+        -123.108458
+    ],
+    "5928 birney ave, Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
+    ],
+    "9811 Ferndale Road, Richmond, BC, Canada": [
+        49.1686294,
+        -123.1184666
+    ],
+    "River Drive, Richmond, BC, Canada": [
+        49.1983984,
+        -123.1214947
+    ],
+    "8131 Luton Road, Richmond, BC, Canada": [
+        49.154315,
+        -123.1355876
+    ],
+    "20 Avenue, Surrey, BC, Canada": [
+        49.0384823,
+        -122.8149396
+    ],
+    "Dunbar-Southlands, Vancouver, BC, Canada": [
+        49.2347943,
+        -123.1854253
+    ],
+    "9931 149 Street Guildford, Surrey, BC, Canada": [
+        49.182794,
+        -122.8099679
+    ],
+    "3175 West 18th Avenue Arbutus Ridge, Vancouver, BC, Canada": [
+        49.2568522,
+        -123.1753549
+    ],
+    "Whalley Blvd, Surrey, BC, Canada": [
+        49.1825465,
+        -122.844131
+    ],
+    "19670 Avenue, Langley, BC, Canada": [
+        49.1700869,
+        -122.5880817
+    ],
+    "0 rosemary ave Richmond, BC, Canada": [
+        49.1340928,
+        -123.1283175
+    ],
+    "Number 3 Road, Richmond, BC, Canada": [
+        49.126249,
+        -123.1367271
+    ],
+    "6098 Station Street Metrotown, Burnaby, BC, Canada": [
+        49.2275175,
+        -123.0027767
+    ],
+    "2351 Beta Avenue, Burnaby, BC, Canada": [
+        49.2780384,
+        -122.997508
+    ],
+    "7555 Oak Street Marpole, Vancouver, BC, Canada": [
+        49.2158396,
+        -123.1298528
+    ],
+    "1477 Continental Street, Vancouver, BC, Canada": [
+        49.2744852,
+        -123.1309054
+    ],
+    "2488 Granville Street, Vancouver, BC, Canada": [
+        49.2640031,
+        -123.1383055
+    ],
+    "855 Jervis Street, Vancouver, BC, Canada": [
+        49.2866205,
+        -123.1295863
+    ],
+    "1202 Harwood Street, Vancouver, BC, Canada": [
+        49.2804291,
+        -123.1361011
+    ],
     "1045 Haro Street, Vancouver, BC, Canada": [
         49.2836434,
         -123.1249331
+    ],
+    "825 Nicola Street, Vancouver, BC, Canada": [
+        49.2886428,
+        -123.1316557
+    ],
+    "1661 Davie Street, Vancouver, BC, Canada": [
+        49.2858372,
+        -123.1390281
     ]
 }
