@@ -29,6 +29,19 @@ class HavenNestCrawler:
         self.airtable_token = (os.getenv('AIRTABLE_TOKEN') or '').strip()
         self.airtable_base = 'appfs8aXtirNbrbWa'
         self.airtable_table = 'Table 1'
+        try:
+            self.max_total_listings = int(os.getenv('HAVENNEST_MAX_TOTAL') or '250')
+        except:
+            self.max_total_listings = 250
+        try:
+            self.craigslist_limit = int(os.getenv('HAVENNEST_CRAIGSLIST_LIMIT') or '120')
+        except:
+            self.craigslist_limit = 120
+        try:
+            self.vanpeople_limit = int(os.getenv('HAVENNEST_VANPEOPLE_LIMIT') or '180')
+        except:
+            self.vanpeople_limit = 180
+        self.drop_low_quality = (os.getenv('HAVENNEST_DROP_LOW_QUALITY') or '1').strip().lower() in ['1', 'true', 'yes', 'y']
 
         if os.getenv('GITHUB_ACTIONS') == 'true':
             print(f"Media backend: {self.media_backend}")
@@ -36,6 +49,26 @@ class HavenNestCrawler:
                 ok = all([self.r2_bucket, self.r2_access_key_id, self.r2_secret_access_key, self.r2_public_base_url])
                 print(f"R2 config present: {ok}")
             print(f"Airtable token present: {bool(self.airtable_token)}")
+            print(f"Listing limits: total={self.max_total_listings}, craigslist={self.craigslist_limit}, vanpeople={self.vanpeople_limit}, drop_low_quality={self.drop_low_quality}")
+
+    def _is_low_quality_item(self, item):
+        try:
+            source = (item.get('source') or '').strip().lower()
+            if source == 'owner':
+                return False
+            lat = item.get('lat')
+            lng = item.get('lng')
+            if isinstance(lat, (int, float)) and isinstance(lng, (int, float)):
+                return False
+            addr = str(item.get('address') or '').strip()
+            comm = str(item.get('community') or item.get('neighborhood') or item.get('area') or '').strip()
+            if re.search(r'\d', addr):
+                return False
+            if comm:
+                return False
+            return True
+        except:
+            return False
 
     def infer_city_info(self, text):
         if not text:
@@ -290,73 +323,72 @@ class HavenNestCrawler:
                 data = res.json()
                 for r in data.get('records', []):
                     f = r.get('fields', {})
-                status = (f.get('Status') or f.get('status') or f.get('状态 (Status)') or '').strip().lower()
-                if status in ['inactive', 'deleted', 'off', 'disabled']:
-                    continue
-                addr_raw = (f.get('房源具体地址 (Address)') or '').strip()
-                title = f.get('房源标题 (Listing Title)', "Rental Listing")
-                raw_photos = [p.get('url') for p in f.get('房源照片 / Property Photos', []) if p.get('url')]
-                photos = []
-                for idx, purl in enumerate(raw_photos[:self.owner_media_max_photos]):
-                    stored = self._store_owner_media(r['id'], idx, purl)
-                    if stored:
-                        photos.append(stored)
-                
-                community = ""
-                try:
-                    for k, v in f.items():
-                        lk = str(k).lower()
-                        if not any(s in lk for s in ['community', 'neighbourhood', 'neighborhood', '社区', 'comm_']) and not lk.startswith('comm'):
-                            continue
-                        if isinstance(v, str) and v.strip():
-                            community = v.strip()
-                            break
-                        if isinstance(v, list) and v and isinstance(v[0], str) and v[0].strip():
-                            community = v[0].strip()
-                            break
-                except:
+                    status = (f.get('Status') or f.get('status') or f.get('状态 (Status)') or '').strip().lower()
+                    if status in ['inactive', 'deleted', 'off', 'disabled']:
+                        continue
+                    addr_raw = (f.get('房源具体地址 (Address)') or '').strip()
+                    title = f.get('房源标题 (Listing Title)', "Rental Listing")
+                    raw_photos = [p.get('url') for p in f.get('房源照片 / Property Photos', []) if p.get('url')]
+                    photos = []
+                    for idx, purl in enumerate(raw_photos[:self.owner_media_max_photos]):
+                        stored = self._store_owner_media(r['id'], idx, purl)
+                        if stored:
+                            photos.append(stored)
+                    
                     community = ""
- 
-                # 城市识别
-                city = f.get('所属城市 (City)') or f.get('所在城市 (City)') or ""
-                inferred = self.infer_city(title + " " + addr_raw + " " + community)
-                if inferred and (not city or city.strip().lower() == "vancouver"):
-                    city = inferred
-                if not city:
-                    city = "Vancouver"
- 
-                addr = addr_raw
-                if not addr:
-                    addr = f"{community}, {city}".strip(", ").strip() if community else city
-
-                # 卧室数量识别
-                beds = f.get('卧室数量 (Beds)')
-                try: beds = int(beds)
-                except:
-                    desc = f.get('房源描述 (Description)', "")
-                    beds = self.extract_beds(title + " " + desc)
-
-                lat, lng = None, None
-
-                item = {
-                    "id": r['id'],
-                    "source": "owner",
-                    "title": title,
-                    "price": int(f.get('月租金 (Monthly Rent)', 0)),
-                    "url": f"https://havennestapp.com/listing/{r['id']}", # 伪链接，详情由前端Modal展示
-                    "address": addr,
-                    "city": city,
-                    "community": community,
-                    "beds": beds,
-                    "lat": lat,
-                    "lng": lng,
-                    "image": photos[0] if photos else "",
-                    "images": photos,
-                    "desc": f.get('房源描述 (Description)', "No description."),
-                    "isPromo": True, # 屋主发布的房源默认为推广房源
-                    "date": datetime.now().strftime('%Y-%m-%d')
-                }
-                results.append(item)
+                    try:
+                        for k, v in f.items():
+                            lk = str(k).lower()
+                            if not any(s in lk for s in ['community', 'neighbourhood', 'neighborhood', '社区', 'comm_']) and not lk.startswith('comm'):
+                                continue
+                            if isinstance(v, str) and v.strip():
+                                community = v.strip()
+                                break
+                            if isinstance(v, list) and v and isinstance(v[0], str) and v[0].strip():
+                                community = v[0].strip()
+                                break
+                    except:
+                        community = ""
+     
+                    city = f.get('所属城市 (City)') or f.get('所在城市 (City)') or ""
+                    inferred = self.infer_city(title + " " + addr_raw + " " + community)
+                    if inferred and (not city or city.strip().lower() == "vancouver"):
+                        city = inferred
+                    if not city:
+                        city = "Vancouver"
+     
+                    addr = addr_raw
+                    if not addr:
+                        addr = f"{community}, {city}".strip(", ").strip() if community else city
+    
+                    beds = f.get('卧室数量 (Beds)')
+                    try:
+                        beds = int(beds)
+                    except:
+                        desc = f.get('房源描述 (Description)', "")
+                        beds = self.extract_beds(title + " " + desc)
+    
+                    lat, lng = None, None
+    
+                    item = {
+                        "id": r['id'],
+                        "source": "owner",
+                        "title": title,
+                        "price": int(f.get('月租金 (Monthly Rent)', 0)),
+                        "url": f"https://havennestapp.com/listing/{r['id']}",
+                        "address": addr,
+                        "city": city,
+                        "community": community,
+                        "beds": beds,
+                        "lat": lat,
+                        "lng": lng,
+                        "image": photos[0] if photos else "",
+                        "images": photos,
+                        "desc": f.get('房源描述 (Description)', "No description."),
+                        "isPromo": True,
+                        "date": datetime.now().strftime('%Y-%m-%d')
+                    }
+                    results.append(item)
                 offset = data.get("offset") or ""
                 if not offset:
                     break
@@ -1162,15 +1194,24 @@ class HavenNestCrawler:
         # 爬取新数据
         airtable_data = self.process_airtable_listings()
         new_data = airtable_data + self.process_manual_rentals() + \
-                   self.crawl_craigslist()
+                   self.crawl_craigslist(self.craigslist_limit)
         
         # VanPeople 抓取增加异常处理
         try:
-            vp_data = self.crawl_vanpeople()
+            vp_data = self.crawl_vanpeople(self.vanpeople_limit)
             if vp_data:
                 new_data += vp_data
         except Exception as e:
             print(f"CRITICAL: VanPeople crawl method failed: {e}")
+
+        if self.drop_low_quality:
+            new_data = [it for it in new_data if not self._is_low_quality_item(it)]
+
+        if self.max_total_listings and len(new_data) > self.max_total_listings:
+            owners = [x for x in new_data if (x.get('source') or '').strip().lower() == 'owner']
+            others = [x for x in new_data if (x.get('source') or '').strip().lower() != 'owner']
+            cap = max(self.max_total_listings - len(owners), 0)
+            new_data = owners + others[:cap]
         
         # 补充坐标并确保所有房源都有位置 (仅对新房源中缺失坐标的进行补充)
         print(f"Final geocoding check for {len(new_data)} new items...")
@@ -1184,9 +1225,13 @@ class HavenNestCrawler:
             if not item.get('lat') or not item.get('lng'):
                 # 只有当地址不在缓存中时才调用 API
                 addr_query = self.build_geocode_query(item.get('address', ''), item.get('city', 'Vancouver'))
-                if addr_query + ", BC, Canada" not in self.coords_cache:
+                if (not re.search(r'\d', addr_query)) and (addr_query + ", BC, Canada" not in self.coords_cache):
+                    item['lat'] = None
+                    item['lng'] = None
+                elif addr_query + ", BC, Canada" not in self.coords_cache:
                     print(f"  Geocoding missing: {item.get('title')[:20]}...")
-                item['lat'], item['lng'] = self.get_lat_lng(addr_query)
+                if not item.get('lat') or not item.get('lng'):
+                    item['lat'], item['lng'] = self.get_lat_lng(addr_query)
             
             # 兜底逻辑：依然没有坐标，分配一个中心点
             if not item.get('lat') or not item.get('lng'):
