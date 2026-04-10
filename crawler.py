@@ -132,6 +132,8 @@ class HavenNestCrawler:
             ("rmd", "Richmond", 2),
             ("bby", "Burnaby", 2),
             ("poco", "Port Coquitlam", 2),
+            ("squamish", "Squamish", 4),
+            ("斯阔米什", "Squamish", 4),
 
             ("richmond", "Richmond", 1),
             ("列治文", "Richmond", 1),
