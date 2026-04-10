@@ -29,23 +29,48 @@ def fetch_rentals_ca_automated():
             "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
         })
         
-        url = "https://rentals.ca/vancouver"
-        print(f"Navigating to {url}...")
-        driver.get(url)
-        
-        started = time.time()
-        last_source = ""
-        while time.time() - started < 45:
-            time.sleep(2)
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
-            time.sleep(1)
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1)
-            last_source = driver.page_source or ""
-            if ("rentalListingName" in last_source) or ('"__typename": "RentalListing"' in last_source) or ("RentalListing" in last_source):
-                break
-        
-        source = last_source or driver.page_source or ""
+        cities_env = (os.getenv("HAVENNEST_RENTALS_CITIES") or "").strip()
+        if cities_env:
+            cities = [c.strip().strip("/") for c in cities_env.split(",") if c.strip()]
+        else:
+            cities = [
+                "vancouver",
+                "richmond",
+                "surrey",
+                "burnaby",
+                "langley",
+                "delta",
+                "port-coquitlam",
+                "coquitlam",
+            ]
+
+        combined = []
+        for city in cities:
+            url = f"https://rentals.ca/{city}"
+            print(f"Navigating to {url}...")
+            driver.get(url)
+
+            started = time.time()
+            last_source = ""
+            while time.time() - started < 45:
+                time.sleep(2)
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
+                time.sleep(1)
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                time.sleep(1)
+                last_source = driver.page_source or ""
+                if ("rentalListingName" in last_source) or ('"__typename": "RentalListing"' in last_source) or ("RentalListing" in last_source):
+                    break
+
+            source_part = last_source or driver.page_source or ""
+            has_data = ("rentalListingName" in source_part) or ('"__typename": "RentalListing"' in source_part)
+            if not has_data:
+                print(f"WARNING: Rentals.ca fetched but no listing markers found for {city}. chars={len(source_part)}")
+                continue
+            combined.append(f"\n\nHAVENNEST_RENTALS_CITY={city}\n")
+            combined.append(source_part)
+
+        source = "".join(combined)
 
         has_data = ("rentalListingName" in source) or ('"__typename": "RentalListing"' in source)
         if not has_data:

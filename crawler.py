@@ -580,6 +580,20 @@ class HavenNestCrawler:
                     })
                 except: continue
 
+            if results:
+                dedup = {}
+                for it in results:
+                    k = it.get("url") or ""
+                    if not k:
+                        continue
+                    cur = dedup.get(k)
+                    if not cur:
+                        dedup[k] = it
+                        continue
+                    if len(it.get("images") or []) > len(cur.get("images") or []):
+                        dedup[k] = it
+                results = list(dedup.values())
+
             if not results:
                 def _extract_json_object(s, start_idx):
                     i = start_idx
@@ -702,6 +716,20 @@ class HavenNestCrawler:
                                 print(f"INFO: Rentals fallback parser extracted {len(results)} listings.")
                         except Exception as e:
                             print(f"WARNING: Rentals fallback parser failed: {e}")
+
+                if results:
+                    dedup = {}
+                    for it in results:
+                        k = it.get("url") or ""
+                        if not k:
+                            continue
+                        cur = dedup.get(k)
+                        if not cur:
+                            dedup[k] = it
+                            continue
+                        if len(it.get("images") or []) > len(cur.get("images") or []):
+                            dedup[k] = it
+                    results = list(dedup.values())
 
             print(f"DONE: Extracted {len(results)} Rentals listings.")
             return results
