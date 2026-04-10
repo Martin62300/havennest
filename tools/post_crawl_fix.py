@@ -837,6 +837,9 @@ def main():
                 elif s and cur_comm:
                     needs_coords = True
  
+        if source == "owner" and cur_city and cur_comm and (not has_detail_addr) and (not is_source_map):
+            needs_coords = True
+
         if not needs_coords:
             continue
 
@@ -882,6 +885,19 @@ def main():
                     changed_coords += 1
                     re_geocoded += 1
                     continue
+
+        if source == "owner" and cur_city and cur_comm and (not has_detail_addr) and (not is_source_map):
+            q = f"{cur_comm}, {cur_city}, BC, Canada"
+            if cur_city.lower() == "richmond" and cur_comm.lower() == "thompson":
+                q = f"Thompson Community Centre, {cur_city}, BC, Canada"
+            coords2, geocode_used = _try_geocode_query(c, q, cur_city, cur_comm, None, max_geocode, geocode_used)
+            if coords2:
+                item["lat"] = float(coords2[0])
+                item["lng"] = float(coords2[1])
+                item["coord_source"] = "community_anchor"
+                changed_coords += 1
+                re_geocoded += 1
+                continue
 
         if cur_city and cur_comm and not has_detail_addr:
             box = COMMUNITY_BBOX.get((cur_city, cur_comm))

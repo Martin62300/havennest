@@ -1026,6 +1026,18 @@ class HavenNestCrawler:
                                         q2 = re.sub(r'(?i),?\s*canada\s*$', '', q).strip().strip(',')
                                         map_query = q2 or q
                                         coord_source = "source_map_query"
+                                    if not q:
+                                        m = re.findall(r'!3d([-\d.]+)!4d([-\d.]+)', src3)
+                                        if m:
+                                            map_lat = float(m[-1][0])
+                                            map_lng = float(m[-1][1])
+                                            coord_source = "source_map_pb"
+                                        else:
+                                            m2 = re.findall(r'!2d([-\d.]+)!3d([-\d.]+)', src3)
+                                            if m2:
+                                                map_lng = float(m2[-1][0])
+                                                map_lat = float(m2[-1][1])
+                                                coord_source = "source_map_pb"
                         except:
                             map_lat, map_lng = None, None
 
@@ -1037,6 +1049,22 @@ class HavenNestCrawler:
                                 open_maps_q = unquote_plus(mm.group(1) or '').strip()
                         except:
                             open_maps_q = ""
+
+                        if (map_lat is None or map_lng is None):
+                            try:
+                                mll = re.search(r'(?i)[?&]ll=([-\d.]+),([-\d.]+)', raw_html2)
+                                if mll:
+                                    map_lat = float(mll.group(1))
+                                    map_lng = float(mll.group(2))
+                                    coord_source = coord_source or "source_map_open"
+                                else:
+                                    mat = re.search(r'@([-\d.]+),([-\d.]+)', raw_html2)
+                                    if mat:
+                                        map_lat = float(mat.group(1))
+                                        map_lng = float(mat.group(2))
+                                        coord_source = coord_source or "source_map_open"
+                            except:
+                                pass
 
                         city_hint_text = " ".join([x for x in [loc, addr2, map_query, open_maps_q] if x])
                         city = self.infer_city(city_hint_text) or self.infer_city(title) or "Vancouver"
@@ -1072,6 +1100,46 @@ class HavenNestCrawler:
                 print(f"WARNING: VanPeople crawl failed on page {page}: {e}")
                 break
         
+        seen = {}
+        deduped = []
+        for it in results:
+            addr = str(it.get("address") or "").lower()
+            price = str(it.get("price") or "")
+            beds = str(it.get("beds") or "")
+            key_base = ""
+            if re.search(r"\d", addr):
+                key_base = re.sub(r"[^a-z0-9]+", " ", addr).strip()
+            else:
+                mq = str(it.get("map_query") or "").lower().strip()
+                if mq:
+                    key_base = re.sub(r"[^a-z0-9]+", " ", mq).strip()
+                else:
+                    t = str(it.get("title") or "").lower()
+                    key_base = re.sub(r"[^a-z0-9]+", " ", t).strip()
+            if not key_base:
+                deduped.append(it)
+                continue
+            fp = f"{key_base}|{price}|{beds}"
+            cur = seen.get(fp)
+            if not cur:
+                seen[fp] = it
+                continue
+            def _score(x):
+                s = 0.0
+                cs = str(x.get("coord_source") or "").lower()
+                if cs.startswith("source_map"):
+                    s += 6.0
+                if x.get("lat") is not None and x.get("lng") is not None:
+                    s += 3.0
+                s += min(len(x.get("images") or []), 10) / 10.0
+                s += min(len(str(x.get("address") or "")), 60) / 60.0
+                return s
+            if _score(it) > _score(cur):
+                seen[fp] = it
+        for v in seen.values():
+            deduped.append(v)
+        results = deduped
+
         # 补充坐标
         print(f"Geocoding {len(results)} VanPeople items...")
         for i, item in enumerate(results):
