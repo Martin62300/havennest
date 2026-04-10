@@ -1243,17 +1243,9 @@
         49.2904176,
         -123.1292197
     ],
-    "825 Nicola Street, Vancouver, BC, Canada": [
-        49.2886428,
-        -123.1316557
-    ],
     "1924 Barclay Street, Vancouver, BC, Canada": [
         49.2912412,
         -123.1398192
-    ],
-    "1202 Harwood Street, Vancouver, BC, Canada": [
-        49.2804291,
-        -123.1361011
     ],
     "930 Seymour Street, Vancouver, BC, Canada": [
         49.2791201,
@@ -1383,36 +1375,256 @@
         49.2248459,
         -123.0069043
     ],
+    "485 West 42nd Avenue Oakridge, Vancouver, BC, Canada": [
+        49.2328917,
+        -123.124552
+    ],
+    "8160 Number 3 Road, Richmond, BC, Canada": [
+        49.1539643,
+        -123.136209
+    ],
+    "Metrotown Burnaby, BC, Canada": [
+        49.2200495,
+        -122.9884261
+    ],
+    "Metrotown, Burnaby, BC, Canada": [
+        49.2258524,
+        -123.0038944
+    ],
+    "9531 Gormond Road, Richmond, BC, Canada": [
+        49.1438378,
+        -123.1873181
+    ],
+    "8750 University Crescent, Burnaby, BC, Canada": [
+        49.2798585,
+        -122.9105237
+    ],
+    "7303 Noble Lane, Burnaby, BC, Canada": [
+        49.219334,
+        -122.9492631
+    ],
+    "7017 kitchener st burnaby, BC, Canada": [
+        49.2718426,
+        -122.9581998
+    ],
+    "9531 Chapmond Crescent, Richmond, BC, Canada": [
+        49.1435571,
+        -123.1901377
+    ],
+    "15733 85 Avenue, Surrey, BC, Canada": [
+        49.1597294,
+        -122.7878886
+    ],
+    "13318 104 Avenue Whalley, Surrey, BC, Canada": [
+        49.191627,
+        -122.829532
+    ],
+    "2108 Gilmore Avenue, Burnaby, BC, Canada": [
+        49.2657904,
+        -123.013782
+    ],
+    "6168 Brooks Street Killarney, Vancouver, BC, Canada": [
+        49.227888,
+        -123.0346515
+    ],
+    "fleetwood, Surrey, BC, Canada": [
+        49.1606136,
+        -122.7967458
+    ],
+    "147 East 64th Avenue Sunset, Vancouver, BC, Canada": [
+        49.2126816,
+        -123.1035615
+    ],
+    "803 Baker Drive, Coquitlam, BC, Canada": [
+        49.2631885,
+        -122.8247229
+    ],
+    "Rupert st  41st AVE, Vancouver, BC, Canada": [
+        49.2330693,
+        -123.0436827
+    ],
+    "cambie W 64th Ave, Vancouver, BC, Canada": [
+        49.2126427,
+        -123.1168528
+    ],
+    "King George Boulevard, Surrey, BC, Canada": [
+        49.1583003,
+        -122.8457284
+    ],
+    "8600 Number 1 Road, Richmond, BC, Canada": [
+        49.1516097,
+        -123.1812386
+    ],
+    "4688 Kingsway Metrotown, Burnaby, BC, Canada": [
+        49.2287293,
+        -123.001478
+    ],
+    "5189 Earles Street Renfrew-Collingwood, Vancouver, BC, Canada": [
+        49.2381699,
+        -123.0493597
+    ],
+    "4114 Yuculta Crescent Dunbar-Southlands, Vancouver, BC, Canada": [
+        49.2290017,
+        -123.1987757
+    ],
     "680 Quayside Drive 660, New Westminster, BC, Canada": [
         49.1998089,
         -122.9142434
     ],
-    "4769 Hazel Street, Burnaby, BC, Canada": [
-        49.22905,
-        -122.9968569
+    "939 Beatty Street, Vancouver, BC, Canada": [
+        49.2763787,
+        -123.1161826
     ],
-    "2488 Granville Street, Vancouver, BC, Canada": [
-        49.2640031,
-        -123.1383055
+    "8200 Rosemary Avenue Richmond, BC, Canada": [
+        49.1340928,
+        -123.1283175
+    ],
+    "263 Jardine Street, New Westminster, BC, Canada": [
+        49.1845425,
+        -122.9480809
+    ],
+    "6468 Cooney Road, Richmond, BC, Canada": [
+        49.1634168,
+        -123.1314126
+    ],
+    "15355 26 Avenue, Surrey, BC, Canada": [
+        49.0493174,
+        -122.7968598
+    ],
+    "Laburnum Street Shaughnessy, Vancouver, BC, Canada": [
+        49.2372957,
+        -123.1504964
+    ],
+    "8888 Osler Street Marpole, Vancouver, BC, Canada": [
+        49.204878,
+        -123.1310772
+    ],
+    "3400 West 7th Avenue Kitsilano, Vancouver, BC, Canada": [
+        49.265965,
+        -123.1784931
+    ],
+    "Metrotown Station Loop Metrotown, Burnaby, BC, Canada": [
+        49.2260035,
+        -123.0024029
+    ],
+    "3375 Fieldstone Avenue Killarney, Vancouver, BC, Canada": [
+        49.2080218,
+        -123.0343545
+    ],
+    "8133 Cook Road, Richmond, BC, Canada": [
+        49.1668191,
+        -123.1351005
+    ],
+    "Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
     ],
     "4733 Hazel St, Burnaby, BC, Canada": [
         49.2290753,
         -122.9974603
     ],
-    "1045 Haro Street, Vancouver, BC, Canada": [
-        49.2836434,
-        -123.1249331
+    "4769 Hazel Street, Burnaby, BC, Canada": [
+        49.22905,
+        -122.9968569
+    ],
+    "6976 Heather Street Oakridge, Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
+    "11620 Seabrook Crescent, Richmond, BC, Canada": [
+        49.1398514,
+        -123.0953576
+    ],
+    "2471 w 45th ave vancouver West Vancouver, BC, Canada": [
+        49.2294941,
+        -123.108458
+    ],
+    "5928 birney ave, Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
+    ],
+    "9811 Ferndale Road, Richmond, BC, Canada": [
+        49.1686294,
+        -123.1184666
+    ],
+    "River Drive, Richmond, BC, Canada": [
+        49.1983984,
+        -123.1214947
+    ],
+    "8131 Luton Road, Richmond, BC, Canada": [
+        49.154315,
+        -123.1355876
+    ],
+    "20 Avenue, Surrey, BC, Canada": [
+        49.0384823,
+        -122.8149396
+    ],
+    "Dunbar-Southlands, Vancouver, BC, Canada": [
+        49.2347943,
+        -123.1854253
+    ],
+    "9931 149 Street Guildford, Surrey, BC, Canada": [
+        49.182794,
+        -122.8099679
+    ],
+    "3175 West 18th Avenue Arbutus Ridge, Vancouver, BC, Canada": [
+        49.2568522,
+        -123.1753549
+    ],
+    "Whalley Blvd, Surrey, BC, Canada": [
+        49.1825465,
+        -122.844131
+    ],
+    "19670 Avenue, Langley, BC, Canada": [
+        49.1700869,
+        -122.5880817
+    ],
+    "0 rosemary ave Richmond, BC, Canada": [
+        49.1340928,
+        -123.1283175
+    ],
+    "Number 3 Road, Richmond, BC, Canada": [
+        49.126249,
+        -123.1367271
+    ],
+    "6098 Station Street Metrotown, Burnaby, BC, Canada": [
+        49.2275175,
+        -123.0027767
+    ],
+    "2351 Beta Avenue, Burnaby, BC, Canada": [
+        49.2780384,
+        -122.997508
+    ],
+    "7555 Oak Street Marpole, Vancouver, BC, Canada": [
+        49.2158396,
+        -123.1298528
     ],
     "1477 Continental Street, Vancouver, BC, Canada": [
         49.2744852,
         -123.1309054
     ],
+    "2488 Granville Street, Vancouver, BC, Canada": [
+        49.2640031,
+        -123.1383055
+    ],
     "855 Jervis Street, Vancouver, BC, Canada": [
         49.2866205,
         -123.1295863
     ],
-    "939 Beatty Street, Vancouver, BC, Canada": [
-        49.2763787,
-        -123.1161826
+    "1202 Harwood Street, Vancouver, BC, Canada": [
+        49.2804291,
+        -123.1361011
+    ],
+    "1045 Haro Street, Vancouver, BC, Canada": [
+        49.2836434,
+        -123.1249331
+    ],
+    "825 Nicola Street, Vancouver, BC, Canada": [
+        49.2886428,
+        -123.1316557
+    ],
+    "1661 Davie Street, Vancouver, BC, Canada": [
+        49.2858372,
+        -123.1390281
     ]
 }
