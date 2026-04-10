@@ -187,6 +187,7 @@ class HavenNestCrawler:
 
         try:
             a = re.sub(r"\bVancouver\s+(West|North|East|South)\s+Vancouver\b", "Vancouver", a, flags=re.IGNORECASE)
+            a = re.sub(r"\b(North|East|South)\s+Vancouver\b", "Vancouver", a, flags=re.IGNORECASE)
             a = re.sub(r"\b(w|e|n|s)\b(?=\s*\d)", lambda m: {"w": "West", "e": "East", "n": "North", "s": "South"}[m.group(1).lower()], a, flags=re.IGNORECASE)
             a = re.sub(r"\bave\b", "Avenue", a, flags=re.IGNORECASE)
             a = re.sub(r"\bst\b", "Street", a, flags=re.IGNORECASE)
@@ -531,8 +532,17 @@ class HavenNestCrawler:
                     lng = float(loc_match.group(1)) if loc_match else None
                     
                     # 5. 提取地址
-                    street_match = re.search(r'"street":\s*"(.*?)"', block)
-                    street = street_match.group(1) if street_match else ""
+                    streets = re.findall(r'"street":\s*"(.*?)"', block)
+                    street = ""
+                    if streets:
+                        streets = [s for s in streets if s and isinstance(s, str)]
+                        streets = [s.strip() for s in streets if s.strip()]
+                        if streets:
+                            digit_streets = [s for s in streets if re.search(r"\d", s)]
+                            if digit_streets:
+                                street = max(digit_streets, key=lambda x: len(x))
+                            else:
+                                street = max(streets, key=lambda x: len(x))
                     city_match = re.search(r'"cityName":\s*"(.*?)"', block)
                     city = city_match.group(1) if city_match else "Vancouver"
                     full_address = f"{street}, {city}" if street else city
@@ -1056,6 +1066,7 @@ class HavenNestCrawler:
                         try:
                             addr2 = re.sub(r'([a-z])([A-Z])', r'\1 \2', addr2).strip()
                             addr2 = re.sub(r'\bVancouver\s+(West|North|East|South)\s+Vancouver\b', 'Vancouver', addr2, flags=re.IGNORECASE)
+                            addr2 = re.sub(r'\b(North|East|South)\s+Vancouver\b', 'Vancouver', addr2, flags=re.IGNORECASE)
                             addr2 = re.sub(r'\s+', ' ', addr2).strip()
                         except:
                             pass
@@ -1151,6 +1162,14 @@ class HavenNestCrawler:
                         city_hint_text = " ".join([x for x in [loc, addr2, map_query, open_maps_q] if x])
                         city = self.infer_city(city_hint_text) or self.infer_city(title) or "Vancouver"
                         address = addr2 or loc or open_maps_q or map_query or city
+                        try:
+                            if addr2 and (not re.search(r"\d", addr2)):
+                                if open_maps_q and re.search(r"\d", open_maps_q):
+                                    address = open_maps_q
+                                elif map_query and re.search(r"\d", map_query):
+                                    address = map_query
+                        except:
+                            pass
                         if addr2 and loc and (loc.lower() not in addr2.lower()):
                             address = f"{addr2}, {loc}"
 
