@@ -865,6 +865,12 @@ class HavenNestCrawler:
         ]
         
         page = 1
+        try:
+            max_pages = int(os.getenv('HAVENNEST_VANPEOPLE_MAX_PAGES') or 0)
+        except:
+            max_pages = 0
+        if not max_pages:
+            max_pages = max(5, min(25, (limit // 15) + 5))
         while len(results) < limit:
             try:
                 url = "https://c.vanpeople.com/zufang/" if page == 1 else f"https://c.vanpeople.com/zufang/?page={page}"
@@ -1127,7 +1133,7 @@ class HavenNestCrawler:
                         continue
                 
                 page += 1
-                if page > 5: break # 最多抓取5页，防止任务太久
+                if page > max_pages: break # 最多抓取5页，防止任务太久
             except Exception as e:
                 print(f"WARNING: VanPeople crawl failed on page {page}: {e}")
                 break
