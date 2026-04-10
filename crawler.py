@@ -1217,7 +1217,34 @@ class HavenNestCrawler:
             owners = [x for x in new_data if (x.get('source') or '').strip().lower() == 'owner']
             others = [x for x in new_data if (x.get('source') or '').strip().lower() != 'owner']
             cap = max(self.max_total_listings - len(owners), 0)
-            new_data = owners + others[:cap]
+            major_sources = ["Rentals.ca", "Craigslist", "VanPeople"]
+            buckets = {s: [] for s in major_sources}
+            extra = []
+
+            for it in others:
+                src = (it.get("source") or "").strip()
+                if src in buckets:
+                    buckets[src].append(it)
+                else:
+                    extra.append(it)
+
+            base = cap // len(major_sources) if major_sources else cap
+            rem = cap % len(major_sources) if major_sources else 0
+
+            selected = []
+            remains = []
+
+            for i, s in enumerate(major_sources):
+                n = base + (1 if i < rem else 0)
+                selected.extend(buckets[s][:n])
+                remains.extend(buckets[s][n:])
+
+            if len(selected) < cap:
+                selected.extend(remains[: max(cap - len(selected), 0)])
+            if len(selected) < cap and extra:
+                selected.extend(extra[: max(cap - len(selected), 0)])
+
+            new_data = owners + selected[:cap]
         
         # 补充坐标并确保所有房源都有位置 (仅对新房源中缺失坐标的进行补充)
         print(f"Final geocoding check for {len(new_data)} new items...")
