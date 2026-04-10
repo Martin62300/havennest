@@ -182,11 +182,19 @@ class HavenNestCrawler:
         c = re.sub(r"\s+", " ", c)
 
         city_from_a = self.infer_city(a)
-        city_from_all = self.infer_city(" ".join([a, c]))
         if not c and city_from_a:
             c = city_from_a
-        if c and city_from_a and city_from_a != c and city_from_all:
-            c = city_from_all
+
+        try:
+            a = re.sub(r"\bVancouver\s+(West|North|East|South)\s+Vancouver\b", "Vancouver", a, flags=re.IGNORECASE)
+            a = re.sub(r"\b(w|e|n|s)\b(?=\s*\d)", lambda m: {"w": "West", "e": "East", "n": "North", "s": "South"}[m.group(1).lower()], a, flags=re.IGNORECASE)
+            a = re.sub(r"\bave\b", "Avenue", a, flags=re.IGNORECASE)
+            a = re.sub(r"\bst\b", "Street", a, flags=re.IGNORECASE)
+            a = re.sub(r"\brd\b", "Road", a, flags=re.IGNORECASE)
+            a = re.sub(r"\bdr\b", "Drive", a, flags=re.IGNORECASE)
+            a = re.sub(r"\s+", " ", a).strip()
+        except:
+            pass
 
         if city_from_a and a.lower() == city_from_a.lower():
             a = ""
@@ -1045,6 +1053,12 @@ class HavenNestCrawler:
                             addr2 = m.group(1)
                         addr2 = re.sub(r'\s*查看地图.*$', '', addr2).strip()
                         addr2 = re.sub(r'\s+', ' ', addr2)
+                        try:
+                            addr2 = re.sub(r'([a-z])([A-Z])', r'\1 \2', addr2).strip()
+                            addr2 = re.sub(r'\bVancouver\s+(West|North|East|South)\s+Vancouver\b', 'Vancouver', addr2, flags=re.IGNORECASE)
+                            addr2 = re.sub(r'\s+', ' ', addr2).strip()
+                        except:
+                            pass
  
                         community = ""
                         for candidate in [addr2, loc]:
@@ -1152,6 +1166,7 @@ class HavenNestCrawler:
                             "lat": map_lat,
                             "lng": map_lng,
                             "coord_source": coord_source,
+                            "map_query": map_query,
                             "image": images[0] if images else "",
                             "images": images,
                             "desc": desc if desc else "请点击'查看原房源'获取更多详细信息。",
@@ -1187,7 +1202,7 @@ class HavenNestCrawler:
             if not key_base:
                 deduped.append(it)
                 continue
-            fp = f"{key_base}|{price}|{beds}"
+            fp = f"{key_base}|{price}" if re.search(r"\d", addr) else f"{key_base}|{price}|{beds}"
             cur = seen.get(fp)
             if not cur:
                 seen[fp] = it
