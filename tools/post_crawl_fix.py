@@ -740,7 +740,7 @@ def main():
         title = str(item.get("title") or "")
         addr = str(item.get("address") or "")
         desc = str(item.get("desc") or item.get("description") or "")
-        text = " ".join([title, addr, desc])
+        text = " ".join([title, addr] if source == "vanpeople" else [title, addr, desc])
  
         info = c.infer_city_info(text)
         inferred_city = (info.get("city") or "").strip()

@@ -1038,9 +1038,11 @@ class HavenNestCrawler:
                         except:
                             open_maps_q = ""
 
-                        city_hint_text = " ".join([x for x in [title, loc, addr2, map_query, open_maps_q, desc] if x])
-                        city = self.infer_city(city_hint_text) or "Vancouver"
+                        city_hint_text = " ".join([x for x in [loc, addr2, map_query, open_maps_q] if x])
+                        city = self.infer_city(city_hint_text) or self.infer_city(title) or "Vancouver"
                         address = addr2 or loc or open_maps_q or map_query or city
+                        if addr2 and loc and (loc.lower() not in addr2.lower()):
+                            address = f"{addr2}, {loc}"
 
                         results.append({
                             "source": "VanPeople",
