@@ -801,6 +801,15 @@ def main():
         is_source_map = _is_source_map(coord_source)
         priority_needs_geocode = False
 
+        if source == "owner" and (cur_city or "").strip().lower() == "richmond" and (cur_comm or "").strip().lower() == "thompson" and (not has_detail_addr):
+            u = _stable_u(item, "thompson_lat")
+            v = _stable_u(item, "thompson_lng")
+            item["lat"] = 49.1633 + (u - 0.5) * 0.0018
+            item["lng"] = -123.1653617 + (v - 0.5) * 0.0018
+            item["coord_source"] = "community_anchor_fixed"
+            changed_coords += 1
+            continue
+
         if not has_detail_addr and _looks_like_city_only_address(addr_for_check, cur_city):
             item["address"] = f"{cur_comm}, {cur_city}".strip(", ").strip() if cur_comm else (cur_city or "Vancouver")
             addr_for_check = str(item.get("address") or "")
