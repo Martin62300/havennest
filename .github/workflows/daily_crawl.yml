@@ -32,6 +32,19 @@ jobs:
 
       - name: Fetch Rentals.ca (Automated)
         run: python fetch_rentals_selenium.py
+        env:
+          HAVENNEST_RENTALS_WAIT_SECONDS: "120"
+          HAVENNEST_RENTALS_MAX_RETRIES: "2"
+
+      - name: Upload Rentals.ca debug HTML (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rentals-debug-html
+          path: |
+            rentals_raw_failed.html
+            rentals_raw_failed_*.html
+          if-no-files-found: ignore
 
       - name: Run crawler
         run: python crawler.py
