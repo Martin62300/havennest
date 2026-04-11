@@ -638,36 +638,145 @@ class HavenNestCrawler:
                         dedup[k] = it
                 results = list(dedup.values())
 
-            if not results:
-                def _extract_json_object(s, start_idx):
-                    i = start_idx
-                    while i < len(s) and s[i] != '{':
-                        i += 1
-                    if i >= len(s) or s[i] != '{':
+            def _extract_json_object(s, start_idx):
+                i = start_idx
+                while i < len(s) and s[i] != '{':
+                    i += 1
+                if i >= len(s) or s[i] != '{':
+                    return None
+                depth = 0
+                in_str = False
+                esc = False
+                for j in range(i, len(s)):
+                    ch = s[j]
+                    if in_str:
+                        if esc:
+                            esc = False
+                        elif ch == '\\':
+                            esc = True
+                        elif ch == '"':
+                            in_str = False
+                    else:
+                        if ch == '"':
+                            in_str = True
+                        elif ch == '{':
+                            depth += 1
+                        elif ch == '}':
+                            depth -= 1
+                            if depth == 0:
+                                return s[i:j + 1]
+                return None
+
+            def _node_to_item(node):
+                try:
+                    if not isinstance(node, dict):
                         return None
-                    depth = 0
-                    in_str = False
-                    esc = False
-                    for j in range(i, len(s)):
-                        ch = s[j]
-                        if in_str:
-                            if esc:
-                                esc = False
-                            elif ch == '\\':
-                                esc = True
-                            elif ch == '"':
-                                in_str = False
-                        else:
-                            if ch == '"':
-                                in_str = True
-                            elif ch == '{':
-                                depth += 1
-                            elif ch == '}':
-                                depth -= 1
-                                if depth == 0:
-                                    return s[i:j + 1]
+                    if node.get('__typename') != 'RentalListing':
+                        return None
+                    title = node.get('rentalListingName') or ''
+                    path = node.get('path') or ''
+                    if not title or not path:
+                        return None
+                    url = "https://rentals.ca/" + path.lstrip('/')
+                    rent_range = node.get('rentRange') or []
+                    price = 0
+                    if isinstance(rent_range, list) and rent_range:
+                        try:
+                            price = int(float(rent_range[0]))
+                        except:
+                            price = 0
+                    if price < 300:
+                        return None
+                    if any(kw in title.lower() for kw in ['parking', 'storage', 'locker', 'garage', '车位', '储物']):
+                        return None
+                    loc = node.get('rentalListingLocation') or []
+                    lat = None
+                    lng = None
+                    if isinstance(loc, list) and len(loc) == 2:
+                        try:
+                            lng = float(loc[0])
+                            lat = float(loc[1])
+                        except:
+                            lat = None
+                            lng = None
+                    address = node.get('address') or {}
+                    street = str(address.get('street') or '').strip()
+                    city_obj = (address.get('city') or {})
+                    city = str(city_obj.get('cityName') or "Vancouver").strip() or "Vancouver"
+                    full_address = f"{street}, {city}" if street else city
+                    info = self.infer_city_info(" ".join([title, full_address]))
+                    inferred_city = info.get("city") or ""
+                    strength = int(info.get("strength") or 0)
+                    if inferred_city and (not city or city.strip().lower() == "vancouver" or (strength >= 2 and city.strip().lower() != inferred_city.lower())):
+                        city = inferred_city
+                        full_address = f"{street}, {city}" if street else city
+                    beds_range = node.get('bedsRange') or []
+                    beds = self.extract_beds(title)
+                    if isinstance(beds_range, list) and beds_range:
+                        try:
+                            beds = int(float(beds_range[0]))
+                        except:
+                            pass
+                    images = []
+                    for img in (node.get('images') or []):
+                        scales = (img or {}).get('scales') or []
+                        for sc in scales:
+                            u = (sc or {}).get('url')
+                            if u and u not in images:
+                                images.append(u)
+                    if not images:
+                        thumb = node.get('thumbnail')
+                        if isinstance(thumb, str) and thumb:
+                            images.append(thumb)
+                    return {
+                        "source": "Rentals.ca",
+                        "title": title,
+                        "price": price,
+                        "url": url,
+                        "address": full_address,
+                        "city": city,
+                        "beds": beds,
+                        "lat": lat,
+                        "lng": lng,
+                        "image": images[0] if images else "",
+                        "images": images,
+                        "desc": "请点击'查看原房源'获取更多详细信息。",
+                        "date": datetime.now().strftime("%Y-%m-%d")
+                    }
+                except:
                     return None
 
+            if len(results) < 40:
+                merged = {}
+                for it in results:
+                    k = it.get("url") or ""
+                    if k:
+                        merged[k] = it
+                pos = 0
+                marker = '"node":'
+                while True:
+                    idx = content.find(marker, pos)
+                    if idx == -1:
+                        break
+                    obj_str = _extract_json_object(content, idx + len(marker))
+                    pos = idx + len(marker)
+                    if not obj_str:
+                        continue
+                    try:
+                        node = json.loads(obj_str)
+                    except:
+                        continue
+                    it = _node_to_item(node)
+                    if not it:
+                        continue
+                    k = it.get("url") or ""
+                    cur = merged.get(k)
+                    if (not cur) or (len(it.get("images") or []) > len(cur.get("images") or [])):
+                        merged[k] = it
+                if merged:
+                    results = list(merged.values())
+
+            if not results:
                 marker_idx = content.find('response:')
                 if marker_idx != -1:
                     json_str = _extract_json_object(content, marker_idx)
