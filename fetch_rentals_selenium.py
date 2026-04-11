@@ -4,6 +4,8 @@ import re
 import time
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -11,6 +13,51 @@ from webdriver_manager.chrome import ChromeDriverManager
 def fetch_rentals_ca_automated():
     print("Starting automated Rentals.ca fetch via Selenium...")
     
+    def has_listing_markers(html):
+        s = html or ""
+        return (
+            ("rentalListingName" in s) or
+            ('"__typename": "RentalListing"' in s) or
+            ('"__typename":"RentalListing"' in s) or
+            ("rentalListingLocation" in s) or
+            ("bedsRange" in s) or
+            ("rentRange" in s) or
+            ("response:" in s)
+        )
+
+    def save_debug(city, html):
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        safe = re.sub(r"[^a-z0-9_-]+", "_", str(city).lower()).strip("_") or "city"
+        html_path = f"rentals_raw_failed_{safe}_{ts}.html"
+        with open(html_path, "w", encoding="utf-8") as f:
+            f.write(html or "")
+        return html_path
+
+    def try_accept_cookies():
+        try:
+            btn_xpaths = [
+                "//button[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'accept')]",
+                "//button[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'agree')]",
+                "//button[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'allow')]",
+                "//button[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'ok')]",
+            ]
+            for xp in btn_xpaths:
+                els = driver.find_elements(By.XPATH, xp)
+                for el in els[:6]:
+                    try:
+                        if el.is_displayed() and el.is_enabled():
+                            try:
+                                el.click()
+                            except:
+                                driver.execute_script("arguments[0].click();", el)
+                            time.sleep(0.8)
+                            return True
+                    except:
+                        continue
+        except:
+            return False
+        return False
+
     chrome_options = Options()
     chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
@@ -44,36 +91,62 @@ def fetch_rentals_ca_automated():
                 "coquitlam",
             ]
 
+        try:
+            wait_s = int((os.getenv("HAVENNEST_RENTALS_WAIT_SECONDS") or "").strip() or "90")
+        except:
+            wait_s = 90
+        try:
+            retries = int((os.getenv("HAVENNEST_RENTALS_MAX_RETRIES") or "").strip() or "2")
+        except:
+            retries = 2
+
         combined = []
         for city in cities:
             url = f"https://rentals.ca/{city}"
             print(f"Navigating to {url}...")
-            driver.get(url)
-
-            started = time.time()
             last_source = ""
-            while time.time() - started < 45:
-                time.sleep(2)
-                driver.execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
-                time.sleep(1)
-                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(1)
-                last_source = driver.page_source or ""
-                if ("rentalListingName" in last_source) or ('"__typename": "RentalListing"' in last_source) or ("RentalListing" in last_source):
+            ok = False
+            for attempt in range(max(retries, 1)):
+                try:
+                    if attempt == 0:
+                        driver.get(url)
+                    else:
+                        driver.refresh()
+                    started = time.time()
+                    while time.time() - started < wait_s:
+                        time.sleep(1.5)
+                        try_accept_cookies()
+                        try:
+                            driver.execute_script("window.scrollTo(0, document.body.scrollHeight*0.25);")
+                            time.sleep(0.6)
+                            driver.execute_script("window.scrollTo(0, document.body.scrollHeight*0.6);")
+                            time.sleep(0.6)
+                            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                            time.sleep(0.6)
+                            driver.execute_script("window.scrollBy(0, -600);")
+                            time.sleep(0.3)
+                        except:
+                            pass
+                        last_source = driver.page_source or ""
+                        if has_listing_markers(last_source):
+                            ok = True
+                            break
+                except WebDriverException:
+                    last_source = driver.page_source or ""
+                if ok:
                     break
 
             source_part = last_source or driver.page_source or ""
-            has_data = ("rentalListingName" in source_part) or ('"__typename": "RentalListing"' in source_part)
-            if not has_data:
-                print(f"WARNING: Rentals.ca fetched but no listing markers found for {city}. chars={len(source_part)}")
+            if not has_listing_markers(source_part):
+                html_path = save_debug(city, source_part)
+                print(f"WARNING: Rentals.ca fetched but no listing markers found for {city}. chars={len(source_part)} saved={html_path}")
                 continue
             combined.append(f"\n\nHAVENNEST_RENTALS_CITY={city}\n")
             combined.append(source_part)
 
         source = "".join(combined)
 
-        has_data = ("rentalListingName" in source) or ('"__typename": "RentalListing"' in source)
-        if not has_data:
+        if not has_listing_markers(source):
             with open("rentals_raw_failed.html", "w", encoding="utf-8") as f:
                 f.write(source)
             print(f"WARNING: Rentals.ca fetched but no listing markers found. Keeping existing rentals_raw.json. chars={len(source)}")
