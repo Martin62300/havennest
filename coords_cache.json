@@ -1347,10 +1347,6 @@
         49.2279306,
         -123.0103557
     ],
-    "8000 Westminster Highway Richmond, BC, Canada": [
-        49.168161,
-        -122.9739467
-    ],
     "7075 Frederick Avenue, Burnaby, BC, Canada": [
         49.2195297,
         -123.001805
@@ -1515,10 +1511,6 @@
         49.2290753,
         -122.9974603
     ],
-    "4769 Hazel Street, Burnaby, BC, Canada": [
-        49.22905,
-        -122.9968569
-    ],
     "6976 Heather Street Oakridge, Vancouver, BC, Canada": [
         49.221793,
         -123.1233638
@@ -1591,18 +1583,6 @@
         49.2158396,
         -123.1298528
     ],
-    "1045 Haro Street, Vancouver, BC, Canada": [
-        49.2836434,
-        -123.1249331
-    ],
-    "825 Nicola Street, Vancouver, BC, Canada": [
-        49.2886428,
-        -123.1316557
-    ],
-    "1661 Davie Street, Vancouver, BC, Canada": [
-        49.2858372,
-        -123.1390281
-    ],
     "7260 Petts Road, 列治文, Richmond, BC, Canada": [
         49.1395378,
         -123.1407128
@@ -1635,17 +1615,9 @@
         49.2328917,
         -123.124552
     ],
-    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1649333,
-        -123.1400942
-    ],
     "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
         49.221793,
         -123.1233638
-    ],
-    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1654588,
-        -123.140133
     ],
     "Westminster Hwy Richmond, BC, Canada": [
         49.1703765,
@@ -1911,6 +1883,250 @@
         49.2455171,
         -123.143819
     ],
+    "General Currie Road, 列治文, Richmond, BC, Canada": [
+        49.1591625,
+        -123.129134
+    ],
+    "West 35th Avenue Vancouver Vancouver, BC, Canada": [
+        49.2404002,
+        -123.1653509
+    ],
+    "Queens Avenue Renfrew-Collingwood Vancouver, BC, Canada": [
+        49.2410161,
+        -123.0353105
+    ],
+    "4467 West 16th Avenue West Point Grey,Vancouver, BC, Canada": [
+        49.2585814,
+        -123.2082438
+    ],
+    "West 39th Avenue Arbutus Ridge,Vancouver, BC, Canada": [
+        49.2365187,
+        -123.1606373
+    ],
+    "5928 birney Avenue Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
+    ],
+    "4092 Burke Street Burnaby, BC, Canada": [
+        49.2367358,
+        -123.0137978
+    ],
+    "2471 West 45th Avenue Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "6699 Dunblane Avenue Metrotown Burnaby, BC, Canada": [
+        49.222271,
+        -122.9931937
+    ],
+    "Rosemary Avenue Richmond, BC, Canada": [
+        49.1340928,
+        -123.1283175
+    ],
+    "2600 Wallace Street West Point Grey Vancouver, BC, Canada": [
+        49.2632792,
+        -123.1906755
+    ],
+    "2928 West 21st Avenue Arbutus Ridge Vancouver, BC, Canada": [
+        49.2535093,
+        -123.1709527
+    ],
+    "22nd W,Vancouver, BC, Canada": [
+        49.2515183,
+        -123.116499
+    ],
+    "1336 East 11th Avenue Kensington-Cedar Cottage Vancouver, BC, Canada": [
+        49.2603275,
+        -123.0766379
+    ],
+    "Boundary Road Vancouver, BC, Canada": [
+        49.2632461,
+        -123.0238678
+    ],
+    "Warwick Crescent Port Coquitlam, BC, Canada": [
+        49.2512444,
+        -122.7731838
+    ],
+    "2795 East 49th Avenue Killarney Vancouver, BC, Canada": [
+        49.2251063,
+        -123.0480756
+    ],
+    "8888 Osler Street Marpole Vancouver, BC, Canada": [
+        49.204878,
+        -123.1310772
+    ],
+    "4788 Hazel Street Metrotown,Burnaby, BC, Canada": [
+        49.2284354,
+        -122.9973304
+    ],
+    "Turner Street Vancouver Vancouver, BC, Canada": [
+        49.2790435,
+        -123.063534
+    ],
+    "William Street Vancouver Vancouver, BC, Canada": [
+        49.2741468,
+        -123.0517313
+    ],
+    "7891 Osler Street Marpole Vancouver, BC, Canada": [
+        49.213968,
+        -123.1317963
+    ],
+    "Bonavista Gate Steveston Richmond, BC, Canada": [
+        49.1342846,
+        -123.1725769
+    ],
+    "Cambie Richmond, BC, Canada": [
+        49.1878499,
+        -123.072334
+    ],
+    "7008 River Parkway Richmond, BC, Canada": [
+        49.1766011,
+        -123.143131
+    ],
+    "McKee Street Burnaby, BC, Canada": [
+        49.2111465,
+        -122.9754431
+    ],
+    "6655 Buswell Street,Richmond, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "1708 West 59th Avenue Marpole Vancouver, BC, Canada": [
+        49.2174922,
+        -123.1454628
+    ],
+    "9521 Cardston Court Burnaby, BC, Canada": [
+        49.248569,
+        -122.898895
+    ],
+    "West 41st Avenue Dunbar-Southlands Vancouver, BC, Canada": [
+        49.2346005,
+        -123.183397
+    ],
+    "Fairlawn Drive Burnaby Burnaby, BC, Canada": [
+        49.2736168,
+        -122.9965532
+    ],
+    "Number 2 Road,Richmond, BC, Canada": [
+        49.1504959,
+        -123.1589449
+    ],
+    "Tolmie Street West Point Grey,Vancouver, BC, Canada": [
+        49.2676434,
+        -123.2120201
+    ],
+    "3628 Dunbar Street Dunbar-Southlands,Vancouver, BC, Canada": [
+        49.2542547,
+        -123.1847816
+    ],
+    "5868 Agronomy Road Vancouver, BC, Canada": [
+        49.2628762,
+        -123.241931
+    ],
+    "4465 Juneau Street Burnaby, BC, Canada": [
+        49.26379,
+        -123.0042913
+    ],
+    "Lancing Road Richmond, BC, Canada": [
+        49.1566708,
+        -123.1652301
+    ],
+    "North Stratford Avenue Burnaby, BC, Canada": [
+        49.2852177,
+        -122.9766771
+    ],
+    "3939 21st W Vancouver, BC, Canada": [
+        49.2539959,
+        -123.1919125
+    ],
+    "Railway Richmond, BC, Canada": [
+        49.1241052,
+        -123.1698999
+    ],
+    "5068 Kwantlen Street Richmond, BC, Canada": [
+        49.1766203,
+        -123.1277482
+    ],
+    "W11 Avenue Vancouver, BC, Canada": [
+        49.1755315,
+        -123.9450959
+    ],
+    "9060 University Crescent,Burnaby, BC, Canada": [
+        49.2804147,
+        -122.9078759
+    ],
+    "East 54th Avenue Vancouver,Vancouver, BC, Canada": [
+        49.2199318,
+        -123.0408408
+    ],
+    "Vancouver-knight Vancouver, BC, Canada": [
+        49.218387,
+        -123.0766722
+    ],
+    "East 20th Avenue Renfrew-Collingwood Vancouver, BC, Canada": [
+        49.2523289,
+        -123.037744
+    ],
+    "Dunbar-Southlands Vancouver, BC, Canada": [
+        49.25362,
+        -123.1853068
+    ],
+    "East 11th Avenue Vancouver Vancouver, BC, Canada": [
+        49.2606147,
+        -123.0882261
+    ],
+    "6320 Number 3 Road,Richmond, BC, Canada": [
+        49.1674094,
+        -123.1359307
+    ],
+    "3844 Lister Street Burnaby, BC, Canada": [
+        49.2442011,
+        -123.018409
+    ],
+    "4567 Lougheed Highway,Burnaby, BC, Canada": [
+        49.2680771,
+        -123.0003298
+    ],
+    "4334 Halley Avenue Burnaby, BC, Canada": [
+        49.2453914,
+        -123.0093979
+    ],
+    "Elwell Street,Burnaby, BC, Canada": [
+        49.2287182,
+        -122.9402507
+    ],
+    "sea island,Richmond, BC, Canada": [
+        49.1956285,
+        -123.1740231
+    ],
+    "Richmond Center Richmond, BC, Canada": [
+        49.1718525,
+        -123.1388182
+    ],
+    "6061 Olympic Street Southlands Vancouver, BC, Canada": [
+        49.2312983,
+        -123.1900149
+    ],
+    "Gilley Avenue,Burnaby, BC, Canada": [
+        49.2083243,
+        -122.973388
+    ],
+    "1115 West 48th Avenue Oakridge Vancouver, BC, Canada": [
+        49.2278204,
+        -123.1307813
+    ],
+    "Alanmore Place Richmond, BC, Canada": [
+        49.1534053,
+        -123.1824189
+    ],
+    "6888 Alderbridge Way Richmond, BC, Canada": [
+        49.1713527,
+        -123.1439618
+    ],
+    "Thurston Street Metrotown Burnaby, BC, Canada": [
+        49.2347927,
+        -123.0178942
+    ],
     "5088 Kwantlen Street, Richmond, BC, Canada": [
         49.1762053,
         -123.1282949
@@ -1919,28 +2135,108 @@
         49.1650135,
         -123.1340569
     ],
-    "855 Jervis Street, Vancouver, BC, Canada": [
-        49.2866205,
-        -123.1295863
+    "1045 Haro Street, Vancouver, BC, Canada": [
+        49.2836434,
+        -123.1249331
     ],
     "2488 Granville Street, Vancouver, BC, Canada": [
         49.2640031,
         -123.1383055
     ],
+    "939 Beatty Street, Vancouver, BC, Canada": [
+        49.2763787,
+        -123.1161826
+    ],
+    "4733 Hazel Street, Burnaby, BC, Canada": [
+        49.2290753,
+        -122.9974603
+    ],
     "1202 Harwood Street, Vancouver, BC, Canada": [
         49.2804291,
         -123.1361011
     ],
-    "939 Beatty Street, Vancouver, BC, Canada": [
-        49.2763787,
-        -123.1161826
+    "4769 Hazel Street, Burnaby, BC, Canada": [
+        49.22905,
+        -122.9968569
+    ],
+    "855 Jervis Street, Vancouver, BC, Canada": [
+        49.2866205,
+        -123.1295863
+    ],
+    "825 Nicola Street, Vancouver, BC, Canada": [
+        49.2886428,
+        -123.1316557
+    ],
+    "1661 Davie Street, Vancouver, BC, Canada": [
+        49.2858372,
+        -123.1390281
     ],
     "1477 Continental Street, Vancouver, BC, Canada": [
         49.2744852,
         -123.1309054
     ],
-    "680 Quayside Drive 660, New Westminster, BC, Canada": [
-        49.1998089,
-        -122.9142434
+    "9450 128 Street, Surrey, BC, Canada": [
+        49.1741567,
+        -122.8677548
+    ],
+    "13555 96 Avenue, Surrey, BC, Canada": [
+        49.17741,
+        -122.8477383
+    ],
+    "900 Carnarvon Street, New Westminster, BC, Canada": [
+        49.2005116,
+        -122.9149126
+    ],
+    "720 Queens Avenue, New Westminster, BC, Canada": [
+        49.2053899,
+        -122.9152373
+    ],
+    "737 Carnarvon Street, New Westminster, BC, Canada": [
+        49.2027218,
+        -122.9119315
+    ],
+    "527 Carnarvon Street, New Westminster, BC, Canada": [
+        49.2045196,
+        -122.9087958
+    ],
+    "910 Street. Andrews Street, New Westminster, BC, Canada": [
+        49.2074599,
+        -122.9235033
+    ],
+    "20051 55A Avenue, Langley, BC, Canada": [
+        49.1034404,
+        -122.6672448
+    ],
+    "20449 Park Avenue, Langley, BC, Canada": [
+        49.1026363,
+        -122.6553751
+    ],
+    "19777 Willowbrook Drive, Langley, BC, Canada": [
+        49.1170227,
+        -122.6751086
+    ],
+    "19899 55a Avenue, Langley, BC, Canada": [
+        49.1034693,
+        -122.6717137
+    ],
+    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1654588,
+        -123.140133
+    ],
+    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1649333,
+        -123.1400942
+    ],
+    "3018 Saint George Street Port Moody, BC, Canada": [
+        49.2759026,
+        -122.8442523
+    ],
+    "8180 Granville Avenue Richmond, BC, Canada": [
+        49.162377,
+        -123.1338457
+    ],
+    "618 Carnarvon Street New Westminster, BC, Canada": [
+        49.2035612,
+        -122.9091637
     ]
 }
