@@ -318,7 +318,6 @@ function coordsFromBox(item, box) {
 }
 
 function ensureListingCoords(i) {
-    if (i && Number.isFinite(Number(i.lat)) && Number.isFinite(Number(i.lng))) return i;
     const city = (i && i.city ? String(i.city) : "Vancouver").trim() || "Vancouver";
     const commRaw = (i && (i.community || i.neighborhood || i.area)) ? String(i.community || i.neighborhood || i.area) : "";
     const comm = normalizeCommunityName(commRaw);
@@ -329,6 +328,7 @@ function ensureListingCoords(i) {
         i.lng = -123.1653617 + (v - 0.5) * 0.0022;
         return i;
     }
+    if (i && Number.isFinite(Number(i.lat)) && Number.isFinite(Number(i.lng))) return i;
     if (comm) {
         const key = `${city}||${comm}`;
         const key2 = `${city.toLowerCase()}||${comm.toLowerCase()}`;

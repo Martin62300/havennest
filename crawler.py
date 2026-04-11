@@ -453,8 +453,15 @@ class HavenNestCrawler:
             # Nominatim 规定请求频率不能超过 1次/秒
             time.sleep(1.2)
             url = f"https://nominatim.openstreetmap.org/search?format=json&q={requests.utils.quote(search_query)}"
-            res = requests.get(url, headers={'User-Agent': 'HavenNest_Bot_v2.5.0 (contact: support@havennestapp.com)'}, timeout=10)
-            data = res.json()
+            data = None
+            for _ in range(2):
+                try:
+                    res = requests.get(url, headers={'User-Agent': 'HavenNest_Bot_v2.5.0 (contact: support@havennestapp.com)'}, timeout=20)
+                    data = res.json()
+                    break
+                except:
+                    time.sleep(1.2)
+                    continue
             if data:
                 mnum = re.search(r"\b(\d{1,6})\b", clean_addr)
                 num = mnum.group(1) if mnum else ""
@@ -1192,10 +1199,16 @@ class HavenNestCrawler:
                         loc = loc_el.text.strip() if loc_el else ""
 
                         detail_text = detail_soup.get_text("\n", strip=True)
+                        detail_text_addr = detail_text
+                        try:
+                            if "公司地址" in detail_text_addr:
+                                detail_text_addr = detail_text_addr.split("公司地址", 1)[0].strip()
+                        except:
+                            detail_text_addr = detail_text
                         addr2 = ""
-                        m = re.search(r'(?m)^(?:联系地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text)
+                        m = re.search(r'(?m)^(?:联系地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text_addr)
                         if not m:
-                            m = re.search(r'(?m)^(?:地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text)
+                            m = re.search(r'(?m)^(?:地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text_addr)
                         if m:
                             addr2 = m.group(1) or ""
                         addr2 = re.sub(r'\s*查看地图.*$', '', addr2).strip()
@@ -1207,6 +1220,33 @@ class HavenNestCrawler:
                             addr2 = re.sub(r'\s+', ' ', addr2).strip()
                         except:
                             pass
+
+                        if (not re.search(r"\d", addr2)):
+                            try:
+                                addr_blob = "\n".join([desc or "", detail_text_addr or ""])
+                                addr_blob = re.sub(r'\s+', ' ', addr_blob)
+                                cands = []
+                                patt = r'\b\d{1,6}\s+[A-Za-z0-9][A-Za-z0-9\s\.\-]{1,60}\s(?:Street|St|Road|Rd|Way|Avenue|Ave|Drive|Dr|Lane|Ln|Boulevard|Blvd|Crescent|Cres|Place|Pl|Court|Ct|Parkway|Pkwy)\b(?:\s*,?\s*(?:Vancouver|Richmond|Burnaby|Surrey|Coquitlam|New Westminster|Port Coquitlam|North Vancouver|West Vancouver))?(?:\s*,?\s*BC)?(?:\s*[A-Z]\d[A-Z]\s*\d[A-Z]\d)?'
+                                for mm in re.finditer(patt, addr_blob, flags=re.IGNORECASE):
+                                    s0 = (mm.group(0) or "").strip(" ,")
+                                    if not s0:
+                                        continue
+                                    low = s0.lower()
+                                    score = 0.0
+                                    score += 6.0
+                                    if any(k in low for k in ["vancouver", "richmond", "burnaby", "surrey", "coquitlam", "new westminster", "port coquitlam", "north vancouver", "west vancouver"]):
+                                        score += 4.0
+                                    if "bc" in low:
+                                        score += 1.0
+                                    if re.search(r"\b[A-Z]\d[A-Z]\s*\d[A-Z]\d\b", s0):
+                                        score += 2.0
+                                    if any(k in low for k in ["metrotower", "head office", "branch", "los angeles", "west covina", "company"]):
+                                        score -= 5.0
+                                    cands.append((score + min(len(s0), 90) / 90.0, s0))
+                                if cands:
+                                    addr2 = sorted(cands, key=lambda t: t[0], reverse=True)[0][1]
+                            except:
+                                pass
  
                         community = ""
                         for candidate in [addr2, loc]:
@@ -1216,7 +1256,7 @@ class HavenNestCrawler:
                                     community = parts[1]
                                     break
                         if not community:
-                            m = re.search(r'\b(Vancouver|Richmond|Burnaby|Surrey|Coquitlam)\s*-\s*([A-Za-z][A-Za-z\s]+)', detail_text)
+                            m = re.search(r'\b(Vancouver|Richmond|Burnaby|Surrey|Coquitlam)\s*-\s*([A-Za-z][A-Za-z\s]+)', detail_text_addr)
                             if m:
                                 community = m.group(2).strip()
                         if not community:
