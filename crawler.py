@@ -435,7 +435,18 @@ class HavenNestCrawler:
         search_query = f"{clean_addr}, BC, Canada"
         
         if search_query in self.coords_cache:
-            return self.coords_cache[search_query]
+            try:
+                if "ubc" in clean_addr.lower():
+                    lat0, lng0 = self.coords_cache.get(search_query) or [None, None]
+                    if isinstance(lat0, (int, float)) and isinstance(lng0, (int, float)) and lng0 > -123.20:
+                        del self.coords_cache[search_query]
+                        self._save_cache()
+                    else:
+                        return self.coords_cache[search_query]
+                else:
+                    return self.coords_cache[search_query]
+            except:
+                return self.coords_cache[search_query]
 
         try:
             if len(clean_addr) < 3: return None, None
@@ -445,7 +456,22 @@ class HavenNestCrawler:
             res = requests.get(url, headers={'User-Agent': 'HavenNest_Bot_v2.5.0 (contact: support@havennestapp.com)'}, timeout=10)
             data = res.json()
             if data:
-                coords = [float(data[0]['lat']), float(data[0]['lon'])]
+                mnum = re.search(r"\b(\d{1,6})\b", clean_addr)
+                num = mnum.group(1) if mnum else ""
+                picked = None
+                if num:
+                    for cand in data[:6]:
+                        dn = str(cand.get("display_name") or "")
+                        if num in dn:
+                            picked = cand
+                            break
+                if not picked:
+                    picked = data[0]
+                coords = [float(picked['lat']), float(picked['lon'])]
+                if num:
+                    dn2 = str(picked.get("display_name") or "")
+                    if num not in dn2:
+                        return None, None
                 self.coords_cache[search_query] = coords
                 self._save_cache()
                 return coords
@@ -1058,9 +1084,11 @@ class HavenNestCrawler:
 
                         detail_text = detail_soup.get_text("\n", strip=True)
                         addr2 = ""
-                        m = re.search(r'(?m)^(?:联系地址|地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text)
+                        m = re.search(r'(?m)^(?:联系地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text)
+                        if not m:
+                            m = re.search(r'(?m)^(?:地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text)
                         if m:
-                            addr2 = m.group(1)
+                            addr2 = m.group(1) or ""
                         addr2 = re.sub(r'\s*查看地图.*$', '', addr2).strip()
                         addr2 = re.sub(r'\s+', ' ', addr2)
                         try:
@@ -1082,6 +1110,13 @@ class HavenNestCrawler:
                             m = re.search(r'\b(Vancouver|Richmond|Burnaby|Surrey|Coquitlam)\s*-\s*([A-Za-z][A-Za-z\s]+)', detail_text)
                             if m:
                                 community = m.group(2).strip()
+                        if not community:
+                            try:
+                                t0 = " ".join([title, addr2, loc, map_query, open_maps_q]).lower()
+                                if "ubc" in t0:
+                                    community = "Point Grey"
+                            except:
+                                pass
  
                         map_lat, map_lng = None, None
                         coord_source = ""
@@ -1118,7 +1153,7 @@ class HavenNestCrawler:
                                     if q:
                                         q2 = re.sub(r'(?i),?\s*canada\s*$', '', q).strip().strip(',')
                                         map_query = q2 or q
-                                        coord_source = "source_map_query"
+                                        coord_source = "map_query"
                                     if not q:
                                         m = re.findall(r'!3d([-\d.]+)!4d([-\d.]+)', src3)
                                         if m:
@@ -1162,6 +1197,26 @@ class HavenNestCrawler:
                         city_hint_text = " ".join([x for x in [loc, addr2, map_query, open_maps_q] if x])
                         city = self.infer_city(city_hint_text) or self.infer_city(title) or "Vancouver"
                         address = addr2 or loc or open_maps_q or map_query or city
+                        try:
+                            cand = []
+                            for x in [addr2, open_maps_q, map_query, loc]:
+                                xs = str(x or "").strip()
+                                if not xs:
+                                    continue
+                                score = 0
+                                if re.search(r"\d", xs):
+                                    score += 5
+                                low = xs.lower()
+                                if any(k in low for k in ["vancouver", "richmond", "burnaby", "surrey", "coquitlam", "bc", "canada"]):
+                                    score += 3
+                                if re.search(r"\b[A-Z]\d[A-Z]\s*\d[A-Z]\d\b", xs):
+                                    score += 3
+                                score += min(len(xs), 80) / 80.0
+                                cand.append((score, xs))
+                            if cand:
+                                address = sorted(cand, key=lambda t: t[0], reverse=True)[0][1]
+                        except:
+                            pass
                         try:
                             if addr2 and (not re.search(r"\d", addr2)):
                                 if open_maps_q and re.search(r"\d", open_maps_q):
@@ -1332,6 +1387,8 @@ class HavenNestCrawler:
             
             # 兜底逻辑：依然没有坐标，分配一个中心点
             if not item.get('lat') or not item.get('lng'):
+                if str(item.get('community') or item.get('neighborhood') or item.get('area') or '').strip():
+                    continue
                 centers = {
                     "Vancouver": (49.2827, -123.1207),
                     "Richmond": (49.1666, -123.1336),

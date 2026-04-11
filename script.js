@@ -258,6 +258,9 @@ const COMMUNITY_SYNONYMS = {
     "brentwood": "Brentwood",
     "edmonds": "Edmonds",
     "highgate": "Highgate",
+    "ubc": "Point Grey",
+    "university of british columbia": "Point Grey",
+    "university endowment lands": "Point Grey",
     "coquitlam west": "Coquitlam West",
     "west coquitlam": "Coquitlam West",
     "burquitlam": "Burquitlam",
@@ -319,6 +322,13 @@ function ensureListingCoords(i) {
     const city = (i && i.city ? String(i.city) : "Vancouver").trim() || "Vancouver";
     const commRaw = (i && (i.community || i.neighborhood || i.area)) ? String(i.community || i.neighborhood || i.area) : "";
     const comm = normalizeCommunityName(commRaw);
+    if (city === "Richmond" && comm === "Thompson") {
+        const u = stableU(i || {}, "thompson_lat");
+        const v = stableU(i || {}, "thompson_lng");
+        i.lat = 49.1633 + (u - 0.5) * 0.0022;
+        i.lng = -123.1653617 + (v - 0.5) * 0.0022;
+        return i;
+    }
     if (comm) {
         const key = `${city}||${comm}`;
         const key2 = `${city.toLowerCase()}||${comm.toLowerCase()}`;
