@@ -21,6 +21,8 @@ CITY_CENTERS = {
     "Burnaby": (49.2488, -122.9805),
     "Coquitlam": (49.2830, -122.7932),
     "Surrey": (49.1913, -122.8490),
+    "North Vancouver": (49.3207, -123.0724),
+    "West Vancouver": (49.3280, -123.1623),
     "Port Coquitlam": (49.2622, -122.7811),
     "Port Moody": (49.2830, -122.8300),
     "New Westminster": (49.2062, -122.9111),
@@ -36,6 +38,8 @@ CITY_BBOX = {
     "Burnaby": (49.20, 49.32, -123.10, -122.88),
     "Coquitlam": (49.20, 49.35, -122.93, -122.74),
     "Surrey": (49.03, 49.30, -122.98, -122.65),
+    "North Vancouver": (49.30, 49.37, -123.14, -122.98),
+    "West Vancouver": (49.30, 49.39, -123.27, -123.07),
     "Port Coquitlam": (49.22, 49.30, -122.83, -122.72),
     "Port Moody": (49.25, 49.32, -122.88, -122.79),
     "New Westminster": (49.18, 49.24, -122.94, -122.86),
@@ -612,7 +616,7 @@ def _is_source_map(coord_source: str) -> bool:
 def _near_city_center(city: str, lat: float, lng: float) -> bool:
     base = CITY_CENTERS.get(city) or CITY_CENTERS["Vancouver"]
     try:
-        return abs(float(lat) - float(base[0])) <= 0.02 and abs(float(lng) - float(base[1])) <= 0.02
+        return abs(float(lat) - float(base[0])) <= 0.0008 and abs(float(lng) - float(base[1])) <= 0.0008
     except Exception:
         return False
 
@@ -962,12 +966,47 @@ def main():
             except Exception:
                 new_lat = None
                 new_lng = None
+            if (new_lat is None or new_lng is None) and has_detail_addr:
+                try:
+                    q2 = re.sub(r"^\s*\d{1,6}\s+", "", query).strip()
+                except Exception:
+                    q2 = ""
+                if q2 and q2 != query:
+                    coords2 = c.get_lat_lng(q2)
+                    try:
+                        new_lat = float(coords2[0]) if coords2 and coords2[0] is not None else None
+                        new_lng = float(coords2[1]) if coords2 and coords2[1] is not None else None
+                    except Exception:
+                        new_lat = None
+                        new_lng = None
+            if (new_lat is None or new_lng is None) and ("ubc" in query.lower()):
+                try:
+                    q3 = re.sub(r"(?i)\bubc\b", "", query)
+                    q3 = re.sub(r"\s+", " ", q3).strip(" ,")
+                except Exception:
+                    q3 = ""
+                if q3 and q3 != query:
+                    coords3 = c.get_lat_lng(q3)
+                    try:
+                        new_lat = float(coords3[0]) if coords3 and coords3[0] is not None else None
+                        new_lng = float(coords3[1]) if coords3 and coords3[1] is not None else None
+                    except Exception:
+                        new_lat = None
+                        new_lng = None
  
             if new_lat is not None and new_lng is not None:
                 re_geocoded += 1
  
+        if (new_lat is None or new_lng is None) and (not allow_geocode) and coords_ok:
+            continue
         if new_lat is None or new_lng is None or (cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng))):
-            new_lat, new_lng = _fallback_coords(cur_city)
+            city_box = CITY_BBOX.get(cur_city)
+            if city_box:
+                new_lat, new_lng = _coords_from_bbox(item, city_box)
+                item["coord_source"] = "city_bbox_fallback"
+            else:
+                new_lat, new_lng = _fallback_coords(cur_city)
+                item["coord_source"] = "city_center_fallback"
             center_fallback += 1
  
         item["lat"] = float(new_lat)
