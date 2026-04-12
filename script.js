@@ -74,7 +74,16 @@ const dict = {
         viewDetail: "查看详情",
         contact: "联系方式",
         mapNotice: "📍 温馨提示：部分抓取房源因原网站地址信息不全，地图定位可能存在偏差，请以详情页描述为准。",
-        filterHint: "💡 提示：此处的筛选条件会同步过滤上方地图中的房源"
+        filterHint: "💡 提示：此处的筛选条件会同步过滤上方地图中的房源",
+        seoMoreTitle: "更多找房入口",
+        seoMapTitle: "大温租房（地图筛选）",
+        seoMapDesc: "按城市 / 预算 / 卧室数筛选",
+        seoInsTitle: "租客保险 Tenant Insurance",
+        seoInsDesc: "保障范围与选择要点",
+        seoCleanTitle: "退租清洁 Move-out Cleaning",
+        seoCleanDesc: "清洁清单与交接建议",
+        seoGuideTitle: "租房流程指南",
+        seoGuideDesc: "找房、看房、签约与避坑清单"
     },
     en: {
         seoTitle: "Havennest | Greater Vancouver Aggregated Rental Listings & One-Stop Services",
@@ -137,7 +146,16 @@ const dict = {
         viewDetail: "View Detail",
         contact: "Contact",
         mapNotice: "📍 Friendly Reminder: Some listings may have inexact map locations due to incomplete address data. Please refer to details for accuracy.",
-        filterHint: "💡 Tip: Filters applied here will also update the listings shown on the map above."
+        filterHint: "💡 Tip: Filters here will also update the listings shown on the map above",
+        seoMoreTitle: "More Rental Guides",
+        seoMapTitle: "Metro Vancouver (Map)",
+        seoMapDesc: "Filter by city / budget / bedrooms",
+        seoInsTitle: "Tenant Insurance",
+        seoInsDesc: "Coverage basics & how to choose",
+        seoCleanTitle: "Move-out Cleaning",
+        seoCleanDesc: "Checklist & move-out tips",
+        seoGuideTitle: "Renting Guide",
+        seoGuideDesc: "Steps, viewing, lease, pitfalls"
     }
 };
 
@@ -351,6 +369,10 @@ async function init() {
         const stored = localStorage.getItem('viewMode');
         if (stored === 'compact' || stored === 'card') viewMode = stored;
     } catch (e) {}
+    try {
+        const l = (localStorage.getItem('lang') || '').toLowerCase();
+        if (l === 'en' || l === 'zh') curLang = l;
+    } catch (e) {}
 
     const viewSel = document.getElementById('view-mode');
     if (viewSel) viewSel.value = viewMode;
@@ -523,6 +545,33 @@ function updateLabels() {
     if (mapHint) {
         mapHint.innerText = d.filterHint;
     }
+
+    const seoMore = document.getElementById('seo-more-title');
+    if (seoMore) seoMore.innerText = d.seoMoreTitle;
+    const seoMapTitle = document.getElementById('seo-map-title');
+    const seoMapDesc = document.getElementById('seo-map-desc');
+    if (seoMapTitle) seoMapTitle.innerText = d.seoMapTitle;
+    if (seoMapDesc) seoMapDesc.innerText = d.seoMapDesc;
+    const seoInsTitle = document.getElementById('seo-ins-title');
+    const seoInsDesc = document.getElementById('seo-ins-desc');
+    if (seoInsTitle) seoInsTitle.innerText = d.seoInsTitle;
+    if (seoInsDesc) seoInsDesc.innerText = d.seoInsDesc;
+    const seoCleanTitle = document.getElementById('seo-clean-title');
+    const seoCleanDesc = document.getElementById('seo-clean-desc');
+    if (seoCleanTitle) seoCleanTitle.innerText = d.seoCleanTitle;
+    if (seoCleanDesc) seoCleanDesc.innerText = d.seoCleanDesc;
+    const seoGuideTitle = document.getElementById('seo-guide-title');
+    const seoGuideDesc = document.getElementById('seo-guide-desc');
+    if (seoGuideTitle) seoGuideTitle.innerText = d.seoGuideTitle;
+    if (seoGuideDesc) seoGuideDesc.innerText = d.seoGuideDesc;
+
+    const to = (p) => curLang === 'en' ? `/en${p}` : p;
+    const ins = document.getElementById('seo-card-ins');
+    const clean = document.getElementById('seo-card-clean');
+    const guide = document.getElementById('seo-card-guide');
+    if (ins) ins.setAttribute('href', to('/tenant-insurance/'));
+    if (clean) clean.setAttribute('href', to('/move-out-cleaning/'));
+    if (guide) guide.setAttribute('href', to('/renting-guide/'));
 }
 
 function updateUI() {
@@ -1047,6 +1096,7 @@ function openEmail() {
 
 function toggleLang() {
     curLang = curLang === 'zh' ? 'en' : 'zh';
+    try { localStorage.setItem('lang', curLang); } catch (e) {}
     updateUI();
 }
 
