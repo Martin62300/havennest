@@ -800,7 +800,7 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
-        has_detail_addr = bool(re.search(r"\d", addr_for_check))
+        has_detail_addr = bool(re.search(r"(?i)^\s*(?:#\s*[0-9a-z]{1,6}\s*-\s*)?\s*\d{4,6}\b", addr_for_check))
         coord_source = (item.get("coord_source") or "").strip().lower()
         is_source_map = _is_source_map(coord_source)
         priority_needs_geocode = False
@@ -1000,13 +1000,12 @@ def main():
         if (new_lat is None or new_lng is None) and (not allow_geocode) and coords_ok:
             continue
         if new_lat is None or new_lng is None or (cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng))):
-            city_box = CITY_BBOX.get(cur_city)
-            if city_box:
-                new_lat, new_lng = _coords_from_bbox(item, city_box)
-                item["coord_source"] = "city_bbox_fallback"
-            else:
-                new_lat, new_lng = _fallback_coords(cur_city)
-                item["coord_source"] = "city_center_fallback"
+            base_lat, base_lng = _fallback_coords(cur_city)
+            u = _stable_u(item, "city_fallback_lat")
+            v = _stable_u(item, "city_fallback_lng")
+            new_lat = float(base_lat) + (u - 0.5) * 0.01
+            new_lng = float(base_lng) + (v - 0.5) * 0.01
+            item["coord_source"] = "city_center_fallback"
             center_fallback += 1
  
         item["lat"] = float(new_lat)
