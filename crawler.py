@@ -218,7 +218,15 @@ class HavenNestCrawler:
         lng = item.get("lng")
         if isinstance(lat, (int, float)) and isinstance(lng, (int, float)):
             return lat, lng
-        q = self.build_geocode_query(item.get("address", ""), item.get("city", ""))
+        seed = item.get("address", "")
+        try:
+            if (item.get("source") or "").strip().lower() == "vanpeople":
+                mq = item.get("map_query")
+                if isinstance(mq, str) and mq.strip():
+                    seed = mq.strip()
+        except Exception:
+            pass
+        q = self.build_geocode_query(seed, item.get("city", ""))
         return self.get_lat_lng(q)
 
     def is_suspicious_coordinate(self, item):
@@ -463,10 +471,12 @@ class HavenNestCrawler:
                     time.sleep(1.2)
                     continue
             if data:
-                mnum = re.search(r"\b(\d{1,6})\b", clean_addr)
+                is_intersection = bool(re.search(r"(?i)(?:\s&\s|\sand\s|\sat\s|夹|和)", clean_addr))
+                mnum = re.match(r"^\s*(?:#\s*[0-9a-z]{1,6}\s*-\s*)?\s*(\d{1,6})\b", clean_addr, flags=re.IGNORECASE)
                 num = mnum.group(1) if mnum else ""
+                strict_house_num = bool(num) and (not is_intersection) and (len(num) >= 4)
                 picked = None
-                if num:
+                if strict_house_num:
                     for cand in data[:6]:
                         dn = str(cand.get("display_name") or "")
                         if num in dn:
@@ -475,7 +485,7 @@ class HavenNestCrawler:
                 if not picked:
                     picked = data[0]
                 coords = [float(picked['lat']), float(picked['lon'])]
-                if num:
+                if strict_house_num:
                     dn2 = str(picked.get("display_name") or "")
                     if num not in dn2:
                         return None, None
