@@ -825,6 +825,8 @@ def main():
                 item["address"] = extracted_addr
                 addr_for_check = extracted_addr
                 has_detail_addr = True
+        if (not coords_ok) and has_detail_addr and (not is_source_map):
+            priority_needs_geocode = True
 
         if coords_ok:
             if c.is_suspicious_coordinate(item):
