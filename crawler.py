@@ -3,6 +3,7 @@ import os
 import re
 import time
 import glob
+import hashlib
 import requests
 from datetime import datetime, timedelta
 from urllib.parse import parse_qs, unquote_plus, urlparse
@@ -50,6 +51,14 @@ class HavenNestCrawler:
                 print(f"R2 config present: {ok}")
             print(f"Airtable token present: {bool(self.airtable_token)}")
             print(f"Listing limits: total={self.max_total_listings}, craigslist={self.craigslist_limit}, vanpeople={self.vanpeople_limit}, drop_low_quality={self.drop_low_quality}")
+
+    def _stable_u(self, item, salt):
+        try:
+            k = str(item.get("id") or item.get("url") or item.get("title") or "")
+            d = hashlib.md5((str(salt) + "|" + k).encode("utf-8", errors="ignore")).hexdigest()
+            return int(d[:8], 16) / 0xFFFFFFFF
+        except:
+            return (time.time() % 1.0)
 
     def _is_low_quality_item(self, item):
         try:
@@ -459,16 +468,29 @@ class HavenNestCrawler:
         try:
             if len(clean_addr) < 3: return None, None
             # Nominatim 规定请求频率不能超过 1次/秒
-            time.sleep(1.2)
+            try:
+                sleep_s = float(os.getenv("HAVENNEST_GEOCODE_SLEEP") or "1.2")
+            except:
+                sleep_s = 1.2
+            time.sleep(sleep_s)
             url = f"https://nominatim.openstreetmap.org/search?format=json&q={requests.utils.quote(search_query)}"
             data = None
-            for _ in range(2):
+            try:
+                retries = int(os.getenv("HAVENNEST_GEOCODE_RETRIES") or "2")
+            except:
+                retries = 2
+            retries = max(retries, 1)
+            try:
+                timeout_s = float(os.getenv("HAVENNEST_GEOCODE_TIMEOUT") or "20")
+            except:
+                timeout_s = 20.0
+            for _ in range(retries):
                 try:
-                    res = requests.get(url, headers={'User-Agent': 'HavenNest_Bot_v2.5.0 (contact: support@havennestapp.com)'}, timeout=20)
+                    res = requests.get(url, headers={'User-Agent': 'HavenNest_Bot_v2.5.0 (contact: support@havennestapp.com)'}, timeout=timeout_s)
                     data = res.json()
                     break
                 except:
-                    time.sleep(1.2)
+                    time.sleep(sleep_s)
                     continue
             if data:
                 is_intersection = bool(re.search(r"(?i)(?:\s&\s|\sand\s|\sat\s|夹|和)", clean_addr))
@@ -1009,9 +1031,11 @@ class HavenNestCrawler:
                 except: continue
             
             # 补充坐标
-            print(f"Geocoding {len(results)} Craigslist items...")
-            for item in results:
-                item['lat'], item['lng'] = self.geocode_item(item)
+            skip_geocode = (os.getenv("HAVENNEST_SKIP_SOURCE_GEOCODE") or "").strip().lower() in ["1", "true", "yes", "y"]
+            if not skip_geocode:
+                print(f"Geocoding {len(results)} Craigslist items...")
+                for item in results:
+                    item['lat'], item['lng'] = self.geocode_item(item)
 
             return results
         except Exception as e:
@@ -1457,9 +1481,11 @@ class HavenNestCrawler:
         results = deduped
 
         # 补充坐标
-        print(f"Geocoding {len(results)} VanPeople items...")
-        for i, item in enumerate(results):
-            item['lat'], item['lng'] = self.geocode_item(item)
+        skip_geocode = (os.getenv("HAVENNEST_SKIP_SOURCE_GEOCODE") or "").strip().lower() in ["1", "true", "yes", "y"]
+        if not skip_geocode:
+            print(f"Geocoding {len(results)} VanPeople items...")
+            for i, item in enumerate(results):
+                item['lat'], item['lng'] = self.geocode_item(item)
 
         return results
 
@@ -1526,6 +1552,7 @@ class HavenNestCrawler:
         
         # 补充坐标并确保所有房源都有位置 (仅对新房源中缺失坐标的进行补充)
         print(f"Final geocoding check for {len(new_data)} new items...")
+        skip_geocode = (os.getenv("HAVENNEST_SKIP_SOURCE_GEOCODE") or "").strip().lower() in ["1", "true", "yes", "y"]
         for item in new_data:
             inferred = self.infer_city(" ".join([str(item.get('title','')), str(item.get('address','')), str(item.get('desc',''))]))
             if inferred and (not item.get('city') or str(item.get('city')).strip().lower() == "vancouver"):
@@ -1534,15 +1561,15 @@ class HavenNestCrawler:
                 item['lat'] = None
                 item['lng'] = None
             if not item.get('lat') or not item.get('lng'):
-                # 只有当地址不在缓存中时才调用 API
-                addr_query = self.build_geocode_query(item.get('address', ''), item.get('city', 'Vancouver'))
-                if (not re.search(r'\d', addr_query)) and (addr_query + ", BC, Canada" not in self.coords_cache):
-                    item['lat'] = None
-                    item['lng'] = None
-                elif addr_query + ", BC, Canada" not in self.coords_cache:
-                    print(f"  Geocoding missing: {item.get('title')[:20]}...")
-                if not item.get('lat') or not item.get('lng'):
-                    item['lat'], item['lng'] = self.get_lat_lng(addr_query)
+                if not skip_geocode:
+                    addr_query = self.build_geocode_query(item.get('address', ''), item.get('city', 'Vancouver'))
+                    if (not re.search(r'\d', addr_query)) and (addr_query + ", BC, Canada" not in self.coords_cache):
+                        item['lat'] = None
+                        item['lng'] = None
+                    elif addr_query + ", BC, Canada" not in self.coords_cache:
+                        print(f"  Geocoding missing: {item.get('title')[:20]}...")
+                    if not item.get('lat') or not item.get('lng'):
+                        item['lat'], item['lng'] = self.get_lat_lng(addr_query)
             
             # 兜底逻辑：依然没有坐标，分配一个中心点
             if not item.get('lat') or not item.get('lng'):
@@ -1556,8 +1583,10 @@ class HavenNestCrawler:
                     "Surrey": (49.1913, -122.8490),
                 }
                 base_lat, base_lng = centers.get(item.get('city')) or centers["Vancouver"]
-                item['lat'] = base_lat + (time.time() % 1 - 0.5) * 0.005
-                item['lng'] = base_lng + (time.time() % 1 - 0.5) * 0.005
+                u = self._stable_u(item, "city_fallback_lat")
+                v = self._stable_u(item, "city_fallback_lng")
+                item['lat'] = base_lat + (u - 0.5) * 0.01
+                item['lng'] = base_lng + (v - 0.5) * 0.01
 
         # 合并并去重
         data_map = {}
