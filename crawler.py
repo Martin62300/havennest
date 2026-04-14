@@ -931,6 +931,9 @@ class HavenNestCrawler:
 
     def crawl_craigslist(self, limit=40):
         """改进版 Craigslist 抓取：获取图片和描述"""
+        mode = (os.getenv("HAVENNEST_CRAIGSLIST_MODE") or "").strip().lower()
+        if mode == "rss":
+            return self.crawl_craigslist_rss(limit)
         print(f"Crawling Craigslist via Web (limit {limit})... ")
         results = []
         scraper = cloudscraper.create_scraper()
