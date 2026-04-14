@@ -1583,10 +1583,6 @@
         49.2158396,
         -123.1298528
     ],
-    "7260 Petts Road, 列治文, Richmond, BC, Canada": [
-        49.1395378,
-        -123.1407128
-    ],
     "Qualicum Drive Vancouver, 温哥华, BC, Canada": [
         49.2123973,
         -123.0624584
@@ -1614,10 +1610,6 @@
     "485 West 42nd Avenue Oakridge, 温哥华, Vancouver, BC, Canada": [
         49.2328917,
         -123.124552
-    ],
-    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
-        49.221793,
-        -123.1233638
     ],
     "Westminster Hwy Richmond, BC, Canada": [
         49.1703765,
@@ -1895,10 +1887,6 @@
         49.2410161,
         -123.0353105
     ],
-    "4467 West 16th Avenue West Point Grey,Vancouver, BC, Canada": [
-        49.2585814,
-        -123.2082438
-    ],
     "West 39th Avenue Arbutus Ridge,Vancouver, BC, Canada": [
         49.2365187,
         -123.1606373
@@ -2079,10 +2067,6 @@
         49.2442011,
         -123.018409
     ],
-    "4567 Lougheed Highway,Burnaby, BC, Canada": [
-        49.2680771,
-        -123.0003298
-    ],
     "4334 Halley Avenue Burnaby, BC, Canada": [
         49.2453914,
         -123.0093979
@@ -2215,10 +2199,6 @@
         49.1034693,
         -122.6717137
     ],
-    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1654588,
-        -123.140133
-    ],
     "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
         49.1649333,
         -123.1400942
@@ -2294,10 +2274,6 @@
     "3636 West 39th Avenue Dunbar-Southlands Vancouver, BC, Canada": [
         49.2362344,
         -123.1857546
-    ],
-    "4114 Yuculta Crescent Dunbar-Southlands,Vancouver, BC, Canada": [
-        49.2290017,
-        -123.1987757
     ],
     "East 22nd Street Vancouver, North Vancouver, BC, Canada": [
         49.3292139,
@@ -2554,5 +2530,81 @@
     "Central Avenue, Surrey, BC, Canada": [
         49.1896768,
         -122.8404816
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.2201621,
+        -123.1238144
+    ],
+    "Petts Road, 列治文, Richmond, BC, Canada": [
+        49.1395378,
+        -123.1407128
+    ],
+    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1654588,
+        -123.140133
+    ],
+    "4168 Lougheed Highway Burnaby, BC, Canada": [
+        49.2658414,
+        -123.0118017
+    ],
+    "6331 Buswell Street Richmond, BC, Canada": [
+        49.1682436,
+        -123.1341018
+    ],
+    "4567 Lougheed Highway,Burnaby, BC, Canada": [
+        49.2680771,
+        -123.0003298
+    ],
+    "Hazel Street Metrotown Burnaby, BC, Canada": [
+        49.2287986,
+        -122.9974953
+    ],
+    "Kingsway Metrotown Burnaby, BC, Canada": [
+        49.225933,
+        -122.9924036
+    ],
+    "8833 Hazelbridge Way Richmond, BC, Canada": [
+        49.1897417,
+        -123.1277907
+    ],
+    "4467 West 16th Avenue West Point Grey,Vancouver, BC, Canada": [
+        49.2585814,
+        -123.2082438
+    ],
+    "Student Union Blvd, Vancouver, BC V6T 1K2 Vancouver, BC, Canada": [
+        49.2682504,
+        -123.2507042
+    ],
+    "7788 Ackroyd Road,Richmond, BC, Canada": [
+        49.1717326,
+        -123.1396288
+    ],
+    "6033 Gray Avenue ,Vancouver, BC, Canada": [
+        49.2516551,
+        -123.235897
+    ],
+    "Gilley Road Richmond, BC, Canada": [
+        49.1770532,
+        -122.9768401
+    ],
+    "4114 Yuculta Crescent Dunbar-Southlands,Vancouver, BC, Canada": [
+        49.2290017,
+        -123.1987757
+    ],
+    "Buckingham Drive Burnaby, BC, Canada": [
+        49.2308476,
+        -122.9556002
+    ],
+    "3306 Seaforth Drive Renfrew-Collingwood Vancouver, BC, Canada": [
+        49.2529065,
+        -123.0335292
+    ],
+    "Fisher Drive,Richmond, BC, Canada": [
+        49.1797583,
+        -123.1124888
     ]
 }
