@@ -430,11 +430,26 @@ async function apiPublicContact(env, url) {
   }
 
   const fields = data.fields || {}
+  const phone = String(
+    firstFieldValue(fields, ["联系电话 (Phone)", "Phone", "phone"], "") ||
+      firstFieldValueByContains(fields, ["phone", "电话", "手机"], "") ||
+      ""
+  ).trim()
+  const email = String(
+    firstFieldValue(fields, ["电子邮箱 (Email)", "Email", "email", "E-mail"], "") ||
+      firstFieldValueByContains(fields, ["email", "邮箱", "e-mail"], "") ||
+      ""
+  ).trim()
+  const wechat = String(
+    firstFieldValue(fields, ["微信号 (WeChat)", "微信 (WeChat)", "WeChat", "wechat", "微信号", "微信"], "") ||
+      firstFieldValueByContains(fields, ["wechat", "微信"], "") ||
+      ""
+  ).trim()
   return jsonResponse({
     ok: true,
-    phone: (fields["联系电话 (Phone)"] || "").toString(),
-    email: (fields["电子邮箱 (Email)"] || "").toString(),
-    wechat: (fields["微信号 (WeChat)"] || "").toString()
+    phone,
+    email,
+    wechat
   }, 200, { "cache-control": "no-store" }) // 防止被CDN缓存
 }
 
