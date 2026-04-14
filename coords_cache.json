@@ -2635,10 +2635,6 @@
         49.2647362,
         -122.8008534
     ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
     "Citation Drive Richmond, BC, Canada": [
         49.1640486,
         -123.1274096
@@ -2823,6 +2819,30 @@
         49.2651244,
         -123.2358046
     ],
+    "100 Avenue Whalley Surrey, BC, Canada": [
+        49.1844762,
+        -122.8946699
+    ],
+    "108 Avenue Surrey, BC, Canada": [
+        49.1988149,
+        -122.8156778
+    ],
+    "3563 Ross Drive Vancouver, BC, Canada": [
+        49.250556,
+        -123.2346532
+    ],
+    "8888 Osler Street Marpole Vancouver, BC, Canada": [
+        49.204878,
+        -123.1310772
+    ],
+    "6935 Quebec Street Sunset,Vancouver, BC, Canada": [
+        49.2215945,
+        -123.1043272
+    ],
+    "4589 West 9th Avenue Vancouver Vancouver,Vancouver, BC, Canada": [
+        49.2649492,
+        -123.2117479
+    ],
     "5088 Kwantlen Street, Richmond, BC, Canada": [
         49.1762053,
         -123.1282949
@@ -2831,41 +2851,69 @@
         49.1650135,
         -123.1340569
     ],
-    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
-        49.221793,
-        -123.1233638
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
     ],
     "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
         49.1892595,
         -123.132459
     ],
+    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
     "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
         49.1654588,
         -123.140133
+    ],
+    "6098 Station Street Metrotown Burnaby, BC, Canada": [
+        49.2275175,
+        -123.0027767
+    ],
+    "2764 East 54th Avenue Killarney,Vancouver, BC, Canada": [
+        49.2199314,
+        -123.0494973
+    ],
+    "Evergreen Place Burnaby, BC, Canada": [
+        49.2496363,
+        -122.8939299
+    ],
+    "Wilson Avenue Metrotown Burnaby, BC, Canada": [
+        49.2296776,
+        -123.00944
+    ],
+    "Olympic Village, Vancouver, BC, BC, Canada": [
+        49.266648,
+        -123.1153523
+    ],
+    "Number 1 Road,Richmond, BC, Canada": [
+        49.1516097,
+        -123.1812386
+    ],
+    "Bamberton Drive,Richmond, BC, Canada": [
+        49.1387631,
+        -123.145703
+    ],
+    "Cambridge street Vancouver bc Vancouver, BC, Canada": [
+        49.2867322,
+        -123.0502026
+    ],
+    "West 12th Avenue West Point Grey Vancouver, BC, Canada": [
+        49.2617838,
+        -123.1945032
     ],
     "7337 Macpherson Avenue Burnaby, BC, Canada": [
         49.2171828,
         -122.9838933
     ],
-    "100 Avenue Whalley Surrey, BC, Canada": [
-        49.1844762,
-        -122.8946699
-    ],
     "6911 Shawnigan Place Richmond, BC, Canada": [
         49.1419756,
         -123.1488628
     ],
-    "108 Avenue Surrey, BC, Canada": [
-        49.1988149,
-        -122.8156778
-    ],
     "1439 George Street White Rock, Vancouver, BC, Canada": [
         49.0278503,
         -122.8001236
-    ],
-    "3563 Ross Drive Vancouver, BC, Canada": [
-        49.250556,
-        -123.2346532
     ],
     "3336 West 7th Avenue Kitsilano,Vancouver, BC, Canada": [
         49.2657409,
@@ -2890,17 +2938,5 @@
     "7315 14TH Avenue Burnaby, BC, Canada": [
         49.2153709,
         -122.9454693
-    ],
-    "8888 Osler Street Marpole Vancouver, BC, Canada": [
-        49.204878,
-        -123.1310772
-    ],
-    "6935 Quebec Street Sunset,Vancouver, BC, Canada": [
-        49.2215945,
-        -123.1043272
-    ],
-    "4589 West 9th Avenue Vancouver Vancouver,Vancouver, BC, Canada": [
-        49.2649492,
-        -123.2117479
     ]
 }
