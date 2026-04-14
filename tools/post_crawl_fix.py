@@ -795,6 +795,14 @@ def main():
         cur_comm = _normalize_community(raw_comm)
         if cur_comm and item.get("community") != cur_comm:
             item["community"] = cur_comm
+        if cur_city and cur_comm:
+            try:
+                vocab = COMMUNITY_VOCAB.get(cur_city) or []
+                if vocab and (cur_comm not in vocab) and ((cur_city, cur_comm) not in COMMUNITY_BBOX):
+                    item["community"] = ""
+                    cur_comm = ""
+            except Exception:
+                pass
         addr_for_check = str(item.get("address") or "")
         addr_clean = _clean_extracted_addr(addr_for_check)
         if addr_clean and addr_clean != addr_for_check:
