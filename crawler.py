@@ -968,7 +968,10 @@ class HavenNestCrawler:
         """改进版 Craigslist 抓取：获取图片和描述"""
         mode = (os.getenv("HAVENNEST_CRAIGSLIST_MODE") or "").strip().lower()
         if mode == "rss":
-            return self.crawl_craigslist_rss(limit)
+            r = self.crawl_craigslist_rss(limit)
+            if r:
+                return r
+            return self.crawl_craigslist_rss_fallback(limit)
         print(f"Crawling Craigslist via Web (limit {limit})... ")
         results = []
         scraper = cloudscraper.create_scraper()
@@ -1080,6 +1083,54 @@ class HavenNestCrawler:
             print(f"WARNING: Craigslist Web crawl failed: {e}")
             return self.crawl_craigslist_rss(limit)
         return results
+    
+    def crawl_craigslist_rss_fallback(self, limit=40):
+        print(f"Fallback: Crawling Craigslist via Web-lite...")
+        results = []
+        scraper = cloudscraper.create_scraper()
+        try:
+            url = "https://vancouver.craigslist.org/search/apa"
+            res = scraper.get(url, timeout=20)
+            if res.status_code != 200:
+                return []
+            soup = BeautifulSoup(res.text, 'html.parser')
+            posts = soup.find_all('li', class_='cl-static-search-result')
+            for post in posts[:limit]:
+                try:
+                    title_el = post.find('div', class_='title')
+                    if not title_el:
+                        continue
+                    title = title_el.text.strip()
+                    link_el = post.find('a')
+                    detail_url = link_el.get('href', '') if link_el else ''
+                    if not detail_url:
+                        continue
+                    price_el = post.find('div', class_='price')
+                    price = int(re.sub(r'[^\d]', '', price_el.text)) if price_el else 0
+                    loc_el = post.find('div', class_='location')
+                    loc = loc_el.text.strip() if loc_el else "Vancouver"
+                    city = self.infer_city(loc + " " + title) or "Vancouver"
+                    results.append({
+                        "source": "Craigslist",
+                        "title": title,
+                        "price": price,
+                        "url": detail_url,
+                        "address": loc,
+                        "city": city,
+                        "beds": self.extract_beds(title),
+                        "lat": None,
+                        "lng": None,
+                        "coord_source": "",
+                        "image": "",
+                        "images": [],
+                        "desc": "",
+                        "date": datetime.now().strftime("%Y-%m-%d")
+                    })
+                except:
+                    continue
+            return results
+        except:
+            return []
 
     def crawl_craigslist_rss(self, limit=40):
         print(f"Fallback: Crawling Craigslist via RSS...")
@@ -1087,7 +1138,17 @@ class HavenNestCrawler:
         results = []
         try:
             rss_url = "https://vancouver.craigslist.org/search/apa?format=rss"
-            res = requests.get(rss_url, headers={'User-Agent': 'HavenNest_Bot_v2.5.0'}, timeout=15)
+            res = requests.get(
+                rss_url,
+                headers={
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+                    'Accept': 'application/rss+xml, application/xml;q=0.9, */*;q=0.8'
+                },
+                timeout=20
+            )
+            if res.status_code != 200:
+                print(f"WARNING: Craigslist RSS fetch failed: status={res.status_code}")
+                return []
             soup = BeautifulSoup(res.text, 'xml')
             items = soup.find_all('item')
             for item in items[:limit]:
