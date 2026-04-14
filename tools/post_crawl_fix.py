@@ -843,6 +843,9 @@ def main():
             if has_detail_addr and (not is_source_map) and _near_city_center(cur_city, float(lat), float(lng)):
                 needs_coords = True
                 priority_needs_geocode = True
+            if source == "owner" and has_detail_addr and (not is_source_map):
+                needs_coords = True
+                priority_needs_geocode = True
 
             if (not has_detail_addr) and (not is_source_map) and _near_city_center(cur_city, float(lat), float(lng)):
                 a, b = _extract_intersection(text)
@@ -998,6 +1001,14 @@ def main():
  
             if new_lat is not None and new_lng is not None:
                 re_geocoded += 1
+                if not is_source_map:
+                    cs0 = (item.get("coord_source") or "").strip().lower()
+                    if cs0 == "map_query":
+                        item["coord_source"] = "map_query_geocode"
+                    elif source == "owner":
+                        item["coord_source"] = "geocode_owner"
+                    elif not cs0:
+                        item["coord_source"] = "geocode"
  
         if (new_lat is None or new_lng is None) and (not allow_geocode) and coords_ok:
             continue
