@@ -61,8 +61,9 @@ jobs:
           HAVENNEST_GEOCODE_RETRIES: "1"
           HAVENNEST_GEOCODE_SLEEP: "1.2"
           HAVENNEST_CRAIGSLIST_MODE: "rss"
-          HAVENNEST_CRAIGSLIST_LIMIT: "80"
-          HAVENNEST_VANPEOPLE_LIMIT: "90"
+          HAVENNEST_MAX_TOTAL: "300"
+          HAVENNEST_CRAIGSLIST_LIMIT: "120"
+          HAVENNEST_VANPEOPLE_LIMIT: "80"
           HAVENNEST_VANPEOPLE_MAX_PAGES: "6"
  
       - name: Post-crawl fix (city/beds/coords)
