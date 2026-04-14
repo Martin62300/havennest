@@ -1643,10 +1643,6 @@
         49.269641,
         -123.180893
     ],
-    "8000 Rosemary Avenue Richmond, BC, Canada": [
-        49.1340928,
-        -123.1283175
-    ],
     "616 Austin Avenue., Coquitlam, BC, Canada": [
         49.2489805,
         -122.8555519
@@ -2103,14 +2099,6 @@
         49.2347927,
         -123.0178942
     ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
     "1045 Haro Street, Vancouver, BC, Canada": [
         49.2836434,
         -123.1249331
@@ -2515,10 +2503,6 @@
         49.1896768,
         -122.8404816
     ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
     "Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
         49.2201621,
         -123.1238144
@@ -2587,17 +2571,9 @@
         49.1797583,
         -123.1124888
     ],
-    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1654588,
-        -123.140133
-    ],
     "River Drive Richmond, BC, Canada": [
         49.1983984,
         -123.1214947
-    ],
-    "8180 Granville Avenue Richmond, BC, Canada": [
-        49.162377,
-        -123.1338457
     ],
     "Pearson Way Richmond, BC, Canada": [
         49.1749489,
@@ -2607,26 +2583,6 @@
         49.2092652,
         -123.0893536
     ],
-    "1312 Edinburgh Street New Westminster, BC, Canada": [
-        49.2097188,
-        -122.9373699
-    ],
-    "2471 West 45th Avenue Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
-    ],
-    "8870 Citation Drive Richmond, BC, Canada": [
-        49.1637112,
-        -123.1260332
-    ],
-    "6463 Silver Avenue Metrotown Burnaby, BC, Canada": [
-        49.2248459,
-        -123.0069043
-    ],
-    "8415 Granville Street Marpole Vancouver, BC, Canada": [
-        49.2102008,
-        -123.1409094
-    ],
     "York Street Port Coquitlam, BC, Canada": [
         49.2692741,
         -122.7644251
@@ -2634,10 +2590,6 @@
     "Pigott Road Richmond, BC, Canada": [
         49.141849,
         -123.131328
-    ],
-    "3219 West King Edward Avenue Dunbar-Southlands Vancouver, BC, Canada": [
-        49.2503385,
-        -123.1764057
     ],
     "West 15th Avenue West Point Grey Vancouver, BC, Canada": [
         49.2589621,
@@ -2686,5 +2638,145 @@
     "w king edward Vancouver V6S 1N2,Vancouver, BC, Canada": [
         49.2492683,
         -123.1386516
+    ],
+    "Wickham Drive, Coquitlam, BC, Canada": [
+        49.2647362,
+        -122.8008534
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
+    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1654588,
+        -123.140133
+    ],
+    "Citation Drive Richmond, BC, Canada": [
+        49.1640486,
+        -123.1274096
+    ],
+    "8400 Ackroyd Road Richmond, BC, Canada": [
+        49.1713997,
+        -123.1311944
+    ],
+    "Courtenay Street West Point Grey,Vancouver, BC, Canada": [
+        49.2643975,
+        -123.2010759
+    ],
+    "5380-Crooked Branch Road Vancouver,Vancouver, BC, Canada": [
+        49.2632055,
+        -123.2350911
+    ],
+    "4460 Westminster Highway Richmond, BC, Canada": [
+        49.1699205,
+        -123.1757323
+    ],
+    "Brown Road Richmond, BC, Canada": [
+        49.1860941,
+        -123.1287577
+    ],
+    "6669 Telford Avenue Metrotown,Burnaby, BC, Canada": [
+        49.2230169,
+        -123.0066867
+    ],
+    "Central Avenue Whalley Surrey, BC, Canada": [
+        49.1919501,
+        -122.8250651
+    ],
+    "6388 Marlborough Avenue Metrotown,Burnaby, BC, Canada": [
+        49.2266525,
+        -122.9911859
+    ],
+    "Ketcheson Road,Richmond, BC, Canada": [
+        49.1894795,
+        -123.126499
+    ],
+    "7750 Boundary Road Burnaby, BC, Canada": [
+        49.2134643,
+        -123.0231587
+    ],
+    "Wickham Drive Coquitlam, BC, Canada": [
+        49.2647362,
+        -122.8008534
+    ],
+    "Orland Drive Coquitlam, BC, Canada": [
+        49.2569866,
+        -122.8382976
+    ],
+    "9830 whalley Blvd surrey Surrey, BC, Canada": [
+        49.1819108,
+        -122.8416193
+    ],
+    "8180 Granville Avenue Richmond, BC, Canada": [
+        49.162377,
+        -123.1338457
+    ],
+    "1312 Edinburgh Street New Westminster, BC, Canada": [
+        49.2097188,
+        -122.9373699
+    ],
+    "Westminster Highway Richmond, BC, Canada": [
+        49.1703765,
+        -123.1362002
+    ],
+    "2471 West 45th Avenue Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "3175 West 18th Avenue Arbutus Ridge Vancouver, BC, Canada": [
+        49.2568522,
+        -123.1753549
+    ],
+    "104 Avenue Whalley Surrey, BC, Canada": [
+        49.191627,
+        -122.829532
+    ],
+    "8870 Citation Drive Richmond, BC, Canada": [
+        49.1637112,
+        -123.1260332
+    ],
+    "6463 Silver Avenue Metrotown Burnaby, BC, Canada": [
+        49.2248459,
+        -123.0069043
+    ],
+    "Rietta Court,Burnaby, BC, Canada": [
+        49.2649239,
+        -122.8954525
+    ],
+    "Rosedene Crescent Richmond, BC, Canada": [
+        49.1372799,
+        -123.1308855
+    ],
+    "8415 Granville Street Marpole Vancouver, BC, Canada": [
+        49.2102008,
+        -123.1409094
+    ],
+    "6000 McKay Avenue Metrotown,Burnaby, BC, Canada": [
+        49.2290292,
+        -123.0026753
+    ],
+    "105A Avenue Whalley Surrey, BC, Canada": [
+        49.1945253,
+        -122.8775235
+    ],
+    "Patterson Road Richmond, BC, Canada": [
+        49.1893152,
+        -123.1154892
+    ],
+    "3219 West King Edward Avenue Dunbar-Southlands Vancouver, BC, Canada": [
+        49.2503385,
+        -123.1764057
     ]
 }
