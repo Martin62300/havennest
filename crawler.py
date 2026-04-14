@@ -105,6 +105,9 @@ class HavenNestCrawler:
 
         def has_token(token):
             return re.search(rf'(?<![a-z0-9]){re.escape(token)}(?![a-z0-9])', s) is not None
+        
+        if has_token("lansdowne") and (has_token("richmond") or has_token("rmd") or ("列治文" in s)):
+            return {"city": "Richmond", "key": "lansdowne", "strength": 3}
 
         rules = [
             ("west coquitlam", "Coquitlam", 4),
@@ -116,7 +119,9 @@ class HavenNestCrawler:
             ("westwood plateau", "Coquitlam", 3),
             ("burke mountain", "Coquitlam", 3),
 
-            ("lansdowne", "Richmond", 3),
+            ("lansdowne centre", "Richmond", 3),
+            ("lansdowne station", "Richmond", 3),
+            ("lansdowne mall", "Richmond", 3),
             ("brighouse", "Richmond", 3),
             ("steveston", "Richmond", 3),
 
@@ -564,6 +569,32 @@ class HavenNestCrawler:
             with open(self.raw_rentals_file, 'r', encoding='utf-8') as f:
                 content = f.read()
             
+            def _city_from_rentals_path(p):
+                try:
+                    p = str(p or "").strip().lstrip("/")
+                    if not p:
+                        return ""
+                    slug = p.split("/", 1)[0].strip().lower()
+                    m = {
+                        "vancouver": "Vancouver",
+                        "richmond": "Richmond",
+                        "burnaby": "Burnaby",
+                        "coquitlam": "Coquitlam",
+                        "surrey": "Surrey",
+                        "port-coquitlam": "Port Coquitlam",
+                        "port-moody": "Port Moody",
+                        "new-westminster": "New Westminster",
+                        "north-vancouver": "North Vancouver",
+                        "west-vancouver": "West Vancouver",
+                        "delta": "Delta",
+                        "langley": "Langley",
+                        "maple-ridge": "Maple Ridge",
+                        "white-rock": "White Rock",
+                    }
+                    return m.get(slug, "")
+                except:
+                    return ""
+            
             # 增强匹配逻辑：支持更多字段和容错
             blocks = re.findall(r'\{"node":\s*(\{.*?"__typename":\s*"RentalListing".*?\})\s*\}', content, re.DOTALL)
             if not blocks:
@@ -609,14 +640,16 @@ class HavenNestCrawler:
                             else:
                                 street = max(streets, key=lambda x: len(x))
                     city_match = re.search(r'"cityName":\s*"(.*?)"', block)
-                    city = city_match.group(1) if city_match else "Vancouver"
+                    city_from_path = _city_from_rentals_path(path)
+                    city = city_from_path or (city_match.group(1) if city_match else "Vancouver")
                     full_address = f"{street}, {city}" if street else city
-                    info = self.infer_city_info(" ".join([title, full_address]))
-                    inferred_city = info.get("city") or ""
-                    strength = int(info.get("strength") or 0)
-                    if inferred_city and (not city or city.strip().lower() == "vancouver" or (strength >= 2 and city.strip().lower() != inferred_city.lower())):
-                        city = inferred_city
-                        full_address = f"{street}, {city}" if street else city
+                    if not city_from_path:
+                        info = self.infer_city_info(" ".join([title, full_address]))
+                        inferred_city = info.get("city") or ""
+                        strength = int(info.get("strength") or 0)
+                        if inferred_city and (not city or city.strip().lower() == "vancouver" or (strength >= 2 and city.strip().lower() != inferred_city.lower())):
+                            city = inferred_city
+                            full_address = f"{street}, {city}" if street else city
 
                     # 6. 提取卧室
                     beds_match = re.search(r'"bedroomCount":\s*(\d+)', block)
@@ -741,14 +774,16 @@ class HavenNestCrawler:
                     address = node.get('address') or {}
                     street = str(address.get('street') or '').strip()
                     city_obj = (address.get('city') or {})
-                    city = str(city_obj.get('cityName') or "Vancouver").strip() or "Vancouver"
+                    city_from_path = _city_from_rentals_path(path)
+                    city = city_from_path or (str(city_obj.get('cityName') or "Vancouver").strip() or "Vancouver")
                     full_address = f"{street}, {city}" if street else city
-                    info = self.infer_city_info(" ".join([title, full_address]))
-                    inferred_city = info.get("city") or ""
-                    strength = int(info.get("strength") or 0)
-                    if inferred_city and (not city or city.strip().lower() == "vancouver" or (strength >= 2 and city.strip().lower() != inferred_city.lower())):
-                        city = inferred_city
-                        full_address = f"{street}, {city}" if street else city
+                    if not city_from_path:
+                        info = self.infer_city_info(" ".join([title, full_address]))
+                        inferred_city = info.get("city") or ""
+                        strength = int(info.get("strength") or 0)
+                        if inferred_city and (not city or city.strip().lower() == "vancouver" or (strength >= 2 and city.strip().lower() != inferred_city.lower())):
+                            city = inferred_city
+                            full_address = f"{street}, {city}" if street else city
                     beds_range = node.get('bedsRange') or []
                     beds = self.extract_beds(title)
                     if isinstance(beds_range, list) and beds_range:
