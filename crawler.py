@@ -511,6 +511,37 @@ class HavenNestCrawler:
                         if num in dn:
                             picked = cand
                             break
+                if (not picked) and (not strict_house_num):
+                    try:
+                        city_tokens = [
+                            "North Vancouver",
+                            "West Vancouver",
+                            "Port Coquitlam",
+                            "Port Moody",
+                            "New Westminster",
+                            "Maple Ridge",
+                            "White Rock",
+                            "Richmond",
+                            "Vancouver",
+                            "Burnaby",
+                            "Coquitlam",
+                            "Surrey",
+                            "Delta",
+                            "Langley",
+                        ]
+                        city_hit = ""
+                        for ct in city_tokens:
+                            if re.search(rf"(?i)(?<![a-z]){re.escape(ct)}(?![a-z])", clean_addr):
+                                city_hit = ct
+                                break
+                        if city_hit:
+                            for cand in data[:6]:
+                                dn = str(cand.get("display_name") or "")
+                                if re.search(rf"(?i)(?<![a-z]){re.escape(city_hit)}(?![a-z])", dn):
+                                    picked = cand
+                                    break
+                    except:
+                        picked = None
                 if not picked:
                     picked = data[0]
                 coords = [float(picked['lat']), float(picked['lon'])]
@@ -1334,6 +1365,8 @@ class HavenNestCrawler:
                         loc = loc_el.text.strip() if loc_el else ""
 
                         detail_text = detail_soup.get_text("\n", strip=True)
+                        if ("公司地址" in detail_text) and (("总部" in detail_text) or ("分部" in detail_text)) and (not re.search(r"(?i)(出租|租金|月租|起租|押金|房型|卧室|bed|bath|studio)", detail_text)):
+                            continue
                         detail_text_addr = detail_text
                         try:
                             if "公司地址" in detail_text_addr:
