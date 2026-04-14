@@ -65,6 +65,8 @@ class HavenNestCrawler:
             source = (item.get('source') or '').strip().lower()
             if source == 'owner':
                 return False
+            if source == 'craigslist':
+                return False
             lat = item.get('lat')
             lng = item.get('lng')
             if isinstance(lat, (int, float)) and isinstance(lng, (int, float)):
@@ -1672,6 +1674,8 @@ class HavenNestCrawler:
             
             # 兜底逻辑：依然没有坐标，分配一个中心点
             if not item.get('lat') or not item.get('lng'):
+                if (item.get('source') or '').strip().lower() == 'craigslist':
+                    continue
                 if str(item.get('community') or item.get('neighborhood') or item.get('area') or '').strip():
                     continue
                 centers = {
