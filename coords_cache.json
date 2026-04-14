@@ -1791,10 +1791,6 @@
         49.2235537,
         -123.0889364
     ],
-    "4000 West 10th Avenue West Point Grey Vancouver, BC, Canada": [
-        49.2636509,
-        -123.1969678
-    ],
     "9830 Whalley Boulevard Whalley, Surrey, BC, Canada": [
         49.2059037,
         -122.866837
@@ -2203,14 +2199,6 @@
         49.1649333,
         -123.1400942
     ],
-    "3018 Saint George Street Port Moody, BC, Canada": [
-        49.2759026,
-        -122.8442523
-    ],
-    "8180 Granville Avenue Richmond, BC, Canada": [
-        49.162377,
-        -123.1338457
-    ],
     "618 Carnarvon Street New Westminster, BC, Canada": [
         49.2035612,
         -122.9091637
@@ -2475,10 +2463,6 @@
         49.1446092,
         -123.1251603
     ],
-    "2471 West 45th Avenue Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
-    ],
     "Francis Road Richmond, BC, Canada": [
         49.1480784,
         -123.1818093
@@ -2543,10 +2527,6 @@
         49.1395378,
         -123.1407128
     ],
-    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1654588,
-        -123.140133
-    ],
     "4168 Lougheed Highway Burnaby, BC, Canada": [
         49.2658414,
         -123.0118017
@@ -2606,5 +2586,105 @@
     "Fisher Drive,Richmond, BC, Canada": [
         49.1797583,
         -123.1124888
+    ],
+    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1654588,
+        -123.140133
+    ],
+    "River Drive Richmond, BC, Canada": [
+        49.1983984,
+        -123.1214947
+    ],
+    "8180 Granville Avenue Richmond, BC, Canada": [
+        49.162377,
+        -123.1338457
+    ],
+    "Pearson Way Richmond, BC, Canada": [
+        49.1749489,
+        -123.1464779
+    ],
+    "Chester Street Sunset Vancouver, BC, Canada": [
+        49.2092652,
+        -123.0893536
+    ],
+    "1312 Edinburgh Street New Westminster, BC, Canada": [
+        49.2097188,
+        -122.9373699
+    ],
+    "2471 West 45th Avenue Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "8870 Citation Drive Richmond, BC, Canada": [
+        49.1637112,
+        -123.1260332
+    ],
+    "6463 Silver Avenue Metrotown Burnaby, BC, Canada": [
+        49.2248459,
+        -123.0069043
+    ],
+    "8415 Granville Street Marpole Vancouver, BC, Canada": [
+        49.2102008,
+        -123.1409094
+    ],
+    "York Street Port Coquitlam, BC, Canada": [
+        49.2692741,
+        -122.7644251
+    ],
+    "Pigott Road Richmond, BC, Canada": [
+        49.141849,
+        -123.131328
+    ],
+    "3219 West King Edward Avenue Dunbar-Southlands Vancouver, BC, Canada": [
+        49.2503385,
+        -123.1764057
+    ],
+    "West 15th Avenue West Point Grey Vancouver, BC, Canada": [
+        49.2589621,
+        -123.1875119
+    ],
+    "Blenheim Street Dunbar-Southlands Vancouver, BC, Canada": [
+        49.2443582,
+        -123.1785558
+    ],
+    "3018 Saint George Street Port Moody, BC, Canada": [
+        49.2759026,
+        -122.8442523
+    ],
+    "3759 Portland Street Burnaby, BC, Canada": [
+        49.212047,
+        -123.0220466
+    ],
+    "West 29th Avenue Dunbar-Southlands Vancouver, BC, Canada": [
+        49.246371,
+        -123.1991123
+    ],
+    "Blundell Road,Richmond, BC, Canada": [
+        49.1554645,
+        -123.1230376
+    ],
+    "1182 Westwood Street Coquitlam, BC, Canada": [
+        49.2823682,
+        -122.7909847
+    ],
+    "6788 Minoru Boulevard Richmond, BC, Canada": [
+        49.1649333,
+        -123.1400942
+    ],
+    "6461 Telford Avenue Metrotown Burnaby, BC, Canada": [
+        49.2251528,
+        -123.0040351
+    ],
+    "Addison Street Richmond, BC, Canada": [
+        49.1394983,
+        -123.1566002
+    ],
+    "West 10th Avenue West Point Grey Vancouver, BC, Canada": [
+        49.2640316,
+        -123.214978
+    ],
+    "w king edward Vancouver V6S 1N2,Vancouver, BC, Canada": [
+        49.2492683,
+        -123.1386516
     ]
 }
