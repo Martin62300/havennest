@@ -1927,10 +1927,6 @@
         49.2251063,
         -123.0480756
     ],
-    "8888 Osler Street Marpole Vancouver, BC, Canada": [
-        49.204878,
-        -123.1310772
-    ],
     "4788 Hazel Street Metrotown,Burnaby, BC, Canada": [
         49.2284354,
         -122.9973304
@@ -2335,10 +2331,6 @@
         49.2802592,
         -122.9094544
     ],
-    "6000 McKay Avenue Metrotown Burnaby, BC, Canada": [
-        49.2290292,
-        -123.0026753
-    ],
     "Housman Street Richmond, BC, Canada": [
         49.1348385,
         -123.1551225
@@ -2643,25 +2635,9 @@
         49.2647362,
         -122.8008534
     ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
     "11967 80 Avenue, Delta, BC, Canada": [
         49.1488952,
         -122.89163
-    ],
-    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
-        49.221793,
-        -123.1233638
-    ],
-    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1654588,
-        -123.140133
     ],
     "Citation Drive Richmond, BC, Canada": [
         49.1640486,
@@ -2778,5 +2754,129 @@
     "3219 West King Edward Avenue Dunbar-Southlands Vancouver, BC, Canada": [
         49.2503385,
         -123.1764057
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
+    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1654588,
+        -123.140133
+    ],
+    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "3336 West 7th Avenue Kitsilano,Vancouver, BC, Canada": [
+        49.2657409,
+        -123.1785546
+    ],
+    "3593 West 30th Avenue Dunbar-Southlands,Vancouver, BC, Canada": [
+        49.2456914,
+        -123.1848242
+    ],
+    "Williams Road Steveston,Richmond, BC, Canada": [
+        49.1410402,
+        -123.1756432
+    ],
+    "2357 Upland Drive Vancouver,Vancouver, BC, Canada": [
+        49.2182138,
+        -123.0585074
+    ],
+    "Barnard Drive,Richmond, BC, Canada": [
+        49.1681194,
+        -123.1864532
+    ],
+    "6655 Buswell Street Richmond, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "8500 Ackroyd Road Richmond, BC, Canada": [
+        49.1713835,
+        -123.1289104
+    ],
+    "7315 14TH Avenue Burnaby, BC, Canada": [
+        49.2153709,
+        -122.9454693
+    ],
+    "Edmonds Street Burnaby, BC, Canada": [
+        49.2238924,
+        -122.9415539
+    ],
+    "West 12th Avenue West Point Grey,Vancouver, BC, Canada": [
+        49.2617838,
+        -123.1945032
+    ],
+    "West 8th Avenue West Point Grey,Vancouver, BC, Canada": [
+        49.2654305,
+        -123.1993866
+    ],
+    "10th Avenue,Burnaby, BC, Canada": [
+        49.1979977,
+        -122.9662705
+    ],
+    "154 Street Guildford Surrey, BC, Canada": [
+        49.1783755,
+        -122.7954764
+    ],
+    "Kingsway Renfrew-Collingwood Vancouver, BC, Canada": [
+        49.2326382,
+        -123.0325147
+    ],
+    "8888 Osler Street Marpole Vancouver, BC, Canada": [
+        49.204878,
+        -123.1310772
+    ],
+    "6935 Quebec Street Sunset,Vancouver, BC, Canada": [
+        49.2215945,
+        -123.1043272
+    ],
+    "4589 West 9th Avenue Vancouver Vancouver,Vancouver, BC, Canada": [
+        49.2649492,
+        -123.2117479
+    ],
+    "Lackner Crescent,Richmond, BC, Canada": [
+        49.1475826,
+        -123.1632563
+    ],
+    "1608 West 68th Avenue Marpole,Vancouver, BC, Canada": [
+        49.2103663,
+        -123.1438505
+    ],
+    "Broadway,Burnaby, BC, Canada": [
+        49.261856,
+        -122.9599905
+    ],
+    "6500 Minoru Boulevard,Richmond, BC, Canada": [
+        49.1657595,
+        -123.1403803
+    ],
+    "2412 Birch Street, Vancouver, BC V6H 3X9, BC, Canada": [
+        49.2641595,
+        -123.1334404
+    ],
+    "4688 Kingsway Metrotown Burnaby, BC, Canada": [
+        49.2287293,
+        -123.001478
+    ],
+    "6000 McKay Avenue Metrotown Burnaby, BC, Canada": [
+        49.2290292,
+        -123.0026753
+    ],
+    "14958 97 Avenue Guildford,Surrey, BC, Canada": [
+        49.1785403,
+        -122.8079165
+    ],
+    "5410 Shortcut Road ,Vancouver, BC, Canada": [
+        49.2651244,
+        -123.2358046
     ]
 }
