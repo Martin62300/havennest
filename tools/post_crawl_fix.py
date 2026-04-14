@@ -843,6 +843,9 @@ def main():
             if has_detail_addr and (not is_source_map) and _near_city_center(cur_city, float(lat), float(lng)):
                 needs_coords = True
                 priority_needs_geocode = True
+            if coord_source == "map_query" and has_detail_addr and (not is_source_map):
+                needs_coords = True
+                priority_needs_geocode = True
             if source == "owner" and has_detail_addr and (not is_source_map):
                 needs_coords = True
                 priority_needs_geocode = True
