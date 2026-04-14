@@ -2755,57 +2755,13 @@
         49.2503385,
         -123.1764057
     ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
-    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
-        49.221793,
-        -123.1233638
-    ],
-    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1654588,
-        -123.140133
-    ],
-    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
-        49.1892595,
-        -123.132459
-    ],
-    "3336 West 7th Avenue Kitsilano,Vancouver, BC, Canada": [
-        49.2657409,
-        -123.1785546
-    ],
-    "3593 West 30th Avenue Dunbar-Southlands,Vancouver, BC, Canada": [
-        49.2456914,
-        -123.1848242
-    ],
     "Williams Road Steveston,Richmond, BC, Canada": [
         49.1410402,
         -123.1756432
     ],
-    "2357 Upland Drive Vancouver,Vancouver, BC, Canada": [
-        49.2182138,
-        -123.0585074
-    ],
     "Barnard Drive,Richmond, BC, Canada": [
         49.1681194,
         -123.1864532
-    ],
-    "6655 Buswell Street Richmond, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
-    "8500 Ackroyd Road Richmond, BC, Canada": [
-        49.1713835,
-        -123.1289104
-    ],
-    "7315 14TH Avenue Burnaby, BC, Canada": [
-        49.2153709,
-        -122.9454693
     ],
     "Edmonds Street Burnaby, BC, Canada": [
         49.2238924,
@@ -2830,18 +2786,6 @@
     "Kingsway Renfrew-Collingwood Vancouver, BC, Canada": [
         49.2326382,
         -123.0325147
-    ],
-    "8888 Osler Street Marpole Vancouver, BC, Canada": [
-        49.204878,
-        -123.1310772
-    ],
-    "6935 Quebec Street Sunset,Vancouver, BC, Canada": [
-        49.2215945,
-        -123.1043272
-    ],
-    "4589 West 9th Avenue Vancouver Vancouver,Vancouver, BC, Canada": [
-        49.2649492,
-        -123.2117479
     ],
     "Lackner Crescent,Richmond, BC, Canada": [
         49.1475826,
@@ -2878,5 +2822,85 @@
     "5410 Shortcut Road ,Vancouver, BC, Canada": [
         49.2651244,
         -123.2358046
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
+    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1654588,
+        -123.140133
+    ],
+    "7337 Macpherson Avenue Burnaby, BC, Canada": [
+        49.2171828,
+        -122.9838933
+    ],
+    "100 Avenue Whalley Surrey, BC, Canada": [
+        49.1844762,
+        -122.8946699
+    ],
+    "6911 Shawnigan Place Richmond, BC, Canada": [
+        49.1419756,
+        -123.1488628
+    ],
+    "108 Avenue Surrey, BC, Canada": [
+        49.1988149,
+        -122.8156778
+    ],
+    "1439 George Street White Rock, Vancouver, BC, Canada": [
+        49.0278503,
+        -122.8001236
+    ],
+    "3563 Ross Drive Vancouver, BC, Canada": [
+        49.250556,
+        -123.2346532
+    ],
+    "3336 West 7th Avenue Kitsilano,Vancouver, BC, Canada": [
+        49.2657409,
+        -123.1785546
+    ],
+    "3593 West 30th Avenue Dunbar-Southlands,Vancouver, BC, Canada": [
+        49.2456914,
+        -123.1848242
+    ],
+    "2357 Upland Drive Vancouver,Vancouver, BC, Canada": [
+        49.2182138,
+        -123.0585074
+    ],
+    "6655 Buswell Street Richmond, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "8500 Ackroyd Road Richmond, BC, Canada": [
+        49.1713835,
+        -123.1289104
+    ],
+    "7315 14TH Avenue Burnaby, BC, Canada": [
+        49.2153709,
+        -122.9454693
+    ],
+    "8888 Osler Street Marpole Vancouver, BC, Canada": [
+        49.204878,
+        -123.1310772
+    ],
+    "6935 Quebec Street Sunset,Vancouver, BC, Canada": [
+        49.2215945,
+        -123.1043272
+    ],
+    "4589 West 9th Avenue Vancouver Vancouver,Vancouver, BC, Canada": [
+        49.2649492,
+        -123.2117479
     ]
 }
