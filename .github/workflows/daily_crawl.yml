@@ -60,11 +60,13 @@ jobs:
           HAVENNEST_GEOCODE_TIMEOUT: "8"
           HAVENNEST_GEOCODE_RETRIES: "1"
           HAVENNEST_GEOCODE_SLEEP: "1.2"
-          HAVENNEST_CRAIGSLIST_MODE: "rss"
+          HAVENNEST_CRAIGSLIST_MODE: "web"
           HAVENNEST_MAX_TOTAL: "300"
           HAVENNEST_CRAIGSLIST_LIMIT: "120"
           HAVENNEST_VANPEOPLE_LIMIT: "80"
           HAVENNEST_VANPEOPLE_MAX_PAGES: "6"
+          HAVENNEST_CRAIGSLIST_MAX_SECONDS: "1200"
+          HAVENNEST_CRAIGSLIST_DETAIL_TIMEOUT: "12"
  
       - name: Post-crawl fix (city/beds/coords)
         run: python tools/post_crawl_fix.py
