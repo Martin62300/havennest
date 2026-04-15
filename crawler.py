@@ -1005,9 +1005,22 @@ class HavenNestCrawler:
             if r:
                 return r
             return self.crawl_craigslist_rss_fallback(limit)
+        if mode == "web_lite":
+            return self.crawl_craigslist_rss_fallback(limit)
         print(f"Crawling Craigslist via Web (limit {limit})... ")
         results = []
         scraper = cloudscraper.create_scraper()
+        t0 = time.time()
+        try:
+            max_s = int(os.getenv("HAVENNEST_CRAIGSLIST_MAX_SECONDS") or "0")
+        except:
+            max_s = 0
+        if max_s <= 0:
+            max_s = 1200
+        try:
+            detail_timeout = int(os.getenv("HAVENNEST_CRAIGSLIST_DETAIL_TIMEOUT") or "12")
+        except:
+            detail_timeout = 12
         try:
             url = "https://vancouver.craigslist.org/search/apa"
             res = scraper.get(url, timeout=20)
@@ -1017,6 +1030,8 @@ class HavenNestCrawler:
             posts = soup.find_all('li', class_='cl-static-search-result')
             
             for post in posts[:limit]:
+                if (time.time() - t0) > max_s:
+                    break
                 try:
                     title_el = post.find('div', class_='title')
                     if not title_el: continue
@@ -1030,7 +1045,7 @@ class HavenNestCrawler:
                     
                     # 深度抓取详情页获取图片集和描述
                     print(f"  Deep crawling Craigslist: {title[:20]}...")
-                    d_res = scraper.get(detail_url, timeout=15)
+                    d_res = scraper.get(detail_url, timeout=detail_timeout)
                     if d_res.status_code != 200:
                         continue
                     if re.search(r'(?i)this posting has been deleted|flagged for removal|posting has expired|has expired', d_res.text or ""):
@@ -1041,6 +1056,14 @@ class HavenNestCrawler:
                     for img in d_soup.select('.gallery img'):
                         src = img.get('src')
                         if src: images.append(src)
+                    if not images:
+                        try:
+                            og = d_soup.select_one('meta[property="og:image"], meta[name="og:image"]')
+                            u = (og.get('content') or '').strip() if og else ''
+                            if u:
+                                images.append(u)
+                        except:
+                            pass
                     
                     desc_el = d_soup.select_one('#postingbody')
                     desc = desc_el.text.replace('QR Code Link to This Post', '').strip() if desc_el else ""
@@ -1101,7 +1124,6 @@ class HavenNestCrawler:
                         "desc": desc,
                         "date": datetime.now().strftime("%Y-%m-%d")
                     })
-                    time.sleep(1)
                 except: continue
             
             # 补充坐标
@@ -1365,14 +1387,15 @@ class HavenNestCrawler:
                         loc = loc_el.text.strip() if loc_el else ""
 
                         detail_text = detail_soup.get_text("\n", strip=True)
-                        if ("公司地址" in detail_text) and (("总部" in detail_text) or ("分部" in detail_text)) and (not re.search(r"(?i)(出租|租金|月租|起租|押金|房型|卧室|bed|bath|studio)", detail_text)):
-                            continue
                         detail_text_addr = detail_text
                         try:
                             if "公司地址" in detail_text_addr:
                                 detail_text_addr = detail_text_addr.split("公司地址", 1)[0].strip()
                         except:
                             detail_text_addr = detail_text
+                        if ("公司地址" in detail_text) and (("总部" in detail_text) or ("分部" in detail_text)):
+                            if not re.search(r"(?i)(出租|租金|月租|起租|押金|房型|卧室|bed|bath|studio)", detail_text_addr):
+                                continue
                         addr2 = ""
                         m = re.search(r'(?m)^(?:联系地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text_addr)
                         if not m:
