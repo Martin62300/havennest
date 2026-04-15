@@ -1911,10 +1911,6 @@
         49.2515183,
         -123.116499
     ],
-    "1336 East 11th Avenue Kensington-Cedar Cottage Vancouver, BC, Canada": [
-        49.2603275,
-        -123.0766379
-    ],
     "Boundary Road Vancouver, BC, Canada": [
         49.2632461,
         -123.0238678
@@ -2238,14 +2234,6 @@
     "Knight Street Vancouver, BC, Canada": [
         49.218387,
         -123.0766722
-    ],
-    "4200 Tyson Place Richmond, BC, Canada": [
-        49.1616583,
-        -123.1789348
-    ],
-    "3636 West 39th Avenue Dunbar-Southlands Vancouver, BC, Canada": [
-        49.2362344,
-        -123.1857546
     ],
     "East 22nd Street Vancouver, North Vancouver, BC, Canada": [
         49.3292139,
@@ -2691,10 +2679,6 @@
         49.1819108,
         -122.8416193
     ],
-    "8180 Granville Avenue Richmond, BC, Canada": [
-        49.162377,
-        -123.1338457
-    ],
     "1312 Edinburgh Street New Westminster, BC, Canada": [
         49.2097188,
         -122.9373699
@@ -2702,14 +2686,6 @@
     "Westminster Highway Richmond, BC, Canada": [
         49.1703765,
         -123.1362002
-    ],
-    "2471 West 45th Avenue Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
-    ],
-    "3175 West 18th Avenue Arbutus Ridge Vancouver, BC, Canada": [
-        49.2568522,
-        -123.1753549
     ],
     "104 Avenue Whalley Surrey, BC, Canada": [
         49.191627,
@@ -2843,25 +2819,9 @@
         49.2649492,
         -123.2117479
     ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
     "11967 80 Avenue, Delta, BC, Canada": [
         49.1488952,
         -122.89163
-    ],
-    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
-        49.1892595,
-        -123.132459
-    ],
-    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
-        49.221793,
-        -123.1233638
     ],
     "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
         49.1654588,
@@ -2938,5 +2898,113 @@
     "7315 14TH Avenue Burnaby, BC, Canada": [
         49.2153709,
         -122.9454693
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
+    "2471 West 45th Avenue Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "FLO, Richmond, BC, BC, Canada": [
+        49.1864955,
+        -123.1439338
+    ],
+    "5109 Sussex Avenue Burnaby, BC, Canada": [
+        49.2381005,
+        -122.9982238
+    ],
+    "Brighouse Way Richmond, BC, Canada": [
+        49.1708367,
+        -123.1372351
+    ],
+    "Ketcheson Road Richmond, BC, Canada": [
+        49.1894795,
+        -123.126499
+    ],
+    "Minoru Boulevard Richmond, BC, Canada": [
+        49.1716155,
+        -123.1404517
+    ],
+    "3175 West 18th Avenue Arbutus Ridge Vancouver, BC, Canada": [
+        49.2568522,
+        -123.1753549
+    ],
+    "2948 West 32nd Avenue Dunbar-Southlands Vancouver, BC, Canada": [
+        49.2430472,
+        -123.1715255
+    ],
+    "28 Avenue Surrey, BC, Canada": [
+        50.701578,
+        -120.3680607
+    ],
+    "Maple Road Richmond, BC, Canada": [
+        49.1338082,
+        -123.1364961
+    ],
+    "Seafield Crescent Richmond, BC, Canada": [
+        49.1383899,
+        -123.1009125
+    ],
+    "Nelson Avenue Metrotown Burnaby, BC, Canada": [
+        49.2200161,
+        -122.9941174
+    ],
+    "Alberta Road Richmond, BC, Canada": [
+        49.165719,
+        -123.1209942
+    ],
+    "Bennett Road Richmond, BC, Canada": [
+        49.1615713,
+        -123.1358961
+    ],
+    "4467 West 16th Avenue West Point Grey Vancouver, BC, Canada": [
+        49.2585814,
+        -123.2082438
+    ],
+    "Wilson Avenue Metrotown,Burnaby, BC, Canada": [
+        49.2296776,
+        -123.00944
+    ],
+    "4200 Tyson Place Richmond, BC, Canada": [
+        49.1616583,
+        -123.1789348
+    ],
+    "3636 West 39th Avenue Dunbar-Southlands Vancouver, BC, Canada": [
+        49.2362344,
+        -123.1857546
+    ],
+    "Slopes Mews Burnaby, BC, Canada": [
+        49.2770188,
+        -122.9074672
+    ],
+    "Phillips Avenue Burnaby, BC, Canada": [
+        49.259955,
+        -122.9502948
+    ],
+    "8620 Jones Road, Richmond, BC V6Y 3Z4 Richmond, BC, Canada": [
+        49.1561707,
+        -123.1293393
+    ],
+    "1336 East 11th Avenue Kensington-Cedar Cottage Vancouver, BC, Canada": [
+        49.2603275,
+        -123.0766379
+    ],
+    "8180 Granville Avenue Richmond, BC, Canada": [
+        49.162377,
+        -123.1338457
     ]
 }
