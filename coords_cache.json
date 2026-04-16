@@ -1463,10 +1463,6 @@
         49.2290017,
         -123.1987757
     ],
-    "8200 Rosemary Avenue Richmond, BC, Canada": [
-        49.1340928,
-        -123.1283175
-    ],
     "263 Jardine Street, New Westminster, BC, Canada": [
         49.1845425,
         -122.9480809
@@ -1883,17 +1879,9 @@
         49.2365187,
         -123.1606373
     ],
-    "5928 birney Avenue Vancouver, BC, Canada": [
-        49.2533453,
-        -123.2351271
-    ],
     "4092 Burke Street Burnaby, BC, Canada": [
         49.2367358,
         -123.0137978
-    ],
-    "6699 Dunblane Avenue Metrotown Burnaby, BC, Canada": [
-        49.222271,
-        -122.9931937
     ],
     "Rosemary Avenue Richmond, BC, Canada": [
         49.1340928,
@@ -1958,10 +1946,6 @@
     "6655 Buswell Street,Richmond, BC, Canada": [
         49.1650135,
         -123.1340569
-    ],
-    "1708 West 59th Avenue Marpole Vancouver, BC, Canada": [
-        49.2174922,
-        -123.1454628
     ],
     "9521 Cardston Court Burnaby, BC, Canada": [
         49.248569,
@@ -2175,10 +2159,6 @@
         49.1034693,
         -122.6717137
     ],
-    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1649333,
-        -123.1400942
-    ],
     "618 Carnarvon Street New Westminster, BC, Canada": [
         49.2035612,
         -122.9091637
@@ -2374,10 +2354,6 @@
     "kings Vancouver, BC, Canada": [
         49.2716284,
         -123.1278956
-    ],
-    "8068 Westminster Highway Richmond, BC, Canada": [
-        49.1700098,
-        -123.1352666
     ],
     "1155 West 49th Avenue Oakridge Vancouver, BC, Canada": [
         49.2269593,
@@ -2707,10 +2683,6 @@
         49.1372799,
         -123.1308855
     ],
-    "8415 Granville Street Marpole Vancouver, BC, Canada": [
-        49.2102008,
-        -123.1409094
-    ],
     "6000 McKay Avenue Metrotown,Burnaby, BC, Canada": [
         49.2290292,
         -123.0026753
@@ -2819,10 +2791,6 @@
         49.2649492,
         -123.2117479
     ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
     "6600 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
         49.1654588,
         -123.140133
@@ -2898,26 +2866,6 @@
     "7315 14TH Avenue Burnaby, BC, Canada": [
         49.2153709,
         -122.9454693
-    ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
-    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
-        49.1892595,
-        -123.132459
-    ],
-    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
-        49.221793,
-        -123.1233638
-    ],
-    "2471 West 45th Avenue Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
     ],
     "FLO, Richmond, BC, BC, Canada": [
         49.1864955,
@@ -3006,5 +2954,149 @@
     "8180 Granville Avenue Richmond, BC, Canada": [
         49.162377,
         -123.1338457
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1649333,
+        -123.1400942
+    ],
+    "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
+    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
+        49.277021,
+        -123.1297395
+    ],
+    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "8632 147a Street Surrey, Vancouver, BC, Canada": [
+        49.1595958,
+        -122.8138719
+    ],
+    "Dunblane Avenue Metrotown Burnaby, BC, Canada": [
+        49.2196402,
+        -122.9928153
+    ],
+    "1708 West 59th Avenue Marpole Vancouver, BC, Canada": [
+        49.2174922,
+        -123.1454628
+    ],
+    "5380 Crooked Branch Road ,Vancouver, BC, Canada": [
+        49.2632055,
+        -123.2350911
+    ],
+    "3660 Vanness Avenue Renfrew-Collingwood Vancouver, BC, Canada": [
+        49.2349319,
+        -123.0252719
+    ],
+    "Roper Avenue White Rock, Surrey, BC, Canada": [
+        49.0256311,
+        -122.7812413
+    ],
+    "2471 West 45th Avenue Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "5928 birney Avenue Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
+    ],
+    "6808 Minoru Boulevard Richmond, BC, Canada": [
+        49.164444,
+        -123.1397445
+    ],
+    "8620 Jones Road Richmond, BC, Canada": [
+        49.1561707,
+        -123.1293393
+    ],
+    "Beta Avenue Burnaby, BC, Canada": [
+        49.2551258,
+        -122.997907
+    ],
+    "6699 Dunblane Avenue Metrotown Burnaby, BC, Canada": [
+        49.222271,
+        -122.9931937
+    ],
+    "6311 Livingstone Place Richmond, BC, Canada": [
+        49.1620905,
+        -123.1544918
+    ],
+    "5189 Earles Street Renfrew-Collingwood Vancouver, BC, Canada": [
+        49.2381699,
+        -123.0493597
+    ],
+    "Chapmond Crescent Richmond, BC, Canada": [
+        49.1435571,
+        -123.1901377
+    ],
+    "2111 Fraserview Drive Vancouver Vancouver, BC, Canada": [
+        49.2117833,
+        -123.0638694
+    ],
+    "7428 Byrnepark Walk Burnaby, BC, Canada": [
+        49.2085158,
+        -122.963958
+    ],
+    "Lougheed Highway Burnaby, BC, Canada": [
+        49.2656565,
+        -123.0150178
+    ],
+    "Caithcart Road Richmond, BC, Canada": [
+        49.1888718,
+        -123.1069963
+    ],
+    "Southwest Marine Drive Southlands Vancouver, BC, Canada": [
+        49.2371234,
+        -123.2051444
+    ],
+    "8068 Westminster Highway Richmond, BC, Canada": [
+        49.1700098,
+        -123.1352666
+    ],
+    "Groat Avenue Richmond, BC, Canada": [
+        49.1425058,
+        -123.1725414
+    ],
+    "Thorpe Road Richmond, BC, Canada": [
+        49.1832696,
+        -123.0964849
+    ],
+    "8415 Granville Street Marpole Vancouver, BC, Canada": [
+        49.2102008,
+        -123.1409094
+    ],
+    "4065 West 14th Avenue West Point Grey Vancouver, BC, Canada": [
+        49.2602277,
+        -123.1959588
+    ],
+    "Irmin Street Burnaby, BC, Canada": [
+        49.2157389,
+        -123.0118815
+    ],
+    "Number 4 Road Richmond, BC, Canada": [
+        49.1410606,
+        -123.1142689
+    ],
+    "Upper Roper Avenue White Rock, Vancouver, BC, Canada": [
+        49.0260515,
+        -122.8135708
+    ],
+    "1115 West 48th Avenue Oakridge,Vancouver, BC, Canada": [
+        49.2278204,
+        -123.1307813
     ]
 }
