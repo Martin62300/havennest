@@ -1935,10 +1935,6 @@
         49.1878499,
         -123.072334
     ],
-    "7008 River Parkway Richmond, BC, Canada": [
-        49.1766011,
-        -123.143131
-    ],
     "McKee Street Burnaby, BC, Canada": [
         49.2111465,
         -122.9754431
@@ -1966,10 +1962,6 @@
     "Tolmie Street West Point Grey,Vancouver, BC, Canada": [
         49.2676434,
         -123.2120201
-    ],
-    "3628 Dunbar Street Dunbar-Southlands,Vancouver, BC, Canada": [
-        49.2542547,
-        -123.1847816
     ],
     "5868 Agronomy Road Vancouver, BC, Canada": [
         49.2628762,
@@ -2955,33 +2947,9 @@
         49.162377,
         -123.1338457
     ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
-    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1649333,
-        -123.1400942
-    ],
     "6976 Heather Street Oakridge, 温哥华, Vancouver, BC, Canada": [
         49.221793,
         -123.1233638
-    ],
-    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
-        49.277021,
-        -123.1297395
-    ],
-    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
-        49.1892595,
-        -123.132459
     ],
     "8632 147a Street Surrey, Vancouver, BC, Canada": [
         49.1595958,
@@ -3007,14 +2975,6 @@
         49.0256311,
         -122.7812413
     ],
-    "2471 West 45th Avenue Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
-    ],
-    "5928 birney Avenue Vancouver, BC, Canada": [
-        49.2533453,
-        -123.2351271
-    ],
     "6808 Minoru Boulevard Richmond, BC, Canada": [
         49.164444,
         -123.1397445
@@ -3026,10 +2986,6 @@
     "Beta Avenue Burnaby, BC, Canada": [
         49.2551258,
         -122.997907
-    ],
-    "6699 Dunblane Avenue Metrotown Burnaby, BC, Canada": [
-        49.222271,
-        -122.9931937
     ],
     "6311 Livingstone Place Richmond, BC, Canada": [
         49.1620905,
@@ -3098,5 +3054,145 @@
     "1115 West 48th Avenue Oakridge,Vancouver, BC, Canada": [
         49.2278204,
         -123.1307813
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "Oakridge, Vancouver, BC, BC, Canada": [
+        49.2308288,
+        -123.1311342
+    ],
+    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1649333,
+        -123.1400942
+    ],
+    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
+        49.277021,
+        -123.1297395
+    ],
+    "6699 Dunblane Avenue Metrotown Burnaby, BC, Canada": [
+        49.222271,
+        -122.9931937
+    ],
+    "George Junction, Surrey, BC V3T 0V7 Surrey, BC, Canada": [
+        49.1816496,
+        -122.8454987
+    ],
+    "Joyce Street, Vancouver, BC V5R 4G6 Vancouver, BC, Canada": [
+        49.2396784,
+        -123.0304999
+    ],
+    "101 Avenue, Surrey, BC V3R4H1 Surrey, BC, Canada": [
+        49.1856711,
+        -122.801425
+    ],
+    "Devonshire Crescent, Vancouver, BC V6H 2G4 Vancouver, BC, Canada": [
+        49.2445248,
+        -123.1301535
+    ],
+    "Lougheed Highway, Burnaby, BC V5C 0M9 Burnaby, BC, Canada": [
+        49.2657942,
+        -122.9945564
+    ],
+    "Lawson Avenue, West Vancouver, BC V7T2E6 Vancouver, BC, Canada": [
+        49.3374494,
+        -123.1786899
+    ],
+    "Hazel Street, Burnaby, BC V5H 0E4 Burnaby, BC, Canada": [
+        49.2282112,
+        -122.9958209
+    ],
+    "7765 Allman Street Burnaby, BC, Canada": [
+        49.2345302,
+        -122.9516265
+    ],
+    "2471 West 45th Avenue Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "Oak Street Marpole Vancouver, BC, Canada": [
+        49.1973016,
+        -123.1218046
+    ],
+    "5687 Gray Avenue Vancouver, BC, Canada": [
+        49.2532215,
+        -123.2314344
+    ],
+    "85 Avenue Surrey, BC, Canada": [
+        50.7016083,
+        -120.3633794
+    ],
+    "9080 University Crescent Burnaby, BC, Canada": [
+        49.280351,
+        -122.9072423
+    ],
+    "Old Yale Road Whalley Surrey, BC, Canada": [
+        49.1980382,
+        -122.8728317
+    ],
+    "5629 Birney Avenue Vancouver, BC, Canada": [
+        49.2547259,
+        -123.2310279
+    ],
+    "West 1st Avenue West Point Grey Vancouver, BC, Canada": [
+        49.2712822,
+        -123.1826161
+    ],
+    "7008 River Parkway Richmond, BC, Canada": [
+        49.1766011,
+        -123.143131
+    ],
+    "8761 University Crescent Burnaby, BC, Canada": [
+        49.2797868,
+        -122.9088308
+    ],
+    "101 Avenue Guildford Surrey, BC, Canada": [
+        49.1856711,
+        -122.801425
+    ],
+    "6200 River Road Richmond, BC, Canada": [
+        49.1741565,
+        -123.1491399
+    ],
+    "7831 Westminster Highway Richmond, BC, Canada": [
+        49.170376,
+        -123.138704
+    ],
+    "8133 Cook Road Richmond, BC, Canada": [
+        49.1666966,
+        -123.1347739
+    ],
+    "3628 Dunbar Street Dunbar-Southlands,Vancouver, BC, Canada": [
+        49.2542547,
+        -123.1847816
+    ],
+    "6976 Heather Street Oakridge,Vancouver, BC, Canada": [
+        49.221793,
+        -123.1233638
+    ],
+    "5520 Gibbons Drive,Richmond, BC, Canada": [
+        49.1732355,
+        -123.176016
+    ],
+    "14th Avenue,Burnaby, BC, Canada": [
+        49.2269789,
+        -122.9223376
+    ],
+    "5928 birney Avenue Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
     ]
 }
