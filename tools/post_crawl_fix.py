@@ -303,6 +303,59 @@ def _in_box(box: Tuple[float, float, float, float], lat: float, lng: float) -> b
     return (lat_min <= lat <= lat_max) and (lng_min <= lng <= lng_max)
  
  
+def _city_hint_from_craigslist_url(url: str) -> str:
+    try:
+        u = str(url or "")
+        m = re.search(r"craigslist\.org/([a-z]{3})/", u, flags=re.IGNORECASE)
+        if not m:
+            return ""
+        code = (m.group(1) or "").lower()
+        m2 = {
+            "van": "Vancouver",
+            "rch": "Richmond",
+            "bnc": "Burnaby",
+            "nmo": "Port Moody",
+            "nwb": "New Westminster",
+            "nvy": "North Vancouver",
+            "pml": "Maple Ridge",
+            "wht": "White Rock",
+            "dlt": "Delta",
+            "lan": "Langley",
+        }
+        return m2.get(code, "")
+    except Exception:
+        return ""
+
+
+def _city_from_coords(lat: float, lng: float, preferred_city: str = "") -> str:
+    try:
+        candidates = []
+        for city, box in CITY_BBOX.items():
+            if _in_box(box, float(lat), float(lng)):
+                candidates.append(city)
+        if not candidates:
+            return ""
+        if len(candidates) == 1:
+            return candidates[0]
+        if preferred_city:
+            for c0 in candidates:
+                if c0.lower() == preferred_city.lower():
+                    return c0
+        best = ""
+        best_d = None
+        for city in candidates:
+            center = CITY_CENTERS.get(city)
+            if not center:
+                continue
+            d = (float(lat) - float(center[0])) ** 2 + (float(lng) - float(center[1])) ** 2
+            if best_d is None or d < best_d:
+                best_d = d
+                best = city
+        return best or candidates[0]
+    except Exception:
+        return ""
+
+ 
 def _cache_key_from_query(query: str) -> str:
     clean_addr = re.sub(r"[^\w\s,.-]", "", (query or "")).strip()
     return f"{clean_addr}, BC, Canada"
@@ -785,6 +838,20 @@ def main():
         lng = item.get("lng")
         coords_ok = _is_number(lat) and _is_number(lng)
         needs_coords = not coords_ok
+        coord_source = (item.get("coord_source") or "").strip().lower()
+        is_source_map = _is_source_map(coord_source)
+        if coords_ok and is_source_map:
+            preferred_city = ""
+            if source == "craigslist":
+                preferred_city = _city_hint_from_craigslist_url(item.get("url") or "")
+            new_city = _city_from_coords(float(lat), float(lng), preferred_city=preferred_city)
+            if new_city and (not cur_city or cur_city.lower() != new_city.lower()):
+                item["city"] = new_city
+                changed_city += 1
+                cur_city = new_city
+                for k in ["community", "neighborhood", "area"]:
+                    if item.get(k):
+                        item[k] = ""
  
         raw_comm = item.get("community") or item.get("neighborhood") or item.get("area")
         if not raw_comm and cur_city:
@@ -809,8 +876,6 @@ def main():
             item["address"] = addr_clean
             addr_for_check = addr_clean
         has_detail_addr = bool(re.search(r"(?i)^\s*(?:#\s*[0-9a-z]{1,6}\s*-\s*)?\s*\d{4,6}\b", addr_for_check))
-        coord_source = (item.get("coord_source") or "").strip().lower()
-        is_source_map = _is_source_map(coord_source)
         priority_needs_geocode = False
 
         if source == "owner" and (cur_city or "").strip().lower() == "richmond" and (cur_comm or "").strip().lower() == "thompson" and (not has_detail_addr):
