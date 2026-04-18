@@ -34,10 +34,10 @@ CITY_CENTERS = {
  
 CITY_BBOX = {
     "Vancouver": (49.20, 49.34, -123.27, -123.00),
-    "Richmond": (49.08, 49.23, -123.25, -123.02),
+    "Richmond": (49.08, 49.21, -123.25, -123.02),
     "Burnaby": (49.20, 49.32, -123.10, -122.88),
     "Coquitlam": (49.20, 49.35, -122.93, -122.74),
-    "Surrey": (49.03, 49.30, -122.98, -122.65),
+    "Surrey": (49.03, 49.23, -122.98, -122.65),
     "North Vancouver": (49.30, 49.37, -123.14, -122.98),
     "West Vancouver": (49.30, 49.39, -123.27, -123.07),
     "Port Coquitlam": (49.22, 49.30, -122.83, -122.72),
@@ -306,6 +306,27 @@ def _in_box(box: Tuple[float, float, float, float], lat: float, lng: float) -> b
 def _city_hint_from_craigslist_url(url: str) -> str:
     try:
         u = str(url or "")
+        m0 = re.search(r"craigslist\.org/[a-z]{3}/apa/d/([a-z0-9-]+?)-", u, flags=re.IGNORECASE)
+        if m0:
+            slug = (m0.group(1) or "").lower()
+            mslug = {
+                "vancouver": "Vancouver",
+                "richmond": "Richmond",
+                "burnaby": "Burnaby",
+                "coquitlam": "Coquitlam",
+                "surrey": "Surrey",
+                "delta": "Delta",
+                "langley": "Langley",
+                "maple-ridge": "Maple Ridge",
+                "white-rock": "White Rock",
+                "new-westminster": "New Westminster",
+                "north-vancouver": "North Vancouver",
+                "west-vancouver": "West Vancouver",
+                "port-coquitlam": "Port Coquitlam",
+                "port-moody": "Port Moody",
+            }
+            if slug in mslug:
+                return mslug[slug]
         m = re.search(r"craigslist\.org/([a-z]{3})/", u, flags=re.IGNORECASE)
         if not m:
             return ""
@@ -313,16 +334,15 @@ def _city_hint_from_craigslist_url(url: str) -> str:
         m2 = {
             "van": "Vancouver",
             "rch": "Richmond",
-            "bnc": "Burnaby",
             "nmo": "Port Moody",
             "nwb": "New Westminster",
             "nvy": "North Vancouver",
-            "pml": "Maple Ridge",
+            "pml": "",
             "wht": "White Rock",
             "dlt": "Delta",
             "lan": "Langley",
         }
-        return m2.get(code, "")
+        return m2.get(code, "") or ""
     except Exception:
         return ""
 
@@ -875,7 +895,7 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
-        has_detail_addr = bool(re.search(r"(?i)^\s*(?:#\s*[0-9a-z]{1,6}\s*-\s*)?\s*\d{4,6}\b", addr_for_check))
+        has_detail_addr = bool(re.search(r"(?i)^\s*(?:#\s*[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
         priority_needs_geocode = False
 
         if source == "owner" and (cur_city or "").strip().lower() == "richmond" and (cur_comm or "").strip().lower() == "thompson" and (not has_detail_addr):
