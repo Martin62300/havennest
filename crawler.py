@@ -503,7 +503,7 @@ class HavenNestCrawler:
                 is_intersection = bool(re.search(r"(?i)(?:\s&\s|\sand\s|\sat\s|夹|和)", clean_addr))
                 mnum = re.match(r"^\s*(?:#\s*[0-9a-z]{1,6}\s*-\s*)?\s*(\d{1,6})\b", clean_addr, flags=re.IGNORECASE)
                 num = mnum.group(1) if mnum else ""
-                strict_house_num = bool(num) and (not is_intersection) and (len(num) >= 4)
+                strict_house_num = bool(num) and (not is_intersection) and (len(num) >= 3)
                 picked = None
                 if strict_house_num:
                     for cand in data[:6]:
@@ -548,7 +548,7 @@ class HavenNestCrawler:
                 if strict_house_num:
                     dn2 = str(picked.get("display_name") or "")
                     if num not in dn2:
-                        return None, None
+                        strict_house_num = False
                 self.coords_cache[search_query] = coords
                 self._save_cache()
                 return coords
@@ -1752,12 +1752,40 @@ class HavenNestCrawler:
         for x in old_data:
             if not x.get('isPromo'):
                 continue
-            key = x.get('url') or x.get('id')
+            src = (x.get('source') or '').strip().lower()
+            if src == 'craigslist':
+                try:
+                    a = str(x.get('address') or '').strip().lower()
+                    a = ' '.join(a.split())
+                    lat = float(x.get('lat')) if x.get('lat') is not None else None
+                    lng = float(x.get('lng')) if x.get('lng') is not None else None
+                    if a and isinstance(lat, float) and isinstance(lng, float):
+                        key = f"craigslist|{a}|{round(lat,5)}|{round(lng,5)}"
+                    else:
+                        key = x.get('url') or x.get('id')
+                except:
+                    key = x.get('url') or x.get('id')
+            else:
+                key = x.get('url') or x.get('id')
             if key:
                 data_map[key] = x
 
         for item in new_data:
-            key = item.get('url') or item.get('id')
+            src = (item.get('source') or '').strip().lower()
+            if src == 'craigslist':
+                try:
+                    a = str(item.get('address') or '').strip().lower()
+                    a = ' '.join(a.split())
+                    lat = float(item.get('lat')) if item.get('lat') is not None else None
+                    lng = float(item.get('lng')) if item.get('lng') is not None else None
+                    if a and isinstance(lat, float) and isinstance(lng, float):
+                        key = f"craigslist|{a}|{round(lat,5)}|{round(lng,5)}"
+                    else:
+                        key = item.get('url') or item.get('id')
+                except:
+                    key = item.get('url') or item.get('id')
+            else:
+                key = item.get('url') or item.get('id')
             if key: data_map[key] = item
 
         if self.media_backend != 'local':
