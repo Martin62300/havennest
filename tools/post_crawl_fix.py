@@ -381,6 +381,16 @@ def _cache_key_from_query(query: str) -> str:
     return f"{clean_addr}, BC, Canada"
  
  
+def _normalize_geocode_query(q: str) -> str:
+    s = str(q or "").strip()
+    if not s:
+        return ""
+    s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
+    s = re.sub(r"\bNo\s*(\d+)\b", r"No \1", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+ 
 def _stable_u(item: Dict[str, Any], salt: str) -> float:
     k = str(item.get("id") or item.get("url") or item.get("title") or "")
     d = hashlib.md5((salt + "|" + k).encode("utf-8", errors="ignore")).hexdigest()
@@ -1068,6 +1078,7 @@ def main():
         elif allow_geocode:
             geocode_used += 1
         if allow_geocode:
+            query = _normalize_geocode_query(query)
             coords = c.get_lat_lng(query)
             try:
                 new_lat = float(coords[0]) if coords and coords[0] is not None else None
@@ -1099,6 +1110,19 @@ def main():
                     try:
                         new_lat = float(coords3[0]) if coords3 and coords3[0] is not None else None
                         new_lng = float(coords3[1]) if coords3 and coords3[1] is not None else None
+                    except Exception:
+                        new_lat = None
+                        new_lng = None
+            if (new_lat is None or new_lng is None) and (not has_detail_addr) and ("mcnai" in query.lower() or "mcnair" in query.lower()):
+                q4 = query
+                q4 = re.sub(r"(?i)\bsecondary\b", "Secondary School", q4)
+                q4 = re.sub(r"(?i)\bschool school\b", "School", q4)
+                q4 = re.sub(r"\s+", " ", q4).strip()
+                if q4 and q4 != query:
+                    coords4 = c.get_lat_lng(q4)
+                    try:
+                        new_lat = float(coords4[0]) if coords4 and coords4[0] is not None else None
+                        new_lng = float(coords4[1]) if coords4 and coords4[1] is not None else None
                     except Exception:
                         new_lat = None
                         new_lng = None
