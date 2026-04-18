@@ -1591,10 +1591,6 @@
         49.1419756,
         -123.1488628
     ],
-    "368 West 62nd Avenue Marpole, 温哥华, Vancouver, BC, Canada": [
-        49.2138586,
-        -123.1139196
-    ],
     "Kelmore Road, 列治文, Richmond, BC, Canada": [
         49.1501202,
         -123.1846956
@@ -2151,10 +2147,6 @@
         49.1034693,
         -122.6717137
     ],
-    "618 Carnarvon Street New Westminster, BC, Canada": [
-        49.2035612,
-        -122.9091637
-    ],
     "West 46th Avenue Oakridge, 温哥华, Vancouver, BC, Canada": [
         49.2296256,
         -123.1373832
@@ -2227,10 +2219,6 @@
         49.2092233,
         -123.1361495
     ],
-    "7333 Murdoch Avenue Richmond, BC, Canada": [
-        49.1674348,
-        -123.1414745
-    ],
     "Garden Drive Grandview-Woodland,Vancouver, BC, Canada": [
         49.2631606,
         -123.0581476
@@ -2242,10 +2230,6 @@
     "7100 Saint Albans Road,Richmond, BC, Canada": [
         49.1616481,
         -123.1305903
-    ],
-    "6200 Twintree Place,Richmond, BC, Canada": [
-        49.1631255,
-        -123.1576519
     ],
     "Britton Street Burnaby, BC, Canada": [
         49.2175373,
@@ -2279,17 +2263,9 @@
         49.3515857,
         -123.2068814
     ],
-    "2789 West 39th Avenue Arbutus Ridge,Vancouver, BC, Canada": [
-        49.2368652,
-        -123.1679895
-    ],
     "Vancouver Vancouver, BC, Canada": [
         49.2686069,
         -123.085922
-    ],
-    "8850 University Crescent Burnaby, BC, Canada": [
-        49.2802592,
-        -122.9094544
     ],
     "Housman Street Richmond, BC, Canada": [
         49.1348385,
@@ -2350,10 +2326,6 @@
     "1155 West 49th Avenue Oakridge Vancouver, BC, Canada": [
         49.2269593,
         -123.1321901
-    ],
-    "5833 Wilson Avenue Metrotown Burnaby, BC, Canada": [
-        49.2321139,
-        -123.0075867
     ],
     "vancouver Vancouver, BC, Canada": [
         49.2686069,
@@ -2743,10 +2715,6 @@
         49.2641595,
         -123.1334404
     ],
-    "4688 Kingsway Metrotown Burnaby, BC, Canada": [
-        49.2287293,
-        -123.001478
-    ],
     "6000 McKay Avenue Metrotown Burnaby, BC, Canada": [
         49.2290292,
         -123.0026753
@@ -3055,37 +3023,9 @@
         49.2278204,
         -123.1307813
     ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
     "Oakridge, Vancouver, BC, BC, Canada": [
         49.2308288,
         -123.1311342
-    ],
-    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
-        49.1892595,
-        -123.132459
-    ],
-    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1649333,
-        -123.1400942
-    ],
-    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
-        49.277021,
-        -123.1297395
-    ],
-    "6699 Dunblane Avenue Metrotown Burnaby, BC, Canada": [
-        49.222271,
-        -122.9931937
     ],
     "George Junction, Surrey, BC V3T 0V7 Surrey, BC, Canada": [
         49.1816496,
@@ -3118,10 +3058,6 @@
     "7765 Allman Street Burnaby, BC, Canada": [
         49.2345302,
         -122.9516265
-    ],
-    "2471 West 45th Avenue Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
     ],
     "Oak Street Marpole Vancouver, BC, Canada": [
         49.1973016,
@@ -3194,5 +3130,165 @@
     "5928 birney Avenue Vancouver, BC, Canada": [
         49.2533453,
         -123.2351271
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2647362,
+        -122.8008534
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "7468 Lansdowne Road, Richmond, BC, Canada": [
+        49.1737259,
+        -123.1469191
+    ],
+    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1649333,
+        -123.1400942
+    ],
+    "108 West 45th Avenue Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.229356,
+        -123.1086176
+    ],
+    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
+        49.277021,
+        -123.1297395
+    ],
+    "9780 Alberta Road, 列治文, Richmond, BC, Canada": [
+        49.165719,
+        -123.1209942
+    ],
+    "368 West 62nd Avenue Marpole, 温哥华, Vancouver, BC, Canada": [
+        49.2138586,
+        -123.1139196
+    ],
+    "9680 Alexandra Road Richmond, BC, Canada": [
+        49.1788464,
+        -123.1161107
+    ],
+    "6500 Minoru Boulevard Richmond, BC, Canada": [
+        49.1657595,
+        -123.1403803
+    ],
+    "1955 Alpha Way Burnaby, BC, Canada": [
+        49.2668307,
+        -123.0003775
+    ],
+    "4991 1A Avenue Tsawwassen Delta, BC, Canada": [
+        49.0055445,
+        -123.0855006
+    ],
+    "2388 Madison Avenue Burnaby, BC, Canada": [
+        49.2630668,
+        -123.008241
+    ],
+    "280 Ross Drive New Westminster, BC, Canada": [
+        49.2152155,
+        -122.9020466
+    ],
+    "2471 West 45th Avenue Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "8000 Westminster Highway Richmond, BC, Canada": [
+        49.168161,
+        -122.9739467
+    ],
+    "6098 STATION Street. Burnaby, BC, Canada": [
+        49.2275175,
+        -123.0027767
+    ],
+    "6699 Dunblane Avenue Metrotown Burnaby, BC, Canada": [
+        49.222271,
+        -122.9931937
+    ],
+    "15704 Goggs Avenue White Rock, Vancouver, BC, Canada": [
+        49.0283384,
+        -122.7826976
+    ],
+    "8181 Chester Street Sunset Vancouver, BC, Canada": [
+        49.2092652,
+        -123.0893536
+    ],
+    "13700 Mayfield place, richmond, BC, Canada": [
+        49.1811576,
+        -123.0732001
+    ],
+    "8600 Rosemary Avenue Richmond, BC, Canada": [
+        49.1340928,
+        -123.1283175
+    ],
+    "8480 Elsmore Road Richmond, BC, Canada": [
+        49.1541537,
+        -123.1887349
+    ],
+    "4688 Kingsway Metrotown Burnaby, BC, Canada": [
+        49.2287293,
+        -123.001478
+    ],
+    "3400 West 19th Avenue Dunbar-Southlands Vancouver, BC, Canada": [
+        49.2555926,
+        -123.1878949
+    ],
+    "2121 Acadia Road ,Vancouver, BC, Canada": [
+        49.2734819,
+        -123.2421525
+    ],
+    "6200 Twintree Place,Richmond, BC, Canada": [
+        49.1631255,
+        -123.1576519
+    ],
+    "7511 Nevis Drive,Richmond, BC, Canada": [
+        49.1402971,
+        -123.1416563
+    ],
+    "9200 Walford Street,Richmond, BC, Canada": [
+        49.1890539,
+        -123.1226937
+    ],
+    "2789 West 39th Avenue Arbutus Ridge,Vancouver, BC, Canada": [
+        49.2368652,
+        -123.1679895
+    ],
+    "2420 Courtenay Street West Point Grey,Vancouver, BC, Canada": [
+        49.2643975,
+        -123.2010759
+    ],
+    "8850 University Crescent Burnaby, BC, Canada": [
+        49.2802592,
+        -122.9094544
+    ],
+    "10480 Number 4 Road Richmond, BC, Canada": [
+        49.1410606,
+        -123.1142689
+    ],
+    "6633 Pearson Way Richmond, BC, Canada": [
+        49.1749489,
+        -123.1464779
+    ],
+    "618 Carnarvon Street New Westminster, BC, Canada": [
+        49.2035612,
+        -122.9091637
+    ],
+    "5833 Wilson Avenue Metrotown Burnaby, BC, Canada": [
+        49.2321139,
+        -123.0075867
+    ],
+    "7333 Murdoch Avenue Richmond, BC, Canada": [
+        49.1674348,
+        -123.1414745
     ]
 }
