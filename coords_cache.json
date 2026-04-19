@@ -1499,10 +1499,6 @@
         49.1668191,
         -123.1351005
     ],
-    "Richmond, BC, Canada": [
-        49.163168,
-        -123.137414
-    ],
     "4733 Hazel St, Burnaby, BC, Canada": [
         49.2290753,
         -122.9974603
@@ -2475,10 +2471,6 @@
         49.1770532,
         -122.9768401
     ],
-    "4114 Yuculta Crescent Dunbar-Southlands,Vancouver, BC, Canada": [
-        49.2290017,
-        -123.1987757
-    ],
     "Buckingham Drive Burnaby, BC, Canada": [
         49.2308476,
         -122.9556002
@@ -3019,10 +3011,6 @@
         49.0260515,
         -122.8135708
     ],
-    "1115 West 48th Avenue Oakridge,Vancouver, BC, Canada": [
-        49.2278204,
-        -123.1307813
-    ],
     "Oakridge, Vancouver, BC, BC, Canada": [
         49.2308288,
         -123.1311342
@@ -3103,14 +3091,6 @@
         49.1741565,
         -123.1491399
     ],
-    "7831 Westminster Highway Richmond, BC, Canada": [
-        49.170376,
-        -123.138704
-    ],
-    "8133 Cook Road Richmond, BC, Canada": [
-        49.1666966,
-        -123.1347739
-    ],
     "3628 Dunbar Street Dunbar-Southlands,Vancouver, BC, Canada": [
         49.2542547,
         -123.1847816
@@ -3127,53 +3107,9 @@
         49.2269789,
         -122.9223376
     ],
-    "5928 birney Avenue Vancouver, BC, Canada": [
-        49.2533453,
-        -123.2351271
-    ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2647362,
-        -122.8008534
-    ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
     "7468 Lansdowne Road, Richmond, BC, Canada": [
         49.1737259,
         -123.1469191
-    ],
-    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1649333,
-        -123.1400942
-    ],
-    "108 West 45th Avenue Oakridge, 温哥华, Vancouver, BC, Canada": [
-        49.229356,
-        -123.1086176
-    ],
-    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
-        49.1892595,
-        -123.132459
-    ],
-    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
-        49.277021,
-        -123.1297395
-    ],
-    "9780 Alberta Road, 列治文, Richmond, BC, Canada": [
-        49.165719,
-        -123.1209942
-    ],
-    "368 West 62nd Avenue Marpole, 温哥华, Vancouver, BC, Canada": [
-        49.2138586,
-        -123.1139196
     ],
     "9680 Alexandra Road Richmond, BC, Canada": [
         49.1788464,
@@ -3198,14 +3134,6 @@
     "280 Ross Drive New Westminster, BC, Canada": [
         49.2152155,
         -122.9020466
-    ],
-    "2471 West 45th Avenue Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
-    ],
-    "8000 Westminster Highway Richmond, BC, Canada": [
-        49.168161,
-        -122.9739467
     ],
     "6098 STATION Street. Burnaby, BC, Canada": [
         49.2275175,
@@ -3290,5 +3218,145 @@
     "7333 Murdoch Avenue Richmond, BC, Canada": [
         49.1674348,
         -123.1414745
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "108 West 45th Avenue Oakridge, 温哥华, Vancouver, BC, Canada": [
+        49.229356,
+        -123.1086176
+    ],
+    "9780 Alberta Road, 列治文, Richmond, BC, Canada": [
+        49.165719,
+        -123.1209942
+    ],
+    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1649333,
+        -123.1400942
+    ],
+    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
+        49.277021,
+        -123.1297395
+    ],
+    "368 West 62nd Avenue Marpole, 温哥华, Vancouver, BC, Canada": [
+        49.2138586,
+        -123.1139196
+    ],
+    "1115 West 48th Avenue Oakridge,Vancouver, BC, Canada": [
+        49.2278204,
+        -123.1307813
+    ],
+    "6138 Birney Avenue Vancouver, BC, Canada": [
+        49.2529496,
+        -123.2368144
+    ],
+    "8000 Westminster Highway Richmond, BC, Canada": [
+        49.168161,
+        -122.9739467
+    ],
+    "2471 West 45th Avenue Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "5928 birney Avenue Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
+    ],
+    "23 A Avenue Surrey, BC, Canada": [
+        50.701578,
+        -120.3680607
+    ],
+    "6368 Buckingham Drive Burnaby, BC, Canada": [
+        49.2308476,
+        -122.9556002
+    ],
+    "2351 Beta Avenue Burnaby, BC, Canada": [
+        49.2780384,
+        -122.997508
+    ],
+    "8750 University Crescent Burnaby, BC, Canada": [
+        49.2798585,
+        -122.9105237
+    ],
+    "251 Street Maple Ridge, BC, Canada": [
+        49.2330524,
+        -122.5268872
+    ],
+    "9811 Ferndale Road Richmond, BC, Canada": [
+        49.1686294,
+        -123.1184666
+    ],
+    "5960 Student Union Boulevard Vancouver, BC, Canada": [
+        49.2684756,
+        -123.2475344
+    ],
+    "7478 Byrnepark Walk Burnaby, BC, Canada": [
+        49.2081758,
+        -122.9634879
+    ],
+    "8133 Cook Road Richmond, BC, Canada": [
+        49.1666966,
+        -123.1347739
+    ],
+    "3941 West 20th Avenue Dunbar-Southlands,Vancouver, BC, Canada": [
+        49.2549247,
+        -123.1919823
+    ],
+    "5681 Birney Avenue Vancouver, BC, Canada": [
+        49.2549008,
+        -123.2318684
+    ],
+    "6088 Willingdon Avenue Metrotown Burnaby, BC, Canada": [
+        49.228904,
+        -123.0055816
+    ],
+    "7333 Murdoch Avenue,Richmond, BC, Canada": [
+        49.1674348,
+        -123.1414745
+    ],
+    "4668 Irmin Street Burnaby, BC, Canada": [
+        49.2155359,
+        -122.9983758
+    ],
+    "7831 Westminster Highway Richmond, BC, Canada": [
+        49.1703703,
+        -123.139172
+    ],
+    "720 Farrow Street Coquitlam, BC, Canada": [
+        49.2614831,
+        -122.8924371
+    ],
+    "3809 Evergreen Place Burnaby, BC, Canada": [
+        49.2501387,
+        -122.8939441
+    ],
+    "2789 west 39th Avenue. vancouver,Vancouver, BC, Canada": [
+        49.2368652,
+        -123.1679895
+    ],
+    "3400 West 7th Avenue Kitsilano,Vancouver, BC, Canada": [
+        49.265965,
+        -123.1784931
+    ],
+    "4114 Yuculta Crescent Dunbar-Southlands,Vancouver, BC, Canada": [
+        49.2290017,
+        -123.1987757
     ]
 }
