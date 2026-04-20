@@ -425,6 +425,7 @@ async function init() {
                     allListings = allListings.filter(x => (x.source || '') !== 'owner').concat(mergedOwners);
                 }
             } catch (e) {}
+            populateCityOptions();
             filterListings();
             openListingFromUrlIfNeeded();
         } else {
@@ -433,6 +434,35 @@ async function init() {
     } catch (e) {
         console.warn('Local listings.json not found or invalid. Run crawler.py first.');
     }
+}
+
+function populateCityOptions() {
+    const sel = document.getElementById('filter-city');
+    if (!sel) return;
+    const current = (sel.value || '').toString();
+    while (sel.options.length > 1) sel.remove(1);
+    const set = new Set();
+    allListings.forEach(i => {
+        const c = (i && i.city ? String(i.city).trim() : '');
+        if (c) set.add(c);
+    });
+    const preferred = ['Vancouver', 'Richmond', 'Burnaby', 'Surrey', 'Coquitlam'];
+    const ordered = [];
+    preferred.forEach(c => {
+        if (set.has(c)) {
+            ordered.push(c);
+            set.delete(c);
+        }
+    });
+    const rest = Array.from(set).sort((a, b) => a.localeCompare(b));
+    ordered.push(...rest);
+    ordered.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        sel.appendChild(opt);
+    });
+    if (current) sel.value = current;
 }
 
 function getListingKeyFromItem(i) {
