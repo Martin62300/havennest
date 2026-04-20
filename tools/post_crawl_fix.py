@@ -38,7 +38,7 @@ CITY_BBOX = {
     "Burnaby": (49.20, 49.32, -123.10, -122.88),
     "Coquitlam": (49.20, 49.35, -122.93, -122.74),
     "Surrey": (49.03, 49.23, -122.98, -122.65),
-    "North Vancouver": (49.30, 49.37, -123.14, -122.98),
+    "North Vancouver": (49.30, 49.37, -123.14, -122.94),
     "West Vancouver": (49.30, 49.39, -123.27, -123.07),
     "Port Coquitlam": (49.22, 49.30, -122.83, -122.72),
     "Port Moody": (49.25, 49.32, -122.88, -122.79),
@@ -56,6 +56,7 @@ COMMUNITY_BBOX = {
     ("Richmond", "West Cambie"): (49.175, 49.205, -123.190, -123.120),
     ("Richmond", "East Cambie"): (49.175, 49.205, -123.110, -123.055),
     ("Richmond", "Steveston"): (49.115, 49.145, -123.205, -123.145),
+    ("Richmond", "Terra Nova"): (49.105, 49.130, -123.225, -123.195),
     ("Burnaby", "Metrotown"): (49.210, 49.245, -123.030, -122.980),
     ("Burnaby", "Brentwood"): (49.260, 49.285, -123.020, -122.980),
     ("Burnaby", "Edmonds"): (49.205, 49.235, -123.030, -122.950),
@@ -88,6 +89,8 @@ COMMUNITY_SYNONYMS = {
     "austin heights": "Austin Heights",
     "coquitlam centre": "Coquitlam Centre",
     "coquitlam center": "Coquitlam Centre",
+    "south arm": "Southarm",
+    "terra nova": "Terra Nova",
     "whalley (city centre)": "Whalley",
     "white rock (border area)": "White Rock",
 }
@@ -106,6 +109,7 @@ COMMUNITY_VOCAB = {
         "Seafair",
         "Southarm",
         "Steveston",
+        "Terra Nova",
         "Thompson",
         "West Cambie",
     ],
@@ -387,6 +391,15 @@ def _normalize_geocode_query(q: str) -> str:
         return ""
     s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"\bNo\s*(\d+)\b", r"No \1", s)
+    s = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", s)
+    def _xx_to_mid2(m):
+        try:
+            p = int(m.group(1))
+            return str(p * 100 + 50)
+        except Exception:
+            return m.group(0)
+    s = re.sub(r"(?i)\b(\d{2,4})\s*x{2,4}\b", _xx_to_mid2, s)
+    s = re.sub(r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver)(?:\s+\\1)+\b", r"\1", s)
     s = re.sub(r"\s+", " ", s).strip()
     return s
 
@@ -709,9 +722,14 @@ def _clean_extracted_addr(s: str) -> str:
     if not t:
         return ""
     t = re.sub(r"\s*查看地图.*$", "", t).strip()
-    t = re.sub(r"(?i)^\s*#\s*[0-9x]{1,6}\s*-\s*", "", t)
-    t = re.sub(r"(?i)^\s*\d+\s*xx\s*-\s*", "", t)
-    t = re.sub(r"(?i)^\s*\d+\s*x{2,4}\b", "", t).strip()
+    t = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", t)
+    def _xx_to_mid(m):
+        try:
+            p = int(m.group(1))
+            return str(p * 100 + 50)
+        except Exception:
+            return m.group(0)
+    t = re.sub(r"(?i)\b(\d{2,4})\s*x{2,4}\b", _xx_to_mid, t)
     t = re.sub(r"\s+", " ", t)
     return t
 
@@ -905,8 +923,19 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
-        has_detail_addr = bool(re.search(r"(?i)^\s*(?:#\s*[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
+        has_detail_addr = bool(re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
         priority_needs_geocode = False
+        
+        if (not has_detail_addr) and re.search(r"(?i)\bburquitlam\b", text) and re.search(r"(?i)(station|skytrain|天车)", text):
+            item["city"] = "Coquitlam"
+            cur_city = "Coquitlam"
+            item["community"] = "Burquitlam"
+            cur_comm = "Burquitlam"
+            item["address"] = "Burquitlam Station, Coquitlam"
+            addr_for_check = str(item.get("address") or "")
+            has_detail_addr = True
+            needs_coords = True
+            priority_needs_geocode = True
 
         if source == "owner" and (cur_city or "").strip().lower() == "richmond" and (cur_comm or "").strip().lower() == "thompson" and (not has_detail_addr):
             u = _stable_u(item, "thompson_lat")
@@ -928,6 +957,27 @@ def main():
                 item["address"] = extracted_addr
                 addr_for_check = extracted_addr
                 has_detail_addr = True
+        if not has_detail_addr:
+            try:
+                mxx = re.search(r"(?i)\b(\d{2,4}\s*x{2,4})\b\s+([a-z][a-z0-9 .'-]{1,50}\b(?:road|rd|drive|dr|avenue|ave|street|st|place|pl|way|blvd|boulevard|crescent|cres|lane|ln|court|ct|terrace|terr)\b)", text)
+                if mxx:
+                    candidate = f\"{mxx.group(1)} {mxx.group(2)}\"
+                    candidate = _clean_extracted_addr(candidate)
+                    if candidate:
+                        item[\"address\"] = f\"{candidate}, {cur_city}\".strip(\", \")
+                        addr_for_check = str(item.get(\"address\") or \"\")
+                        has_detail_addr = True
+            except Exception:
+                pass
+        if not has_detail_addr:
+            try:
+                a, b = _extract_intersection(text)
+                if a and b and cur_city:
+                    item[\"address\"] = f\"{a} & {b}, {cur_city}\"
+                    addr_for_check = str(item.get(\"address\") or \"\")
+                    has_detail_addr = True
+            except Exception:
+                pass
         if (not coords_ok) and has_detail_addr and (not is_source_map):
             priority_needs_geocode = True
 
