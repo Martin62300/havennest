@@ -961,11 +961,11 @@ def main():
             try:
                 mxx = re.search(r"(?i)\b(\d{2,4}\s*x{2,4})\b\s+([a-z][a-z0-9 .'-]{1,50}\b(?:road|rd|drive|dr|avenue|ave|street|st|place|pl|way|blvd|boulevard|crescent|cres|lane|ln|court|ct|terrace|terr)\b)", text)
                 if mxx:
-                    candidate = f\"{mxx.group(1)} {mxx.group(2)}\"
+                    candidate = f"{mxx.group(1)} {mxx.group(2)}"
                     candidate = _clean_extracted_addr(candidate)
                     if candidate:
-                        item[\"address\"] = f\"{candidate}, {cur_city}\".strip(\", \")
-                        addr_for_check = str(item.get(\"address\") or \"\")
+                        item["address"] = f"{candidate}, {cur_city}".strip(", ")
+                        addr_for_check = str(item.get("address") or "")
                         has_detail_addr = True
             except Exception:
                 pass
@@ -973,8 +973,8 @@ def main():
             try:
                 a, b = _extract_intersection(text)
                 if a and b and cur_city:
-                    item[\"address\"] = f\"{a} & {b}, {cur_city}\"
-                    addr_for_check = str(item.get(\"address\") or \"\")
+                    item["address"] = f"{a} & {b}, {cur_city}"
+                    addr_for_check = str(item.get("address") or "")
                     has_detail_addr = True
             except Exception:
                 pass
