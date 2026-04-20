@@ -30,6 +30,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 cloudscraper feedparser selenium webdriver-manager boto3
 
+      - name: Python syntax check
+        run: |
+          python -m py_compile crawler.py tools/post_crawl_fix.py fetch_rentals_selenium.py
+
       - name: Fetch Rentals.ca (Automated)
         run: python fetch_rentals_selenium.py
         env:
