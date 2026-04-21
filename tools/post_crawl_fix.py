@@ -38,10 +38,10 @@ CITY_BBOX = {
     "Burnaby": (49.20, 49.32, -123.10, -122.88),
     "Coquitlam": (49.20, 49.35, -122.93, -122.74),
     "Surrey": (49.03, 49.23, -122.98, -122.65),
-    "North Vancouver": (49.30, 49.37, -123.14, -122.94),
+    "North Vancouver": (49.30, 49.37, -123.14, -122.90),
     "West Vancouver": (49.30, 49.39, -123.27, -123.07),
     "Port Coquitlam": (49.22, 49.30, -122.83, -122.72),
-    "Port Moody": (49.25, 49.32, -122.88, -122.79),
+    "Port Moody": (49.24, 49.34, -122.90, -122.78),
     "New Westminster": (49.18, 49.24, -122.94, -122.86),
     "Delta": (49.00, 49.20, -123.20, -122.90),
     "Langley": (49.02, 49.18, -122.78, -122.47),
@@ -310,9 +310,9 @@ def _in_box(box: Tuple[float, float, float, float], lat: float, lng: float) -> b
 def _city_hint_from_craigslist_url(url: str) -> str:
     try:
         u = str(url or "")
-        m0 = re.search(r"craigslist\.org/[a-z]{3}/apa/d/([a-z0-9-]+?)-", u, flags=re.IGNORECASE)
+        m0 = re.search(r"craigslist\.org/[a-z]{3}/apa/d/([^/]+)/", u, flags=re.IGNORECASE)
         if m0:
-            slug = (m0.group(1) or "").lower()
+            slug_full = (m0.group(1) or "").lower().strip("-")
             mslug = {
                 "vancouver": "Vancouver",
                 "richmond": "Richmond",
@@ -329,8 +329,9 @@ def _city_hint_from_craigslist_url(url: str) -> str:
                 "port-coquitlam": "Port Coquitlam",
                 "port-moody": "Port Moody",
             }
-            if slug in mslug:
-                return mslug[slug]
+            for k, v in mslug.items():
+                if slug_full == k or slug_full.startswith(k + "-"):
+                    return v
         m = re.search(r"craigslist\.org/([a-z]{3})/", u, flags=re.IGNORECASE)
         if not m:
             return ""
@@ -660,6 +661,11 @@ def _normalize_street_name(s: str) -> str:
         return ""
     t = re.sub(r"\s+", " ", t)
     t = t.replace("’", "'")
+    t = re.sub(
+        r"(?i)\b(\d+)(st|street|ave|avenue|rd|road|dr|drive|blvd|boulevard|pl|place|ct|court|ln|lane|way|terr|terrace)\b",
+        r"\1 \2",
+        t,
+    )
     t = re.sub(r"\bstn\b", "station", t, flags=re.IGNORECASE)
     m = re.search(r"([一二三四五六七八九十0-9]+)\s*号\s*路", t)
     if m:
@@ -680,7 +686,14 @@ def _extract_intersection(text: str) -> Tuple[str, str]:
     t = (text or "")
     if not t:
         return ("", "")
-    m = re.search(r"([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:与|和|&|and)\s*([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:交汇处|交界处|路口|交叉口|intersection|cross)", t, flags=re.IGNORECASE)
+    t = re.sub(r"(?i)\b(\d{1,5})(st|ave|rd|dr|blvd|pl|ct|ln|way|terr)\b", r"\1 \2", t)
+    street = r"(?:\d{1,5}\s*(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr)|(?:[A-Za-z0-9.'\-]+\s*){0,4}(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr))"
+    m = re.search(rf"(?i)\b({street})\s*(?:与|和|&|and|夹|/)\s*({street})\b", t)
+    if m:
+        a = _normalize_street_name(m.group(1))
+        b = _normalize_street_name(m.group(2))
+        return (a, b)
+    m = re.search(r"([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:与|和|&|and|夹|/)\s*([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:交汇处|交界处|路口|交叉口|intersection|cross)", t, flags=re.IGNORECASE)
     if m:
         a = _normalize_street_name(m.group(1))
         b = _normalize_street_name(m.group(2))
@@ -888,6 +901,7 @@ def main():
         needs_coords = not coords_ok
         coord_source = (item.get("coord_source") or "").strip().lower()
         is_source_map = _is_source_map(coord_source)
+        override_source_map = False
         if coords_ok and is_source_map:
             preferred_city = ""
             if source == "craigslist":
@@ -927,11 +941,23 @@ def main():
         priority_needs_geocode = False
         
         if (not has_detail_addr) and re.search(r"(?i)\bburquitlam\b", text) and re.search(r"(?i)(station|skytrain|天车)", text):
-            item["city"] = "Coquitlam"
-            cur_city = "Coquitlam"
-            item["community"] = "Burquitlam"
-            cur_comm = "Burquitlam"
-            item["address"] = "Burquitlam Station, Coquitlam"
+            url_city = _city_hint_from_craigslist_url(item.get("url") or "") if source == "craigslist" else ""
+            if url_city and (not cur_city or cur_city.lower() == "vancouver" or cur_city.lower() == "coquitlam"):
+                item["city"] = url_city
+                cur_city = url_city
+            if (cur_city or "").lower() == "port moody":
+                if re.search(r"(?i)\bwesthill\b", text):
+                    item["address"] = "Westhill Park, Port Moody"
+                else:
+                    item["address"] = "West Port Moody, Port Moody"
+                item["community"] = ""
+                cur_comm = ""
+            else:
+                item["city"] = "Coquitlam"
+                cur_city = "Coquitlam"
+                item["community"] = "Burquitlam"
+                cur_comm = "Burquitlam"
+                item["address"] = "Burquitlam Station, Coquitlam"
             addr_for_check = str(item.get("address") or "")
             has_detail_addr = True
             needs_coords = True
@@ -976,6 +1002,9 @@ def main():
                     item["address"] = f"{a} & {b}, {cur_city}"
                     addr_for_check = str(item.get("address") or "")
                     has_detail_addr = True
+                    if coord_source == "map_query":
+                        needs_coords = True
+                        priority_needs_geocode = True
             except Exception:
                 pass
         if (not coords_ok) and has_detail_addr and (not is_source_map):
@@ -1007,6 +1036,9 @@ def main():
                         priority_needs_geocode = True
                 except Exception:
                     pass
+            if coord_source == "city_center_fallback" and has_detail_addr and (not is_source_map):
+                needs_coords = True
+                priority_needs_geocode = True
             if source == "owner" and has_detail_addr and (not is_source_map):
                 needs_coords = True
                 priority_needs_geocode = True
@@ -1021,6 +1053,29 @@ def main():
  
         if source == "owner" and cur_city and cur_comm and (not has_detail_addr) and (not is_source_map):
             needs_coords = True
+
+        if source == "craigslist" and coords_ok and is_source_map and has_detail_addr:
+            url_city = _city_hint_from_craigslist_url(item.get("url") or "")
+            if url_city and (not cur_city or cur_city.lower() != url_city.lower()):
+                item["city"] = url_city
+                changed_city += 1
+                cur_city = url_city
+            addr_has_any_city = bool(
+                re.search(
+                    r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver|port moody|port coquitlam)\b",
+                    addr_for_check,
+                )
+            )
+            if url_city and (not addr_has_any_city):
+                needs_coords = True
+                priority_needs_geocode = True
+                override_source_map = True
+                is_source_map = False
+            elif cur_city and (cur_city in CITY_BBOX) and (not _in_bbox(cur_city, float(lat), float(lng))):
+                needs_coords = True
+                priority_needs_geocode = True
+                override_source_map = True
+                is_source_map = False
 
         if not needs_coords:
             continue
@@ -1179,12 +1234,16 @@ def main():
  
             if new_lat is not None and new_lng is not None:
                 re_geocoded += 1
-                if not is_source_map:
+                if (not is_source_map) or bool(override_source_map):
                     cs0 = (item.get("coord_source") or "").strip().lower()
                     if cs0 == "map_query":
                         item["coord_source"] = "map_query_geocode"
+                    elif cs0 == "city_center_fallback":
+                        item["coord_source"] = "geocode"
                     elif source == "owner":
                         item["coord_source"] = "geocode_owner"
+                    elif bool(override_source_map) and source == "craigslist":
+                        item["coord_source"] = "geocode_override"
                     elif not cs0:
                         item["coord_source"] = "geocode"
  
