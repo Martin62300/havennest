@@ -2347,10 +2347,6 @@
         49.2367608,
         -123.1964237
     ],
-    "7035 Nelson Avenue,Burnaby, BC, Canada": [
-        49.2196357,
-        -122.9944806
-    ],
     "Thompson, Richmond, BC, Canada": [
         49.1701576,
         -123.181265
@@ -2979,10 +2975,6 @@
         49.2371234,
         -123.2051444
     ],
-    "8068 Westminster Highway Richmond, BC, Canada": [
-        49.1700098,
-        -123.1352666
-    ],
     "Groat Avenue Richmond, BC, Canada": [
         49.1425058,
         -123.1725414
@@ -3010,10 +3002,6 @@
     "Upper Roper Avenue White Rock, Vancouver, BC, Canada": [
         49.0260515,
         -122.8135708
-    ],
-    "Oakridge, Vancouver, BC, BC, Canada": [
-        49.2308288,
-        -123.1311342
     ],
     "George Junction, Surrey, BC V3T 0V7 Surrey, BC, Canada": [
         49.1816496,
@@ -3147,10 +3135,6 @@
         49.0283384,
         -122.7826976
     ],
-    "8181 Chester Street Sunset Vancouver, BC, Canada": [
-        49.2092652,
-        -123.0893536
-    ],
     "13700 Mayfield place, richmond, BC, Canada": [
         49.1811576,
         -123.0732001
@@ -3195,14 +3179,6 @@
         49.2643975,
         -123.2010759
     ],
-    "8850 University Crescent Burnaby, BC, Canada": [
-        49.2802592,
-        -122.9094544
-    ],
-    "10480 Number 4 Road Richmond, BC, Canada": [
-        49.1410606,
-        -123.1142689
-    ],
     "6633 Pearson Way Richmond, BC, Canada": [
         49.1749489,
         -123.1464779
@@ -3219,45 +3195,9 @@
         49.1674348,
         -123.1414745
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
     "108 West 45th Avenue Oakridge, 温哥华, Vancouver, BC, Canada": [
         49.229356,
         -123.1086176
-    ],
-    "9780 Alberta Road, 列治文, Richmond, BC, Canada": [
-        49.165719,
-        -123.1209942
-    ],
-    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
-        49.1892595,
-        -123.132459
-    ],
-    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
-        49.1649333,
-        -123.1400942
-    ],
-    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
-        49.277021,
-        -123.1297395
-    ],
-    "368 West 62nd Avenue Marpole, 温哥华, Vancouver, BC, Canada": [
-        49.2138586,
-        -123.1139196
     ],
     "1115 West 48th Avenue Oakridge,Vancouver, BC, Canada": [
         49.2278204,
@@ -3358,5 +3298,181 @@
     "4114 Yuculta Crescent Dunbar-Southlands,Vancouver, BC, Canada": [
         49.2290017,
         -123.1987757
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "368 West 62nd Avenue Marpole, 温哥华, Vancouver, BC, Canada": [
+        49.2138586,
+        -123.1139196
+    ],
+    "2320 West 40th Avenue Arbutus Ridge, 温哥华, Vancouver, BC, Canada": [
+        49.2354363,
+        -123.1603074
+    ],
+    "1308 Hornby Street Downtown Vancouver, 温哥华, BC, Canada": [
+        49.277021,
+        -123.1297395
+    ],
+    "9780 Alberta Road, 列治文, Richmond, BC, Canada": [
+        49.165719,
+        -123.1209942
+    ],
+    "6788 Minoru Boulevard, 列治文, Richmond, BC, Canada": [
+        49.1649333,
+        -123.1400942
+    ],
+    "3331 Number 3 Road, 列治文, Richmond, BC, Canada": [
+        49.1892595,
+        -123.132459
+    ],
+    "13633 111A Avenue Surrey, BC, Canada": [
+        49.2054223,
+        -122.8444597
+    ],
+    "4689 Hazel Street Metrotown Burnaby, BC, Canada": [
+        49.2297517,
+        -122.9993734
+    ],
+    "9633 Manchester Drive Burnaby, BC, Canada": [
+        49.2477164,
+        -122.8977099
+    ],
+    "9981 Whalley Boulevard Whalley,Surrey, BC, Canada": [
+        49.2059037,
+        -122.866837
+    ],
+    "2936 Newcastle Place Port Coquitlam, BC, Canada": [
+        49.2654517,
+        -122.7587735
+    ],
+    "1162 West 29th Avenue Shaughnessy Vancouver, BC, Canada": [
+        49.2455171,
+        -123.143819
+    ],
+    "4900 Lennox Lane Metrotown Burnaby, BC, Canada": [
+        49.2232341,
+        -122.9937513
+    ],
+    "3837 Angus Drive Shaughnessy Vancouver, BC, Canada": [
+        49.2512266,
+        -123.1461599
+    ],
+    "8460 Ackroyd Road Richmond, BC, Canada": [
+        49.1710975,
+        -123.130287
+    ],
+    "Oakridge, Vancouver, BC, BC, Canada": [
+        49.2308288,
+        -123.1311342
+    ],
+    "5665 Irmin Street Burnaby, BC, Canada": [
+        49.2157389,
+        -123.0118815
+    ],
+    "3306 Robson Drive Westwood Plateau Coquitlam, BC, Canada": [
+        49.3002277,
+        -122.7909725
+    ],
+    "668 Columbia Street New Westminster, BC, Canada": [
+        49.2021855,
+        -122.9093703
+    ],
+    "4345 Grange Street Burnaby, BC, Canada": [
+        49.2326983,
+        -123.007011
+    ],
+    "3869 West 51st Avenue Southlands,Vancouver, BC, Canada": [
+        49.2258306,
+        -123.1899368
+    ],
+    "5380 Crooked Branch Road Vancouver, BC, Canada": [
+        49.263307,
+        -123.2337055
+    ],
+    "2983 Wickham Drive Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "3379 Morrey Court burnaby Burnaby, BC, Canada": [
+        49.253899,
+        -122.8962979
+    ],
+    "1250 East 53rd Avenue Sunset Vancouver, BC, Canada": [
+        49.2219638,
+        -123.1018494
+    ],
+    "6220 McKay Avenue Metrotown Burnaby, BC, Canada": [
+        49.2141401,
+        -123.0086814
+    ],
+    "4855 Chatham Street Renfrew-Collingwood,Vancouver, BC, Canada": [
+        49.2394565,
+        -123.0403933
+    ],
+    "421 East 48th Avenue Sunset,Vancouver, BC, Canada": [
+        49.2268486,
+        -123.0966588
+    ],
+    "2838 West 37th Avenue Arbutus Ridge,Vancouver, BC, Canada": [
+        49.2382778,
+        -123.1689135
+    ],
+    "4635 Bond Street Burnaby, BC, Canada": [
+        49.2356397,
+        -123.0
+    ],
+    "8181 Chester Street Sunset Vancouver, BC, Canada": [
+        49.2092652,
+        -123.0893536
+    ],
+    "10480 Number 4 Road Richmond, BC, Canada": [
+        49.1410606,
+        -123.1142689
+    ],
+    "7388 Kingsway Burnaby, BC, Canada": [
+        49.2185996,
+        -122.9495587
+    ],
+    "8850 University Crescent Burnaby, BC, Canada": [
+        49.2802592,
+        -122.9094544
+    ],
+    "12891 Jack Bell Drive Richmond, BC, Canada": [
+        49.1782632,
+        -123.0837623
+    ],
+    "167 Street Guildford Surrey, BC, Canada": [
+        49.1905412,
+        -122.7589002
+    ],
+    "3000 West 42nd Avenue,Vancouver, BC, Canada": [
+        49.2337653,
+        -123.169975
+    ],
+    "2121 Rietta Court,Burnaby, BC, Canada": [
+        49.2649239,
+        -122.8954525
+    ],
+    "7035 Nelson Avenue,Burnaby, BC, Canada": [
+        49.2196357,
+        -122.9944806
+    ],
+    "8068 Westminster Highway Richmond, BC, Canada": [
+        49.1700098,
+        -123.1352666
     ]
 }
