@@ -51,7 +51,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Run crawler
-        run: python crawler.py
+        run: python -u crawler.py
         env:
           AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
           HAVENNEST_MEDIA_BACKEND: r2
