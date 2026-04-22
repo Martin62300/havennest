@@ -28,6 +28,7 @@ CITY_CENTERS = {
     "New Westminster": (49.2062, -122.9111),
     "Delta": (49.0840, -123.0580),
     "Langley": (49.1044, -122.6607),
+    "Abbotsford": (49.0504, -122.3045),
     "Maple Ridge": (49.2195, -122.6019),
     "White Rock": (49.0253, -122.8026),
 }
@@ -45,6 +46,7 @@ CITY_BBOX = {
     "New Westminster": (49.18, 49.24, -122.94, -122.86),
     "Delta": (49.00, 49.20, -123.20, -122.86),
     "Langley": (49.02, 49.18, -122.78, -122.47),
+    "Abbotsford": (49.00, 49.12, -122.45, -122.20),
     "Maple Ridge": (49.16, 49.32, -122.75, -122.45),
     "White Rock": (49.00, 49.05, -122.83, -122.77),
 }
@@ -1062,7 +1064,7 @@ def main():
                 cur_city = url_city
             addr_has_any_city = bool(
                 re.search(
-                    r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver|port moody|port coquitlam)\b",
+                    r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|abbotsford|new westminster|north vancouver|west vancouver|port moody|port coquitlam)\b",
                     addr_for_check,
                 )
             )
