@@ -87,6 +87,7 @@ def fetch_rentals_ca_automated():
                 "burnaby",
                 "langley",
                 "delta",
+                "abbotsford",
                 "port-coquitlam",
                 "coquitlam",
             ]
