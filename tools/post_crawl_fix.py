@@ -737,6 +737,8 @@ def _clean_extracted_addr(s: str) -> str:
     if not t:
         return ""
     t = re.sub(r"\s*查看地图.*$", "", t).strip()
+    t = re.sub(r"(?i)\b(contact|call|text|email|wechat)\b.*$", "", t).strip()
+    t = re.sub(r"(?:有意|请|电话|微信|短信|联系).*$", "", t).strip()
     t = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", t)
     def _xx_to_mid(m):
         try:
@@ -881,6 +883,14 @@ def main():
                 item["city"] = inferred_city
                 changed_city += 1
                 cur_city = inferred_city
+        try:
+            addr_city = (c.infer_city_info(addr).get("city") or "").strip()
+        except Exception:
+            addr_city = ""
+        if addr_city and (not cur_city or cur_city.lower() != addr_city.lower()):
+            item["city"] = addr_city
+            changed_city += 1
+            cur_city = addr_city
  
         extracted_beds = c.extract_beds(text)
         cur_beds = item.get("beds")
@@ -1062,6 +1072,11 @@ def main():
                 item["city"] = url_city
                 changed_city += 1
                 cur_city = url_city
+            if cur_city and _near_city_center(cur_city, float(lat), float(lng)):
+                needs_coords = True
+                priority_needs_geocode = True
+                override_source_map = True
+                is_source_map = False
             addr_has_any_city = bool(
                 re.search(
                     r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|abbotsford|new westminster|north vancouver|west vancouver|port moody|port coquitlam)\b",
