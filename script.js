@@ -476,13 +476,13 @@ function findListingByKey(key) {
     if (!k) return null;
     if (k.startsWith('id:')) {
         const id = k.slice(3);
-        return allListings.find(x => x && x.id === id) || null;
+        return allListings.find(x => x && String(x.id || '') === String(id || '')) || null;
     }
     if (k.startsWith('url:')) {
         const u = k.slice(4);
         return allListings.find(x => x && x.url === u) || null;
     }
-    return allListings.find(x => (x && (x.id === k || x.title === k))) || null;
+    return allListings.find(x => (x && (String(x.id || '') === String(k || '') || x.title === k))) || null;
 }
 
 function setListingParam(key, mode) {
@@ -837,16 +837,21 @@ function renderListings(items) {
         const rows = sorted.map(i => {
             const priceNum = parseFloat(i.price) || 0;
             const displayPrice = priceNum > 0 ? `$${priceNum.toLocaleString()}` : (curLang === 'zh' ? '价格面议' : 'Contact');
-            const bedsLabel = i.beds || i.beds === 0 ? `${i.beds}` : '';
-            const id = escapeJsStr(i.id || i.title);
+            const bedsLabel = (i.beds || i.beds === 0) ? (() => {
+                const v = Number(i.beds);
+                if (v === 0) return (curLang === 'zh' ? '单间' : 'Studio');
+                if (Number.isFinite(v) && v > 0) return `${v}`;
+                return '';
+            })() : '';
+            const key = escapeJsStr(getListingKeyFromItem(i));
             return `
                 <div style="display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-top:1px solid #eef2f7;">
                     <div style="flex:1; min-width:0;">
                         <div style="font-weight:800; color:var(--primary);">${escapeHtml(displayPrice)}</div>
                         <div style="font-size:12px; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(i.title || '')}</div>
-                        <div style="font-size:11px; color:#64748b;">${escapeHtml(i.city || '')}${bedsLabel !== '' ? ` · ${escapeHtml(bedsLabel)} BR` : ''}</div>
+                        <div style="font-size:11px; color:#64748b;">${escapeHtml(i.city || '')}${bedsLabel !== '' ? ` · ${escapeHtml(bedsLabel)}${bedsLabel === (curLang === 'zh' ? '单间' : 'Studio') ? '' : ' BR'}` : ''}</div>
                     </div>
-                    <button onclick="window.showDetailById('${id}')" style="background:var(--primary); color:white; border:none; padding:7px 10px; border-radius:8px; font-size:11px; cursor:pointer; white-space:nowrap;">
+                    <button onclick="window.showDetailById('${key}')" style="background:var(--primary); color:white; border:none; padding:7px 10px; border-radius:8px; font-size:11px; cursor:pointer; white-space:nowrap;">
                         ${d.viewDetail}
                     </button>
                 </div>
@@ -943,6 +948,12 @@ function showDetail(i, opts) {
     }
     const priceNum = parseFloat(i.price) || 0;
     const displayPrice = priceNum > 0 ? `$${priceNum.toLocaleString()}` : (curLang === 'zh' ? '价格面议' : 'Contact Owner');
+    const bedsVal = Number(i.beds);
+    const bedsText = (() => {
+        if (bedsVal === 0) return (curLang === 'zh' ? '单间' : 'Studio');
+        if (Number.isFinite(bedsVal) && bedsVal > 0) return `${bedsVal} Bedroom${bedsVal > 1 ? 's' : ''}`;
+        return (curLang === 'zh' ? '卧室未知' : 'Bedrooms N/A');
+    })();
     
     // 按钮逻辑：抓取房源显示跳转按钮，屋主房源显示联系方式
     let actionButtons = '';
@@ -988,7 +999,7 @@ function showDetail(i, opts) {
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <h1 style="color:var(--primary); margin:0; font-size:2.5rem;">${displayPrice} / mo</h1>
                     <div style="background:var(--gray-light); padding:8px 15px; border-radius:10px; font-weight:700; color:var(--primary);">
-                        ${i.beds || 0} Bedroom${i.beds > 1 ? 's' : ''}
+                        ${bedsText}
                     </div>
                 </div>
                 <h2 style="margin:15px 0 25px;">${i.title}</h2>
