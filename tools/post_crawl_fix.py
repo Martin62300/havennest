@@ -675,7 +675,10 @@ def _normalize_street_name(s: str) -> str:
         if n:
             return f"No. {n} Road"
     m = re.search(r"\bno\.?\s*(\d+)\b", t, flags=re.IGNORECASE)
-    if m and "road" in t.lower():
+    if m and re.search(r"(?i)\b(rd|road)\b", t):
+        return f"No. {int(m.group(1))} Road"
+    m = re.search(r"\bnumber\s*(\d+)\b", t, flags=re.IGNORECASE)
+    if m and re.search(r"(?i)\b(rd|road)\b", t):
         return f"No. {int(m.group(1))} Road"
     t = re.sub(r"(大道|大街)$", " Ave", t)
     t = re.sub(r"(街)$", " St", t)
@@ -690,6 +693,11 @@ def _extract_intersection(text: str) -> Tuple[str, str]:
         return ("", "")
     t = re.sub(r"(?i)\b(\d{1,5})(st|ave|rd|dr|blvd|pl|ct|ln|way|terr)\b", r"\1 \2", t)
     street = r"(?:\d{1,5}\s*(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr)|(?:[A-Za-z0-9.'\-]+\s*){0,4}(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr))"
+    m = re.search(rf"(?i)\b({street})\s+(?:near|靠近)\s+({street})\b", t)
+    if m:
+        a = _normalize_street_name(m.group(1))
+        b = _normalize_street_name(m.group(2))
+        return (a, b)
     m = re.search(rf"(?i)\b({street})\s*(?:与|和|&|and|夹|/)\s*({street})\b", t)
     if m:
         a = _normalize_street_name(m.group(1))
@@ -707,7 +715,11 @@ def _extract_street(text: str) -> str:
     t = (text or "")
     if not t:
         return ""
-    m = re.search(r"([A-Za-z][A-Za-z0-9.'\-\s]{2,}?)\s*(?:Road|Rd|Street|St|Avenue|Ave)\b", t, flags=re.IGNORECASE)
+    m = re.search(
+        r"([A-Za-z][A-Za-z0-9.'\-\s]{2,}?)\s*(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Way|Place|Pl|Boulevard|Blvd|Lane|Ln|Court|Ct|Crescent|Cres|Terrace|Terr)\b",
+        t,
+        flags=re.IGNORECASE,
+    )
     if m:
         return _normalize_street_name(m.group(0))
     m = re.search(r"([A-Za-z][A-Za-z0-9.'\-\s]{2,}?)\s*(?:路|街|大道)\b", t, flags=re.IGNORECASE)
@@ -1093,6 +1105,21 @@ def main():
                 priority_needs_geocode = True
                 override_source_map = True
                 is_source_map = False
+        if source == "craigslist" and coords_ok and is_source_map and (not has_detail_addr):
+            try:
+                a0, b0 = _extract_intersection(addr_for_check)
+                if not (a0 and b0):
+                    a0, b0 = _extract_intersection(text)
+                if a0 and b0 and cur_city:
+                    item["address"] = f"{a0} & {b0}, {cur_city}"
+                    addr_for_check = str(item.get("address") or "")
+                    has_detail_addr = True
+                    needs_coords = True
+                    priority_needs_geocode = True
+                    override_source_map = True
+                    is_source_map = False
+            except Exception:
+                pass
 
         if not needs_coords:
             continue
