@@ -395,13 +395,17 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"\bNo\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", s)
-    def _xx_to_mid2(m):
+    def _mask_to_mid(m):
         try:
-            p = int(m.group(1))
-            return str(p * 100 + 50)
+            prefix = str(m.group(1) or "")
+            xs = str(m.group(2) or "")
+            k = len(xs)
+            if not prefix.isdigit() or k <= 0:
+                return m.group(0)
+            return prefix + ("5" + ("0" * (k - 1)))
         except Exception:
             return m.group(0)
-    s = re.sub(r"(?i)\b(\d{2,4})\s*x{2,4}\b", _xx_to_mid2, s)
+    s = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, s)
     s = re.sub(r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver)(?:\s+\\1)+\b", r"\1", s)
     s = re.sub(r"\s+", " ", s).strip()
     return s
@@ -752,13 +756,17 @@ def _clean_extracted_addr(s: str) -> str:
     t = re.sub(r"(?i)\b(contact|call|text|email|wechat)\b.*$", "", t).strip()
     t = re.sub(r"(?:有意|请|电话|微信|短信|联系).*$", "", t).strip()
     t = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", t)
-    def _xx_to_mid(m):
+    def _mask_to_mid(m):
         try:
-            p = int(m.group(1))
-            return str(p * 100 + 50)
+            prefix = str(m.group(1) or "")
+            xs = str(m.group(2) or "")
+            k = len(xs)
+            if not prefix.isdigit() or k <= 0:
+                return m.group(0)
+            return prefix + ("5" + ("0" * (k - 1)))
         except Exception:
             return m.group(0)
-    t = re.sub(r"(?i)\b(\d{2,4})\s*x{2,4}\b", _xx_to_mid, t)
+    t = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, t)
     t = re.sub(r"\s+", " ", t)
     return t
 
@@ -1009,7 +1017,7 @@ def main():
                 has_detail_addr = True
         if not has_detail_addr:
             try:
-                mxx = re.search(r"(?i)\b(\d{2,4}\s*x{2,4})\b\s+([a-z][a-z0-9 .'-]{1,50}\b(?:road|rd|drive|dr|avenue|ave|street|st|place|pl|way|blvd|boulevard|crescent|cres|lane|ln|court|ct|terrace|terr)\b)", text)
+                mxx = re.search(r"(?i)\b(\d{1,6}\s*x{1,4})\b\s+([a-z][a-z0-9 .'-]{1,50}\b(?:road|rd|drive|dr|avenue|ave|street|st|place|pl|way|blvd|boulevard|crescent|cres|lane|ln|court|ct|terrace|terr)\b)", text)
                 if mxx:
                     candidate = f"{mxx.group(1)} {mxx.group(2)}"
                     candidate = _clean_extracted_addr(candidate)
