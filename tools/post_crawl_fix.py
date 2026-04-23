@@ -395,6 +395,8 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"\bNo\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", s)
+    s = s.replace("温哥华", "Vancouver").replace("列治文", "Richmond").replace("本拿比", "Burnaby").replace("素里", "Surrey")
+    s = s.replace("高贵林港", "Port Coquitlam").replace("高贵林", "Coquitlam").replace("新西敏", "New Westminster")
     def _mask_to_mid(m):
         try:
             prefix = str(m.group(1) or "")
@@ -406,6 +408,10 @@ def _normalize_geocode_query(q: str) -> str:
         except Exception:
             return m.group(0)
     s = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, s)
+    s = re.sub(r"(?i)\b(?:unit|suite|ste|apt|apartment|#)\s*([a-z0-9\-]{1,8})\b", "", s)
+    s = re.sub(r"(?i)\b(\d{1,6}\s+[^,]{3,}(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court))\s+\d{1,4}\b", r"\1", s)
+    if re.search(r"(?i)\b\d{1,6}\b.*\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court)\b", s):
+        s = re.sub(r"(?i)\s+\bnear\b\s+.*$", "", s).strip()
     s = re.sub(r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver)(?:\s+\\1)+\b", r"\1", s)
     s = re.sub(r"\s+", " ", s).strip()
     return s
@@ -695,8 +701,8 @@ def _extract_intersection(text: str) -> Tuple[str, str]:
     t = (text or "")
     if not t:
         return ("", "")
-    t = re.sub(r"(?i)\b(\d{1,5})(st|ave|rd|dr|blvd|pl|ct|ln|way|terr)\b", r"\1 \2", t)
-    street = r"(?:\d{1,5}\s*(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr)|(?:[A-Za-z0-9.'\-]+\s*){0,4}(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr))"
+    t = re.sub(r"(?i)\b(\d{1,5}[a-z]?)(st|ave|rd|dr|blvd|pl|ct|ln|way|terr)\b", r"\1 \2", t)
+    street = r"(?:\d{1,5}[a-z]?\s*(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr)|(?:[A-Za-z0-9.'\-]+\s*){0,4}(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr))"
     m = re.search(rf"(?i)\b({street})\s+(?:near|靠近)\s+({street})\b", t)
     if m:
         a = _normalize_street_name(m.group(1))
@@ -1301,6 +1307,12 @@ def main():
  
         if (new_lat is None or new_lng is None) and (not allow_geocode) and coords_ok:
             continue
+        if new_lat is not None and new_lng is not None and cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng)):
+            city2 = _city_from_coords(float(new_lat), float(new_lng), cur_city)
+            if city2 and city2 != cur_city and city2 in CITY_BBOX and _in_bbox(city2, float(new_lat), float(new_lng)):
+                item["city"] = city2
+                changed_city += 1
+                cur_city = city2
         if new_lat is None or new_lng is None or (cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng))):
             base_lat, base_lng = _fallback_coords(cur_city)
             u = _stable_u(item, "city_fallback_lat")
