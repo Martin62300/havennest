@@ -1396,7 +1396,9 @@ class HavenNestCrawler:
                                 detail_text_addr = detail_text_addr.split("公司地址", 1)[0].strip()
                         except:
                             detail_text_addr = detail_text
-                        if ("公司地址" in detail_text) and (("总部" in detail_text) or ("分部" in detail_text)):
+                        if ("公司地址" in detail_text) and (("总部" in detail_text) or ("分部" in detail_text) or re.search(r"(?i)\b(head\s*office|branch)\b", detail_text)):
+                            if re.search(r"(?i)(metrotower|shellbridge|west covina|los angeles)", detail_text):
+                                continue
                             if not re.search(r"(?i)(出租|租金|月租|起租|押金|房型|卧室|bed|bath|studio)", detail_text_addr):
                                 continue
                         addr2 = ""
