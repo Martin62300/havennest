@@ -3367,18 +3367,6 @@
         49.2615141,
         -122.887287
     ],
-    "1000 Brunette Avenue, Coquitlam, BC, Canada": [
-        49.2374731,
-        -122.8669631
-    ],
-    "1202 Harwood Street, Vancouver, BC, Canada": [
-        49.2804291,
-        -123.1361011
-    ],
-    "1371 Blackwood Street, White Rock, BC, Canada": [
-        49.0268345,
-        -122.8066883
-    ],
     "9981 Whalley Boulevard, Surrey, BC, Canada": [
         49.1835204,
         -122.8435688
@@ -3599,34 +3587,6 @@
         49.1677335,
         -123.1328208
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
-    "1045 Haro Street, Vancouver, BC, Canada": [
-        49.2836434,
-        -123.1249331
-    ],
-    "995 Adair Avenue, Coquitlam, BC, Canada": [
-        49.2367614,
-        -122.8683929
-    ],
-    "527 Carnarvon Street, New Westminster, BC, Canada": [
-        49.2045196,
-        -122.9087958
-    ],
-    "1022 Nelson Street, Vancouver, BC, Canada": [
-        49.2813,
-        -123.1268124
-    ],
     "2778 East Hastings Street, Vancouver, BC, Canada": [
         49.280974,
         -123.047228
@@ -3634,14 +3594,6 @@
     "6th Avenue, New Westminster, BC, Canada": [
         49.2067726,
         -122.9108818
-    ],
-    "155 East 15th Street, North Vancouver, BC, Canada": [
-        49.3218816,
-        -123.0700146
-    ],
-    "5050 Sanders Street, Burnaby, BC, Canada": [
-        49.2276299,
-        -122.9921135
     ],
     "2620 152 Street, Surrey, BC, Canada": [
         49.0544708,
@@ -3858,5 +3810,133 @@
     "5881 Irmin Street Burnaby, BC, Canada": [
         49.2157389,
         -123.0118815
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "1022 Nelson Street, Vancouver, BC, Canada": [
+        49.2813,
+        -123.1268124
+    ],
+    "3506 cedar drive, BC, Canada": [
+        49.2842645,
+        -122.7357026
+    ],
+    "527 Carnarvon Street, New Westminster, BC, Canada": [
+        49.2045196,
+        -122.9087958
+    ],
+    "5050 Sanders Street, Burnaby, BC, Canada": [
+        49.2276299,
+        -122.9921135
+    ],
+    "985 Adair Avenue, Coquitlam, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
+    "1617 East 5th Avenue, Vancouver, BC, Canada": [
+        49.2662457,
+        -123.0711132
+    ],
+    "525 west 14th Avenue, Vancouver, BC, Canada": [
+        49.2589738,
+        -123.1159714
+    ],
+    "155 East 15th Street, North Vancouver, BC, Canada": [
+        49.3218816,
+        -123.0700146
+    ],
+    "9981 Whalley Boulevard, BC, Canada": [
+        49.1835204,
+        -122.8435688
+    ],
+    "8031 Nunavut Lane, BC, Canada": [
+        49.2119253,
+        -123.1164173
+    ],
+    "1000 Brunette Avenue, Coquitlam, BC, Canada": [
+        49.2374731,
+        -122.8669631
+    ],
+    "298 East 11th Avenue, Vancouver, BC, Canada": [
+        49.260933,
+        -123.0984953
+    ],
+    "1371 Blackwood Street, White Rock, BC, Canada": [
+        49.0268345,
+        -122.8066883
+    ],
+    "1202 Harwood Street, Vancouver, BC, Canada": [
+        49.2804291,
+        -123.1361011
+    ],
+    "1045 Haro Street, Vancouver, BC, Canada": [
+        49.2836434,
+        -123.1249331
+    ],
+    "995 Adair Avenue, Coquitlam, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
+    "3455 Ascot Place, BC, Canada": [
+        49.2391467,
+        -123.0323957
+    ],
+    "306 north Esmond Avenue, BC, Canada": [
+        49.2856439,
+        -123.0209185
+    ],
+    "8750 RIvergrass Drive, BC, Canada": [
+        49.2053969,
+        -123.0282841
+    ],
+    "1420 W Georgia Street., BC, Canada": [
+        49.289012,
+        -123.1289735
+    ],
+    "4660 Hoy Street, Vancouver, BC, Canada": [
+        49.2429835,
+        -123.0245927
+    ],
+    "11267 133 Street, Surrey, BC, Canada": [
+        49.110759,
+        -122.8549632
+    ],
+    "16127 87 Avenue, Surrey, BC, Canada": [
+        49.1620334,
+        -122.775627
+    ],
+    "13359 OLD YALE ROAD, Surrey, BC, Canada": [
+        49.1872309,
+        -122.8536982
+    ],
+    "6098 station street, Burnaby, BC, Canada": [
+        49.2284782,
+        -123.0013361
+    ],
+    "1188, BC, Canada": [
+        49.286786,
+        -123.1254441
+    ],
+    "5676 Main Street, Vancouver, BC, Canada": [
+        49.2337578,
+        -123.1012801
+    ],
+    "Burquitlam Station, Coquitlam, BC, Canada": [
+        49.2613309,
+        -122.8899378
+    ],
+    "6080 McKay Avenue, Burnaby, BC, Canada": [
+        49.2283281,
+        -123.0035373
     ]
 }
