@@ -1464,11 +1464,13 @@ class HavenNestCrawler:
                         except:
                             detail_text_addr = detail_text
                         addr2 = ""
+                        addr2_from_contact = False
                         m = re.search(r'(?m)^(?:联系地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text_addr)
                         if not m:
                             m = re.search(r'(?m)^(?:地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text_addr)
                         if m:
                             addr2 = m.group(1) or ""
+                            addr2_from_contact = True
                         addr2 = re.sub(r'\s*查看地图.*$', '', addr2).strip()
                         addr2 = re.sub(r'\s+', ' ', addr2)
                         try:
@@ -1479,7 +1481,7 @@ class HavenNestCrawler:
                         except:
                             pass
 
-                        if (not re.search(r"\d", addr2)):
+                        if (not addr2):
                             try:
                                 addr_blob = "\n".join([desc or "", detail_text_addr or ""])
                                 addr_blob = re.sub(r'\s+', ' ', addr_blob)
@@ -1618,6 +1620,10 @@ class HavenNestCrawler:
                                     score += 3
                                 if re.search(r"\b[A-Z]\d[A-Z]\s*\d[A-Z]\d\b", xs):
                                     score += 3
+                                if addr2_from_contact and addr2 and xs == addr2:
+                                    score += 8
+                                if xs == loc and "-" in xs:
+                                    score -= 2
                                 score += min(len(xs), 80) / 80.0
                                 cand.append((score, xs))
                             if cand:
