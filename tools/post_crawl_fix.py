@@ -395,6 +395,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"\bNo\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", s)
+    s = s.replace("，", ",")
     s = s.replace("温哥华", "Vancouver").replace("列治文", "Richmond").replace("本拿比", "Burnaby").replace("素里", "Surrey")
     s = s.replace("高贵林港", "Port Coquitlam").replace("高贵林", "Coquitlam").replace("新西敏", "New Westminster")
     def _mask_to_mid(m):
@@ -408,10 +409,20 @@ def _normalize_geocode_query(q: str) -> str:
         except Exception:
             return m.group(0)
     s = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, s)
-    s = re.sub(r"(?i)\b(?:unit|suite|ste|apt|apartment|#)\s*([a-z0-9\-]{1,8})\b", "", s)
+    s = re.sub(r"(?i)(?:\b(?:unit|suite|ste|apt|apartment)\b|#)\s*([a-z0-9\-]{1,8})\b", "", s)
+    s = re.sub(r"(?i)\b(st|street)\.(?=[a-z])", r"\1 ", s)
+    s = re.sub(r"(?i)\bcentral\s+vancouver\b", "Vancouver", s)
+    s = re.sub(r"(?i)\bother\b\s*$", "", s).strip()
+    s = re.sub(r"\s*,\s*,\s*", ", ", s)
+    s = re.sub(r"\s*,\s*", ", ", s)
     s = re.sub(r"(?i)\b(\d{1,6}\s+[^,]{3,}(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court))\s+\d{1,4}\b", r"\1", s)
     if re.search(r"(?i)\b\d{1,6}\b.*\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court)\b", s):
         s = re.sub(r"(?i)\s+\bnear\b\s+.*$", "", s).strip()
+    s = re.sub(
+        r"(?i)\b(Ave|Avenue|Street|St|Road|Rd|Drive|Dr|Boulevard|Blvd|Ln|Lane|Way|Pl|Place|Ct|Court|Crescent|Cres|Terrace|Terr)\b\s+[A-Za-z][A-Za-z.'\-]{2,}\s*,\s*(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
+        r"\1, \2",
+        s,
+    )
     s = re.sub(r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver)(?:\s+\\1)+\b", r"\1", s)
     s = re.sub(r"\s+", " ", s).strip()
     return s
@@ -701,6 +712,9 @@ def _extract_intersection(text: str) -> Tuple[str, str]:
     t = (text or "")
     if not t:
         return ("", "")
+    m0 = re.search(r"(?i)\b(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\b", t)
+    if m0:
+        return (_normalize_street_name(f"{m0.group(1)} St"), _normalize_street_name(f"{m0.group(2)} Ave"))
     t = re.sub(r"(?i)\b(\d{1,5}[a-z]?)(st|ave|rd|dr|blvd|pl|ct|ln|way|terr)\b", r"\1 \2", t)
     street = r"(?:\d{1,5}[a-z]?\s*(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr)|(?:[A-Za-z0-9.'\-]+\s*){0,4}(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr))"
     m = re.search(rf"(?i)\b({street})\s+(?:near|靠近)\s+({street})\b", t)
@@ -917,6 +931,22 @@ def main():
             item["city"] = addr_city
             changed_city += 1
             cur_city = addr_city
+        if source == "vanpeople":
+            low_text = text.lower()
+            if "tsawwassen" in low_text and (not cur_city or cur_city.lower() == "vancouver"):
+                item["city"] = "Delta"
+                changed_city += 1
+                cur_city = "Delta"
+        if source == "craigslist":
+            low_text = text.lower()
+            if "white rock" in low_text and (not cur_city or cur_city.lower() != "surrey"):
+                item["city"] = "Surrey"
+                changed_city += 1
+                cur_city = "Surrey"
+            if "north delta" in low_text and (not cur_city or cur_city.lower() in ["vancouver", "richmond", "surrey"]):
+                item["city"] = "Delta"
+                changed_city += 1
+                cur_city = "Delta"
  
         extracted_beds = c.extract_beds(text)
         cur_beds = item.get("beds")
@@ -941,6 +971,19 @@ def main():
         is_map_query = coord_source.startswith("map_query")
         is_source_map = _is_source_map(coord_source)
         override_source_map = False
+        if coords_ok:
+            try:
+                latf = float(lat)
+                lngf = float(lng)
+                if not (48.7 <= latf <= 49.7 and -123.95 <= lngf <= -121.6):
+                    coords_ok = False
+                    needs_coords = True
+                    item["lat"] = None
+                    item["lng"] = None
+                    lat = None
+                    lng = None
+            except Exception:
+                pass
         if coords_ok and is_source_map:
             preferred_city = ""
             if source == "craigslist":
@@ -976,7 +1019,13 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
-        has_detail_addr = bool(re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
+        has_detail_addr = bool(
+            re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check)
+            and re.search(
+                r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace)\b",
+                addr_for_check,
+            )
+        )
         priority_needs_geocode = False
         
         if (not has_detail_addr) and re.search(r"(?i)\bburquitlam\b", text) and re.search(r"(?i)(station|skytrain|天车)", text):
@@ -1075,7 +1124,7 @@ def main():
                         priority_needs_geocode = True
                 except Exception:
                     pass
-            if coord_source == "city_center_fallback" and has_detail_addr and (not is_source_map):
+            if coord_source == "city_center_fallback" and (not is_source_map):
                 needs_coords = True
                 priority_needs_geocode = True
             if source == "owner" and has_detail_addr and (not is_source_map):
@@ -1158,8 +1207,19 @@ def main():
         if (not has_detail_addr) and (not is_source_map):
             a, b = _extract_intersection(text)
             if a and b:
+                q0 = f"{a} & {b}, {cur_city}".strip(", ").strip()
+                q0 = _normalize_geocode_query(q0)
+                coords0, geocode_used = _try_geocode_query(c, q0, cur_city, cur_comm, None, max_geocode, geocode_used)
+                if coords0:
+                    item["lat"] = float(coords0[0])
+                    item["lng"] = float(coords0[1])
+                    item["coord_source"] = "text_intersection"
+                    changed_coords += 1
+                    re_geocoded += 1
+                    continue
                 for street in [a, b]:
-                    q = f"{street}, {cur_comm}, {cur_city}, BC, Canada"
+                    q = f"{street}, {cur_comm}, {cur_city}".strip(", ").strip()
+                    q = _normalize_geocode_query(q)
                     coords2, geocode_used = _try_geocode_query(c, q, cur_city, cur_comm, None, max_geocode, geocode_used)
                     if coords2:
                         item["lat"] = float(coords2[0])
@@ -1172,7 +1232,8 @@ def main():
                     continue
             s = _extract_street(text)
             if s and cur_comm:
-                q = f"{s}, {cur_comm}, {cur_city}, BC, Canada"
+                q = f"{s}, {cur_comm}, {cur_city}".strip(", ").strip()
+                q = _normalize_geocode_query(q)
                 coords2, geocode_used = _try_geocode_query(c, q, cur_city, cur_comm, None, max_geocode, geocode_used)
                 if coords2:
                     item["lat"] = float(coords2[0])
@@ -1203,6 +1264,7 @@ def main():
                 new_lat, new_lng = _coords_from_bbox(item, box)
                 item["lat"] = float(new_lat)
                 item["lng"] = float(new_lng)
+                item["coord_source"] = "community_bbox"
                 changed_coords += 1
                 center_fallback += 1
                 continue
@@ -1212,6 +1274,7 @@ def main():
                 new_lat, new_lng = _coords_from_bbox(item, city_box)
                 item["lat"] = float(new_lat)
                 item["lng"] = float(new_lng)
+                item["coord_source"] = "city_bbox"
                 changed_coords += 1
                 center_fallback += 1
                 continue
@@ -1221,6 +1284,7 @@ def main():
                 new_lat, new_lng = _coords_from_bbox(item, city_box)
                 item["lat"] = float(new_lat)
                 item["lng"] = float(new_lng)
+                item["coord_source"] = "city_bbox"
                 changed_coords += 1
                 center_fallback += 1
                 continue
