@@ -1236,6 +1236,7 @@ class HavenNestCrawler:
         print(f"Crawling VanPeople (limit {limit})... ")
         results = []
         scraper = cloudscraper.create_scraper()
+        allow_no_image = (os.getenv("HAVENNEST_VANPEOPLE_ALLOW_NO_IMAGE") or "").strip().lower() in ["1", "true", "yes", "y"]
         
         ad_keywords = [
             '搬家', '清洁', '接送', '教练', '维修', '垃圾', '快递', '求职', '招聘', '服务', '公司', '专业', '诚聘', '货运', '物流', '修车',
@@ -1263,56 +1264,106 @@ class HavenNestCrawler:
                 
                 soup = BeautifulSoup(res.text, 'html.parser')
                 items = soup.find_all('div', class_='c-list-contxt')
+                try:
+                    items2 = []
+                    for it in items:
+                        ok = False
+                        for a0 in it.find_all('a'):
+                            if '/zufang/item-' in ((a0.get('href') or '')):
+                                ok = True
+                                break
+                        if ok:
+                            items2.append(it)
+                    if items2:
+                        items = items2
+                    else:
+                        items = soup.find_all('a')
+                except:
+                    pass
                 
                 # print(f"  Found {len(items)} raw items on page {page}")
                 
                 if not items:
                     print(f"  No items found on page {page} using primary selector. Trying alternative...")
-                    items = soup.select('a[href*="/zufang/"]')
+                    items = soup.find_all('a')
                     if not items: break
                 
+                page_total = 0
+                page_no_url = 0
+                page_not_zufang = 0
+                page_skipped_kw = 0
+                page_skipped_price = 0
+                page_detail_fail = 0
+                page_no_images = 0
+                page_added = 0
+
                 for item in items:
                     if len(results) >= limit: break
                     try:
-                        # 兼容处理：如果是 select 出来的 a 标签
-                        if item.name == 'a' and '/zufang/' in item.get('href', ''):
-                            title_el = item
-                            parent = item.find_parent('div', class_='c-list-contxt') or item.parent
-                            price_el = parent.find('span', class_='money') if parent else None
+                        page_total += 1
+                        title = ""
+                        detail_url = ""
+                        price_el = None
+
+                        if item.name == 'a':
+                            href0 = (item.get('href') or '').strip()
+                            if '/zufang/item-' in href0:
+                                title = item.get_text(strip=True)
+                                detail_url = href0
+                                parent = item.find_parent('div', class_='c-list-contxt') or item.parent
+                                price_el = parent.find('span', class_='money') if parent else None
                         else:
                             title_el = item.find('a', class_='c-list-title')
-                            price_el = item.find('span', class_='money')
-                        
-                        if not title_el: continue
-                        title = title_el.text.strip()
+                            if title_el:
+                                title = title_el.get_text(strip=True)
+                                detail_url = (title_el.get('href') or '').strip()
+                                price_el = item.find('span', class_='money')
+                            if detail_url and '/zufang/item-' not in detail_url:
+                                detail_url = ""
+                            if not detail_url:
+                                for a2 in item.find_all('a'):
+                                    href0 = (a2.get('href') or '').strip()
+                                    if '/zufang/item-' in href0:
+                                        title = a2.get_text(strip=True) or title
+                                        detail_url = href0
+                                        if not price_el:
+                                            price_el = item.find('span', class_='money')
+                                        break
+
                         if not title: continue
                         
                         # 增强过滤逻辑：标题关键词过滤
                         if any(kw in title for kw in ad_keywords):
                             # print(f"    Filtered by keyword: {title[:20]}")
+                            page_skipped_kw += 1
                             continue
-                        
-                        detail_url = title_el.get('href', '')
-                        if not detail_url: continue
+                        if not detail_url:
+                            page_no_url += 1
+                            continue
                         if not detail_url.startswith('http'): detail_url = "https://c.vanpeople.com" + detail_url
                         
-                        # 再次确认是租房链接
-                        if '/zufang/' not in detail_url and 'zufang' not in detail_url: continue
+                        if '/zufang/item-' not in detail_url:
+                            page_not_zufang += 1
+                            continue
 
-                        price_str = re.sub(r'[^\d]', '', price_el.text) if price_el else "0"
+
+                        price_str = re.sub(r'[^\d]', '', price_el.text) if price_el else ""
                         price = int(price_str) if price_str else 0
                         
                         # 增强过滤逻辑：价格太低过滤
-                        if price < 100:
+                        if price > 0 and price < 100:
                             # print(f"    Filtered by price: {title[:20]} (${price})")
+                            page_skipped_price += 1
                             continue
 
                         # 深度抓取详情页
                         detail_res = scraper.get(detail_url, timeout=15)
                         detail_res.encoding = 'utf-8'
                         if detail_res.status_code != 200:
+                            page_detail_fail += 1
                             continue
                         if re.search(r'您想访问的信息已经被删除|信息已经被删除|已经被删除', detail_res.text or ""):
+                            page_detail_fail += 1
                             continue
                         detail_soup = BeautifulSoup(detail_res.text, 'html.parser')
                         
@@ -1332,11 +1383,11 @@ class HavenNestCrawler:
                                 elif src.startswith('/'):
                                     src = "https://c.vanpeople.com" + src
                                 s = src.lower()
-                                if not re.search(r'\.(jpg|jpeg|png|webp)(\?|$)', s):
+                                if not re.search(r'\.(jpg|jpeg|png|webp|gif)(\?|$)', s):
                                     continue
-                                if any(bad in s for bad in ['gg/images', '/gg/', '/gp/', 'nopic', 'wechat', 'vpp_new', 'info_more', 'logo', 'avatar', 'icon', 'banner', 'ad_image', 'recommend']):
+                                if any(bad in s for bad in ['gg/images', 'nopic', 'wechat', 'vpp_new', 'info_more', 'logo', 'avatar', 'icon', 'banner', 'ad_image', 'recommend']):
                                     continue
-                                if not any(host in s for host in ['thumb.vancdn.com', 'img.vancdn.com', 'static.vancdn.com', 'vanpeople.com']):
+                                if not any(host in s for host in ['vancdn.com', 'vanpeople.com']):
                                     continue
                                 if src not in images:
                                     images.append(src)
@@ -1345,25 +1396,41 @@ class HavenNestCrawler:
 
                         if not images:
                             photo_area = detail_soup.select_one('.detail-left, .view-gallery, .swiper-container, #photo-list, .img-box')
-                            if photo_area:
-                                img_els = photo_area.select('img')
-                                for img in img_els:
-                                    src = img.get('data-src') or img.get('data-original') or img.get('lazy-src') or img.get('src')
-                                    if not src:
-                                        continue
-                                    if src.startswith('//'):
-                                        src = "https:" + src
-                                    elif src.startswith('/'):
-                                        src = "https://c.vanpeople.com" + src
-                                    s = src.lower()
-                                    if not re.search(r'\.(jpg|jpeg|png|webp)(\?|$)', s):
-                                        continue
-                                    if any(bad in s for bad in ['gg/images', '/gg/', '/gp/', 'nopic', 'wechat', 'vpp_new', 'info_more', 'logo', 'avatar', 'icon', 'banner', 'ad_image', 'recommend']):
-                                        continue
-                                    if src not in images:
-                                        images.append(src)
+                            img_els = photo_area.select('img') if photo_area else detail_soup.find_all('img')
+                            for img in img_els:
+                                src = img.get('data-src') or img.get('data-original') or img.get('lazy-src') or img.get('src')
+                                if not src:
+                                    continue
+                                if src.startswith('//'):
+                                    src = "https:" + src
+                                elif src.startswith('/'):
+                                    src = "https://c.vanpeople.com" + src
+                                s = src.lower()
+                                if not re.search(r'\.(jpg|jpeg|png|webp|gif)(\?|$)', s):
+                                    continue
+                                if any(bad in s for bad in ['gg/images', 'nopic', 'wechat', 'vpp_new', 'info_more', 'logo', 'avatar', 'icon', 'banner', 'ad_image', 'recommend']):
+                                    continue
+                                if src not in images:
+                                    images.append(src)
 
-                        if not images:
+                        if images:
+                            def _img_score(u: str) -> float:
+                                s0 = (u or "").lower()
+                                sc = 0.0
+                                if "vancdn.com" in s0:
+                                    sc += 10.0
+                                if "/gp/" in s0:
+                                    sc += 4.0
+                                if "gg/images" in s0 or "/gg/" in s0:
+                                    sc -= 100.0
+                                if "_w850_" in s0:
+                                    sc += 1.0
+                                if "_w300_" in s0:
+                                    sc -= 0.5
+                                return sc
+                            images = sorted(list(dict.fromkeys(images)), key=_img_score, reverse=True)
+                        if not images and not allow_no_image:
+                            page_no_images += 1
                             continue
                         
                         # 2. 提取描述并深度清洗
@@ -1396,11 +1463,6 @@ class HavenNestCrawler:
                                 detail_text_addr = detail_text_addr.split("公司地址", 1)[0].strip()
                         except:
                             detail_text_addr = detail_text
-                        if ("公司地址" in detail_text) and (("总部" in detail_text) or ("分部" in detail_text) or re.search(r"(?i)\b(head\s*office|branch)\b", detail_text)):
-                            if re.search(r"(?i)(metrotower|shellbridge|west covina|los angeles)", detail_text):
-                                continue
-                            if not re.search(r"(?i)(出租|租金|月租|起租|押金|房型|卧室|bed|bath|studio)", detail_text_addr):
-                                continue
                         addr2 = ""
                         m = re.search(r'(?m)^(?:联系地址)\s*[:：]?\s*(?:\n\s*)?([^\n]+)', detail_text_addr)
                         if not m:
@@ -1591,10 +1653,13 @@ class HavenNestCrawler:
                             "desc": desc if desc else "请点击'查看原房源'获取更多详细信息。",
                             "date": datetime.now().strftime("%Y-%m-%d")
                         })
+                        page_added += 1
                         time.sleep(0.5) # 稍微加快一点速度
                     except Exception as e:
                         print(f"    Error crawling detail: {e}")
                         continue
+
+                print(f"  Page {page} summary: total={page_total}, added={page_added}, no_url={page_no_url}, not_zufang={page_not_zufang}, no_images={page_no_images}, detail_fail={page_detail_fail}, filtered_kw={page_skipped_kw}, filtered_price={page_skipped_price}")
                 
                 page += 1
                 if page > max_pages: break # 最多抓取5页，防止任务太久
@@ -1858,7 +1923,7 @@ class HavenNestCrawler:
                 price = int(price_raw or 0)
             
             # 1. 价格过滤：温哥华租房通常不低于300，抓取到的低价必是广告
-            if price < 300: 
+            if price > 0 and price < 300:
                 continue
             
             # 2. 关键词过滤
@@ -1872,10 +1937,11 @@ class HavenNestCrawler:
             # 4. 无图片过滤 (抓取到的房源如果没有图片，质量太低，不予显示)
             if item.get('source') == 'VanPeople':
                 img0 = (item.get('image') or '').lower()
-                if any(bad in img0 for bad in ['gg/images', '/gg/', '/gp/', 'nopic']):
+                if any(bad in img0 for bad in ['gg/images', '/gg/', 'nopic']):
                     continue
 
-            if not item.get('image') and not item.get('images'):
+            allow_vp_no_image = (os.getenv("HAVENNEST_VANPEOPLE_ALLOW_NO_IMAGE") or "").strip().lower() in ["1", "true", "yes", "y"]
+            if (not item.get('image') and not item.get('images')) and not (allow_vp_no_image and item.get('source') == 'VanPeople'):
                 continue
 
             try:
