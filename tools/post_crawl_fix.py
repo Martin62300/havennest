@@ -938,6 +938,7 @@ def main():
         coords_ok = _is_number(lat) and _is_number(lng)
         needs_coords = not coords_ok
         coord_source = (item.get("coord_source") or "").strip().lower()
+        is_map_query = coord_source.startswith("map_query")
         is_source_map = _is_source_map(coord_source)
         override_source_map = False
         if coords_ok and is_source_map:
@@ -1040,7 +1041,7 @@ def main():
                     item["address"] = f"{a} & {b}, {cur_city}"
                     addr_for_check = str(item.get("address") or "")
                     has_detail_addr = True
-                    if coord_source == "map_query":
+                    if is_map_query:
                         needs_coords = True
                         priority_needs_geocode = True
             except Exception:
@@ -1063,10 +1064,10 @@ def main():
             if has_detail_addr and (not is_source_map) and _near_city_center(cur_city, float(lat), float(lng)):
                 needs_coords = True
                 priority_needs_geocode = True
-            if coord_source == "map_query" and has_detail_addr and (not is_source_map):
+            if is_map_query and has_detail_addr and (not is_source_map):
                 needs_coords = True
                 priority_needs_geocode = True
-            if coord_source == "map_query" and (not has_detail_addr) and (not is_source_map):
+            if is_map_query and (not has_detail_addr) and (not is_source_map):
                 try:
                     base = CITY_CENTERS.get(cur_city) or CITY_CENTERS["Vancouver"]
                     if abs(float(lat) - float(base[0])) <= 0.015 and abs(float(lng) - float(base[1])) <= 0.015:
