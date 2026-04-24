@@ -2055,10 +2055,6 @@
         49.2640031,
         -123.1383055
     ],
-    "939 Beatty Street, Vancouver, BC, Canada": [
-        49.2763787,
-        -123.1161826
-    ],
     "4733 Hazel Street, Burnaby, BC, Canada": [
         49.2290753,
         -122.9974603
@@ -3331,10 +3327,6 @@
         49.2178224,
         -123.0906063
     ],
-    "435 Boundary Road, Burnaby, BC, Canada": [
-        49.2066486,
-        -123.0233447
-    ],
     "9981 Whalley Boulevard, Surrey, BC, Canada": [
         49.1835204,
         -122.8435688
@@ -3743,10 +3735,6 @@
         49.2842645,
         -122.7357026
     ],
-    "985 Adair Avenue, Coquitlam, BC, Canada": [
-        49.2367614,
-        -122.8683929
-    ],
     "1617 East 5th Avenue, Vancouver, BC, Canada": [
         49.2662457,
         -123.0711132
@@ -3822,10 +3810,6 @@
     "5676 Main Street, Vancouver, BC, Canada": [
         49.2337578,
         -123.1012801
-    ],
-    "Burquitlam Station, Coquitlam, BC, Canada": [
-        49.2613309,
-        -122.8899378
     ],
     "6080 McKay Avenue, Burnaby, BC, Canada": [
         49.2283281,
@@ -4075,18 +4059,6 @@
         49.2275175,
         -123.0027767
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
-    "5088 Kwantlen Street, Richmond, BC, Canada": [
-        49.1762053,
-        -123.1282949
-    ],
-    "6655 Buswell Street, Richmond, BC, BC, Canada": [
-        49.1650135,
-        -123.1340569
-    ],
     "995 Adair Avenue, Coquitlam, BC, Canada": [
         49.2367614,
         -122.8683929
@@ -4171,17 +4143,9 @@
         49.329641,
         -123.0869413
     ],
-    "1022 Nelson Street, Vancouver, BC, Canada": [
-        49.2813,
-        -123.1268124
-    ],
     "15598 Goggs Avenue, White Rock, BC, Canada": [
         49.0283384,
         -122.7826976
-    ],
-    "527 Carnarvon Street, New Westminster, BC, Canada": [
-        49.2045196,
-        -122.9087958
     ],
     "108 avenue, BC, Canada": [
         49.1988303,
@@ -4206,10 +4170,6 @@
     "1045 Haro Street, Vancouver, BC, Canada": [
         49.2836434,
         -123.1249331
-    ],
-    "5050 Sanders Street, Burnaby, BC, Canada": [
-        49.2276299,
-        -122.9921135
     ],
     "8050 17th Avenue, Burnaby, BC, Canada": [
         49.2266128,
@@ -4238,10 +4198,6 @@
     "2216 West Third Avenue., BC, Canada": [
         49.206802,
         -122.9180051
-    ],
-    "155 East 15th Street, North Vancouver, BC, Canada": [
-        49.3218816,
-        -123.0700146
     ],
     "7295 Moffat Street, BC, Canada": [
         53.9226433,
@@ -4414,5 +4370,293 @@
     "6368 Buckingham Drive Burnaby, Buckingham Heights, Burnaby, BC, Canada": [
         49.2308476,
         -122.9556002
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "5088 Kwantlen Street, Richmond, BC, Canada": [
+        49.1762053,
+        -123.1282949
+    ],
+    "6655 Buswell Street, Richmond, BC, BC, Canada": [
+        49.1650135,
+        -123.1340569
+    ],
+    "5665 BOUNDARY Road, Vancouver, BC, Canada": [
+        49.2331667,
+        -123.023988
+    ],
+    "333 Allison Street, Coquitlam, BC, Canada": [
+        49.2411646,
+        -122.8796259
+    ],
+    "1081 Martin Street, White Rock, BC, Canada": [
+        49.0218415,
+        -122.8061151
+    ],
+    "859 Paisley Avenue, Port Coquitlam, BC, Canada": [
+        49.2796641,
+        -122.7355417
+    ],
+    "1328 W Pender Street, Vancouver, BC, Canada": [
+        49.2890709,
+        -123.1267714
+    ],
+    "455 SW Marine Drive, Vancouver, BC, Canada": [
+        49.2113295,
+        -123.1159649
+    ],
+    "408 East Columbia Street, New Westminster, BC, Canada": [
+        49.2283626,
+        -122.8924507
+    ],
+    "1022 Nelson Street, Vancouver, BC, Canada": [
+        49.2813,
+        -123.1268124
+    ],
+    "689 Abbott Street, Vancouver, BC, Canada": [
+        49.278961,
+        -123.1080292
+    ],
+    "1755 West 14th Avenue, Vancouver, BC, Canada": [
+        49.2592669,
+        -123.1446548
+    ],
+    "12071 First Avenue, Richmond, BC, Canada": [
+        49.1258978,
+        -123.1830112
+    ],
+    "Burquitlam Station, Coquitlam, BC, Canada": [
+        49.2613309,
+        -122.8899378
+    ],
+    "610 Granville Street, Vancouver, BC, Canada": [
+        49.283127,
+        -123.1165913
+    ],
+    "10351 Odlin Road, Richmond, BC, Canada": [
+        49.1817698,
+        -123.1138825
+    ],
+    "8771 Cook Road, Richmond, BC, Canada": [
+        49.1667896,
+        -123.1259871
+    ],
+    "6463 Silver Avenue, Burnaby, BC, Canada": [
+        49.2248459,
+        -123.0069043
+    ],
+    "3230 West 2nd Avenue, BC, Canada": [
+        49.2700602,
+        -123.1764492
+    ],
+    "11675 7th Avenue., Richmond, BC, Canada": [
+        49.1272199,
+        -123.1931012
+    ],
+    "505 Nelson Street, Coquitlam, BC, Canada": [
+        49.2433688,
+        -122.8651009
+    ],
+    "2910 Alder Street, Vancouver, BC, Canada": [
+        49.2594682,
+        -123.1311666
+    ],
+    "121 West 20th Street, North Vancouver, BC, Canada": [
+        49.3270365,
+        -123.0732656
+    ],
+    "435 Boundary Road, Burnaby, BC, Canada": [
+        49.2388469,
+        -123.023437
+    ],
+    "939 Beatty Street, Vancouver, BC, Canada": [
+        49.2763787,
+        -123.1161826
+    ],
+    "4363 West 16th Avenue, BC, Canada": [
+        49.2585409,
+        -123.2050746
+    ],
+    "527 Carnarvon Street, New Westminster, BC, Canada": [
+        49.2045196,
+        -122.9087958
+    ],
+    "55 A Avenue, Langley, BC, Canada": [
+        49.1019244,
+        -122.5808262
+    ],
+    "985 Adair Avenue, Coquitlam, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
+    "190 West 45th Avenue, Vancouver, BC, Canada": [
+        49.2303364,
+        -123.1315906
+    ],
+    "3350 Prince Albert Street, Vancouver, BC, Canada": [
+        49.2550331,
+        -123.0870349
+    ],
+    "155 East 15th Street, North Vancouver, BC, Canada": [
+        49.3218816,
+        -123.0700146
+    ],
+    "5050 Sanders Street, Burnaby, BC, Canada": [
+        49.2276299,
+        -122.9921135
+    ],
+    "999 Seymour Street, Vancouver, BC, Canada": [
+        49.2789775,
+        -123.1220792
+    ],
+    "1372 Seymour Street, Vancouver, BC, Canada": [
+        49.2746362,
+        -123.1274998
+    ],
+    "788 Richards Street, Vancouver, BC, Canada": [
+        49.2802216,
+        -123.1171522
+    ],
+    "2131 Pandora Street, Vancouver, BC, Canada": [
+        49.2832512,
+        -123.0611131
+    ],
+    "550 Beatty Street, Vancouver, BC, Canada": [
+        49.280201,
+        -123.1093412
+    ],
+    "777 Richards Street, Vancouver, BC, Canada": [
+        49.2805204,
+        -123.1177996
+    ],
+    "5688 Maple Street, Vancouver, BC, Canada": [
+        49.2553483,
+        -123.1508492
+    ],
+    "110 Switchmen Street, Vancouver, BC, Canada": [
+        49.2706936,
+        -123.1010507
+    ],
+    "667 Howe Street, Vancouver, BC, Canada": [
+        49.2837772,
+        -123.1185672
+    ],
+    "1368 East 8th Avenue, Vancouver, BC, Canada": [
+        49.2630676,
+        -123.0760917
+    ],
+    "1601 Quebec Street, Vancouver, BC, Canada": [
+        49.2718287,
+        -123.1024137
+    ],
+    "1409 W Pender Street, Vancouver, BC, Canada": [
+        49.2898506,
+        -123.1275418
+    ],
+    "406 Union Street, Vancouver, BC, Canada": [
+        49.2774976,
+        -123.0953276
+    ],
+    "429 Campbell Avenue, Vancouver, BC, Canada": [
+        49.2804517,
+        -123.0850191
+    ],
+    "18Th Ave, Point Grey, Vancouver, BC, Canada": [
+        49.2589621,
+        -123.1875119
+    ],
+    "12891 Jack Bell Drive, East Cambie, Richmond, BC, Canada": [
+        49.1782632,
+        -123.0837623
+    ],
+    "1283 Howe Street Vancouver, Yaletown, Vancouver, BC, Canada": [
+        49.2772276,
+        -123.1285411
+    ],
+    "12100 66 Avenue, Surrey, BC, Canada": [
+        49.122733,
+        -122.8303444
+    ],
+    "4485 Skyline Drive, Brentwood, Burnaby, BC, Canada": [
+        49.2655518,
+        -123.0046375
+    ],
+    "104 Avenue 174 Street, Surrey, BC, Canada": [
+        49.1915197,
+        -122.7779161
+    ],
+    "5895 Toderick Street Killarney, Killarney, Vancouver, BC, Canada": [
+        49.2302945,
+        -123.0295235
+    ],
+    "6849 Adera Street, Vancouver, BC, Canada": [
+        49.2234163,
+        -123.1440687
+    ],
+    "3334 East 27th Avenue, Vancouver, BC, Canada": [
+        49.2459922,
+        -123.0324513
+    ],
+    "160 Street, Guildford, Surrey, BC, Canada": [
+        49.1810211,
+        -122.7787897
+    ],
+    "8080 Cambie Road, Richmond, BC, Canada": [
+        49.1845631,
+        -123.0914104
+    ],
+    "6138 Birney Avenue, Vancouver, BC, Canada": [
+        49.2529496,
+        -123.2368144
+    ],
+    "6320 No 3 Road, Richmond, BC, Canada": [
+        49.1102782,
+        -123.1383004
+    ],
+    "8725 University Crescent, Burnaby, BC, Canada": [
+        49.279521,
+        -122.9094578
+    ],
+    "2495 Davies Avenue, Coquitlam, BC, Canada": [
+        49.2692202,
+        -122.7899326
+    ],
+    "5766 Gilbert Road, Vancouver, BC, Canada": [
+        49.1721052,
+        -123.1464684
+    ],
+    "6671 Maple Road, Richmond, BC, Canada": [
+        49.1470506,
+        -123.1495281
+    ],
+    "15451 91A Avenue Guildford, Guildford, Surrey, BC, Canada": [
+        49.1693091,
+        -122.7687951
+    ],
+    "6859 Cambie Street, Vancouver, BC, Canada": [
+        49.2230832,
+        -123.1171995
+    ],
+    "18 Avenue, South Surrey, Surrey, BC, Canada": [
+        49.0342736,
+        -122.8309665
+    ],
+    "9262 University Crescent, Burnaby, BC, Canada": [
+        49.2794978,
+        -122.904415
+    ],
+    "Garden City Park, Richmond, BC, Canada": [
+        49.1645913,
+        -123.1224606
+    ],
+    "Granville  No 5, Richmond, BC, Canada": [
+        49.1632741,
+        -123.1177659
+    ],
+    "2729 Kingsway Renfrew-Collingwood, Renfrew-Collingwood, Vancouver, BC, Canada": [
+        49.2346447,
+        -123.0367076
     ]
 }
