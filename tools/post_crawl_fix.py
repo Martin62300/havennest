@@ -392,6 +392,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = str(q or "").strip()
     if not s:
         return ""
+    s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"\bNo\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", s)
@@ -902,7 +903,7 @@ def main():
         title = str(item.get("title") or "")
         addr = str(item.get("address") or "")
         desc = str(item.get("desc") or item.get("description") or "")
-        text = " ".join([title, addr] if source == "vanpeople" else [title, addr, desc])
+        text = " ".join([title, addr, desc])
  
         info = c.infer_city_info(text)
         inferred_city = (info.get("city") or "").strip()
@@ -1026,7 +1027,42 @@ def main():
                 addr_for_check,
             )
         )
+        has_place_query = bool(
+            re.search(
+                r"(?i)\b(park|station|skytrain|centre|center|mall|community\s+centre|community\s+center|school)\b",
+                addr_for_check,
+            )
+        )
+        has_detail_addr = bool(has_detail_addr or has_place_query)
         priority_needs_geocode = False
+        
+        if source == "vanpeople" and (cur_city or "").strip().lower() == "richmond" and (not has_detail_addr):
+            low_text = text.lower()
+            if ("garden city" in low_text) or ("garden city 公園" in low_text) or ("garden city 公园" in low_text):
+                item["address"] = "Garden City Park, Richmond"
+                item["community"] = ""
+                cur_comm = ""
+                addr_for_check = str(item.get("address") or "")
+                has_detail_addr = True
+                item["lat"] = None
+                item["lng"] = None
+                lat = None
+                lng = None
+                coords_ok = False
+                needs_coords = True
+                priority_needs_geocode = True
+        if source == "vanpeople" and coords_ok and (cur_city or "").strip().lower() == "richmond" and (cur_comm or "").strip().lower() == "bridgeport":
+            try:
+                if float(lat) < 49.16:
+                    item["lat"] = None
+                    item["lng"] = None
+                    lat = None
+                    lng = None
+                    coords_ok = False
+                    needs_coords = True
+                    priority_needs_geocode = True
+            except Exception:
+                pass
         
         if (not has_detail_addr) and re.search(r"(?i)\bburquitlam\b", text) and re.search(r"(?i)(station|skytrain|天车)", text):
             url_city = _city_hint_from_craigslist_url(item.get("url") or "") if source == "craigslist" else ""
@@ -1289,7 +1325,10 @@ def main():
                 center_fallback += 1
                 continue
  
-        query = c.build_geocode_query(str(item.get("address") or ""), cur_city)
+        if source == "vanpeople" and cur_city and cur_comm:
+            query = f"{str(item.get('address') or '').strip()}, {cur_comm}, {cur_city}".strip(", ").strip()
+        else:
+            query = c.build_geocode_query(str(item.get("address") or ""), cur_city)
         cache_key = _cache_key_from_query(query)
         if cache_key in c.coords_cache:
             try:
@@ -1370,7 +1409,7 @@ def main():
                     elif not cs0:
                         item["coord_source"] = "geocode"
  
-        if (new_lat is None or new_lng is None) and (not allow_geocode) and coords_ok:
+        if (new_lat is None or new_lng is None) and (not allow_geocode) and coords_ok and coord_source != "city_center_fallback":
             continue
         if new_lat is not None and new_lng is not None and cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng)):
             city2 = _city_from_coords(float(new_lat), float(new_lng), cur_city)
