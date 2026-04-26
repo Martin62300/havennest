@@ -35,7 +35,7 @@ CITY_CENTERS = {
  
 CITY_BBOX = {
     "Vancouver": (49.20, 49.34, -123.27, -123.00),
-    "Richmond": (49.08, 49.21, -123.25, -123.02),
+    "Richmond": (49.08, 49.21, -123.20, -123.02),
     "Burnaby": (49.20, 49.32, -123.10, -122.88),
     "Coquitlam": (49.20, 49.35, -122.93, -122.74),
     "Surrey": (49.03, 49.23, -122.98, -122.65),
@@ -392,7 +392,10 @@ def _normalize_geocode_query(q: str) -> str:
     s = str(q or "").strip()
     if not s:
         return ""
+    s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
+    s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
     s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
+    s = re.sub(r"(?i)\bno\.?\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"\bNo\s*(\d+)\b", r"No \1", s)
     s = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", s)
@@ -411,6 +414,20 @@ def _normalize_geocode_query(q: str) -> str:
             return m.group(0)
     s = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, s)
     s = re.sub(r"(?i)(?:\b(?:unit|suite|ste|apt|apartment)\b|#)\s*([a-z0-9\-]{1,8})\b", "", s)
+    s = re.sub(r"\b(\d{3,6})([A-Za-z])\b", r"\1 \2", s)
+    s = re.sub(r"(?i)\bwillams\b", "Williams", s)
+    s = re.sub(r"(?i)\bNo\s*(\d+)\s*Rd\b", r"No. \1 Road", s)
+    s = re.sub(r"(?i)\bNo\s*(\d+)\s*Road\b", r"No. \1 Road", s)
+    s = re.sub(r"(?i)\bW(\d{1,3})\b", r"W \1", s)
+    s = re.sub(r"\s*&\s*", " & ", s)
+    s = re.sub(r"(?i)\bW\s*(\d{1,3})\s*&", r"W \1 Ave &", s)
+    s = re.sub(r"(?i)\b([A-Za-z]+)\s+Street\b", r"\1 St", s)
+    s = re.sub(r"(?i)\bubc\b", "", s)
+    s = re.sub(
+        r"(?i)\b(oakridge|arbutus ridge|dunbar-southlands|renfrew-collingwood|kerrisdale|point grey|brighouse|broadmoor|whalley|metrotown|marpole|knight)\b",
+        "",
+        s,
+    )
     s = re.sub(r"(?i)\b(st|street)\.(?=[a-z])", r"\1 ", s)
     s = re.sub(r"(?i)\bcentral\s+vancouver\b", "Vancouver", s)
     s = re.sub(r"(?i)\bother\b\s*$", "", s).strip()
@@ -418,7 +435,8 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"\s*,\s*", ", ", s)
     s = re.sub(r"(?i)\b(\d{1,6}\s+[^,]{3,}(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court))\s+\d{1,4}\b", r"\1", s)
     if re.search(r"(?i)\b\d{1,6}\b.*\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court)\b", s):
-        s = re.sub(r"(?i)\s+\bnear\b\s+.*$", "", s).strip()
+        s = re.sub(r"(?i)\s*,?\s*(?:directly\s*)?near\b\s+.*$", "", s).strip()
+        s = re.sub(r"(?i),?\s*directly\s*$", "", s).strip()
     s = re.sub(
         r"(?i)\b(Ave|Avenue|Street|St|Road|Rd|Drive|Dr|Boulevard|Blvd|Ln|Lane|Way|Pl|Place|Ct|Court|Crescent|Cres|Terrace|Terr)\b\s+[A-Za-z][A-Za-z.'\-]{2,}\s*,\s*(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
         r"\1, \2",
@@ -1033,7 +1051,14 @@ def main():
                 addr_for_check,
             )
         )
-        has_detail_addr = bool(has_detail_addr or has_place_query)
+        has_intersection_addr = bool(
+            ("&" in addr_for_check)
+            and re.search(
+                r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace)\b",
+                addr_for_check,
+            )
+        )
+        has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
         priority_needs_geocode = False
         
         if source == "vanpeople" and (cur_city or "").strip().lower() == "richmond" and (not has_detail_addr):
@@ -1133,6 +1158,18 @@ def main():
                 pass
         if (not coords_ok) and has_detail_addr and (not is_source_map):
             priority_needs_geocode = True
+        if source == "vanpeople" and has_detail_addr and is_map_query:
+            try:
+                mq = str(item.get("map_query") or "")
+                if re.search(r"(?i)\b\d{1,6}\s*x{1,4}\b", mq) or re.search(r"(?i)\b\d{1,6}x{1,4}\b", mq):
+                    a, b = _extract_intersection(text)
+                    if a and b and cur_city:
+                        item["address"] = f"{a} & {b}, {cur_city}"
+                        addr_for_check = str(item.get("address") or "")
+                        needs_coords = True
+                        priority_needs_geocode = True
+            except Exception:
+                pass
 
         if coords_ok:
             if c.is_suspicious_coordinate(item):
