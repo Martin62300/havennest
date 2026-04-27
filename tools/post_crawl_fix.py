@@ -395,6 +395,18 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
     s = s.replace("白石镇", "White Rock").replace("白石", "White Rock")
+    s = re.sub(r"(?i)\bwest\s+side\b", "", s)
+    s = re.sub(r"\s*/\s*", " & ", s)
+    s = re.sub(r"(?i)\s+\band\b\s+", " & ", s)
+    s = re.sub(r"(?i)\bwest\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"W \1 Ave", s)
+    s = re.sub(r"(?i)\beast\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"E \1 Ave", s)
+    s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*e\b", r"E \1 Ave", s)
+    s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*w\b", r"W \1 Ave", s)
+    s = re.sub(r"(?i)\be\s*(\d{1,3})\s*ave\b", r"E \1 Ave", s)
+    s = re.sub(r"(?i)\bw\s*(\d{1,3})\s*ave\b", r"W \1 Ave", s)
+    s = re.sub(r"(?i)\bw\s*(\d{1,3})th\b", r"W \1", s)
+    s = re.sub(r"(?i)\b(\d{1,3})th\b", r"\1", s)
+    s = re.sub(r"(?i)\bkingsway\s*&\s*knight\b", "Kingsway & Knight St", s)
     s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.?\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
@@ -426,7 +438,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\b(\d{1,4})\s+Street\b", r"\1 St", s)
     s = re.sub(r"(?i)\bubc\b", "", s)
     s = re.sub(
-        r"(?i)\b(oakridge|arbutus ridge|dunbar-southlands|renfrew-collingwood|kerrisdale|point grey|brighouse|broadmoor|whalley|metrotown|marpole|knight)\b",
+        r"(?i)\b(oakridge|arbutus ridge|dunbar-southlands|renfrew-collingwood|kerrisdale|point grey|brighouse|broadmoor|whalley|metrotown|marpole)\b",
         "",
         s,
     )
@@ -451,6 +463,16 @@ def _normalize_geocode_query(q: str) -> str:
     )
     s = re.sub(r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver)(?:\s+\\1)+\b", r"\1", s)
     s = re.sub(r"\s+", " ", s).strip()
+    try:
+        low = s.lower()
+        if "cambie" in low:
+            s = re.sub(r"(?i)\b37\s*ave\b", "W 37 Ave", s)
+        if "kingsway" in low:
+            m = re.search(r"(?i)\bE\s*(\d{1,3})\s*Ave\b", s)
+            if m and ("knight" in low):
+                s = f"E {m.group(1)} Ave & Kingsway"
+    except Exception:
+        pass
     return s
 
  
@@ -1054,7 +1076,7 @@ def main():
         )
         has_place_query = bool(
             re.search(
-                r"(?i)\b(park|station|skytrain|centre|center|mall|community\s+centre|community\s+center|school)\b",
+                r"(?i)\b(park|station|skytrain|centre|center|mall|community\s+centre|community\s+center|school|secondary|elementary|high\s+school)\b",
                 addr_for_check,
             )
         )
@@ -1067,6 +1089,30 @@ def main():
         )
         has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
         priority_needs_geocode = False
+
+        try:
+            low_text = text.lower()
+        except Exception:
+            low_text = ""
+        if ("white rock" in low_text) or ("白石" in text):
+            if (cur_city or "").strip().lower() != "white rock":
+                item["city"] = "White Rock"
+                changed_city += 1
+                cur_city = "White Rock"
+        if source == "vanpeople" and (cur_city or "").strip().lower() == "burnaby":
+            if "cambie" in low_text:
+                item["city"] = "Vancouver"
+                changed_city += 1
+                cur_city = "Vancouver"
+        if source == "vanpeople":
+            if "mcnair" in low_text and ("secondary" in low_text or "中学" in text):
+                item["address"] = "Matthew McNair Secondary School"
+                item["community"] = ""
+                cur_comm = ""
+                addr_for_check = str(item.get("address") or "")
+                has_detail_addr = True
+                needs_coords = True
+                priority_needs_geocode = True
         
         if source == "vanpeople" and (cur_city or "").strip().lower() == "richmond" and (not has_detail_addr):
             low_text = text.lower()
