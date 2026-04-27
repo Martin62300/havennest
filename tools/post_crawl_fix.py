@@ -392,6 +392,12 @@ def _normalize_geocode_query(q: str) -> str:
     s = str(q or "").strip()
     if not s:
         return ""
+    has_house_addr = bool(
+        re.search(
+            r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b",
+            s,
+        )
+    )
     s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
     s = s.replace("&amp;", "&")
@@ -402,14 +408,16 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
     s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
     s = re.sub(r"(?i)\bosk\b", "Oak St", s)
-    s = re.sub(r"(?i)\bwest\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"W \1 Ave", s)
-    s = re.sub(r"(?i)\beast\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"E \1 Ave", s)
-    s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*e\b", r"E \1 Ave", s)
-    s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*w\b", r"W \1 Ave", s)
-    s = re.sub(r"(?i)\be\s*(\d{1,3})\s*ave\b", r"E \1 Ave", s)
-    s = re.sub(r"(?i)\bw\s*(\d{1,3})\s*ave\b", r"W \1 Ave", s)
+    if not has_house_addr:
+        s = re.sub(r"(?i)\bwest\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"W \1 Ave", s)
+        s = re.sub(r"(?i)\beast\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"E \1 Ave", s)
+        s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*e\b", r"E \1 Ave", s)
+        s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*w\b", r"W \1 Ave", s)
+        s = re.sub(r"(?i)\be\s*(\d{1,3})\s*ave\b", r"E \1 Ave", s)
+        s = re.sub(r"(?i)\bw\s*(\d{1,3})\s*ave\b", r"W \1 Ave", s)
     s = re.sub(r"(?i)\bw\s*(\d{1,3})th\b", r"W \1", s)
-    s = re.sub(r"(?i)\b(\d{1,3})(st|nd|rd|th)\b", r"\1", s)
+    if not has_house_addr:
+        s = re.sub(r"(?i)\b(\d{1,3})(st|nd|rd|th)\b", r"\1", s)
     s = re.sub(r"(?i)\bkingsway\s*&\s*knight\b", "Kingsway & Knight St", s)
     s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.?\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
@@ -465,11 +473,19 @@ def _normalize_geocode_query(q: str) -> str:
         r"\1, \2",
         s,
     )
+    if has_house_addr:
+        s = re.sub(
+            r"(?i)\b(south|north|east|west)\s+cambie\b",
+            "",
+            s,
+        )
+        s = re.sub(r"\s*,\s*,\s*", ", ", s)
+        s = re.sub(r"\s*,\s*", ", ", s)
     s = re.sub(r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver)(?:\s+\\1)+\b", r"\1", s)
     s = re.sub(r"\s+", " ", s).strip()
     try:
         low = s.lower()
-        if "cambie" in low:
+        if ("cambie" in low) and (not has_house_addr):
             s = re.sub(r"(?i)\b37\s*ave\b", "W 37 Ave", s)
             s = re.sub(r"(?i)\bcambie\b", "Cambie St", s)
             if ("w 64" in low) and ("&" not in s):
@@ -1425,7 +1441,7 @@ def main():
                 center_fallback += 1
                 continue
  
-        if source == "vanpeople" and cur_city and cur_comm:
+        if source == "vanpeople" and cur_city and cur_comm and (not has_detail_addr):
             query = f"{str(item.get('address') or '').strip()}, {cur_comm}, {cur_city}".strip(", ").strip()
         else:
             query = c.build_geocode_query(str(item.get("address") or ""), cur_city)
