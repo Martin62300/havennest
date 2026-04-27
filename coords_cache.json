@@ -615,10 +615,6 @@
         49.1501202,
         -123.1846956
     ],
-    "7071 Buttermere Place, Richmond, BC, Canada": [
-        49.1360734,
-        -123.1462557
-    ],
     "11511 Steveston Highway, Richmond, BC, Canada": [
         49.1336754,
         -123.071924
@@ -1006,10 +1002,6 @@
     "3300 Ketcheson Road, Richmond, BC, Canada": [
         49.1897951,
         -123.1268341
-    ],
-    "10031 Blundell Road, Richmond, BC, Canada": [
-        49.1554549,
-        -123.0524289
     ],
     "82 Avenue, Surrey, BC, Canada": [
         49.1523681,
@@ -3819,10 +3811,6 @@
         49.2516314,
         -123.1012126
     ],
-    "1295 Richards Street, Vancouver, BC, Canada": [
-        49.2751742,
-        -123.1258595
-    ],
     "5850 Vine Street, Vancouver, BC, Canada": [
         49.2545655,
         -123.1580347
@@ -4391,10 +4379,6 @@
         49.3270365,
         -123.0732656
     ],
-    "435 Boundary Road, Burnaby, BC, Canada": [
-        49.2388469,
-        -123.023437
-    ],
     "4363 West 16th Avenue, BC, Canada": [
         49.2585409,
         -123.2050746
@@ -4643,10 +4627,6 @@
         49.1458867,
         -123.1889265
     ],
-    "1082 Seymour Street, Vancouver, BC, Canada": [
-        49.2776716,
-        -123.122903
-    ],
     "233 Robson Street., BC, Canada": [
         49.2785365,
         -123.1148936
@@ -4787,10 +4767,6 @@
         49.1671404,
         -123.1304188
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
     "648 Lea Avenue, Coquitlam, BC, Canada": [
         49.2645095,
         -122.881828
@@ -4802,10 +4778,6 @@
     "155 East 15th Street, North Vancouver, BC, Canada": [
         49.3218816,
         -123.0700146
-    ],
-    "3370 Dewdney Trunk Road, Port Moody, BC, Canada": [
-        49.2762926,
-        -122.8249738
     ],
     "5050 Sanders St, Burnaby, BC, Canada": [
         49.2276299,
@@ -4919,10 +4891,6 @@
         49.2585814,
         -123.2082438
     ],
-    "3336 West 7th Avenue Kitsilano, Kitsilano, Vancouver, BC, Canada": [
-        49.2657409,
-        -123.1785546
-    ],
     "8750 Francis Road, Richmond, BC V6Y 2T9, Richmond, BC, Canada": [
         49.1480977,
         -123.1196883
@@ -4950,10 +4918,6 @@
     "No. 2 Road, Richmond, BC, Canada": [
         49.1161762,
         -123.1580817
-    ],
-    "Garden City Park, Richmond, BC, Canada": [
-        49.1645913,
-        -123.1224606
     ],
     "8645 Osler St, Vancouver, BC, Canada": [
         49.2075946,
@@ -5038,5 +5002,237 @@
     "711 14th Street W, BC, Canada": [
         49.3211204,
         -123.106041
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "1408 robson St, Vancouver, BC, Canada": [
+        49.2868218,
+        -123.1282471
+    ],
+    "251 St, BC, Canada": [
+        49.2330524,
+        -122.5268872
+    ],
+    "161 St, BC, Canada": [
+        49.0572144,
+        -122.7766397
+    ],
+    "197 St, BC, Canada": [
+        49.0734762,
+        -122.6788401
+    ],
+    "3370 Dewdney Trunk Road, Port Moody, BC, Canada": [
+        49.2762926,
+        -122.8249738
+    ],
+    "13308 central Avenue, Surrey, BC, Canada": [
+        49.1906162,
+        -122.8553599
+    ],
+    "438 Seymour St, Vancouver, BC, Canada": [
+        49.2840196,
+        -123.1133886
+    ],
+    "305 Morrissey road, Port Moody, BC, Canada": [
+        49.2784651,
+        -122.8294477
+    ],
+    "4488 Juneau St, Burnaby, BC, Canada": [
+        49.2633001,
+        -123.0017852
+    ],
+    "435 Boundary Road, Burnaby, BC, Canada": [
+        49.2066486,
+        -123.0233447
+    ],
+    "1082 Seymour St, Vancouver, BC, Canada": [
+        49.2776716,
+        -123.122903
+    ],
+    "1295 Richards St, Vancouver, BC, Canada": [
+        49.2751742,
+        -123.1258595
+    ],
+    "4910 Willow St, Vancouver, BC, Canada": [
+        49.2410591,
+        -123.1232083
+    ],
+    "1419 East 30th Avenue, Vancouver, BC, Canada": [
+        49.2438557,
+        -123.075462
+    ],
+    "277 West 1st Street, BC, Canada": [
+        49.3140326,
+        -123.0849722
+    ],
+    "3138 Riverwalk Avenue, Vancouver, BC, Canada": [
+        49.2057819,
+        -123.0415711
+    ],
+    "485 West 42nd Avenue, BC, Canada": [
+        49.2328917,
+        -123.124552
+    ],
+    "1182 Westwood St, BC, Canada": [
+        49.2823682,
+        -122.7909847
+    ],
+    "5728 Berton Avenue, Vancouver, BC, Canada": [
+        49.2555694,
+        -123.2331262
+    ],
+    "5380 Crooked Branch Road, Vancouver, BC, Canada": [
+        49.263307,
+        -123.2337055
+    ],
+    "9877 University Crescent, Burnaby, BC, Canada": [
+        49.2764863,
+        -122.9088211
+    ],
+    "West 42nd Street, BC, Canada": [
+        49.2328581,
+        -123.1160051
+    ],
+    "485 West 42nd Avenue, Vancouver, BC, Canada": [
+        49.2328917,
+        -123.124552
+    ],
+    "7328 Gollner Avenue, Richmond, BC, Canada": [
+        49.1684779,
+        -123.1423827
+    ],
+    "537 COTTONWOOD Avenue, Coquitlam, BC, Canada": [
+        49.2591554,
+        -122.8898812
+    ],
+    "104 Avenue, BC, Canada": [
+        49.1931045,
+        -122.7758357
+    ],
+    "7368 Gollner Avenue, Richmond, Richmond, BC, Canada": [
+        49.167957,
+        -123.1418718
+    ],
+    "Garden City Park, Richmond, BC, Canada": [
+        49.1645913,
+        -123.1224606
+    ],
+    "West 20th Avenue, Dunbar, Vancouver, BC, Canada": [
+        49.2546893,
+        -123.1875658
+    ],
+    "W 47 ave, Vancouver, BC, Canada": [
+        49.0877178,
+        -122.6747009
+    ],
+    "4200 Tyson Place, Richmond, BC, Canada": [
+        49.1616583,
+        -123.1789348
+    ],
+    "4065 West 14th Avenue, Vancouver, BC, Canada": [
+        49.2602277,
+        -123.1959588
+    ],
+    "4060 W 38th Ave, Vancouver, BC, Canada": [
+        49.2368004,
+        -123.1298785
+    ],
+    "1540 West 62nd Avenue, Vancouver, BC, Canada": [
+        49.2142096,
+        -123.1208829
+    ],
+    "3336 West 7th Avenue Kitsilano, Kitsilano, Vancouver, BC, Canada": [
+        49.2657409,
+        -123.1785546
+    ],
+    "10031 Blundell Road, Richmond, BC, Canada": [
+        49.155886,
+        -123.0845032
+    ],
+    "East 54th Avenue Vancouver, BC, Canada": [
+        49.2199318,
+        -123.0408408
+    ],
+    "8333 Jones Road, Richmond, BC, Canada": [
+        49.1577901,
+        -123.1322327
+    ],
+    "6699 Dunblane Avenue, Burnaby, BC, Canada": [
+        49.222271,
+        -122.9931937
+    ],
+    "1972 West 60th Avenue, Vancouver, BC, Canada": [
+        49.2168677,
+        -123.1459096
+    ],
+    "1395 Haversley Avenue, Coquitlam, BC, Canada": [
+        49.2499927,
+        -122.829974
+    ],
+    "5670 Pioneer Avenue, Burnaby, BC, Canada": [
+        49.2331709,
+        -123.0016631
+    ],
+    "5983 Gray Avenue, Vancouver, BC, Canada": [
+        49.2522009,
+        -123.2351416
+    ],
+    "5500 Arcadia Road, Richmond, BC, Canada": [
+        49.1726747,
+        -123.1256382
+    ],
+    "3563 Ross Drive, Vancouver, BC, Canada": [
+        49.250556,
+        -123.2346532
+    ],
+    "4880 Lougheed Highway, Burnaby, BC, Canada": [
+        49.2663239,
+        -122.9972181
+    ],
+    "8611 Hazelbridge Way, Richmond, BC, Canada": [
+        49.1870288,
+        -123.1323183
+    ],
+    "6971 Elmbridge Way, Richmond, BC, Canada": [
+        49.1732286,
+        -123.148129
+    ],
+    "Walker Avenue, Burnaby Heights, Burnaby, BC, Canada": [
+        49.236844,
+        -122.9649572
+    ],
+    "West 35th Ave Vancouver, Dunbar, Vancouver, BC, Canada": [
+        49.2404645,
+        -123.1820219
+    ],
+    "6200 Twintree Place, Richmond, BC, Canada": [
+        49.1631255,
+        -123.1576519
+    ],
+    "11731 Granville Avenue, Richmond, BC, Canada": [
+        49.162669,
+        -123.1588365
+    ],
+    "4788 Hazel St, Burnaby, BC, Canada": [
+        49.2284354,
+        -122.9973304
+    ],
+    "14958 97 Avenue, Surrey, BC, Canada": [
+        49.1785403,
+        -122.8079165
+    ],
+    "9233 Odlin Road, Richmond, BC, Canada": [
+        49.1825036,
+        -123.1213729
+    ],
+    "7071 Buttermere Place, Richmond, BC, Canada": [
+        49.1360734,
+        -123.1462557
+    ],
+    "4453 West 13th Avenue, Vancouver, BC, Canada": [
+        49.2613016,
+        -123.2077202
     ]
 }
