@@ -394,6 +394,7 @@ def _normalize_geocode_query(q: str) -> str:
         return ""
     s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
+    s = s.replace("&amp;", "&")
     s = s.replace("白石镇", "White Rock").replace("白石", "White Rock")
     s = re.sub(r"(?i)\bwest\s+side\b", "", s)
     s = re.sub(r"\s*/\s*", " & ", s)
@@ -1465,6 +1466,38 @@ def main():
                     except Exception:
                         new_lat = None
                         new_lng = None
+            if (new_lat is None or new_lng is None) and has_detail_addr and (" & " in query):
+                try:
+                    parts = [p.strip(" ,") for p in query.split(" & ", 1)]
+                    parts = [p for p in parts if p]
+                    if len(parts) == 2:
+                        q_left = _normalize_geocode_query(f"{parts[0]}, {cur_city}")
+                        q_right = _normalize_geocode_query(f"{parts[1]}, {cur_city}")
+                        coords_l = c.get_lat_lng(q_left)
+                        coords_r = c.get_lat_lng(q_right)
+                        ll = None
+                        rr = None
+                        try:
+                            ll = (float(coords_l[0]), float(coords_l[1])) if coords_l and coords_l[0] is not None and coords_l[1] is not None else None
+                        except Exception:
+                            ll = None
+                        try:
+                            rr = (float(coords_r[0]), float(coords_r[1])) if coords_r and coords_r[0] is not None and coords_r[1] is not None else None
+                        except Exception:
+                            rr = None
+                        if ll and cur_city in CITY_BBOX and (not _in_bbox(cur_city, ll[0], ll[1])):
+                            ll = None
+                        if rr and cur_city in CITY_BBOX and (not _in_bbox(cur_city, rr[0], rr[1])):
+                            rr = None
+                        if ll and rr:
+                            new_lat = (ll[0] + rr[0]) / 2.0
+                            new_lng = (ll[1] + rr[1]) / 2.0
+                        elif ll:
+                            new_lat, new_lng = ll
+                        elif rr:
+                            new_lat, new_lng = rr
+                except Exception:
+                    pass
             if (new_lat is None or new_lng is None) and ("ubc" in query.lower()):
                 try:
                     q3 = re.sub(r"(?i)\bubc\b", "", query)
