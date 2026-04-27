@@ -394,6 +394,7 @@ def _normalize_geocode_query(q: str) -> str:
         return ""
     s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
+    s = s.replace("白石镇", "White Rock").replace("白石", "White Rock")
     s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.?\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.\s*(\d+)\b", r"No \1", s)
@@ -422,6 +423,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"\s*&\s*", " & ", s)
     s = re.sub(r"(?i)\bW\s*(\d{1,3})\s*&", r"W \1 Ave &", s)
     s = re.sub(r"(?i)\b([A-Za-z]+)\s+Street\b", r"\1 St", s)
+    s = re.sub(r"(?i)\b(\d{1,4})\s+Street\b", r"\1 St", s)
     s = re.sub(r"(?i)\bubc\b", "", s)
     s = re.sub(
         r"(?i)\b(oakridge|arbutus ridge|dunbar-southlands|renfrew-collingwood|kerrisdale|point grey|brighouse|broadmoor|whalley|metrotown|marpole|knight)\b",
@@ -433,6 +435,11 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bother\b\s*$", "", s).strip()
     s = re.sub(r"\s*,\s*,\s*", ", ", s)
     s = re.sub(r"\s*,\s*", ", ", s)
+    s = re.sub(
+        r"(?i)^\s*(\d{3,6}\s+[^,]{3,80}?\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace))\b\s+[A-Za-z][A-Za-z\s\-]{2,}\s*$",
+        r"\1",
+        s,
+    )
     s = re.sub(r"(?i)\b(\d{1,6}\s+[^,]{3,}(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court))\s+\d{1,4}\b", r"\1", s)
     if re.search(r"(?i)\b\d{1,6}\b.*\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court)\b", s):
         s = re.sub(r"(?i)\s*,?\s*(?:directly\s*)?near\b\s+.*$", "", s).strip()
