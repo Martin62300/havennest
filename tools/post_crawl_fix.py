@@ -398,6 +398,9 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bwest\s+side\b", "", s)
     s = re.sub(r"\s*/\s*", " & ", s)
     s = re.sub(r"(?i)\s+\band\b\s+", " & ", s)
+    s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
+    s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
+    s = re.sub(r"(?i)\bosk\b", "Oak St", s)
     s = re.sub(r"(?i)\bwest\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"W \1 Ave", s)
     s = re.sub(r"(?i)\beast\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"E \1 Ave", s)
     s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*e\b", r"E \1 Ave", s)
@@ -405,7 +408,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\be\s*(\d{1,3})\s*ave\b", r"E \1 Ave", s)
     s = re.sub(r"(?i)\bw\s*(\d{1,3})\s*ave\b", r"W \1 Ave", s)
     s = re.sub(r"(?i)\bw\s*(\d{1,3})th\b", r"W \1", s)
-    s = re.sub(r"(?i)\b(\d{1,3})th\b", r"\1", s)
+    s = re.sub(r"(?i)\b(\d{1,3})(st|nd|rd|th)\b", r"\1", s)
     s = re.sub(r"(?i)\bkingsway\s*&\s*knight\b", "Kingsway & Knight St", s)
     s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.?\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
@@ -467,10 +470,15 @@ def _normalize_geocode_query(q: str) -> str:
         low = s.lower()
         if "cambie" in low:
             s = re.sub(r"(?i)\b37\s*ave\b", "W 37 Ave", s)
+            s = re.sub(r"(?i)\bcambie\b", "Cambie St", s)
+            if ("w 64" in low) and ("&" not in s):
+                s = re.sub(r"(?i)\bCambie St\b\s+W\s*(\d{1,3})\s+Ave\b", r"Cambie St & W \1 Ave", s)
         if "kingsway" in low:
             m = re.search(r"(?i)\bE\s*(\d{1,3})\s*Ave\b", s)
             if m and ("knight" in low):
                 s = f"E {m.group(1)} Ave & Kingsway"
+        if "oak st" in low:
+            s = re.sub(r"(?i)\bOak St\b\s*&\s*(\d{1,3})\b(?!\s*ave)", r"Oak St & W \1 Ave", s)
     except Exception:
         pass
     return s
@@ -1090,22 +1098,23 @@ def main():
         has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
         priority_needs_geocode = False
 
+        hint = " ".join([title, addr_for_check, str(item.get("map_query") or "")])
         try:
-            low_text = text.lower()
+            low_hint = hint.lower()
         except Exception:
-            low_text = ""
-        if ("white rock" in low_text) or ("白石" in text):
+            low_hint = ""
+        if ("white rock" in low_hint) or ("白石" in hint):
             if (cur_city or "").strip().lower() != "white rock":
                 item["city"] = "White Rock"
                 changed_city += 1
                 cur_city = "White Rock"
         if source == "vanpeople" and (cur_city or "").strip().lower() == "burnaby":
-            if "cambie" in low_text:
+            if "cambie" in low_hint:
                 item["city"] = "Vancouver"
                 changed_city += 1
                 cur_city = "Vancouver"
         if source == "vanpeople":
-            if "mcnair" in low_text and ("secondary" in low_text or "中学" in text):
+            if ("mcnair" in low_hint) and ("secondary" in low_hint or "中学" in hint):
                 item["address"] = "Matthew McNair Secondary School"
                 item["community"] = ""
                 cur_comm = ""
