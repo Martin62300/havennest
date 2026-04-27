@@ -466,13 +466,40 @@ def _normalize_geocode_query(q: str) -> str:
     )
     s = re.sub(r"(?i)\b(\d{1,6}\s+[^,]{3,}(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court))\s+\d{1,4}\b", r"\1", s)
     if re.search(r"(?i)\b\d{1,6}\b.*\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court)\b", s):
+        if has_house_addr:
+            s = re.sub(r"(?i)\b(\d{1,6})\s+near\s+([^,]+)$", r"\1 \2", s).strip()
+            s = re.sub(r"(?i)\b(\d{1,6})\s+near\s+([^,]+)\s*,", r"\1 \2,", s).strip()
         s = re.sub(r"(?i)\s*,?\s*(?:directly\s*)?near\b\s+.*$", "", s).strip()
         s = re.sub(r"(?i),?\s*directly\s*$", "", s).strip()
+    def _fix_street_city_tail(m):
+        typ = (m.group(1) or "").strip()
+        extra = (m.group(2) or "").strip()
+        city = (m.group(3) or "").strip()
+        if extra.lower() in ("tsawwassen", "ladner"):
+            return f"{typ} {extra}, {city}".strip()
+        return f"{typ}, {city}".strip()
+
     s = re.sub(
-        r"(?i)\b(Ave|Avenue|Street|St|Road|Rd|Drive|Dr|Boulevard|Blvd|Ln|Lane|Way|Pl|Place|Ct|Court|Crescent|Cres|Terrace|Terr)\b\s+[A-Za-z][A-Za-z.'\-]{2,}\s*,\s*(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
-        r"\1, \2",
+        r"(?i)\b(Ave|Avenue|Street|St|Road|Rd|Drive|Dr|Boulevard|Blvd|Ln|Lane|Way|Pl|Place|Ct|Court|Crescent|Cres|Terrace|Terr)\b\s+([A-Za-z][A-Za-z.'\-]{2,})\s*,\s*(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
+        _fix_street_city_tail,
         s,
     )
+    if has_house_addr:
+        def _drop_neighborhood_before_city(m):
+            head = (m.group(1) or "").strip()
+            tail = (m.group(2) or "").strip()
+            city = (m.group(3) or "").strip()
+            if tail.lower() in ("tsawwassen", "ladner"):
+                return f"{head} {tail}, {city}".strip()
+            return f"{head}, {city}".strip()
+
+        s = re.sub(
+            r"(?i)\b(\d{3,6}\s+[^,]{3,80}?\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace))\b\s+([A-Za-z][A-Za-z\s\-]{2,})\s*,\s*(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
+            _drop_neighborhood_before_city,
+            s,
+        )
+        if re.search(r"(?i),\s*(surrey|delta|langley|coquitlam|burnaby|richmond|new westminster|port coquitlam|port moody)\b", s):
+            s = re.sub(r"(?i)\b(\d{2,3})(st|nd|rd|th)\s+(Ave|Avenue)\b", r"\1 \3", s)
     if has_house_addr:
         s = re.sub(
             r"(?i)\b(south|north|east|west)\s+cambie\b",
@@ -1441,10 +1468,28 @@ def main():
                 center_fallback += 1
                 continue
  
-        if source == "vanpeople" and cur_city and cur_comm and (not has_detail_addr):
-            query = f"{str(item.get('address') or '').strip()}, {cur_comm}, {cur_city}".strip(", ").strip()
+        geocode_city = cur_city
+        if cur_city and (cur_city or "").strip().lower() == "delta":
+            addr0 = str(item.get("address") or "")
+            mq0 = str(item.get("map_query") or "")
+            hint0 = f"{addr0} {mq0}"
+            if re.search(r"(?i)\btsawwassen\b", hint0):
+                geocode_city = "Tsawwassen"
+            elif re.search(r"(?i)\bladner\b", hint0):
+                geocode_city = "Ladner"
+            elif source == "craigslist" and re.search(r"(?i)\bsouthwest\b", title):
+                geocode_city = "Tsawwassen"
+
+        if source == "vanpeople":
+            mq = str(item.get("map_query") or "").strip()
+            if mq and (not has_detail_addr) and (len(mq) <= 80) and ("\n" not in mq):
+                query = c.build_geocode_query(mq, geocode_city)
+            elif geocode_city and cur_comm and (not has_detail_addr):
+                query = f"{str(item.get('address') or '').strip()}, {cur_comm}, {geocode_city}".strip(", ").strip()
+            else:
+                query = c.build_geocode_query(str(item.get("address") or ""), geocode_city)
         else:
-            query = c.build_geocode_query(str(item.get("address") or ""), cur_city)
+            query = c.build_geocode_query(str(item.get("address") or ""), geocode_city)
         cache_key = _cache_key_from_query(query)
         if cache_key in c.coords_cache:
             try:
@@ -1469,6 +1514,19 @@ def main():
             except Exception:
                 new_lat = None
                 new_lng = None
+            if (new_lat is None or new_lng is None) and has_detail_addr:
+                try:
+                    q_cityless = str(query).split(",", 1)[0].strip(" ,")
+                except Exception:
+                    q_cityless = ""
+                if q_cityless and q_cityless != query and len(q_cityless) >= 8:
+                    coordsx = c.get_lat_lng(q_cityless)
+                    try:
+                        new_lat = float(coordsx[0]) if coordsx and coordsx[0] is not None else None
+                        new_lng = float(coordsx[1]) if coordsx and coordsx[1] is not None else None
+                    except Exception:
+                        new_lat = None
+                        new_lng = None
             if (new_lat is None or new_lng is None) and has_detail_addr:
                 try:
                     q2 = re.sub(r"^\s*\d{1,6}\s+", "", query).strip()
@@ -1567,6 +1625,15 @@ def main():
                 cur_city = city2
         if new_lat is None or new_lng is None or (cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng))):
             base_lat, base_lng = _fallback_coords(cur_city)
+            try:
+                low_hint2 = hint.lower()
+            except Exception:
+                low_hint2 = ""
+            if (cur_city or "").strip().lower() == "delta":
+                if ("tsawwassen" in low_hint2) or (source == "craigslist" and "southwest" in low_hint2):
+                    base_lat, base_lng = 49.0162, -123.0859
+                elif "ladner" in low_hint2:
+                    base_lat, base_lng = 49.0892, -123.0824
             u = _stable_u(item, "city_fallback_lat")
             v = _stable_u(item, "city_fallback_lng")
             new_lat = float(base_lat) + (u - 0.5) * 0.01
