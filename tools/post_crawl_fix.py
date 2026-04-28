@@ -398,6 +398,7 @@ def _normalize_geocode_query(q: str) -> str:
             s,
         )
     )
+    has_vancouver = bool(re.search(r"(?i)\b(vancouver|温哥华)\b", s))
     s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
     s = s.replace("&amp;", "&")
@@ -415,7 +416,11 @@ def _normalize_geocode_query(q: str) -> str:
         s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*w\b", r"W \1 Ave", s)
         s = re.sub(r"(?i)\be\s*(\d{1,3})\s*ave\b", r"E \1 Ave", s)
         s = re.sub(r"(?i)\bw\s*(\d{1,3})\s*ave\b", r"W \1 Ave", s)
-    s = re.sub(r"(?i)\bw\s*(\d{1,3})th\b", r"W \1", s)
+    if has_house_addr and has_vancouver:
+        s = re.sub(r"(?i)\bW\s*(\d{1,2})\s*(st|nd|rd|th)\b", r"W \1\2", s)
+        s = re.sub(r"(?i)\bE\s*(\d{1,2})\s*(st|nd|rd|th)\b", r"E \1\2", s)
+    else:
+        s = re.sub(r"(?i)\bw\s*(\d{1,3})th\b", r"W \1", s)
     if not has_house_addr:
         s = re.sub(r"(?i)\b(\d{1,3})(st|nd|rd|th)\b", r"\1", s)
     s = re.sub(r"(?i)\bkingsway\s*&\s*knight\b", "Kingsway & Knight St", s)
@@ -446,8 +451,10 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bW(\d{1,3})\b", r"W \1", s)
     s = re.sub(r"\s*&\s*", " & ", s)
     s = re.sub(r"(?i)\bW\s*(\d{1,3})\s*&", r"W \1 Ave &", s)
+    s = re.sub(r"(?i)\b(\d{1,3})\s*ave\b", r"\1 Ave", s)
     s = re.sub(r"(?i)\b([A-Za-z]+)\s+Street\b", r"\1 St", s)
     s = re.sub(r"(?i)\b(\d{1,4})\s+Street\b", r"\1 St", s)
+    s = re.sub(r"(?i)\bFrancis\b(?!\s*(?:Rd|Road|St|Street|Ave|Avenue|Dr|Drive|Blvd|Boulevard|Way|Lane|Ln|Cres|Crescent|Ct|Court|Pl|Place)\b)", "Francis Rd", s)
     s = re.sub(r"(?i)\bubc\b", "", s)
     s = re.sub(
         r"(?i)\b(oakridge|arbutus ridge|dunbar-southlands|renfrew-collingwood|kerrisdale|point grey|brighouse|broadmoor|whalley|metrotown|marpole)\b",
@@ -459,6 +466,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bother\b\s*$", "", s).strip()
     s = re.sub(r"\s*,\s*,\s*", ", ", s)
     s = re.sub(r"\s*,\s*", ", ", s)
+    s = re.sub(r"(?i)\b(\d{1,3})\s*Ave\b\s+(\d{1,4})\s*St\b", r"\2 St & \1 Ave", s)
     s = re.sub(
         r"(?i)^\s*(\d{3,6}\s+[^,]{3,80}?\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace))\b\s+[A-Za-z][A-Za-z\s\-]{2,}\s*$",
         r"\1",
@@ -1119,6 +1127,13 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
+        try:
+            mx = re.search(r"(?i)\b(\d{1,3})\s*ave\b\s*(\d{1,4})\s*(st|street)\b", addr_for_check)
+            if mx and cur_city:
+                item["address"] = f"{mx.group(2)} St & {mx.group(1)} Ave, {cur_city}"
+                addr_for_check = str(item.get("address") or "")
+        except Exception:
+            pass
         has_detail_addr = bool(
             re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check)
             and re.search(
