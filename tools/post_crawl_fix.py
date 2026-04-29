@@ -404,6 +404,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
     s = s.replace("&amp;", "&")
     s = re.sub(r"(?i)\bnr\b\.?", "near", s)
+    s = re.sub(r"(?i)\blansdown\b", "Lansdowne", s)
     s = s.replace("白石镇", "White Rock").replace("白石", "White Rock")
     s = re.sub(r"(?i)\bwest\s+side\b", "", s)
     s = re.sub(r"\s*/\s*", " & ", s)
@@ -1085,6 +1086,8 @@ def main():
         is_map_query = coord_source.startswith("map_query")
         is_source_map = _is_source_map(coord_source)
         override_source_map = False
+        force_geocode_street_only = False
+        preserve_existing_bbox = False
         if coords_ok:
             try:
                 latf = float(lat)
@@ -1133,6 +1136,18 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
+        if coords_ok and (not is_source_map) and coord_source in ("city_bbox", "community_bbox"):
+            if (
+                (not re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
+                and re.search(
+                    r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace)\b",
+                    addr_for_check,
+                )
+            ):
+                force_geocode_street_only = True
+                preserve_existing_bbox = True
+                needs_coords = True
+                priority_needs_geocode = True
         try:
             mx = re.search(r"(?i)\b(\d{1,3})\s*ave\b\s*(\d{1,4})\s*(st|street)\b", addr_for_check)
             if mx and cur_city:
@@ -1270,11 +1285,38 @@ def main():
  
         extracted_addr = ""
         if not has_detail_addr:
-            extracted_addr = _extract_detailed_address(text)
-            if extracted_addr:
-                item["address"] = extracted_addr
-                addr_for_check = extracted_addr
-                has_detail_addr = True
+            if source == "craigslist":
+                try:
+                    m_addr = re.search(r"(?im)^\s*address\s*:\s*(.+?)\s*$", text)
+                except Exception:
+                    m_addr = None
+                if m_addr:
+                    try:
+                        cand = str(m_addr.group(1) or "").strip()
+                    except Exception:
+                        cand = ""
+                    if cand:
+                        cand = re.sub(r"(?i)\b\d{1,2}(st|nd|rd|th)\s+floor\b\s*,?\s*", "", cand).strip()
+                        cand = re.sub(r"(?i)\bfloor\b\s*,?\s*", "", cand).strip()
+                        cand = re.sub(r"(?i)\b(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley)\b\s+bc\b", r"\1", cand).strip()
+                        cand = re.sub(r"(?i)\bBC\b", "", cand).strip()
+                        cand = re.sub(r"(?i)\b[A-Z]\d[A-Z]\s*\d[A-Z]\d\b", "", cand).strip()
+                        cand = _clean_extracted_addr(cand)
+                        if cand and (not re.search(r"(?i)\b(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley)\b", cand)) and cur_city:
+                            cand = f"{cand}, {cur_city}"
+                        if cand and re.search(r"(?i)\b\d{3,6}\b", cand) and re.search(r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace)\b", cand):
+                            item["address"] = cand
+                            addr_for_check = cand
+                            has_detail_addr = True
+                            needs_coords = True
+                            priority_needs_geocode = True
+                            extracted_addr = cand
+            if not has_detail_addr:
+                extracted_addr = _extract_detailed_address(text)
+                if extracted_addr:
+                    item["address"] = extracted_addr
+                    addr_for_check = extracted_addr
+                    has_detail_addr = True
         if not has_detail_addr:
             try:
                 mxx = re.search(r"(?i)\b(\d{1,6}\s*x{1,4})\b\s+([a-z][a-z0-9 .'-]{1,50}\b(?:road|rd|drive|dr|avenue|ave|street|st|place|pl|way|blvd|boulevard|crescent|cres|lane|ln|court|ct|terrace|terr)\b)", text)
@@ -1479,7 +1521,7 @@ def main():
                 re_geocoded += 1
                 continue
 
-        if cur_city and cur_comm and not has_detail_addr:
+        if (not force_geocode_street_only) and cur_city and cur_comm and not has_detail_addr:
             box = COMMUNITY_BBOX.get((cur_city, cur_comm))
             if not box and comm_enabled:
                 box = _get_community_bbox(cur_city, cur_comm, community_cache, comm_budget, comm_sleep)
@@ -1501,7 +1543,7 @@ def main():
                 changed_coords += 1
                 center_fallback += 1
                 continue
-        if cur_city in CITY_BBOX and (not has_detail_addr):
+        if (not force_geocode_street_only) and cur_city in CITY_BBOX and (not has_detail_addr):
             city_box = CITY_BBOX.get(cur_city)
             if city_box:
                 new_lat, new_lng = _coords_from_bbox(item, city_box)
@@ -1667,6 +1709,10 @@ def main():
                 item["city"] = city2
                 changed_city += 1
                 cur_city = city2
+        if preserve_existing_bbox and (new_lat is None or new_lng is None):
+            continue
+        if preserve_existing_bbox and new_lat is not None and new_lng is not None and cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng)):
+            continue
         if new_lat is None or new_lng is None or (cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng))):
             base_lat, base_lng = _fallback_coords(cur_city)
             try:
