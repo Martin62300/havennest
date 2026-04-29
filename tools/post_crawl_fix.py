@@ -399,9 +399,11 @@ def _normalize_geocode_query(q: str) -> str:
         )
     )
     has_vancouver = bool(re.search(r"(?i)\b(vancouver|温哥华)\b", s))
+    has_station = bool(re.search(r"(?i)\b(station|skytrain)\b", s))
     s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
     s = s.replace("&amp;", "&")
+    s = re.sub(r"(?i)\bnr\b\.?", "near", s)
     s = s.replace("白石镇", "White Rock").replace("白石", "White Rock")
     s = re.sub(r"(?i)\bwest\s+side\b", "", s)
     s = re.sub(r"\s*/\s*", " & ", s)
@@ -422,7 +424,8 @@ def _normalize_geocode_query(q: str) -> str:
     else:
         s = re.sub(r"(?i)\bw\s*(\d{1,3})th\b", r"W \1", s)
     if not has_house_addr:
-        s = re.sub(r"(?i)\b(\d{1,3})(st|nd|rd|th)\b", r"\1", s)
+        if not has_station:
+            s = re.sub(r"(?i)\b(\d{1,3})(st|nd|rd|th)\b", r"\1", s)
     s = re.sub(r"(?i)\bkingsway\s*&\s*knight\b", "Kingsway & Knight St", s)
     s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bno\.?\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
@@ -444,7 +447,8 @@ def _normalize_geocode_query(q: str) -> str:
             return m.group(0)
     s = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, s)
     s = re.sub(r"(?i)(?:\b(?:unit|suite|ste|apt|apartment)\b|#)\s*([a-z0-9\-]{1,8})\b", "", s)
-    s = re.sub(r"\b(\d{3,6})([A-Za-z])\b", r"\1 \2", s)
+    s = re.sub(r"(?i)^\s*(\d{3,6})([A-Za-z])\b", r"\1 \2", s)
+    s = re.sub(r"(?i)\bmc\s+kay\b", "McKay", s)
     s = re.sub(r"(?i)\bwillams\b", "Williams", s)
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Rd\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Road\b", r"No. \1 Road", s)
@@ -467,6 +471,8 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"\s*,\s*,\s*", ", ", s)
     s = re.sub(r"\s*,\s*", ", ", s)
     s = re.sub(r"(?i)\b(\d{1,3})\s*Ave\b\s+(\d{1,4})\s*St\b", r"\2 St & \1 Ave", s)
+    s = re.sub(r"(?i)\b(\d{1,3})\s*&\s*(\d{1,3}[a-z]?)\s*St\b", r"\2 St & \1 Ave", s)
+    s = re.sub(r"(?i)\b(St\s*&\s*\d{1,3}\s+Ave)\s+(Langley|Surrey|Delta|Vancouver|Burnaby|Coquitlam|Richmond)\b", r"\1, \2", s)
     s = re.sub(
         r"(?i)^\s*(\d{3,6}\s+[^,]{3,80}?\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace))\b\s+[A-Za-z][A-Za-z\s\-]{2,}\s*$",
         r"\1",
@@ -1172,6 +1178,10 @@ def main():
                 item["city"] = "Vancouver"
                 changed_city += 1
                 cur_city = "Vancouver"
+            if ("nanaimo" in low_hint) and (("skytrain" in low_hint) or ("station" in low_hint) or ("天车" in hint)):
+                item["city"] = "Vancouver"
+                changed_city += 1
+                cur_city = "Vancouver"
         if source == "vanpeople":
             if ("mcnair" in low_hint) and ("secondary" in low_hint or "中学" in hint):
                 item["address"] = "Matthew McNair Secondary School"
@@ -1233,6 +1243,18 @@ def main():
             needs_coords = True
             priority_needs_geocode = True
 
+        if source == "craigslist" and (not has_detail_addr) and (not coords_ok):
+            try:
+                low_text2 = text.lower()
+            except Exception:
+                low_text2 = ""
+            if ("29th avenue" in low_text2) and (("skytrain" in low_text2) or ("station" in low_text2)):
+                item["address"] = "29th Avenue Station, Vancouver"
+                addr_for_check = str(item.get("address") or "")
+                has_detail_addr = True
+                needs_coords = True
+                priority_needs_geocode = True
+
         if source == "owner" and (cur_city or "").strip().lower() == "richmond" and (cur_comm or "").strip().lower() == "thompson" and (not has_detail_addr):
             u = _stable_u(item, "thompson_lat")
             v = _stable_u(item, "thompson_lng")
@@ -1279,6 +1301,13 @@ def main():
                 pass
         if (not coords_ok) and has_detail_addr and (not is_source_map):
             priority_needs_geocode = True
+        if source == "vanpeople" and (not coords_ok) and (not is_source_map):
+            try:
+                mq0 = str(item.get("map_query") or "").strip()
+            except Exception:
+                mq0 = ""
+            if mq0:
+                priority_needs_geocode = True
         if source == "vanpeople" and has_detail_addr and is_map_query:
             try:
                 mq = str(item.get("map_query") or "")
