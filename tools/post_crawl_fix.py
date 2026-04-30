@@ -400,11 +400,13 @@ def _normalize_geocode_query(q: str) -> str:
     )
     has_vancouver = bool(re.search(r"(?i)\b(vancouver|温哥华)\b", s))
     has_station = bool(re.search(r"(?i)\b(station|skytrain)\b", s))
+    s = s.replace("’", "'")
     s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
     s = s.replace("&amp;", "&")
     s = re.sub(r"(?i)\bnr\b\.?", "near", s)
     s = re.sub(r"(?i)\blansdown\b", "Lansdowne", s)
+    s = re.sub(r"(?i)\bhwy\b\.?", "Hwy", s)
     s = s.replace("白石镇", "White Rock").replace("白石", "White Rock")
     s = re.sub(r"(?i)\bwest\s+side\b", "", s)
     s = re.sub(r"\s*/\s*", " & ", s)
@@ -413,8 +415,12 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
     s = re.sub(r"(?i)\bosk\b", "Oak St", s)
     if not has_house_addr:
-        s = re.sub(r"(?i)\bwest\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"W \1 Ave", s)
-        s = re.sub(r"(?i)\beast\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"E \1 Ave", s)
+        if has_vancouver:
+            s = re.sub(r"(?i)\bwest\s+(\d{1,3})(st|nd|rd|th)\s+avenue\b", r"W \1\2 Ave", s)
+            s = re.sub(r"(?i)\beast\s+(\d{1,3})(st|nd|rd|th)\s+avenue\b", r"E \1\2 Ave", s)
+        else:
+            s = re.sub(r"(?i)\bwest\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"W \1 Ave", s)
+            s = re.sub(r"(?i)\beast\s+(\d{1,3})(?:st|nd|rd|th)?\s+avenue\b", r"E \1 Ave", s)
         s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*e\b", r"E \1 Ave", s)
         s = re.sub(r"(?i)\b(\d{1,3})\s*avenue\s*w\b", r"W \1 Ave", s)
         s = re.sub(r"(?i)\be\s*(\d{1,3})\s*ave\b", r"E \1 Ave", s)
@@ -423,9 +429,10 @@ def _normalize_geocode_query(q: str) -> str:
         s = re.sub(r"(?i)\bW\s*(\d{1,2})\s*(st|nd|rd|th)\b", r"W \1\2", s)
         s = re.sub(r"(?i)\bE\s*(\d{1,2})\s*(st|nd|rd|th)\b", r"E \1\2", s)
     else:
-        s = re.sub(r"(?i)\bw\s*(\d{1,3})th\b", r"W \1", s)
+        if not has_vancouver:
+            s = re.sub(r"(?i)\bw\s*(\d{1,3})th\b", r"W \1", s)
     if not has_house_addr:
-        if not has_station:
+        if (not has_station) and (not (has_vancouver and re.search(r"(?i)\b(?:ave|avenue)\b", s))):
             s = re.sub(r"(?i)\b(\d{1,3})(st|nd|rd|th)\b", r"\1", s)
     s = re.sub(r"(?i)\bkingsway\s*&\s*knight\b", "Kingsway & Knight St", s)
     s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(road|rd)\b", r"No. \1 Road", s)
@@ -462,7 +469,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bFrancis\b(?!\s*(?:Rd|Road|St|Street|Ave|Avenue|Dr|Drive|Blvd|Boulevard|Way|Lane|Ln|Cres|Crescent|Ct|Court|Pl|Place)\b)", "Francis Rd", s)
     s = re.sub(r"(?i)\bubc\b", "", s)
     s = re.sub(
-        r"(?i)\b(oakridge|arbutus ridge|dunbar-southlands|renfrew-collingwood|kerrisdale|point grey|brighouse|broadmoor|whalley|metrotown|marpole)\b",
+        r"(?i)\b(oakridge|arbutus ridge|dunbar-southlands|renfrew-collingwood|kerrisdale|point grey|brighouse|broadmoor|whalley|metrotown|marpole|south vancouver|sunset)\b",
         "",
         s,
     )
@@ -474,13 +481,32 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\b(\d{1,3})\s*Ave\b\s+(\d{1,4})\s*St\b", r"\2 St & \1 Ave", s)
     s = re.sub(r"(?i)\b(\d{1,3})\s*&\s*(\d{1,3}[a-z]?)\s*St\b", r"\2 St & \1 Ave", s)
     s = re.sub(r"(?i)\b(St\s*&\s*\d{1,3}\s+Ave)\s+(Langley|Surrey|Delta|Vancouver|Burnaby|Coquitlam|Richmond)\b", r"\1, \2", s)
+    street_typ = r"(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)"
     s = re.sub(
-        r"(?i)^\s*(\d{3,6}\s+[^,]{3,80}?\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace))\b\s+[A-Za-z][A-Za-z\s\-]{2,}\s*$",
+        rf"(?i)^\s*(\d{{3,6}}\s+[^,]{{3,80}}?\b{street_typ})\b\s+[A-Za-z][A-Za-z\s\-]{{2,}}\s*$",
         r"\1",
         s,
     )
-    s = re.sub(r"(?i)\b(\d{1,6}\s+[^,]{3,}(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court))\s+\d{1,4}\b", r"\1", s)
-    if re.search(r"(?i)\b\d{1,6}\b.*\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court)\b", s):
+    s = re.sub(rf"(?i)\b(\d{{1,6}}\s+[^,]{{3,}}{street_typ})\s+\d{{1,4}}\b", r"\1", s)
+
+    if (not has_house_addr) and re.search(r"(?i)\bnear\b", s) and ("&" not in s):
+        s = re.sub(
+            rf"(?i)\b([^,]{{3,80}}?\b{street_typ})\b\s+near\s+([^,]{{3,80}}?\b{street_typ})\b",
+            r"\1 & \2",
+            s,
+        )
+    if has_house_addr and re.search(r"(?i)\bnear\b", s) and ("&" not in s):
+        m = re.search(
+            rf"(?i)^\s*(\d{{1,6}}\s+[^,]{{3,80}}?\b{street_typ})\b\s+near\s+([^,]{{3,80}}?\b{street_typ})\b(.*)$",
+            s,
+        )
+        if m:
+            left = re.sub(r"(?i)^\s*\d{1,6}\s+", "", (m.group(1) or "")).strip()
+            right = (m.group(2) or "").strip()
+            tail = (m.group(3) or "")
+            s = f"{left} & {right}{tail}"
+
+    if re.search(rf"(?i)\b\d{{1,6}}\b.*\b{street_typ}\b", s):
         if has_house_addr:
             s = re.sub(r"(?i)\b(\d{1,6})\s+near\s+([^,]+)$", r"\1 \2", s).strip()
             s = re.sub(r"(?i)\b(\d{1,6})\s+near\s+([^,]+)\s*,", r"\1 \2,", s).strip()
@@ -509,7 +535,7 @@ def _normalize_geocode_query(q: str) -> str:
             return f"{head}, {city}".strip()
 
         s = re.sub(
-            r"(?i)\b(\d{3,6}\s+[^,]{3,80}?\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace))\b\s+([A-Za-z][A-Za-z\s\-]{2,})\s*,\s*(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
+            rf"(?i)\b(\d{{3,6}}\s+[^,]{{3,80}}?\b{street_typ})\b\s+([A-Za-z][A-Za-z\s\-]{{2,}})\s*,\s*(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
             _drop_neighborhood_before_city,
             s,
         )
