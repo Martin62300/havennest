@@ -404,10 +404,41 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"^(?:位于|位於|在|附近)\s*", "", s)
     s = re.sub(r"(?i)^\s*address\s*:\s*", "", s)
     s = s.replace("&amp;", "&")
+    s = s.replace("——", " ").replace("—", " ").replace("–", " ").replace("—", " ")
     s = re.sub(r"(?i)\bnr\b\.?", "near", s)
     s = re.sub(r"(?i)\blansdown\b", "Lansdowne", s)
     s = re.sub(r"(?i)\bhwy\b\.?", "Hwy", s)
     s = re.sub(r"(?i)\bpatterosn\b", "Patterson", s)
+    def _ord_suffix0(n: int) -> str:
+        if 10 <= (n % 100) <= 20:
+            return "th"
+        k = n % 10
+        if k == 1:
+            return "st"
+        if k == 2:
+            return "nd"
+        if k == 3:
+            return "rd"
+        return "th"
+    def _block_to_numbered_ave(m):
+        try:
+            num = int(m.group(1))
+            d0 = str(m.group(2) or "").strip().upper()
+            n = int(m.group(3))
+            suf = (m.group(4) or "").strip().lower()
+            if not suf:
+                suf = _ord_suffix0(n)
+            return f"{num} {d0} {n}{suf} Ave"
+        except Exception:
+            return m.group(0)
+    s = re.sub(
+        r"(?i)\b(\d{3,5})\s*block\s*&\s*([we])\s*(\d{1,3})(st|nd|rd|th)?\s*(?:ave|avenue)\b",
+        _block_to_numbered_ave,
+        s,
+    )
+    s = re.sub(r"(?i)\bwilliams\b\s+near\s+no\.?\s*3\b", "Williams Rd & No. 3 Road", s)
+    s = re.sub(r"(?i)\bno\.?\s*3\b(?!\s*(?:road|rd)\b)", "No. 3 Road", s)
+    s = re.sub(r"(?i)\b(\d{3,5})\s*block\s*&\s*", "", s)
     s = re.sub(r"(?i)^\s*(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\s+(?:ave|avenue)\b", r"\1 St & \2 Ave", s)
     s = re.sub(
         r"(?i)\b(\d{3,6})\s+hampton\b(?!\s*(?:pl|place|st|street|ave|avenue|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl\.|ct|court|cres|crescent|terr|terrace|hwy|highway)\b)",
@@ -415,12 +446,27 @@ def _normalize_geocode_query(q: str) -> str:
         s,
     )
     s = s.replace("白石镇", "White Rock").replace("白石", "White Rock")
+    s = re.sub(r"(?i)\bvancouver\s+east\b", "Vancouver", s)
+    s = re.sub(r"(?i)\beast\s+vancouver\b", "Vancouver", s)
+    s = re.sub(r"(?i)\bwest\s+point\s+grey\b", "", s)
     s = re.sub(r"(?i)\bwest\s+side\b", "", s)
     s = re.sub(r"\s*/\s*", " & ", s)
     s = re.sub(r"(?i)\s+\band\b\s+", " & ", s)
     s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
     s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
     s = re.sub(r"(?i)\bosk\b", "Oak St", s)
+    s = re.sub(r"(?i)\bholdomave\b", "Holdom Ave", s)
+    s = re.sub(
+        r"(?i)\b([A-Za-z]{3,})(Ave|Avenue|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)\b",
+        r"\1 \2",
+        s,
+    )
+    s = re.sub(r"(?i)\b([A-Za-z])\s*(Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)\b", r"\1 \2", s)
+    if (not has_house_addr) and ("white rock" in s.lower()):
+        m_wr = re.match(r"(?i)^\s*(\d{1,3}\s+Ave)\s*&\s*(\d{1,3})\s*(st|street)\b", s)
+        if m_wr:
+            s = re.sub(r"(?i)\bwhite rock\b", "Surrey", s)
+            s = f"{m_wr.group(1)}, Surrey"
     if has_house_addr and has_vancouver:
         def _fix_word_ave_ord(m):
             try:
@@ -531,11 +577,26 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\b(\d{1,4})\s+Street\b", r"\1 St", s)
     s = re.sub(r"(?i)\bFrancis\b(?!\s*(?:Rd|Road|St|Street|Ave|Avenue|Dr|Drive|Blvd|Boulevard|Way|Lane|Ln|Cres|Crescent|Ct|Court|Pl|Place)\b)", "Francis Rd", s)
     s = re.sub(r"(?i)\bubc\b", "", s)
+    keep_point_grey = False
+    try:
+        low0 = s.lower()
+        if ("point grey" in low0) and (("w 12" in low0) or ("w12" in low0) or ("12th" in low0)):
+            keep_point_grey = True
+            s = re.sub(r"(?i)\bpoint\s+grey\b", "pointgreykeep", s)
+    except Exception:
+        keep_point_grey = False
     s = re.sub(
         r"(?i)\b(oakridge|arbutus ridge|dunbar-southlands|renfrew-collingwood|kerrisdale|point grey|brighouse|broadmoor|whalley|metrotown|marpole|south vancouver|sunset)\b",
         "",
         s,
     )
+    s = re.sub(
+        r"(?i)\brenfrew\b(?!\s*(?:st|street|ave|avenue|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl|place|ct|court|cres|crescent|terr|terrace|hwy|highway)\b)",
+        "",
+        s,
+    )
+    if keep_point_grey:
+        s = re.sub(r"(?i)\bpointgreykeep\b", "Point Grey", s)
     s = re.sub(r"(?i)\b(st|street)\.(?=[a-z])", r"\1 ", s)
     s = re.sub(r"(?i)\bcentral\s+vancouver\b", "Vancouver", s)
     s = re.sub(r"(?i)\bother\b\s*$", "", s).strip()
@@ -956,6 +1017,15 @@ def _extract_intersection(text: str) -> Tuple[str, str]:
     t = (text or "")
     if not t:
         return ("", "")
+    try:
+        low = t.lower()
+    except Exception:
+        low = ""
+    if ("francis" in low) and (("no 3" in low) or ("no. 3" in low) or re.search(r"[三3]\s*号\s*路", t)):
+        return (_normalize_street_name("No. 3 Road"), _normalize_street_name("Francis Rd"))
+    if ("kingsway" in low) and ("nanaimo" in low):
+        if ("between" in low) or ("之间" in t) or re.search(r"(?i)\bkingsway\b\s*(?:与|和|&|and|/)\s*nanaimo\b", t):
+            return (_normalize_street_name("Kingsway"), _normalize_street_name("Nanaimo St"))
     m0 = re.search(r"(?i)\b(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\b", t)
     if m0:
         return (_normalize_street_name(f"{m0.group(1)} St"), _normalize_street_name(f"{m0.group(2)} Ave"))
@@ -1387,7 +1457,7 @@ def main():
             low_hint = hint.lower()
         except Exception:
             low_hint = ""
-        if ("white rock" in low_hint) or ("白石" in hint):
+        if (("white rock" in low_hint) or ("白石" in hint)) and (re.search(r"(?i)\bwhite rock\b", addr_for_check) or ("白石" in addr_for_check)):
             if (cur_city or "").strip().lower() != "white rock":
                 item["city"] = "White Rock"
                 changed_city += 1
@@ -1414,6 +1484,29 @@ def main():
                 has_detail_addr = True
                 needs_coords = True
                 priority_needs_geocode = True
+            if (cur_city or "").strip().lower() == "richmond":
+                if (("no 3" in low_hint) or ("no. 3" in low_hint)) and ("francis" in low_hint):
+                    item["address"] = "No. 3 Road & Francis Rd, Richmond"
+                    item["community"] = ""
+                    cur_comm = ""
+                    addr_for_check = str(item.get("address") or "")
+                    has_detail_addr = True
+                    needs_coords = True
+                    priority_needs_geocode = True
+            if (cur_city or "").strip().lower() == "vancouver":
+                try:
+                    low_text3 = text.lower()
+                except Exception:
+                    low_text3 = ""
+                if (("east vancouver" in low_hint) or ("vancouver east" in low_hint) or (addr_for_check.strip().lower() in ("east vancouver", "vancouver east"))):
+                    if ("kingsway" in low_text3) and ("nanaimo" in low_text3):
+                        item["address"] = "Kingsway & Nanaimo St, Vancouver"
+                        item["community"] = ""
+                        cur_comm = ""
+                        addr_for_check = str(item.get("address") or "")
+                        has_detail_addr = True
+                        needs_coords = True
+                        priority_needs_geocode = True
         
         if source == "vanpeople" and (cur_city or "").strip().lower() == "richmond" and (not has_detail_addr):
             low_text = text.lower()
@@ -1616,6 +1709,11 @@ def main():
             needs_coords = True
 
         if source == "craigslist" and coords_ok and is_source_map and has_detail_addr:
+            needs_coords = True
+            priority_needs_geocode = True
+            override_source_map = True
+            is_source_map = False
+            preserve_existing_bbox = True
             url_city = _city_hint_from_craigslist_url(item.get("url") or "")
             if url_city and (not cur_city or cur_city.lower() != url_city.lower()):
                 item["city"] = url_city
