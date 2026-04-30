@@ -443,6 +443,31 @@ def _normalize_geocode_query(q: str) -> str:
     s = s.replace("，", ",")
     s = s.replace("温哥华", "Vancouver").replace("列治文", "Richmond").replace("本拿比", "Burnaby").replace("素里", "Surrey")
     s = s.replace("高贵林港", "Port Coquitlam").replace("高贵林", "Coquitlam").replace("新西敏", "New Westminster")
+    def _ord_suffix(n: int) -> str:
+        if 10 <= (n % 100) <= 20:
+            return "th"
+        k = n % 10
+        if k == 1:
+            return "st"
+        if k == 2:
+            return "nd"
+        if k == 3:
+            return "rd"
+        return "th"
+    def _fix_ave_ord(m):
+        try:
+            n = int(m.group(2))
+        except Exception:
+            return m.group(0)
+        return f"{m.group(1).upper()} {n}{_ord_suffix(n)} Ave"
+    s = re.sub(r"(?i)\b([we])\s*(\d{1,2})\s*(?:st|nd|rd|th)?\s+ave\b", _fix_ave_ord, s)
+    def _fix_plain_ave_ord(m):
+        try:
+            n = int(m.group(1))
+        except Exception:
+            return m.group(0)
+        return f"{n}{_ord_suffix(n)} Ave"
+    s = re.sub(r"(?i)\b(\d{1,2})(?:st|nd|rd|th)\s+ave\b", _fix_plain_ave_ord, s)
     def _mask_to_mid(m):
         try:
             prefix = str(m.group(1) or "")
@@ -508,8 +533,7 @@ def _normalize_geocode_query(q: str) -> str:
 
     if re.search(rf"(?i)\b\d{{1,6}}\b.*\b{street_typ}\b", s):
         if has_house_addr:
-            s = re.sub(r"(?i)\b(\d{1,6})\s+near\s+([^,]+)$", r"\1 \2", s).strip()
-            s = re.sub(r"(?i)\b(\d{1,6})\s+near\s+([^,]+)\s*,", r"\1 \2,", s).strip()
+            s = re.sub(r"(?i)\s+\bnear\b\s+.*$", "", s).strip()
         s = re.sub(r"(?i)\s*,?\s*(?:directly\s*)?near\b\s+.*$", "", s).strip()
         s = re.sub(r"(?i),?\s*directly\s*$", "", s).strip()
     def _fix_street_city_tail(m):
@@ -1163,6 +1187,17 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
+        if source == "craigslist":
+            m_city = re.search(
+                r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
+                addr_for_check,
+            )
+            if m_city:
+                addr_city2 = str(m_city.group(1) or "").strip().title()
+                if addr_city2 and (not cur_city or cur_city.lower() != addr_city2.lower()):
+                    item["city"] = addr_city2
+                    changed_city += 1
+                    cur_city = addr_city2
         if coords_ok and (not is_source_map) and coord_source in ("city_bbox", "community_bbox"):
             if (
                 (not re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
