@@ -407,6 +407,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bnr\b\.?", "near", s)
     s = re.sub(r"(?i)\blansdown\b", "Lansdowne", s)
     s = re.sub(r"(?i)\bhwy\b\.?", "Hwy", s)
+    s = re.sub(r"(?i)\bpatterosn\b", "Patterson", s)
     s = re.sub(r"(?i)^\s*(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\s+(?:ave|avenue)\b", r"\1 St & \2 Ave", s)
     s = re.sub(
         r"(?i)\b(\d{3,6})\s+hampton\b(?!\s*(?:pl|place|st|street|ave|avenue|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl\.|ct|court|cres|crescent|terr|terrace|hwy|highway)\b)",
@@ -1309,6 +1310,28 @@ def main():
                 mq0 = str(item.get("map_query") or "").strip()
             except Exception:
                 mq0 = ""
+            if mq0 and (re.search(r"(?i)\b\d{1,6}\s*x{1,4}\b", mq0) or re.search(r"(?i)\b\d{1,6}x{1,4}\b", mq0)):
+                try:
+                    m_no = re.search(r"(?i)\bno\.?\s*(\d+)\s*(road|rd)\b", mq0)
+                except Exception:
+                    m_no = None
+                if m_no and cur_city:
+                    item["address"] = f"No. {m_no.group(1)} Road, {cur_city}"
+                    addr_for_check = str(item.get("address") or "")
+                    has_detail_addr = True
+                    needs_coords = True
+                    priority_needs_geocode = True
+                elif cur_city:
+                    try:
+                        mq_street = re.sub(r"(?i)^\s*\d{1,6}\s*x{1,4}\s+", "", mq0).strip()
+                    except Exception:
+                        mq_street = ""
+                    if mq_street:
+                        item["address"] = f"{mq_street}, {cur_city}".strip(", ").strip()
+                        addr_for_check = str(item.get("address") or "")
+                        has_detail_addr = True
+                        needs_coords = True
+                        priority_needs_geocode = True
             if mq0 and ("\n" not in mq0) and (len(mq0) <= 80):
                 mq0c = _clean_extracted_addr(mq0)
                 if mq0c and re.search(r"(?i)^\s*\d{3,6}\b", mq0c) and re.search(
