@@ -541,6 +541,7 @@ def _normalize_geocode_query(q: str) -> str:
         )
         if re.search(r"(?i),\s*(surrey|delta|langley|coquitlam|burnaby|richmond|new westminster|port coquitlam|port moody)\b", s):
             s = re.sub(r"(?i)\b(\d{2,3})(st|nd|rd|th)\s+(Ave|Avenue)\b", r"\1 \3", s)
+            s = re.sub(r"(?i)\b(\d{2,3})(st|nd|rd|th)\s+(St|Street)\b", r"\1 St", s)
     if has_house_addr:
         s = re.sub(
             r"(?i)\b(south|north|east|west)\s+cambie\b",
@@ -1251,6 +1252,10 @@ def main():
                 changed_city += 1
                 cur_city = "Vancouver"
             if ("nanaimo" in low_hint) and (("skytrain" in low_hint) or ("station" in low_hint) or ("天车" in hint)):
+                item["city"] = "Vancouver"
+                changed_city += 1
+                cur_city = "Vancouver"
+            if ("sunset" in low_hint) or ("south vancouver" in low_hint) or re.search(r"(?i)\b(east|west|e|w)\s*\d{1,3}(st|nd|rd|th)\s+(ave|avenue)\b", addr_for_check):
                 item["city"] = "Vancouver"
                 changed_city += 1
                 cur_city = "Vancouver"
