@@ -4239,10 +4239,6 @@
         49.1721052,
         -123.1464684
     ],
-    "6671 Maple Road, Richmond, BC, Canada": [
-        49.1470506,
-        -123.1495281
-    ],
     "15451 91A Avenue Guildford, Guildford, Surrey, BC, Canada": [
         49.1693091,
         -122.7687951
@@ -4630,10 +4626,6 @@
     "9633 Manchester Drive, Burnaby, BC, Canada": [
         49.2477164,
         -122.8977099
-    ],
-    "7333 Murdoch Avenue, Richmond, BC, Canada": [
-        49.1674348,
-        -123.1414745
     ],
     "6088 Willingdon Avenue, Burnaby, BC, Canada": [
         49.228904,
@@ -6443,10 +6435,6 @@
         48.4346857,
         -123.3895248
     ],
-    "995 Adair Avenue, Coquitlam, BC, Canada": [
-        49.2367614,
-        -122.8683929
-    ],
     "3592 Hull St, Vancouver, BC, Canada": [
         49.2519603,
         -123.0638405
@@ -6975,49 +6963,17 @@
         49.2161049,
         -122.9575207
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
-    "3370 Dewdney Trunk Road, Port Moody, BC, Canada": [
-        49.2762926,
-        -122.8249738
-    ],
     "Lansdowne Road, Richmond, Richmond, BC, Canada": [
         49.1737893,
         -123.1340994
-    ],
-    "8160 McMyn Way, Richmond, BC, Canada": [
-        49.190196,
-        -123.1325418
-    ],
-    "7708 ALDERBRIDGE Way, Richmond, BC, Canada": [
-        49.1748868,
-        -123.1429122
     ],
     "989 Nelson St, Vancouver, BC, Canada": [
         49.2810946,
         -123.1249752
     ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
-    "3980 Inlet Crescent, North Vancouver, BC, Canada": [
-        49.3210222,
-        -122.962781
-    ],
     "3432 Raleigh St, Port Coquitlam, BC, Canada": [
         49.2733924,
         -122.7856732
-    ],
-    "2975 Atlantic Avenue, Coquitlam, BC, Canada": [
-        49.2817705,
-        -122.7995387
-    ],
-    "600 Rochester Avenue, Coquitlam, BC, Canada": [
-        49.2453985,
-        -122.8791112
     ],
     "261 East 3rd Street, BC, Canada": [
         49.3108809,
@@ -7031,17 +6987,9 @@
         49.2240548,
         -123.0295391
     ],
-    "6658 Dow Avenue, Burnaby, BC, Canada": [
-        49.223318,
-        -123.0008377
-    ],
     "4234 Windsor St, Vancouver, BC, Canada": [
         49.2540951,
         -123.0837008
-    ],
-    "4184 DOLLAR ROAD, North Vancouver, BC, Canada": [
-        49.3083051,
-        -122.9551014
     ],
     "140 114A Avenue, Surrey, BC, Canada": [
         49.2107113,
@@ -7050,14 +6998,6 @@
     "488 helmcken St, Vancouver, BC, Canada": [
         49.2764741,
         -123.1227657
-    ],
-    "1995 Sasamat place, Vancouver, BC, Canada": [
-        49.2691866,
-        -123.208037
-    ],
-    "5410 shortcut road, Vancouver, BC, Canada": [
-        49.2651244,
-        -123.2358046
     ],
     "5550 CORNWALL Drive., BC, Canada": [
         49.1716112,
@@ -7083,10 +7023,6 @@
         49.2367614,
         -122.8683929
     ],
-    "Garden City Park, Richmond, BC, Canada": [
-        49.1645913,
-        -123.1224606
-    ],
     "6098 Station St, Burnaby, BC, Canada": [
         49.2284782,
         -123.0013361
@@ -7099,17 +7035,161 @@
         49.237004,
         -123.1359849
     ],
+    "4200 Tyson Place, Richmond, BC, Canada": [
+        49.1616583,
+        -123.1789348
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "901 Lougheed Highway, Coquitlam, Burnaby, BC, Canada": [
+        49.2458181,
+        -122.8927024
+    ],
+    "845 smith Avenue, Coquitlam, BC, Canada": [
+        49.259835,
+        -122.8617306
+    ],
+    "8600 PARK Road., Richmond, BC, Canada": [
+        49.1642972,
+        -123.1284883
+    ],
+    "3426 princeton Avenue, Coquitlam, BC, Canada": [
+        49.2972328,
+        -122.7446676
+    ],
+    "5989 Iona Drive, Vancouver, BC, Canada": [
+        49.2719081,
+        -123.2504904
+    ],
+    "5725 Agronomy Road, BC, Canada": [
+        49.2641287,
+        -123.2399626
+    ],
+    "131 A St, BC, Canada": [
+        49.0067213,
+        -122.2608323
+    ],
+    "2150 33rd Avenue, BC, Canada": [
+        49.2418485,
+        -123.155527
+    ],
+    "Laurel Drive, Surrey, BC, Canada": [
+        49.1781541,
+        -122.8366548
+    ],
+    "140 St, Surrey, Surrey, BC, Canada": [
+        49.1276888,
+        -122.8344125
+    ],
+    "5352 dominion St, Burnaby, BC, Canada": [
+        49.2561358,
+        -122.9878617
+    ],
+    "906 madore Avenue, Coquitlam, BC, Canada": [
+        49.2460348,
+        -122.8723091
+    ],
+    "995 Adair Avenue, Coquitlam, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
+    "3370 Dewdney Trunk Road, Port Moody, BC, Canada": [
+        49.2762926,
+        -122.8249738
+    ],
+    "8160 McMyn Way, Richmond, BC, Canada": [
+        49.190196,
+        -123.1325418
+    ],
+    "7708 ALDERBRIDGE Way, Richmond, BC, Canada": [
+        49.1748868,
+        -123.1429122
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "3980 Inlet Crescent, North Vancouver, BC, Canada": [
+        49.3210222,
+        -122.962781
+    ],
+    "2975 Atlantic Avenue, Coquitlam, BC, Canada": [
+        49.2817705,
+        -122.7995387
+    ],
+    "600 Rochester Avenue, Coquitlam, BC, Canada": [
+        49.2453985,
+        -122.8791112
+    ],
+    "6658 Dow Avenue, Burnaby, BC, Canada": [
+        49.223318,
+        -123.0008377
+    ],
+    "4184 DOLLAR ROAD, North Vancouver, BC, Canada": [
+        49.3083051,
+        -122.9551014
+    ],
+    "140, BC, Canada": [
+        49.1568223,
+        -123.9627439
+    ],
+    "1995 Sasamat place, Vancouver, BC, Canada": [
+        49.2691866,
+        -123.208037
+    ],
+    "5410 shortcut road, Vancouver, BC, Canada": [
+        49.2651244,
+        -123.2358046
+    ],
+    "Garden City Park, Richmond, BC, Canada": [
+        49.1645913,
+        -123.1224606
+    ],
+    "E 34th Ave, Vancouver, BC, Canada": [
+        49.2392921,
+        -123.0697156
+    ],
+    "Street Margarets St, Vancouver, Vancouver, BC, Canada": [
+        49.2311219,
+        -123.0565581
+    ],
+    "132 St 106, Vancouver, BC, Canada": [
+        49.1137716,
+        -122.8566065
+    ],
+    "Wesbrook Mall Vancouver, BC, Canada": [
+        49.2650436,
+        -123.2446879
+    ],
+    "7400 Minoru Boulevard, Richmond, BC, Canada": [
+        49.1643448,
+        -123.1403664
+    ],
+    "6671 Maple Road, Richmond, BC, Canada": [
+        49.1470506,
+        -123.1495281
+    ],
+    "7333 Murdoch Avenue, Richmond, BC, Canada": [
+        49.1674348,
+        -123.1414745
+    ],
+    "7418 Paulson St, Vancouver, BC, Canada": [
+        49.2173131,
+        -123.1182076
+    ],
     "7368 Gollner Avenue, Richmond, BC, Canada": [
         49.167957,
         -123.1418718
     ],
     "3175 East Broadway, Vancouver, BC, Canada": [
-        49.2622464,
-        -123.0371745
+        49.2623278,
+        -123.064394
     ],
     "5818 Booth Avenue, Burnaby, BC, Canada": [
-        49.2337777,
-        -122.9991716
+        49.2318439,
+        -122.998799
     ],
     "3833 Evergreen Place, Burnaby, BC, Canada": [
         49.2496363,
@@ -7144,8 +7224,8 @@
         -122.9051373
     ],
     "1380 Pinetree Way, Coquitlam, BC, Canada": [
-        49.2769931,
-        -122.7965054
+        49.2804906,
+        -122.7935568
     ],
     "2070 Oak Meadows Drive, Surrey, BC, Canada": [
         49.0428151,
@@ -7158,9 +7238,5 @@
     "4720 Lougheed Highway, Burnaby, BC, Canada": [
         49.2653358,
         -122.994647
-    ],
-    "4200 Tyson Place, Richmond, BC, Canada": [
-        49.1616583,
-        -123.1789348
     ]
 }
