@@ -615,10 +615,6 @@
         49.1336754,
         -123.071924
     ],
-    "10931 Bamberton Drive, Richmond, BC, Canada": [
-        49.1387631,
-        -123.145703
-    ],
     "Whiteoak Drive, Richmond, BC, Canada": [
         49.1446726,
         -123.14982
@@ -1039,10 +1035,6 @@
         49.0448085,
         -122.8577222
     ],
-    "611 Regan Avenue, Coquitlam, BC, Canada": [
-        49.26158,
-        -122.8467292
-    ],
     "1319 West 47th Avenue Oakridge, Vancouver, BC, Canada": [
         49.2288978,
         -123.1355568
@@ -1374,10 +1366,6 @@
     "King George Boulevard, Surrey, BC, Canada": [
         49.1583003,
         -122.8457284
-    ],
-    "8600 Number 1 Road, Richmond, BC, Canada": [
-        49.1516097,
-        -123.1812386
     ],
     "4688 Kingsway Metrotown, Burnaby, BC, Canada": [
         49.2287293,
@@ -3279,10 +3267,6 @@
         49.2134643,
         -123.0231587
     ],
-    "8000 Westminster Highway Richmond, BC, Canada": [
-        49.168161,
-        -122.9739467
-    ],
     "2728 Acadia Road Vancouver, BC, Canada": [
         49.2766516,
         -123.2444464
@@ -3623,10 +3607,6 @@
         49.1730184,
         -122.7900313
     ],
-    "7250 18th Avenue, Burnaby, BC, Canada": [
-        49.2287451,
-        -122.9285303
-    ],
     "567 emerson street, BC, Canada": [
         49.2304372,
         -122.9669889
@@ -3935,10 +3915,6 @@
         49.1918704,
         -123.11403
     ],
-    "9200 Walford Street, Richmond, BC, Canada": [
-        49.1890539,
-        -123.1226937
-    ],
     "590 West 64th Avenue Vancouver, BC, Canada": [
         49.2121525,
         -123.1195899
@@ -4062,10 +4038,6 @@
     "859 Paisley Avenue, Port Coquitlam, BC, Canada": [
         49.2796641,
         -122.7355417
-    ],
-    "1328 W Pender Street, Vancouver, BC, Canada": [
-        49.2890709,
-        -123.1267714
     ],
     "455 SW Marine Drive, Vancouver, BC, Canada": [
         49.2113295,
@@ -5007,10 +4979,6 @@
         49.1115103,
         -122.745194
     ],
-    "435 Boundary Road, Burnaby, BC, Canada": [
-        49.2660394,
-        -123.0234584
-    ],
     "6188 Patterson Avenue, Burnaby, BC, Canada": [
         49.227849,
         -123.012068
@@ -5119,10 +5087,6 @@
         49.2342947,
         -123.1864971
     ],
-    "13560 Westminster Highway, Richmond, BC, Canada": [
-        49.168161,
-        -122.9739467
-    ],
     "2070 Southwest Marine Drive, Vancouver, BC, Canada": [
         49.2142621,
         -123.1544657
@@ -5130,10 +5094,6 @@
     "14 Avenue, Burnaby, BC, Canada": [
         49.2145425,
         -122.9496751
-    ],
-    "8888 Spires Road, Richmond, BC, Canada": [
-        49.1673293,
-        -123.1299539
     ],
     "82 W 45 Ave, Vancouver, BC, Canada": [
         49.0849588,
@@ -6411,10 +6371,6 @@
         49.2627824,
         -123.0936358
     ],
-    "Burquitlam Station, Coquitlam, BC, Canada": [
-        49.2613309,
-        -122.8899378
-    ],
     "2204 Fullerton Avenue, BC, Canada": [
         48.4346857,
         -123.3895248
@@ -7255,10 +7211,6 @@
         49.1749489,
         -123.1464779
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
     "Nunavut Lane, Vancouver, BC, Canada": [
         49.2114305,
         -123.1162354
@@ -7270,10 +7222,6 @@
     "995 Adair Avenue, Coquitlam, BC, Canada": [
         49.2367614,
         -122.8683929
-    ],
-    "3370 Dewdney Trunk Road, Port Moody, BC, Canada": [
-        49.2762926,
-        -122.8249738
     ],
     "111 West Georgia St, Vancouver, BC, Canada": [
         49.2850774,
@@ -7338,22 +7286,6 @@
     "5989 Iona Drive, Vancouver, BC, Canada": [
         49.2719081,
         -123.2504904
-    ],
-    "Garden City Park, Richmond, BC, Canada": [
-        49.1645913,
-        -123.1224606
-    ],
-    "6368 Buckingham Drive, Burnaby, BC, Canada": [
-        49.2308476,
-        -122.9556002
-    ],
-    "1180 Lawson Avenue, West Vancouver, BC, Canada": [
-        49.3368057,
-        -123.1246645
-    ],
-    "3833 Evergreen Place, Burnaby, BC, Canada": [
-        49.2496363,
-        -122.8939299
     ],
     "7428 14 Avenue, BC, Canada": [
         49.0275019,
@@ -7438,5 +7370,249 @@
     "567 Clarke Road, Coquitlam, BC, Canada": [
         49.2625289,
         -122.8892883
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "1328 W Pender St, Vancouver, BC, Canada": [
+        49.2890709,
+        -123.1267714
+    ],
+    "10138 Boulevard, Surrey, BC, Canada": [
+        49.1867484,
+        -122.8428794
+    ],
+    "480 Robson St, Vancouver, BC, Canada": [
+        49.2797564,
+        -123.1178625
+    ],
+    "213 Finnigan St, Coquitlam, BC, Canada": [
+        49.2371961,
+        -122.8368985
+    ],
+    "White Rock blackwood St, White Rock, BC, Canada": [
+        49.0274567,
+        -122.80661
+    ],
+    "thrift Avenue, White Rock, White Rock, BC, Canada": [
+        49.0274793,
+        -122.7922226
+    ],
+    "180 St, Surrey, BC, Canada": [
+        49.1200385,
+        -122.7238004
+    ],
+    "1850 180 St, Surrey, BC, Canada": [
+        49.1200385,
+        -122.7238004
+    ],
+    "4085 West 38th Avenue, Vancouver,, BC, Canada": [
+        49.2378632,
+        -123.1962483
+    ],
+    "3289 Riverwalk Avenue., Vancouver, BC, Canada": [
+        49.2058106,
+        -123.03784
+    ],
+    "2328 Cambridge St., Vancouver, BC, Canada": [
+        49.2863466,
+        -123.0574059
+    ],
+    "1436 Graveley St., Vancouver, BC, Canada": [
+        49.2702869,
+        -123.074494
+    ],
+    "Burquitlam Station, Coquitlam, BC, Canada": [
+        49.2613309,
+        -122.8899378
+    ],
+    "2326 Eton St., Vancouver, BC, Canada": [
+        49.287248,
+        -123.0571948
+    ],
+    "5504, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "West 14th Avenue  Columbia St, Vancouver, BC, Canada": [
+        49.2589878,
+        -123.1148764
+    ],
+    "939 expo boulevard, Vancouver, BC, Canada": [
+        49.2775755,
+        -123.1127768
+    ],
+    "435 Boundary Road, Burnaby, BC, Canada": [
+        49.2660394,
+        -123.0234584
+    ],
+    "5900 TYNE, Vancouver, BC, Canada": [
+        49.226975,
+        -123.0321631
+    ],
+    "2180 Kelly Avenue, Port Coquitlam, BC, Canada": [
+        49.2590592,
+        -122.7833074
+    ],
+    "127 St, Surrey, BC, Canada": [
+        49.1881051,
+        -122.8713428
+    ],
+    "St  64A Ave, Surrey, BC, Canada": [
+        49.1197768,
+        -122.8546324
+    ],
+    "161 St, Surrey, BC, Canada": [
+        49.0292838,
+        -122.7764491
+    ],
+    "3370 Dewdney Trunk Road, Port Moody, BC, Canada": [
+        49.2762926,
+        -122.8249738
+    ],
+    "239 Keefer St, Vancouver, BC, Canada": [
+        49.2796634,
+        -123.0983039
+    ],
+    "Garden City Park, Richmond, BC, Canada": [
+        49.1645913,
+        -123.1224606
+    ],
+    "W 52nd Ave, Vancouver, BC, Canada": [
+        49.2240142,
+        -123.1353151
+    ],
+    "5588 Churchill St, Vancouver, Vancouver, BC, Canada": [
+        49.2356476,
+        -123.1409255
+    ],
+    "9045 Walnut Grove Drive, Langley, BC, Canada": [
+        49.1663362,
+        -122.6365769
+    ],
+    "6320 No. 3 Road, Richmond, BC, Canada": [
+        49.1102782,
+        -123.1383004
+    ],
+    "7588 16 St, BC, Canada": [
+        50.2772359,
+        -119.2523779
+    ],
+    "13383 108 Avenue, Surrey, BC, Canada": [
+        49.1992214,
+        -122.8514216
+    ],
+    "9560 Alexandra Road, Richmond, BC, Canada": [
+        49.1783168,
+        -123.1174559
+    ],
+    "1289 Hornby St, BC, Canada": [
+        49.2778503,
+        -123.1295899
+    ],
+    "Camosun St, Vancouver, Vancouver, BC, Canada": [
+        49.2613788,
+        -123.1970295
+    ],
+    "9200 Walford St, Richmond, BC, Canada": [
+        49.1890539,
+        -123.1226937
+    ],
+    "8888 Spires Road, Richmond, BC, Canada": [
+        49.1671404,
+        -123.1304188
+    ],
+    "Grant St, Vancouver, BC, Canada": [
+        49.271482,
+        -123.0754434
+    ],
+    "17 Avenue, Burnaby, BC, Canada": [
+        49.2145425,
+        -122.9496751
+    ],
+    "W 4th Ave  blanca St, Vancouver, BC, Canada": [
+        49.2686716,
+        -123.2151704
+    ],
+    "8000 Westminster Highway, BC, Canada": [
+        49.168161,
+        -122.9739467
+    ],
+    "6000 McKay Avenue, Burnaby, BC, Canada": [
+        49.2290292,
+        -123.0026753
+    ],
+    "3131 Ketcheson Road, Richmond, BC, Canada": [
+        49.1894795,
+        -123.126499
+    ],
+    "7250 18 Avenue, Burnaby, BC, Canada": [
+        49.2462415,
+        -123.0300998
+    ],
+    "8600 No. 1 Road, BC, Canada": [
+        49.1156752,
+        -122.0995737
+    ],
+    "10931 Bamberton Drive, Richmond, BC, Canada": [
+        49.1387631,
+        -123.145703
+    ],
+    "9800 Granville Avenue, Richmond, BC, Canada": [
+        49.1626654,
+        -123.1291202
+    ],
+    "6930 Quebec St, Vancouver, BC, Canada": [
+        49.271401,
+        -123.102212
+    ],
+    "611 Regan Avenue, Coquitlam, BC, Canada": [
+        49.26158,
+        -122.8467292
+    ],
+    "Langara, Vancouver, BC, Canada": [
+        49.2194372,
+        -123.118025
+    ],
+    "47 Ave, Vancouver, Vancouver, BC, Canada": [
+        49.0877178,
+        -122.6747009
+    ],
+    "4132 Halifax St, Burnaby, BC, Canada": [
+        49.2675089,
+        -123.0128919
+    ],
+    "13560 Westminster Highway, Richmond, BC, Canada": [
+        49.168161,
+        -122.9739467
+    ],
+    "1955 Alpha Way, Burnaby, BC, Canada": [
+        49.2668307,
+        -123.0003775
+    ],
+    "2669 West 20th Avenue, Vancouver, BC, Canada": [
+        49.254803,
+        -123.1643
+    ],
+    "9740 Sealily Place, Richmond, BC, Canada": [
+        49.1431907,
+        -123.0995219
+    ],
+    "2215 Qualicum Drive, BC, Canada": [
+        49.2126492,
+        -123.0613785
+    ],
+    "6368 Buckingham Drive, Burnaby, BC, Canada": [
+        49.2308476,
+        -122.9556002
+    ],
+    "1180 Lawson Avenue, West Vancouver, BC, Canada": [
+        49.3368057,
+        -123.1246645
+    ],
+    "3833 Evergreen Place, Burnaby, BC, Canada": [
+        49.2496363,
+        -122.8939299
     ]
 }
