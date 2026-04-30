@@ -558,6 +558,11 @@ def _normalize_geocode_query(q: str) -> str:
 
     if (not has_house_addr) and re.search(r"(?i)\bnear\b", s) and ("&" not in s):
         s = re.sub(
+            rf"(?i)\b([^,]{{3,80}}?\b{street_typ})\b\s+near\s+([^,]{{3,80}}?\b(?:mall|centre|center|station|skytrain))\b",
+            r"\1 & \2",
+            s,
+        )
+        s = re.sub(
             rf"(?i)\b([^,]{{3,80}}?\b{street_typ})\b\s+near\s+([^,]{{3,80}}?\b{street_typ})\b",
             r"\1 & \2",
             s,
@@ -590,6 +595,13 @@ def _normalize_geocode_query(q: str) -> str:
             s = re.sub(r"(?i)\s+\bnear\b\s+.*$", "", s).strip()
         s = re.sub(r"(?i)\s*,?\s*(?:directly\s*)?near\b\s+.*$", "", s).strip()
         s = re.sub(r"(?i),?\s*directly\s*$", "", s).strip()
+    s = re.sub(r"(?i)\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTVXY]\s*\d[ABCEGHJ-NPRSTVXY]\d\b", "", s)
+    s = re.sub(r"(?i)\bBC\b(?!\s*,?\s*Canada\b)", "", s)
+    s = re.sub(
+        r"(?i)\b(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver|port coquitlam|port moody|abbotsford)\s+BC\b",
+        r"\1, BC",
+        s,
+    )
     def _fix_street_city_tail(m):
         typ = (m.group(1) or "").strip()
         extra = (m.group(2) or "").strip()
@@ -601,6 +613,11 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(
         r"(?i)\b(Ave|Avenue|Street|St|Road|Rd|Drive|Dr|Boulevard|Blvd|Ln|Lane|Way|Pl|Place|Ct|Court|Crescent|Cres|Terrace|Terr)\b\s+([A-Za-z][A-Za-z.'\-]{2,})\s*,\s*(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
         _fix_street_city_tail,
+        s,
+    )
+    s = re.sub(
+        rf"(?i)\b({street_typ})\b\s+(Vancouver|Richmond|Burnaby|Surrey|Coquitlam|Delta|Langley|New Westminster|North Vancouver|West Vancouver|Port Coquitlam|Port Moody|Abbotsford)\b",
+        r"\1, \2",
         s,
     )
     if has_house_addr:
@@ -636,7 +653,14 @@ def _normalize_geocode_query(q: str) -> str:
             s = re.sub(r"(?i)\b37\s*ave\b", "W 37 Ave", s)
             s = re.sub(r"(?i)\bcambie\b", "Cambie St", s)
             if ("w 64" in low) and ("&" not in s):
-                s = re.sub(r"(?i)\bCambie St\b\s+W\s*(\d{1,3})\s+Ave\b", r"Cambie St & W \1 Ave", s)
+                def _cambie_w64(m):
+                    try:
+                        n = int(m.group(1))
+                    except Exception:
+                        return m.group(0)
+                    suf = m.group(2) or _ord_suffix(n)
+                    return f"Cambie St & W {n}{suf} Ave"
+                s = re.sub(r"(?i)\bCambie St\b\s+W\s*(\d{1,3})(st|nd|rd|th)?\s+Ave\b", _cambie_w64, s)
         if "kingsway" in low:
             m = re.search(r"(?i)\bE\s*(\d{1,3})\s*Ave\b", s)
             if m and ("knight" in low):
