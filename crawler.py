@@ -1024,16 +1024,49 @@ class HavenNestCrawler:
             detail_timeout = int(os.getenv("HAVENNEST_CRAIGSLIST_DETAIL_TIMEOUT") or "12")
         except:
             detail_timeout = 12
+        deadline = t0 + float(max_s)
+        use_alarm = (os.name != "nt")
+        def _safe_get(u, timeout_s):
+            ts = float(timeout_s) if timeout_s else 0.0
+            if ts <= 0:
+                ts = 12.0
+            if use_alarm:
+                try:
+                    import signal
+                    class _HNTimeout(Exception):
+                        pass
+                    def _handler(signum, frame):
+                        raise _HNTimeout()
+                    old = signal.signal(signal.SIGALRM, _handler)
+                    signal.alarm(max(1, int(ts) + 8))
+                    try:
+                        return scraper.get(u, timeout=ts)
+                    finally:
+                        try:
+                            signal.alarm(0)
+                        except:
+                            pass
+                        try:
+                            signal.signal(signal.SIGALRM, old)
+                        except:
+                            pass
+                except Exception:
+                    return None
+            try:
+                return scraper.get(u, timeout=ts)
+            except Exception:
+                return None
         try:
             url = "https://vancouver.craigslist.org/search/apa"
-            res = scraper.get(url, timeout=20)
-            if res.status_code != 200: return []
+            res = _safe_get(url, 20)
+            if (not res) or res.status_code != 200:
+                return []
             
             soup = BeautifulSoup(res.text, 'html.parser')
             posts = soup.find_all('li', class_='cl-static-search-result')
             
             for post in posts[:limit]:
-                if (time.time() - t0) > max_s:
+                if time.time() >= deadline:
                     break
                 try:
                     title_el = post.find('div', class_='title')
@@ -1048,8 +1081,12 @@ class HavenNestCrawler:
                     
                     # 深度抓取详情页获取图片集和描述
                     print(f"  Deep crawling Craigslist: {title[:20]}...")
-                    d_res = scraper.get(detail_url, timeout=detail_timeout)
-                    if d_res.status_code != 200:
+                    remain = max(0.0, deadline - time.time())
+                    if remain <= 0:
+                        break
+                    dt = min(float(detail_timeout), max(3.0, remain))
+                    d_res = _safe_get(detail_url, dt)
+                    if (not d_res) or d_res.status_code != 200:
                         continue
                     if re.search(r'(?i)this posting has been deleted|flagged for removal|posting has expired|has expired', d_res.text or ""):
                         continue
