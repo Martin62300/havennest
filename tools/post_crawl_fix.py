@@ -1166,7 +1166,7 @@ def main():
             if (
                 (not re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
                 and re.search(
-                    r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace)\b",
+                    r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)\b",
                     addr_for_check,
                 )
             ):
@@ -1184,7 +1184,7 @@ def main():
         has_detail_addr = bool(
             re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check)
             and re.search(
-                r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace)\b",
+                r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)\b",
                 addr_for_check,
             )
         )
@@ -1197,12 +1197,43 @@ def main():
         has_intersection_addr = bool(
             ("&" in addr_for_check)
             and re.search(
-                r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace)\b",
+                r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)\b",
                 addr_for_check,
             )
         )
         has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
         priority_needs_geocode = False
+
+        if source == "vanpeople":
+            try:
+                mq0 = str(item.get("map_query") or "").strip()
+            except Exception:
+                mq0 = ""
+            if mq0 and ("\n" not in mq0) and (len(mq0) <= 80):
+                mq0c = _clean_extracted_addr(mq0)
+                if mq0c and re.search(r"(?i)^\s*\d{3,6}\b", mq0c) and re.search(
+                    r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)\b",
+                    mq0c,
+                ):
+                    try:
+                        addr_len = len(str(item.get("address") or ""))
+                    except Exception:
+                        addr_len = 0
+                    if (not has_detail_addr) or addr_len >= 120:
+                        item["address"] = mq0c
+                        addr_for_check = mq0c
+                        has_detail_addr = True
+                        needs_coords = True
+                        priority_needs_geocode = True
+
+        if coords_ok and (not is_source_map) and coord_source == "city_center_fallback" and has_detail_addr:
+            item["lat"] = None
+            item["lng"] = None
+            lat = None
+            lng = None
+            coords_ok = False
+            needs_coords = True
+            priority_needs_geocode = True
 
         hint = " ".join([title, addr_for_check, str(item.get("map_query") or "")])
         try:
