@@ -1030,6 +1030,24 @@ class HavenNestCrawler:
             ts = float(timeout_s) if timeout_s else 0.0
             if ts <= 0:
                 ts = 12.0
+            hard = max(4.0, ts + 8.0)
+            try:
+                import threading
+            except Exception:
+                threading = None
+            if threading:
+                box = {}
+                def _runner():
+                    try:
+                        box["res"] = scraper.get(u, timeout=ts)
+                    except Exception as e:
+                        box["err"] = e
+                t = threading.Thread(target=_runner, daemon=True)
+                t.start()
+                t.join(hard)
+                if t.is_alive():
+                    return None
+                return box.get("res")
             if use_alarm:
                 try:
                     import signal
