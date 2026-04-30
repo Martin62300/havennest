@@ -1031,23 +1031,6 @@ class HavenNestCrawler:
             if ts <= 0:
                 ts = 12.0
             hard = max(4.0, ts + 8.0)
-            try:
-                import threading
-            except Exception:
-                threading = None
-            if threading:
-                box = {}
-                def _runner():
-                    try:
-                        box["res"] = scraper.get(u, timeout=ts)
-                    except Exception as e:
-                        box["err"] = e
-                t = threading.Thread(target=_runner, daemon=True)
-                t.start()
-                t.join(hard)
-                if t.is_alive():
-                    return None
-                return box.get("res")
             if use_alarm:
                 try:
                     import signal
@@ -1069,7 +1052,28 @@ class HavenNestCrawler:
                         except:
                             pass
                 except Exception:
+                    pass
+            try:
+                import threading
+            except Exception:
+                threading = None
+            if threading:
+                box = {}
+                def _runner():
+                    try:
+                        box["res"] = scraper.get(u, timeout=ts)
+                    except Exception as e:
+                        box["err"] = e
+                t = threading.Thread(target=_runner, daemon=True)
+                t.start()
+                t.join(hard)
+                if t.is_alive():
+                    try:
+                        print(f"  Craigslist request hard-timeout: {u}")
+                    except Exception:
+                        pass
                     return None
+                return box.get("res")
             try:
                 return scraper.get(u, timeout=ts)
             except Exception:
@@ -1103,6 +1107,10 @@ class HavenNestCrawler:
                     if remain <= 0:
                         break
                     dt = min(float(detail_timeout), max(3.0, remain))
+                    try:
+                        print(f"    Fetch: {detail_url}")
+                    except Exception:
+                        pass
                     d_res = _safe_get(detail_url, dt)
                     if (not d_res) or d_res.status_code != 200:
                         continue
