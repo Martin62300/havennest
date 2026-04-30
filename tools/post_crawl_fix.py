@@ -407,6 +407,12 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bnr\b\.?", "near", s)
     s = re.sub(r"(?i)\blansdown\b", "Lansdowne", s)
     s = re.sub(r"(?i)\bhwy\b\.?", "Hwy", s)
+    s = re.sub(r"(?i)^\s*(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\s+(?:ave|avenue)\b", r"\1 St & \2 Ave", s)
+    s = re.sub(
+        r"(?i)\b(\d{3,6})\s+hampton\b(?!\s*(?:pl|place|st|street|ave|avenue|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl\.|ct|court|cres|crescent|terr|terrace|hwy|highway)\b)",
+        r"\1 Hampton Pl",
+        s,
+    )
     s = s.replace("白石镇", "White Rock").replace("白石", "White Rock")
     s = re.sub(r"(?i)\bwest\s+side\b", "", s)
     s = re.sub(r"\s*/\s*", " & ", s)
@@ -468,6 +474,17 @@ def _normalize_geocode_query(q: str) -> str:
             return m.group(0)
         return f"{n}{_ord_suffix(n)} Ave"
     s = re.sub(r"(?i)\b(\d{1,2})(?:st|nd|rd|th)\s+ave\b", _fix_plain_ave_ord, s)
+    def _fix_ew_ord_notype(m):
+        try:
+            n = int(m.group(2))
+        except Exception:
+            return m.group(0)
+        return f"{m.group(1).upper()} {n}{_ord_suffix(n)} Ave"
+    s = re.sub(
+        r"(?i)\b([we])\s*(\d{1,2})(st|nd|rd|th)\b(?!\s*(?:ave|avenue|st|street|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl|place|ct|court|cres|crescent|terr|terrace|hwy|highway)\b)",
+        _fix_ew_ord_notype,
+        s,
+    )
     def _mask_to_mid(m):
         try:
             prefix = str(m.group(1) or "")
@@ -503,6 +520,10 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bother\b\s*$", "", s).strip()
     s = re.sub(r"\s*,\s*,\s*", ", ", s)
     s = re.sub(r"\s*,\s*", ", ", s)
+    if not has_house_addr:
+        s = re.sub(r"\s*\([^)]{1,40}\)", "", s).strip()
+        s = re.sub(r"\s*-\s*[^,]+(?=,)", "", s).strip()
+        s = re.sub(r"\s*-\s*[^,]+$", "", s).strip()
     s = re.sub(r"(?i)\b(\d{1,3})\s*Ave\b\s+(\d{1,4})\s*St\b", r"\2 St & \1 Ave", s)
     s = re.sub(r"(?i)\b(\d{1,3})\s*&\s*(\d{1,3}[a-z]?)\s*St\b", r"\2 St & \1 Ave", s)
     s = re.sub(r"(?i)\b(St\s*&\s*\d{1,3}\s+Ave)\s+(Langley|Surrey|Delta|Vancouver|Burnaby|Coquitlam|Richmond)\b", r"\1, \2", s)
@@ -531,8 +552,20 @@ def _normalize_geocode_query(q: str) -> str:
             tail = (m.group(3) or "")
             s = f"{left} & {right}{tail}"
 
+    if (not has_house_addr) and re.search(r"(?i)^\s*(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\s+(?:ave|avenue)\b", s):
+        s = re.sub(
+            r"(?i)^\s*(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\s+(?:ave|avenue)\b",
+            r"\1 St & \2 Ave",
+            s,
+        )
+
     if re.search(rf"(?i)\b\d{{1,6}}\b.*\b{street_typ}\b", s):
-        if has_house_addr:
+        if has_house_addr and re.search(r"(?i)\bnear\b", s):
+            s = re.sub(
+                r"(?i)\s+\bnear\b\s+[^,]+(?=,\s*(?:vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver|bc|canada)\b)",
+                "",
+                s,
+            ).strip()
             s = re.sub(r"(?i)\s+\bnear\b\s+.*$", "", s).strip()
         s = re.sub(r"(?i)\s*,?\s*(?:directly\s*)?near\b\s+.*$", "", s).strip()
         s = re.sub(r"(?i),?\s*directly\s*$", "", s).strip()
@@ -1188,16 +1221,27 @@ def main():
             item["address"] = addr_clean
             addr_for_check = addr_clean
         if source == "craigslist":
+            url_hint_city = _city_hint_from_craigslist_url(item.get("url") or "")
+            if url_hint_city and (not cur_city or cur_city.lower() == "vancouver"):
+                item["city"] = url_hint_city
+                changed_city += 1
+                cur_city = url_hint_city
             m_city = re.search(
                 r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
                 addr_for_check,
             )
             if m_city:
                 addr_city2 = str(m_city.group(1) or "").strip().title()
-                if addr_city2 and (not cur_city or cur_city.lower() != addr_city2.lower()):
-                    item["city"] = addr_city2
-                    changed_city += 1
-                    cur_city = addr_city2
+                if url_hint_city and addr_city2 and addr_city2.lower() != url_hint_city.lower():
+                    addr2 = re.sub(r"(?i),\s*" + re.escape(addr_city2) + r"\b\s*$", "", addr_for_check).strip(" ,")
+                    if addr2 and addr2 != addr_for_check:
+                        item["address"] = addr2
+                        addr_for_check = addr2
+                if addr_city2 and (not url_hint_city or addr_city2.lower() == url_hint_city.lower()):
+                    if addr_city2 and (not cur_city or cur_city.lower() != addr_city2.lower()):
+                        item["city"] = addr_city2
+                        changed_city += 1
+                        cur_city = addr_city2
         if coords_ok and (not is_source_map) and coord_source in ("city_bbox", "community_bbox"):
             if (
                 (not re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
@@ -1662,6 +1706,19 @@ def main():
                 geocode_city = "Ladner"
             elif source == "craigslist" and re.search(r"(?i)\bsouthwest\b", title):
                 geocode_city = "Tsawwassen"
+        if source == "craigslist":
+            try:
+                m_gc = re.search(
+                    r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
+                    str(item.get("address") or ""),
+                )
+            except Exception:
+                m_gc = None
+            if m_gc:
+                gc2 = str(m_gc.group(1) or "").strip().title()
+                url_hint_city2 = _city_hint_from_craigslist_url(item.get("url") or "")
+                if (not url_hint_city2) or (gc2.lower() == url_hint_city2.lower()):
+                    geocode_city = gc2
 
         if source == "vanpeople":
             mq = str(item.get("map_query") or "").strip()
