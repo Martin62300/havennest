@@ -1487,10 +1487,6 @@
         49.126249,
         -123.1367271
     ],
-    "6098 Station Street Metrotown, Burnaby, BC, Canada": [
-        49.2275175,
-        -123.0027767
-    ],
     "2351 Beta Avenue, Burnaby, BC, Canada": [
         49.2780384,
         -122.997508
@@ -3191,10 +3187,6 @@
         49.1700098,
         -123.1352666
     ],
-    "11967 80 Avenue, Delta, BC, Canada": [
-        49.1488952,
-        -122.89163
-    ],
     "706 East 57th Avenue, Vancouver, BC, Canada": [
         49.2178224,
         -123.0906063
@@ -3411,18 +3403,6 @@
         49.2112708,
         -122.9903606
     ],
-    "6658 Dow Avenue, Burnaby, BC, Canada": [
-        49.223318,
-        -123.0008377
-    ],
-    "4184 DOLLAR ROAD, North Vancouver, BC, Canada": [
-        49.3083051,
-        -122.9551014
-    ],
-    "4234 Windsor Street, Vancouver, BC, Canada": [
-        49.2540951,
-        -123.0837008
-    ],
     "990 West 52nd Avenue, Vancouver, BC, Canada": [
         49.2240142,
         -123.1353151
@@ -3630,14 +3610,6 @@
     "5676 Main Street, Vancouver, BC, Canada": [
         49.2337578,
         -123.1012801
-    ],
-    "488 helmcken Street, Vancouver, BC, Canada": [
-        49.2764741,
-        -123.1227657
-    ],
-    "1995 Sasamat place, Vancouver, BC, Canada": [
-        49.2691866,
-        -123.208037
     ],
     "5693 Elizabeth, Vancouver, BC, Canada": [
         49.2337007,
@@ -5839,10 +5811,6 @@
         49.0939452,
         -122.668459
     ],
-    "5410 shortcut road, Vancouver, BC, Canada": [
-        49.2651244,
-        -123.2358046
-    ],
     "6700 DUNBLANE Avenue, Burnaby, BC, Canada": [
         49.2196402,
         -122.9928153
@@ -6563,10 +6531,6 @@
         49.3200503,
         -123.078116
     ],
-    "3370 Dewdney Trunk Road, Port Moody, BC, Canada": [
-        49.2762926,
-        -122.8249738
-    ],
     "E 29 Ave, Vancouver, BC, Canada": [
         49.0550538,
         -122.7420804
@@ -6883,10 +6847,6 @@
         49.1749489,
         -123.1464779
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
     "110 East 17th Street, BC, Canada": [
         49.3240699,
         -123.0643114
@@ -6902,18 +6862,6 @@
     "5150 fulwell St, Burnaby, BC, Canada": [
         49.2527607,
         -122.9887343
-    ],
-    "2780 Acadia Road, Vancouver, BC, Canada": [
-        49.2620565,
-        -123.2338934
-    ],
-    "5725 Agronomy Road, Vancouver, BC, Canada": [
-        49.2641287,
-        -123.2399626
-    ],
-    "918 cooperage way, Vancouver, BC, Canada": [
-        49.2740645,
-        -123.1128995
     ],
     "3833 Evergreen Place, BC, Canada": [
         49.0546204,
@@ -6938,10 +6886,6 @@
     "Thurlow St, Vancouver, Vancouver, BC, Canada": [
         49.2796884,
         -123.1322775
-    ],
-    "985 Adair Avenue, Coquitlam, BC, Canada": [
-        49.2367614,
-        -122.8683929
     ],
     "West Sawmill Crescent, Vancouver, BC, Canada": [
         49.2065713,
@@ -7031,9 +6975,129 @@
         49.2161049,
         -122.9575207
     ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "3370 Dewdney Trunk Road, Port Moody, BC, Canada": [
+        49.2762926,
+        -122.8249738
+    ],
+    "Lansdowne Road, Richmond, Richmond, BC, Canada": [
+        49.1737893,
+        -123.1340994
+    ],
+    "8160 McMyn Way, Richmond, BC, Canada": [
+        49.190196,
+        -123.1325418
+    ],
+    "7708 ALDERBRIDGE Way, Richmond, BC, Canada": [
+        49.1748868,
+        -123.1429122
+    ],
+    "989 Nelson St, Vancouver, BC, Canada": [
+        49.2810946,
+        -123.1249752
+    ],
+    "11967 80 Avenue, Delta, BC, Canada": [
+        49.1488952,
+        -122.89163
+    ],
+    "3980 Inlet Crescent, North Vancouver, BC, Canada": [
+        49.3210222,
+        -122.962781
+    ],
+    "3432 Raleigh St, Port Coquitlam, BC, Canada": [
+        49.2733924,
+        -122.7856732
+    ],
+    "2975 Atlantic Avenue, Coquitlam, BC, Canada": [
+        49.2817705,
+        -122.7995387
+    ],
+    "600 Rochester Avenue, Coquitlam, BC, Canada": [
+        49.2453985,
+        -122.8791112
+    ],
+    "261 East 3rd Street, BC, Canada": [
+        49.3108809,
+        -123.0720182
+    ],
+    "13738 Central Avenue, BC, Canada": [
+        49.9026425,
+        -119.4907408
+    ],
+    "E 49th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2240548,
+        -123.0295391
+    ],
+    "6658 Dow Avenue, Burnaby, BC, Canada": [
+        49.223318,
+        -123.0008377
+    ],
+    "4234 Windsor St, Vancouver, BC, Canada": [
+        49.2540951,
+        -123.0837008
+    ],
+    "4184 DOLLAR ROAD, North Vancouver, BC, Canada": [
+        49.3083051,
+        -122.9551014
+    ],
+    "140 114A Avenue, Surrey, BC, Canada": [
+        49.2107113,
+        -122.8224561
+    ],
+    "488 helmcken St, Vancouver, BC, Canada": [
+        49.2764741,
+        -123.1227657
+    ],
+    "1995 Sasamat place, Vancouver, BC, Canada": [
+        49.2691866,
+        -123.208037
+    ],
+    "5410 shortcut road, Vancouver, BC, Canada": [
+        49.2651244,
+        -123.2358046
+    ],
+    "5550 CORNWALL Drive., BC, Canada": [
+        49.1716112,
+        -123.182489
+    ],
+    "8288 Lansdowne Road., BC, Canada": [
+        49.1727602,
+        -123.1324656
+    ],
+    "2780 Acadia Road, Vancouver, BC, Canada": [
+        49.2620565,
+        -123.2338934
+    ],
+    "5725 Agronomy Road, Vancouver, BC, Canada": [
+        49.2641287,
+        -123.2399626
+    ],
+    "918 cooperage way, Vancouver, BC, Canada": [
+        49.2740645,
+        -123.1128995
+    ],
+    "985 Adair Avenue, Coquitlam, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
     "Garden City Park, Richmond, BC, Canada": [
         49.1645913,
         -123.1224606
+    ],
+    "6098 Station St, Burnaby, BC, Canada": [
+        49.2284782,
+        -123.0013361
+    ],
+    "4082 West 38th Avenue, Vancouver, BC, Canada": [
+        49.2373838,
+        -123.196211
+    ],
+    "W 38th Ave, Vancouver, BC, Canada": [
+        49.237004,
+        -123.1359849
     ],
     "7368 Gollner Avenue, Richmond, BC, Canada": [
         49.167957,
