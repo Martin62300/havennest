@@ -420,6 +420,26 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
     s = re.sub(r"(?i)\bcsmbie\b", "Cambie", s)
     s = re.sub(r"(?i)\bosk\b", "Oak St", s)
+    if has_house_addr and has_vancouver:
+        def _fix_word_ave_ord(m):
+            try:
+                n = int(m.group(2))
+            except Exception:
+                return m.group(0)
+            if 10 <= (n % 100) <= 20:
+                suf = "th"
+            else:
+                k = n % 10
+                if k == 1:
+                    suf = "st"
+                elif k == 2:
+                    suf = "nd"
+                elif k == 3:
+                    suf = "rd"
+                else:
+                    suf = "th"
+            return f"{m.group(1).upper()[0]} {n}{suf} Ave"
+        s = re.sub(r"(?i)\b(east|west)\s+(\d{1,2})\s+avenue\b", _fix_word_ave_ord, s)
     if not has_house_addr:
         if has_vancouver:
             s = re.sub(r"(?i)\bwest\s+(\d{1,3})(st|nd|rd|th)\s+avenue\b", r"W \1\2 Ave", s)
