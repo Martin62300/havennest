@@ -7751,21 +7751,9 @@
         49.249047,
         -122.8915225
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
     "E 62nd Ave, Vancouver, BC, Canada": [
         49.2138041,
         -123.08255
-    ],
-    "828 Seymour Drive, Coquitlam, BC, Canada": [
-        49.2644387,
-        -122.8285838
-    ],
-    "100 Avenue, Burnaby, BC, Canada": [
-        49.2433804,
-        -122.972545
     ],
     "114 A Avenue, Surrey, BC, Canada": [
         49.1273993,
@@ -7787,10 +7775,6 @@
         49.2426793,
         -123.1510057
     ],
-    "Waverley Avenue, Killarney, Vancouver, BC, Canada": [
-        49.2269731,
-        -123.0398775
-    ],
     "4118 Dawson St, Burnaby, BC, Canada": [
         49.2641138,
         -123.0137192
@@ -7806,10 +7790,6 @@
     "1323 East 62nd Avenue, Vancouver, BC, Canada": [
         49.2140291,
         -123.0793639
-    ],
-    "9551 Alexandra Road, Richmond, BC, Canada": [
-        49.1792769,
-        -123.1181405
     ],
     "5189 Earles St, Vancouver, BC, Canada": [
         49.2381699,
@@ -7839,13 +7819,57 @@
         49.1102782,
         -123.1383004
     ],
-    "5252 Smith Avenue, Burnaby, BC, Canada": [
-        49.2365022,
-        -123.0194917
-    ],
     "W 19th Ave, Vancouver, BC, Canada": [
         49.2539137,
         -123.1125393
+    ],
+    "35  Mackenzie St, Vancouver, BC, Canada": [
+        49.2604316,
+        -123.1702508
+    ],
+    "3401 Derbyshire Avenue, Coquitlam, BC, Canada": [
+        49.2992957,
+        -122.7534259
+    ],
+    "5735 Hampton Place, Vancouver, BC, Canada": [
+        49.2588608,
+        -123.2345696
+    ],
+    "2468 Atkins Avenue, Port Coquitlam, BC, Canada": [
+        49.2599774,
+        -122.7806445
+    ],
+    "1670 160 St, Vancouver, BC, Canada": [
+        49.0707112,
+        -122.7791652
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "3869 West 51st Avenue, Vancouver, BC, Canada": [
+        49.2258306,
+        -123.1899368
+    ],
+    "828 Seymour Drive, Coquitlam, BC, Canada": [
+        49.2644387,
+        -122.8285838
+    ],
+    "100 Avenue, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "Waverley Avenue, Killarney, Vancouver, BC, Canada": [
+        49.2269731,
+        -123.0398775
+    ],
+    "9551 Alexandra Road, Richmond, BC, Canada": [
+        49.1792769,
+        -123.1181405
+    ],
+    "5252 Smith Avenue, Burnaby, BC, Canada": [
+        49.2365022,
+        -123.0194917
     ],
     "8133 Cook Road, Richmond, BC, Canada": [
         49.1668191,
@@ -7856,35 +7880,15 @@
         -123.0046375
     ],
     "7478 Byrnepark Walk, Burnaby, BC, Canada": [
-        49.2081757,
+        49.2081758,
         -122.9634879
-    ],
-    "35  Mackenzie St, Vancouver, BC, Canada": [
-        49.2604316,
-        -123.1702508
-    ],
-    "3401 Derbyshire Avenue, Coquitlam, BC, Canada": [
-        49.2992957,
-        -122.7534259
     ],
     "8750 University Crescent, Burnaby, BC, Canada": [
         49.2798585,
         -122.9105237
     ],
-    "5735 Hampton Place, Vancouver, BC, Canada": [
-        49.2588608,
-        -123.2345696
-    ],
     "8771 Cook Road, Richmond, BC, Canada": [
         49.1667896,
         -123.1259871
-    ],
-    "2468 Atkins Avenue, Port Coquitlam, BC, Canada": [
-        49.2599774,
-        -122.7806445
-    ],
-    "1670 160 St, Vancouver, BC, Canada": [
-        49.0707112,
-        -122.7791652
     ]
 }
