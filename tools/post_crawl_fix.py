@@ -1498,7 +1498,7 @@ def main():
                     has_detail_addr = True
                     needs_coords = True
                     priority_needs_geocode = True
-                if (coord_source == "city_center_fallback") and ("steveston" in low_hint) and (("no 4" in low_hint) or ("no. 4" in low_hint) or ("number 4" in low_hint)):
+                if (coord_source == "city_center_fallback") and (not re.search(r"(?i)^\s*\d{3,6}\b", addr_for_check)) and ("steveston" in low_hint) and (("no 4" in low_hint) or ("no. 4" in low_hint) or ("number 4" in low_hint)):
                     item["address"] = "No. 4 Road & Steveston Hwy, Richmond"
                     item["community"] = ""
                     cur_comm = ""
