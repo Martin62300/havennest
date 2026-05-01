@@ -18,7 +18,11 @@ def _hn_cloudscraper_get_text(url, timeout_s):
     read = max(3.0, ts)
     scraper = cloudscraper.create_scraper()
     try:
-        res = scraper.get(url, timeout=(connect, read))
+        headers = {
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123 Safari/537.36",
+            "Accept-Language": "en-CA,en;q=0.9",
+        }
+        res = scraper.get(url, timeout=(connect, read), headers=headers)
         try:
             text = res.text or ""
         except Exception:
@@ -1148,7 +1152,11 @@ class HavenNestCrawler:
             url = "https://vancouver.craigslist.org/search/apa"
             res = _safe_get(url, 20)
             if (not res) or res.status_code != 200:
-                return []
+                try:
+                    print("WARNING: Craigslist web list fetch failed, falling back to RSS lite.")
+                except Exception:
+                    pass
+                return self.crawl_craigslist_rss_fallback(limit)
             
             soup = BeautifulSoup(res.text, 'html.parser')
             posts = soup.find_all('li', class_='cl-static-search-result')
