@@ -6,7 +6,7 @@ import glob
 import hashlib
 import requests
 from datetime import datetime, timedelta
-from urllib.parse import parse_qs, unquote_plus, urlparse
+from urllib.parse import parse_qs, unquote_plus, urlparse, urljoin
 import cloudscraper
 from bs4 import BeautifulSoup
 
@@ -1293,28 +1293,65 @@ class HavenNestCrawler:
     def crawl_craigslist_rss_fallback(self, limit=40):
         print(f"Fallback: Crawling Craigslist via Web-lite...")
         results = []
-        scraper = cloudscraper.create_scraper()
         try:
-            url = "https://vancouver.craigslist.org/search/apa"
-            res = scraper.get(url, timeout=20)
-            if res.status_code != 200:
-                return []
-            soup = BeautifulSoup(res.text, 'html.parser')
-            posts = soup.find_all('li', class_='cl-static-search-result')
+            base = "https://vancouver.craigslist.org"
+            urls = [
+                base + "/d/apartments-housing-for-rent/search/apa",
+                base + "/search/apa",
+            ]
+            text = ""
+            final_url = ""
+            status = 0
+            for u in urls:
+                status, text, final_url, err = _hn_cloudscraper_get_text(u, 20)
+                if status == 200 and text:
+                    break
+            if status != 200 or (not text):
+                try:
+                    print(f"WARNING: Craigslist web-lite fetch failed: status={status}, falling back to RSS.")
+                except Exception:
+                    pass
+                return self.crawl_craigslist_rss(limit)
+            soup = BeautifulSoup(text, 'html.parser')
+            posts = soup.select('li.cl-static-search-result')
+            mode = "static"
+            if not posts:
+                posts = soup.select('li.result-row')
+                mode = "result-row"
+            if not posts:
+                try:
+                    print("WARNING: Craigslist web-lite parsed 0 posts, falling back to RSS.")
+                except Exception:
+                    pass
+                return self.crawl_craigslist_rss(limit)
             for post in posts[:limit]:
                 try:
-                    title_el = post.find('div', class_='title')
-                    if not title_el:
-                        continue
-                    title = title_el.text.strip()
-                    link_el = post.find('a')
-                    detail_url = link_el.get('href', '') if link_el else ''
+                    if mode == "static":
+                        title_el = post.find('div', class_='title')
+                        if not title_el:
+                            continue
+                        title = title_el.text.strip()
+                        link_el = post.find('a')
+                        detail_url = link_el.get('href', '') if link_el else ''
+                        price_el = post.find('div', class_='price')
+                        price = int(re.sub(r'[^\d]', '', price_el.text)) if price_el else 0
+                        loc_el = post.find('div', class_='location')
+                        loc = loc_el.text.strip() if loc_el else "Vancouver"
+                    else:
+                        link_el = post.select_one('a.result-title.hdrlnk')
+                        if not link_el:
+                            continue
+                        title = link_el.get_text(" ", strip=True)
+                        detail_url = (link_el.get('href', '') or '').strip()
+                        price_el = post.select_one('span.result-price')
+                        price = int(re.sub(r'[^\d]', '', price_el.get_text(" ", strip=True))) if price_el else 0
+                        hood_el = post.select_one('span.result-hood')
+                        loc = hood_el.get_text(" ", strip=True).strip() if hood_el else "Vancouver"
+                        loc = loc.strip().strip("()").strip() if loc else "Vancouver"
                     if not detail_url:
                         continue
-                    price_el = post.find('div', class_='price')
-                    price = int(re.sub(r'[^\d]', '', price_el.text)) if price_el else 0
-                    loc_el = post.find('div', class_='location')
-                    loc = loc_el.text.strip() if loc_el else "Vancouver"
+                    if detail_url.startswith("/"):
+                        detail_url = urljoin(base, detail_url)
                     city = self.infer_city(loc + " " + title) or "Vancouver"
                     results.append({
                         "source": "Craigslist",
@@ -1334,9 +1371,15 @@ class HavenNestCrawler:
                     })
                 except:
                     continue
+            if not results:
+                try:
+                    print("WARNING: Craigslist web-lite produced 0 items, falling back to RSS.")
+                except Exception:
+                    pass
+                return self.crawl_craigslist_rss(limit)
             return results
         except:
-            return []
+            return self.crawl_craigslist_rss(limit)
 
     def crawl_craigslist_rss(self, limit=40):
         print(f"Fallback: Crawling Craigslist via RSS...")
@@ -1344,18 +1387,34 @@ class HavenNestCrawler:
         results = []
         try:
             rss_url = "https://vancouver.craigslist.org/search/apa?format=rss"
-            res = requests.get(
-                rss_url,
-                headers={
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
-                    'Accept': 'application/rss+xml, application/xml;q=0.9, */*;q=0.8'
-                },
-                timeout=20
-            )
-            if res.status_code != 200:
-                print(f"WARNING: Craigslist RSS fetch failed: status={res.status_code}")
-                return []
-            soup = BeautifulSoup(res.text, 'xml')
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+                'Accept': 'application/rss+xml, application/xml;q=0.9, */*;q=0.8',
+                "Accept-Language": "en-CA,en;q=0.9",
+            }
+            text = ""
+            try:
+                res = requests.get(rss_url, headers=headers, timeout=20)
+                if res.status_code == 200:
+                    text = res.text or ""
+                else:
+                    print(f"WARNING: Craigslist RSS fetch failed: status={res.status_code}, trying cloudscraper.")
+            except Exception:
+                text = ""
+            if not text:
+                try:
+                    scraper = cloudscraper.create_scraper()
+                    res2 = scraper.get(rss_url, headers=headers, timeout=20)
+                    if int(getattr(res2, "status_code", 0) or 0) != 200:
+                        try:
+                            print(f"WARNING: Craigslist RSS fetch failed (cloudscraper): status={getattr(res2, 'status_code', 0)}")
+                        except Exception:
+                            pass
+                        return []
+                    text = res2.text or ""
+                except Exception:
+                    return []
+            soup = BeautifulSoup(text, 'xml')
             items = soup.find_all('item')
             for item in items[:limit]:
                 try:
