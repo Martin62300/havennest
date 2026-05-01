@@ -569,6 +569,9 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bwillams\b", "Williams", s)
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Rd\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Road\b", r"No. \1 Road", s)
+    if has_house_addr and re.search(r"(?i)\brichmond\b", s):
+        s = re.sub(r"(?i)\bNo\.?\s*4\s*Road\b", "Number 4 Rd", s)
+        s = re.sub(r"(?i)\bNo\.?\s*4\s*Rd\b", "Number 4 Rd", s)
     s = re.sub(r"(?i)\bW(\d{1,3})\b", r"W \1", s)
     s = re.sub(r"\s*&\s*", " & ", s)
     s = re.sub(r"(?i)\bW\s*(\d{1,3})\s*&", r"W \1 Ave &", s)
@@ -1106,6 +1109,22 @@ def _clean_extracted_addr(s: str) -> str:
         except Exception:
             return m.group(0)
     t = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, t)
+    try:
+        street_typ = r"(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)"
+        m = re.search(rf"(?i)^\s*(\d{{3,6}}\s+[^,]{{3,80}}?\b{street_typ})\b(.*)$", t)
+        if m:
+            head = (m.group(1) or "").strip()
+            tail = (m.group(2) or "")
+            m_city = re.search(
+                r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver|port coquitlam|port moody|abbotsford|maple ridge|white rock)\b",
+                tail,
+            )
+            if m_city:
+                city = str(m_city.group(1) or "").strip().title()
+                return f"{head}, {city}".strip()
+            return head
+    except Exception:
+        pass
     t = re.sub(r"\s+", " ", t)
     return t
 
