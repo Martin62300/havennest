@@ -10,6 +10,47 @@ from urllib.parse import parse_qs, unquote_plus, urlparse
 import cloudscraper
 from bs4 import BeautifulSoup
 
+def _hn_cloudscraper_get_text(url, timeout_s):
+    ts = float(timeout_s) if timeout_s else 0.0
+    if ts <= 0:
+        ts = 12.0
+    connect = min(5.0, ts)
+    read = max(3.0, ts)
+    scraper = cloudscraper.create_scraper()
+    try:
+        res = scraper.get(url, timeout=(connect, read))
+        try:
+            text = res.text or ""
+        except Exception:
+            text = ""
+        if len(text) > 2000000:
+            text = text[:2000000]
+        try:
+            final_url = str(getattr(res, "url", "") or url)
+        except Exception:
+            final_url = url
+        try:
+            sc = int(getattr(res, "status_code", 0) or 0)
+        except Exception:
+            sc = 0
+        return (sc, text, final_url, "")
+    except Exception as e:
+        try:
+            err = str(e)[:240]
+        except Exception:
+            err = "error"
+        return (0, "", url, err)
+
+
+def _hn_cloudscraper_get_text_worker(url, timeout_s, q):
+    try:
+        q.put(_hn_cloudscraper_get_text(url, timeout_s))
+    except Exception:
+        try:
+            q.put((0, "", url, "worker_error"))
+        except Exception:
+            pass
+
 class HavenNestCrawler:
     def __init__(self):
         self.filename = 'listings.json'
@@ -1012,7 +1053,6 @@ class HavenNestCrawler:
             return self.crawl_craigslist_rss_fallback(limit)
         print(f"Crawling Craigslist via Web (limit {limit})... ")
         results = []
-        scraper = cloudscraper.create_scraper()
         t0 = time.time()
         try:
             max_s = int(os.getenv("HAVENNEST_CRAIGSLIST_MAX_SECONDS") or "0")
@@ -1025,34 +1065,53 @@ class HavenNestCrawler:
         except:
             detail_timeout = 12
         deadline = t0 + float(max_s)
-        use_alarm = (os.name != "nt")
+        use_isolated = (os.name != "nt") and ((os.getenv("GITHUB_ACTIONS") or "").strip().lower() == "true" or (os.getenv("HAVENNEST_CRAIGSLIST_ISOLATE") or "").strip() in ["1", "true", "yes", "y"])
         def _safe_get(u, timeout_s):
             ts = float(timeout_s) if timeout_s else 0.0
             if ts <= 0:
                 ts = 12.0
             hard = max(4.0, ts + 8.0)
-            if use_alarm:
+            if use_isolated:
                 try:
-                    import signal
-                    class _HNTimeout(Exception):
-                        pass
-                    def _handler(signum, frame):
-                        raise _HNTimeout()
-                    old = signal.signal(signal.SIGALRM, _handler)
-                    signal.alarm(max(1, int(ts) + 8))
+                    import multiprocessing as mp
+                    ctx = mp.get_context("fork") if hasattr(mp, "get_context") else mp
+                    q = ctx.Queue(maxsize=1)
+                    p = ctx.Process(target=_hn_cloudscraper_get_text_worker, args=(u, ts, q))
+                    p.daemon = True
+                    p.start()
+                    p.join(hard)
+                    if p.is_alive():
+                        try:
+                            p.terminate()
+                        except Exception:
+                            pass
+                        try:
+                            p.join(1.0)
+                        except Exception:
+                            pass
+                        try:
+                            print(f"  Craigslist request hard-timeout: {u}")
+                        except Exception:
+                            pass
+                        return None
                     try:
-                        return scraper.get(u, timeout=ts)
-                    finally:
-                        try:
-                            signal.alarm(0)
-                        except:
-                            pass
-                        try:
-                            signal.signal(signal.SIGALRM, old)
-                        except:
-                            pass
+                        sc, text, final_url, err = q.get_nowait()
+                    except Exception:
+                        return None
+                    if sc <= 0:
+                        if err:
+                            try:
+                                print(f"  Craigslist request failed: {u} ({err})")
+                            except Exception:
+                                pass
+                        return None
+                    try:
+                        from types import SimpleNamespace
+                        return SimpleNamespace(status_code=sc, text=text, url=final_url)
+                    except Exception:
+                        return None
                 except Exception:
-                    pass
+                    return None
             try:
                 import threading
             except Exception:
@@ -1061,7 +1120,10 @@ class HavenNestCrawler:
                 box = {}
                 def _runner():
                     try:
-                        box["res"] = scraper.get(u, timeout=ts)
+                        sc, text, final_url, err = _hn_cloudscraper_get_text(u, ts)
+                        if sc > 0:
+                            from types import SimpleNamespace
+                            box["res"] = SimpleNamespace(status_code=sc, text=text, url=final_url)
                     except Exception as e:
                         box["err"] = e
                 t = threading.Thread(target=_runner, daemon=True)
@@ -1075,7 +1137,11 @@ class HavenNestCrawler:
                     return None
                 return box.get("res")
             try:
-                return scraper.get(u, timeout=ts)
+                sc, text, final_url, err = _hn_cloudscraper_get_text(u, ts)
+                if sc <= 0:
+                    return None
+                from types import SimpleNamespace
+                return SimpleNamespace(status_code=sc, text=text, url=final_url)
             except Exception:
                 return None
         try:
@@ -1165,6 +1231,17 @@ class HavenNestCrawler:
                             )
                             if m:
                                 address = m.group(1).strip()
+                        except:
+                            address = ""
+                    if not address:
+                        try:
+                            page_text = d_soup.get_text("\n", strip=True)
+                            m = re.search(
+                                r"(?im)^\s*([A-Za-z0-9 .'\-]{3,80}?),\s*([A-Za-z\s]{3,40}),\s*BC\s*([A-Z]\d[A-Z])\s*(\d[A-Z]\d)\s*$",
+                                page_text,
+                            )
+                            if m:
+                                address = f"{m.group(1).strip()}, {m.group(2).strip()}, BC {m.group(3).strip()} {m.group(4).strip()}"
                         except:
                             address = ""
                     if not address:
