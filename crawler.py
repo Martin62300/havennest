@@ -2253,6 +2253,15 @@ class HavenNestCrawler:
                 price = int(re.sub(r'[^\d]', '', price_raw)) if re.sub(r'[^\d]', '', price_raw) else 0
             else:
                 price = int(price_raw or 0)
+
+            src0 = (item.get('source') or '').strip().lower()
+            addr0 = (item.get('address') or '')
+            try:
+                addr0l = str(addr0).lower()
+            except Exception:
+                addr0l = ""
+            if src0 == 'vanpeople' and ('canada line' in addr0l) and (('skytrain' in addr0l) or ('station' in addr0l)) and (re.search(r'\d', addr0l) is None):
+                continue
             
             # 1. 价格过滤：温哥华租房通常不低于300，抓取到的低价必是广告
             if price > 0 and price < 300:
