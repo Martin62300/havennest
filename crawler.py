@@ -1153,10 +1153,121 @@ class HavenNestCrawler:
             res = _safe_get(url, 20)
             if (not res) or res.status_code != 200:
                 try:
-                    print("WARNING: Craigslist web list fetch failed, falling back to RSS lite.")
+                    print("WARNING: Craigslist web list fetch failed, falling back to web-lite seeds + deep crawl.")
                 except Exception:
                     pass
-                return self.crawl_craigslist_rss_fallback(limit)
+                seeds = self.crawl_craigslist_rss_fallback(limit) or []
+                if not seeds:
+                    return []
+                for seed in seeds:
+                    if time.time() >= deadline:
+                        break
+                    try:
+                        detail_url = str(seed.get("url") or "").strip()
+                    except Exception:
+                        detail_url = ""
+                    if not detail_url:
+                        continue
+                    remain = max(0.0, deadline - time.time())
+                    if remain <= 0:
+                        break
+                    dt = min(float(detail_timeout), max(3.0, remain))
+                    try:
+                        print(f"  Deep crawling Craigslist (seed): {str(seed.get('title') or '')[:20]}...")
+                        print(f"    Fetch: {detail_url}")
+                    except Exception:
+                        pass
+                    d_res = _safe_get(detail_url, dt)
+                    if (not d_res) or d_res.status_code != 200:
+                        continue
+                    if re.search(r'(?i)this posting has been deleted|flagged for removal|posting has expired|has expired', d_res.text or ""):
+                        continue
+                    d_soup = BeautifulSoup(d_res.text, 'html.parser')
+                    images = []
+                    for img in d_soup.select('.gallery img'):
+                        src = img.get('src')
+                        if src:
+                            images.append(src)
+                    if not images:
+                        try:
+                            og = d_soup.select_one('meta[property="og:image"], meta[name="og:image"]')
+                            u = (og.get('content') or '').strip() if og else ''
+                            if u:
+                                images.append(u)
+                        except Exception:
+                            pass
+                    desc_el = d_soup.select_one('#postingbody')
+                    desc = desc_el.text.replace('QR Code Link to This Post', '').strip() if desc_el else ""
+                    lat, lng = None, None
+                    coord_source = ""
+                    try:
+                        m = d_soup.select_one('#map[data-latitude][data-longitude]')
+                        if m:
+                            lat = float(m.get('data-latitude'))
+                            lng = float(m.get('data-longitude'))
+                            coord_source = "source_map"
+                    except Exception:
+                        lat, lng = None, None
+                    address = ""
+                    try:
+                        a = d_soup.select_one('.mapaddress')
+                        address = a.get_text(" ", strip=True) if a else ""
+                    except Exception:
+                        address = ""
+                    if not address:
+                        try:
+                            page_text = d_soup.get_text("\n", strip=True)
+                            m = re.search(
+                                r"(?im)^\s*(\d{3,6}\s+[^\n,]{2,}(?:\s+[^\n,]{2,})*,\s*[A-Za-z\s]+,\s*BC\b[^\n]*)\s*$",
+                                page_text,
+                            )
+                            if m:
+                                address = m.group(1).strip()
+                        except Exception:
+                            address = ""
+                    if not address:
+                        try:
+                            page_text = d_soup.get_text("\n", strip=True)
+                            m = re.search(
+                                r"(?im)^\s*([A-Za-z0-9 .'\-]{3,80}?),\s*([A-Za-z\s]{3,40}),\s*BC\s*([A-Z]\d[A-Z])\s*(\d[A-Z]\d)\s*$",
+                                page_text,
+                            )
+                            if m:
+                                address = f"{m.group(1).strip()}, {m.group(2).strip()}, BC {m.group(3).strip()} {m.group(4).strip()}"
+                        except Exception:
+                            address = ""
+                    if not address:
+                        m = re.search(r'(?im)^\s*(?:address|addr|location)\s*:\s*(.+?)\s*$', desc)
+                        if m:
+                            address = m.group(1).strip()
+                    if not address:
+                        try:
+                            address = str(seed.get("address") or "").strip()
+                        except Exception:
+                            address = ""
+                    title = str(seed.get("title") or "").strip()
+                    try:
+                        price = int(seed.get("price") or 0)
+                    except Exception:
+                        price = 0
+                    city = self.infer_city((address or "") + " " + title) or (seed.get("city") or "Vancouver")
+                    results.append({
+                        "source": "Craigslist",
+                        "title": title,
+                        "price": price,
+                        "url": detail_url,
+                        "address": address,
+                        "city": city,
+                        "beds": self.extract_beds(title + " " + desc),
+                        "lat": lat,
+                        "lng": lng,
+                        "coord_source": coord_source,
+                        "image": images[0] if images else "",
+                        "images": images,
+                        "desc": desc,
+                        "date": datetime.now().strftime("%Y-%m-%d")
+                    })
+                return results
             
             soup = BeautifulSoup(res.text, 'html.parser')
             posts = soup.find_all('li', class_='cl-static-search-result')
@@ -1337,6 +1448,8 @@ class HavenNestCrawler:
                         price = int(re.sub(r'[^\d]', '', price_el.text)) if price_el else 0
                         loc_el = post.find('div', class_='location')
                         loc = loc_el.text.strip() if loc_el else "Vancouver"
+                        img_el = post.find('img')
+                        img0 = (img_el.get('src', '') or '').strip() if img_el else ''
                     else:
                         link_el = post.select_one('a.result-title.hdrlnk')
                         if not link_el:
@@ -1348,6 +1461,8 @@ class HavenNestCrawler:
                         hood_el = post.select_one('span.result-hood')
                         loc = hood_el.get_text(" ", strip=True).strip() if hood_el else "Vancouver"
                         loc = loc.strip().strip("()").strip() if loc else "Vancouver"
+                        img_el = post.select_one('a.result-image img, img')
+                        img0 = (img_el.get('src', '') or '').strip() if img_el else ''
                     if not detail_url:
                         continue
                     if detail_url.startswith("/"):
@@ -1364,8 +1479,8 @@ class HavenNestCrawler:
                         "lat": None,
                         "lng": None,
                         "coord_source": "",
-                        "image": "",
-                        "images": [],
+                        "image": img0,
+                        "images": [img0] if img0 else [],
                         "desc": "",
                         "date": datetime.now().strftime("%Y-%m-%d")
                     })
@@ -1943,8 +2058,12 @@ class HavenNestCrawler:
         
         # 爬取新数据
         airtable_data = self.process_airtable_listings()
-        new_data = airtable_data + self.process_manual_rentals() + \
-                   self.crawl_craigslist(self.craigslist_limit)
+        cl_data = self.crawl_craigslist(self.craigslist_limit)
+        try:
+            print(f"DONE: Extracted {len(cl_data)} Craigslist listings.")
+        except Exception:
+            pass
+        new_data = airtable_data + self.process_manual_rentals() + cl_data
         
         # VanPeople 抓取增加异常处理
         try:
@@ -2154,7 +2273,7 @@ class HavenNestCrawler:
                     continue
 
             allow_vp_no_image = (os.getenv("HAVENNEST_VANPEOPLE_ALLOW_NO_IMAGE") or "").strip().lower() in ["1", "true", "yes", "y"]
-            if (not item.get('image') and not item.get('images')) and not (allow_vp_no_image and item.get('source') == 'VanPeople'):
+            if (not item.get('image') and not item.get('images')) and (item.get('source') != 'Craigslist') and not (allow_vp_no_image and item.get('source') == 'VanPeople'):
                 continue
 
             try:
