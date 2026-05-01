@@ -1371,10 +1371,6 @@
         49.2287293,
         -123.001478
     ],
-    "5189 Earles Street Renfrew-Collingwood, Vancouver, BC, Canada": [
-        49.2381699,
-        -123.0493597
-    ],
     "263 Jardine Street, New Westminster, BC, Canada": [
         49.1845425,
         -122.9480809
@@ -1406,10 +1402,6 @@
     "3375 Fieldstone Avenue Killarney, Vancouver, BC, Canada": [
         49.2080218,
         -123.0343545
-    ],
-    "8133 Cook Road, Richmond, BC, Canada": [
-        49.1668191,
-        -123.1351005
     ],
     "4733 Hazel St, Burnaby, BC, Canada": [
         49.2290753,
@@ -1470,10 +1462,6 @@
     "0 rosemary ave Richmond, BC, Canada": [
         49.1340928,
         -123.1283175
-    ],
-    "Number 3 Road, Richmond, BC, Canada": [
-        49.126249,
-        -123.1367271
     ],
     "2351 Beta Avenue, Burnaby, BC, Canada": [
         49.2780384,
@@ -4027,10 +4015,6 @@
         49.1817698,
         -123.1138825
     ],
-    "8771 Cook Road, Richmond, BC, Canada": [
-        49.1667896,
-        -123.1259871
-    ],
     "6463 Silver Avenue, Burnaby, BC, Canada": [
         49.2248459,
         -123.0069043
@@ -5091,10 +5075,6 @@
         49.1154812,
         -122.8294534
     ],
-    "2468 Atkins Avenue, Port Coquitlam, BC, Canada": [
-        49.2599774,
-        -122.7806445
-    ],
     "866 10 St, North Vancouver, BC, Canada": [
         49.3144037,
         -123.0818147
@@ -5822,10 +5802,6 @@
     "4333 Central Boulevard, Burnaby, BC, Canada": [
         49.2264329,
         -123.0046411
-    ],
-    "9551 Alexandra Road, Richmond, BC, Canada": [
-        49.1792769,
-        -123.1181405
     ],
     "5566 Williams Road, Richmond, BC, Canada": [
         49.1409835,
@@ -7511,10 +7487,6 @@
         49.3368057,
         -123.1246645
     ],
-    "2983 Wickham Drive, Coquitlam, BC, Canada": [
-        49.2649573,
-        -122.8001421
-    ],
     "20159 88 Avenue, Langley, BC, Canada": [
         49.1651453,
         -122.6644506
@@ -7751,10 +7723,6 @@
         49.2282584,
         -123.0701942
     ],
-    "8750 University Crescent, Burnaby, BC, Canada": [
-        49.2798585,
-        -122.9105237
-    ],
     "7950 French St, BC, Canada": [
         49.2137837,
         -123.1386666
@@ -7782,5 +7750,141 @@
     "585 Austin Avenue, Burnaby, BC, Canada": [
         49.249047,
         -122.8915225
+    ],
+    "2983 Wickham Drive, Coquitlam, BC, Canada": [
+        49.2649573,
+        -122.8001421
+    ],
+    "E 62nd Ave, Vancouver, BC, Canada": [
+        49.2138041,
+        -123.08255
+    ],
+    "828 Seymour Drive, Coquitlam, BC, Canada": [
+        49.2644387,
+        -122.8285838
+    ],
+    "100 Avenue, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "114 A Avenue, Surrey, BC, Canada": [
+        49.1273993,
+        -122.8128513
+    ],
+    "6333 Silver Avenue, Burnaby, BC, Canada": [
+        49.2259159,
+        -123.0058227
+    ],
+    "6560 Buswell St, Richmond, BC, Canada": [
+        49.165989,
+        -123.1332105
+    ],
+    "8400 Cook Road, BC, Canada": [
+        49.166156,
+        -123.1308392
+    ],
+    "4883 Maclure Mews, Vancouver, BC, Canada": [
+        49.2426793,
+        -123.1510057
+    ],
+    "Waverley Avenue, Killarney, Vancouver, BC, Canada": [
+        49.2269731,
+        -123.0398775
+    ],
+    "4118 Dawson St, Burnaby, BC, Canada": [
+        49.2641138,
+        -123.0137192
+    ],
+    "5323 Neville St, Burnaby, BC, Canada": [
+        49.2139249,
+        -122.9830093
+    ],
+    "St  67B Avenue, Langley, BC, Canada": [
+        49.125302,
+        -122.6535215
+    ],
+    "1323 East 62nd Avenue, Vancouver, BC, Canada": [
+        49.2140291,
+        -123.0793639
+    ],
+    "9551 Alexandra Road, Richmond, BC, Canada": [
+        49.1792769,
+        -123.1181405
+    ],
+    "5189 Earles St, Vancouver, BC, Canada": [
+        49.2381699,
+        -123.0493597
+    ],
+    "W 64th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2130797,
+        -123.1359354
+    ],
+    "E 54th Ave, Vancouver, BC, Canada": [
+        49.220567,
+        -123.0856164
+    ],
+    "3590 West 39th Avenue, Vancouver, BC, Canada": [
+        49.2360698,
+        -123.1850232
+    ],
+    "7053 Union St, Burnaby, BC, Canada": [
+        49.2773728,
+        -122.9484692
+    ],
+    "4629 West 14th Avenue, Vancouver, BC, Canada": [
+        49.2604894,
+        -123.2132965
+    ],
+    "No. 3 Road, Richmond, BC, Canada": [
+        49.1102782,
+        -123.1383004
+    ],
+    "5252 Smith Avenue, Burnaby, BC, Canada": [
+        49.2365022,
+        -123.0194917
+    ],
+    "W 19th Ave, Vancouver, BC, Canada": [
+        49.2539137,
+        -123.1125393
+    ],
+    "8133 Cook Road, Richmond, BC, Canada": [
+        49.1668191,
+        -123.1351005
+    ],
+    "4485 Skyline Drive, Burnaby, BC, Canada": [
+        49.2655518,
+        -123.0046375
+    ],
+    "7478 Byrnepark Walk, Burnaby, BC, Canada": [
+        49.2081757,
+        -122.9634879
+    ],
+    "35  Mackenzie St, Vancouver, BC, Canada": [
+        49.2604316,
+        -123.1702508
+    ],
+    "3401 Derbyshire Avenue, Coquitlam, BC, Canada": [
+        49.2992957,
+        -122.7534259
+    ],
+    "8750 University Crescent, Burnaby, BC, Canada": [
+        49.2798585,
+        -122.9105237
+    ],
+    "5735 Hampton Place, Vancouver, BC, Canada": [
+        49.2588608,
+        -123.2345696
+    ],
+    "8771 Cook Road, Richmond, BC, Canada": [
+        49.1667896,
+        -123.1259871
+    ],
+    "2468 Atkins Avenue, Port Coquitlam, BC, Canada": [
+        49.2599774,
+        -122.7806445
+    ],
+    "1670 160 St, Vancouver, BC, Canada": [
+        49.0707112,
+        -122.7791652
     ]
 }
