@@ -312,6 +312,26 @@ def _in_box(box: Tuple[float, float, float, float], lat: float, lng: float) -> b
 def _city_hint_from_craigslist_url(url: str) -> str:
     try:
         u = str(url or "")
+        m = re.search(r"craigslist\.org/([a-z]{3})/", u, flags=re.IGNORECASE)
+        if not m:
+            return ""
+        code = (m.group(1) or "").lower()
+        m2 = {
+            "van": "Vancouver",
+            "rch": "Richmond",
+            "nmo": "Port Moody",
+            "nwb": "New Westminster",
+            "nvy": "North Vancouver",
+            "pml": "",
+            "wht": "White Rock",
+            "dlt": "Delta",
+            "lan": "Langley",
+            "bnc": "",
+            "rds": "",
+        }
+        code_city = m2.get(code, "") or ""
+        if code_city:
+            return code_city
         m0 = re.search(r"craigslist\.org/[a-z]{3}/apa/d/([^/]+)/", u, flags=re.IGNORECASE)
         if m0:
             slug_full = (m0.group(1) or "").lower().strip("-")
@@ -334,22 +354,7 @@ def _city_hint_from_craigslist_url(url: str) -> str:
             for k, v in mslug.items():
                 if slug_full == k or slug_full.startswith(k + "-"):
                     return v
-        m = re.search(r"craigslist\.org/([a-z]{3})/", u, flags=re.IGNORECASE)
-        if not m:
-            return ""
-        code = (m.group(1) or "").lower()
-        m2 = {
-            "van": "Vancouver",
-            "rch": "Richmond",
-            "nmo": "Port Moody",
-            "nwb": "New Westminster",
-            "nvy": "North Vancouver",
-            "pml": "",
-            "wht": "White Rock",
-            "dlt": "Delta",
-            "lan": "Langley",
-        }
-        return m2.get(code, "") or ""
+        return ""
     except Exception:
         return ""
 
@@ -1407,6 +1412,16 @@ def main():
                 item["city"] = url_hint_city
                 changed_city += 1
                 cur_city = url_hint_city
+            if url_hint_city and cur_city and (cur_city.lower() != url_hint_city.lower()):
+                low_text0 = ""
+                try:
+                    low_text0 = text.lower()
+                except Exception:
+                    low_text0 = ""
+                if (("vancouver" in low_text0) or ("ubc" in low_text0)) and (url_hint_city.lower() == "vancouver"):
+                    item["city"] = url_hint_city
+                    changed_city += 1
+                    cur_city = url_hint_city
             m_city = re.search(
                 r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
                 addr_for_check,
@@ -1663,11 +1678,17 @@ def main():
         extracted_addr = ""
         try_explicit_addr = False
         if source == "craigslist":
+            url_hint_city2 = _city_hint_from_craigslist_url(item.get("url") or "")
             if (not has_detail_addr) or (coord_source == "city_center_fallback"):
                 try_explicit_addr = True
             elif coords_ok:
                 try:
                     if cur_city and _near_city_center(cur_city, float(lat), float(lng)):
+                        try_explicit_addr = True
+                except Exception:
+                    pass
+                try:
+                    if (not try_explicit_addr) and url_hint_city2 and cur_city and (cur_city.lower() != url_hint_city2.lower()):
                         try_explicit_addr = True
                 except Exception:
                     pass
@@ -1685,6 +1706,7 @@ def main():
                     cand = re.sub(r"(?i)\b\d{1,2}(st|nd|rd|th)\s+floor\b\s*,?\s*", "", cand).strip()
                     cand = re.sub(r"(?i)\bfloor\b\s*,?\s*", "", cand).strip()
                     cand = re.sub(r"(?i)\b(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley)\b\s+bc\b", r"\1", cand).strip()
+                    cand = re.sub(r"(?i)\bB\.?\s*C\.?\b\.?", "", cand).strip()
                     cand = re.sub(r"(?i)\bBC\b", "", cand).strip()
                     cand = re.sub(r"(?i)\b[A-Z]\d[A-Z]\s*\d[A-Z]\d\b", "", cand).strip()
                     cand = _clean_extracted_addr(cand)
