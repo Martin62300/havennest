@@ -1413,15 +1413,9 @@ def main():
                 changed_city += 1
                 cur_city = url_hint_city
             if url_hint_city and cur_city and (cur_city.lower() != url_hint_city.lower()):
-                low_text0 = ""
-                try:
-                    low_text0 = text.lower()
-                except Exception:
-                    low_text0 = ""
-                if (("vancouver" in low_text0) or ("ubc" in low_text0)) and (url_hint_city.lower() == "vancouver"):
-                    item["city"] = url_hint_city
-                    changed_city += 1
-                    cur_city = url_hint_city
+                item["city"] = url_hint_city
+                changed_city += 1
+                cur_city = url_hint_city
             m_city = re.search(
                 r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
                 addr_for_check,
@@ -1710,8 +1704,10 @@ def main():
                     cand = re.sub(r"(?i)\bBC\b", "", cand).strip()
                     cand = re.sub(r"(?i)\b[A-Z]\d[A-Z]\s*\d[A-Z]\d\b", "", cand).strip()
                     cand = _clean_extracted_addr(cand)
-                    if cand and (not re.search(r"(?i)\b(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley)\b", cand)) and cur_city:
-                        cand = f"{cand}, {cur_city}"
+                    if cand and (not re.search(r"(?i)\b(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley)\b", cand)):
+                        use_city = url_hint_city2 or cur_city
+                        if use_city:
+                            cand = f"{cand}, {use_city}"
                     if cand and re.search(r"(?i)\b\d{3,6}\b", cand) and re.search(r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace)\b", cand):
                         item["address"] = cand
                         addr_for_check = cand
