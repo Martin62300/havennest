@@ -1433,6 +1433,8 @@ def main():
         )
         has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
         priority_needs_geocode = False
+        if source == "craigslist" and needs_coords and has_detail_addr:
+            priority_needs_geocode = True
 
         if source == "vanpeople":
             try:
