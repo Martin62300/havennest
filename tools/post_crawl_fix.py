@@ -1370,6 +1370,36 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
+        if source == "vanpeople":
+            a0 = re.sub(r"\s+", " ", (addr_for_check or "").strip()).lower()
+            if (not re.search(r"\d", a0)) and ("&" not in a0) and (
+                a0 in {
+                    "vancouver",
+                    "richmond",
+                    "burnaby",
+                    "coquitlam",
+                    "surrey",
+                    "delta",
+                    "langley",
+                    "new westminster",
+                    "north vancouver",
+                    "west vancouver",
+                    "maple ridge",
+                    "white rock",
+                    "east vancouver",
+                    "vancouver east",
+                    "west vancouver",
+                    "vancouver west",
+                    "north vancouver",
+                    "vancouver north",
+                    "south vancouver",
+                    "vancouver south",
+                }
+                or re.fullmatch(r"(east|west|north|south)\s+vancouver", a0)
+                or re.fullmatch(r"vancouver\s+(east|west|north|south)", a0)
+            ):
+                item["_drop"] = True
+                continue
         if source == "craigslist":
             url_hint_city = _city_hint_from_craigslist_url(item.get("url") or "")
             if url_hint_city and (not cur_city or cur_city.lower() == "vancouver"):
@@ -2110,6 +2140,7 @@ def main():
         item["lng"] = float(new_lng)
         changed_coords += 1
  
+    data = [it for it in data if isinstance(it, dict) and (not it.get("_drop"))]
     with open(listings_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
  
