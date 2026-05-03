@@ -568,6 +568,7 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bmc\s+kay\b", "McKay", s)
     s = re.sub(r"(?i)\bmc\s+([a-z]{2,})\b", lambda m: "Mc" + (m.group(1) or ""), s)
     s = re.sub(r"(?i)\bwillams\b", "Williams", s)
+    s = re.sub(r"(?i)\b(\\d{1,3})\\s+ave\\s*/\\s*(\\d{1,3}[a-z]?)\\s*st\\b", r"\\1 Ave & \\2 St", s)
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Rd\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Road\b", r"No. \1 Road", s)
     if has_house_addr and re.search(r"(?i)\brichmond\b", s):
@@ -2038,6 +2039,11 @@ def main():
                     if len(parts) == 2:
                         q_left = _normalize_geocode_query(f"{parts[0]}, {cur_city}")
                         q_right = _normalize_geocode_query(f"{parts[1]}, {cur_city}")
+                        try:
+                            q_left = str(q_left).split(", BC, Canada", 1)[0].strip(" ,")
+                            q_right = str(q_right).split(", BC, Canada", 1)[0].strip(" ,")
+                        except Exception:
+                            pass
                         coords_l = c.get_lat_lng(q_left)
                         coords_r = c.get_lat_lng(q_right)
                         ll = None
