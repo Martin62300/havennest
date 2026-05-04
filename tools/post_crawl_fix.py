@@ -1441,7 +1441,7 @@ def main():
                 )
             ):
                 force_geocode_street_only = True
-                preserve_existing_bbox = True
+                preserve_existing_bbox = False
                 needs_coords = True
                 priority_needs_geocode = True
         try:
@@ -2130,7 +2130,7 @@ def main():
                     elif not cs0:
                         item["coord_source"] = "geocode"
  
-        if (new_lat is None or new_lng is None) and (not allow_geocode) and coords_ok and coord_source != "city_center_fallback":
+        if (new_lat is None or new_lng is None) and (not allow_geocode) and coords_ok and coord_source != "city_center_fallback" and (not force_geocode_street_only):
             continue
         if new_lat is not None and new_lng is not None and cur_city in CITY_BBOX and not _in_bbox(cur_city, float(new_lat), float(new_lng)):
             city2 = _city_from_coords(float(new_lat), float(new_lng), cur_city)
