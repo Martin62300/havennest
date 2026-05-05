@@ -40,7 +40,7 @@ CITY_BBOX = {
     "Coquitlam": (49.20, 49.35, -122.93, -122.74),
     "Surrey": (49.03, 49.23, -122.98, -122.65),
     "North Vancouver": (49.30, 49.37, -123.14, -122.90),
-    "West Vancouver": (49.30, 49.39, -123.27, -123.07),
+    "West Vancouver": (49.30, 49.39, -123.32, -123.07),
     "Port Coquitlam": (49.22, 49.30, -122.83, -122.72),
     "Port Moody": (49.24, 49.34, -122.90, -122.78),
     "New Westminster": (49.18, 49.24, -122.94, -122.86),
@@ -98,6 +98,7 @@ COMMUNITY_SYNONYMS = {
 }
  
 COMMUNITY_BBOX_CACHE_PATH = os.path.join(ROOT, "community_bbox_cache.json")
+LOCATION_OVERRIDES_PATH = os.path.join(ROOT, "location_overrides.json")
 
 COMMUNITY_VOCAB = {
     "Richmond": [
@@ -322,6 +323,7 @@ def _city_hint_from_craigslist_url(url: str) -> str:
             "nmo": "Port Moody",
             "nwb": "New Westminster",
             "nvy": "North Vancouver",
+            "nvn": "",
             "pml": "",
             "wht": "White Rock",
             "dlt": "Delta",
@@ -913,6 +915,21 @@ def _save_community_bbox_cache(cache: Dict[str, Tuple[float, float, float, float
         pass
 
 
+def _load_location_overrides() -> Dict[str, Any]:
+    try:
+        if not os.path.exists(LOCATION_OVERRIDES_PATH):
+            return {}
+        with open(LOCATION_OVERRIDES_PATH, "r", encoding="utf-8") as f:
+            obj = json.load(f)
+        if isinstance(obj, dict) and isinstance(obj.get("by_url"), dict):
+            return obj.get("by_url") or {}
+        if isinstance(obj, dict):
+            return obj
+        return {}
+    except Exception:
+        return {}
+
+
 def _community_key(city: str, community: str) -> str:
     c = (city or "").strip().lower()
     n = _normalize_community(community).strip().lower()
@@ -1055,8 +1072,21 @@ def _extract_intersection(text: str) -> Tuple[str, str]:
     m0 = re.search(r"(?i)\b(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\b", t)
     if m0:
         return (_normalize_street_name(f"{m0.group(1)} St"), _normalize_street_name(f"{m0.group(2)} Ave"))
+    m_hwy = re.search(r"(?i)\bhwy\s*(\d{1,3})\b", t)
+    if m_hwy and (("&" in t) or re.search(r"(?i)\b(?:and|near)\b", t)):
+        hwy = _normalize_street_name(f"Hwy {int(m_hwy.group(1))}")
+        m_ave = re.search(r"(?i)\b(\d{1,3})(st|nd|rd|th)?\s*(?:ave|avenue)\b", t)
+        if m_ave:
+            return (hwy, _normalize_street_name(f"{m_ave.group(1)} Ave"))
+        m_st = re.search(r"(?i)\b(\d{2,3})\s*(?:st|street)\b", t)
+        if not m_st:
+            m_st = re.search(r"(?i)\b(?:and|near)\s+(\d{2,3})\b", t)
+        if not m_st:
+            m_st = re.search(r"(?i)\b&\s*(\d{2,3})\b", t)
+        if m_st:
+            return (hwy, _normalize_street_name(f"{m_st.group(1)} St"))
     t = re.sub(r"(?i)\b(\d{1,5}[a-z]?)(st|ave|rd|dr|blvd|pl|ct|ln|way|terr)\b", r"\1 \2", t)
-    street = r"(?:\d{1,5}[a-z]?\s*(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr)|(?:[A-Za-z0-9.'\-]+\s*){0,4}(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr))"
+    street = r"(?:\d{1,5}[a-z]?\s*(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr|Crescent|Cres|Highway|Hwy)|(?:[A-Za-z0-9.'\-]+\s*){0,4}(?:Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Boulevard|Blvd|Way|Place|Pl|Court|Ct|Lane|Ln|Terrace|Terr|Crescent|Cres|Highway|Hwy))"
     m = re.search(rf"(?i)\b({street})\s+(?:near|靠近)\s+({street})\b", t)
     if m:
         a = _normalize_street_name(m.group(1))
@@ -1240,6 +1270,7 @@ def main():
     global BUILDING_VOCAB
     BUILDING_VOCAB = _load_building_vocab()
     community_cache = _load_community_bbox_cache()
+    overrides_by_url = _load_location_overrides()
     comm_budget = {"remaining": int(os.getenv("MAX_COMMUNITY_GEOBOX", "10") or "10")}
     comm_sleep = float(os.getenv("COMMUNITY_GEOBOX_SLEEP", "1.2") or "1.2")
     comm_enabled = (os.getenv("DISABLE_COMMUNITY_GEOBOX", "0") or "0").strip() not in ["1", "true", "yes"]
@@ -1254,6 +1285,29 @@ def main():
     building_geocode_used = 0
  
     for item in data:
+        try:
+            u0 = str(item.get("url") or "").strip().strip("`").strip()
+        except Exception:
+            u0 = ""
+        if u0 and u0 in overrides_by_url and isinstance(overrides_by_url[u0], dict):
+            ov = overrides_by_url[u0]
+            if bool(ov.get("drop")):
+                item["_drop"] = True
+                continue
+            if isinstance(ov.get("city"), str) and ov.get("city").strip():
+                item["city"] = ov.get("city").strip()
+            if isinstance(ov.get("community"), str):
+                item["community"] = ov.get("community").strip()
+            if isinstance(ov.get("address"), str) and ov.get("address").strip():
+                item["address"] = ov.get("address").strip()
+            if _is_number(ov.get("lat")) and _is_number(ov.get("lng")):
+                item["lat"] = float(ov.get("lat"))
+                item["lng"] = float(ov.get("lng"))
+                item["coord_source"] = "manual_override"
+            else:
+                item["lat"] = None
+                item["lng"] = None
+                item["coord_source"] = "manual_override"
         source = (item.get("source") or "").strip().lower()
         title = str(item.get("title") or "")
         addr = str(item.get("address") or "")
@@ -1417,6 +1471,15 @@ def main():
                 item["city"] = url_hint_city
                 changed_city += 1
                 cur_city = url_hint_city
+            try:
+                low_addr0 = addr_for_check.lower()
+            except Exception:
+                low_addr0 = ""
+            if cur_city and ("deep cove" in low_addr0):
+                if cur_city.lower() != "north vancouver":
+                    item["city"] = "North Vancouver"
+                    changed_city += 1
+                    cur_city = "North Vancouver"
             m_city = re.search(
                 r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
                 addr_for_check,
@@ -1461,7 +1524,7 @@ def main():
         )
         has_place_query = bool(
             re.search(
-                r"(?i)\b(park|station|skytrain|centre|center|mall|community\s+centre|community\s+center|school|secondary|elementary|high\s+school)\b",
+                r"(?i)\b(park|station|skytrain|centre|center|mall|community\s+centre|community\s+center|school|secondary|elementary|high\s+school|deep\s+cove|downtown)\b",
                 addr_for_check,
             )
         )
@@ -1870,6 +1933,25 @@ def main():
                 override_source_map = True
                 is_source_map = False
             elif cur_city and (cur_city in CITY_BBOX) and (not _in_bbox(cur_city, float(lat), float(lng))):
+                needs_coords = True
+                priority_needs_geocode = True
+                override_source_map = True
+                is_source_map = False
+        if source == "craigslist" and coords_ok and is_source_map and (cur_city in CITY_BBOX) and (not _in_bbox(cur_city, float(lat), float(lng))):
+            url_city3 = _city_hint_from_craigslist_url(item.get("url") or "")
+            addr_has_city3 = bool(
+                re.search(
+                    r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|abbotsford|new westminster|north vancouver|west vancouver|port moody|port coquitlam)\b",
+                    addr_for_check,
+                )
+            )
+            city2 = _city_from_coords(float(lat), float(lng), cur_city)
+            if city2 and url_city3 and (city2.lower() == url_city3.lower()) and (not addr_has_city3):
+                if cur_city.lower() != city2.lower():
+                    item["city"] = city2
+                    changed_city += 1
+                    cur_city = city2
+            else:
                 needs_coords = True
                 priority_needs_geocode = True
                 override_source_map = True

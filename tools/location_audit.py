@@ -35,6 +35,11 @@ def _in_bbox(box: Tuple[float, float, float, float], lat: float, lng: float) -> 
     return (lat_min <= lat <= lat_max) and (lng_min <= lng <= lng_max)
 
 
+def _pad_bbox(box: Tuple[float, float, float, float], pad_lat: float, pad_lng: float) -> Tuple[float, float, float, float]:
+    lat_min, lat_max, lng_min, lng_max = box
+    return (lat_min - pad_lat, lat_max + pad_lat, lng_min - pad_lng, lng_max + pad_lng)
+
+
 def _safe_float(x: Any) -> Optional[float]:
     try:
         if x is None:
@@ -137,7 +142,8 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
 
         if comm and city and (city, comm) in community_bbox and coord_source not in ("community_bbox", "city_bbox"):
             box = community_bbox[(city, comm)]
-            if not _in_bbox(box, lat, lng):
+            box2 = _pad_bbox(box, 0.008, 0.010)
+            if not _in_bbox(box2, lat, lng):
                 reasons.append("out_of_community_bbox")
 
         if coord_source in ("city_bbox", "community_bbox") and _has_detail_addr(addr):
@@ -156,6 +162,24 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
                 reasons.append("near_city_center_with_detail_addr")
 
         if reasons:
+            severity = "low"
+            if any(r in reasons for r in ("out_of_city_bbox", "center_fallback_with_street", "bbox_but_has_house_number", "vanpeople_city_only_address")):
+                severity = "high"
+            elif "craigslist_city_mismatch_url_hint" in reasons:
+                severity = "medium"
+            next_step = ""
+            if "vanpeople_city_only_address" in reasons:
+                next_step = "drop_low_quality"
+            elif "bbox_but_has_house_number" in reasons:
+                next_step = "force_geocode_house_addr"
+            elif "center_fallback_with_street" in reasons:
+                next_step = "fix_addr_normalize_or_geocode"
+            elif "out_of_city_bbox" in reasons:
+                next_step = "check_city_or_override_source_map"
+            elif "craigslist_city_mismatch_url_hint" in reasons:
+                next_step = "check_url_hint_and_address_line"
+            elif "out_of_community_bbox" in reasons:
+                next_step = "verify_community_bbox_or_ignore"
             for r in reasons:
                 reason_counts[r] += 1
             issues.append(
@@ -169,6 +193,8 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
                     "lng": lng,
                     "url": url,
                     "reasons": reasons,
+                    "severity": severity,
+                    "next_step": next_step,
                 }
             )
 
@@ -199,10 +225,12 @@ def main():
 
     with open(args.csv, "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["source", "city", "community", "coord_source", "lat", "lng", "address", "url", "reasons"])
+        w.writerow(["severity", "next_step", "source", "city", "community", "coord_source", "lat", "lng", "address", "url", "reasons", "review_status", "review_note", "review_fixed_city", "review_fixed_address"])
         for it in rep["issues"]:
             w.writerow(
                 [
+                    it.get("severity", ""),
+                    it.get("next_step", ""),
                     it.get("source", ""),
                     it.get("city", ""),
                     it.get("community", ""),
@@ -212,6 +240,10 @@ def main():
                     it.get("address", ""),
                     it.get("url", ""),
                     "|".join(it.get("reasons") or []),
+                    "",
+                    "",
+                    "",
+                    "",
                 ]
             )
 
@@ -233,4 +265,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
