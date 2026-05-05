@@ -577,6 +577,8 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Rd\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Road\b", r"No. \1 Road", s)
     if has_house_addr and re.search(r"(?i)\brichmond\b", s):
+        s = re.sub(r"(?i)\bNo\.?\s*3\s*Road\b", "Number 3 Rd", s)
+        s = re.sub(r"(?i)\bNo\.?\s*3\s*Rd\b", "Number 3 Rd", s)
         s = re.sub(r"(?i)\bNo\.?\s*4\s*Road\b", "Number 4 Rd", s)
         s = re.sub(r"(?i)\bNo\.?\s*4\s*Rd\b", "Number 4 Rd", s)
     s = re.sub(r"(?i)\bStreet\b", "St", s)
@@ -1578,6 +1580,36 @@ def main():
                     has_detail_addr = True
                     needs_coords = True
                     priority_needs_geocode = True
+                if coords_ok and has_detail_addr and ("westminster" in addr_for_check.lower()):
+                    try:
+                        cc_box = COMMUNITY_BBOX.get(("Richmond", "City Centre"))
+                        want_cc = ("列市中心" in hint) or ("richmond centre" in low_hint) or ("richmond center" in low_hint) or ("brighouse" in low_hint)
+                        if cc_box and want_cc and isinstance(lat, (int, float)) and isinstance(lng, (int, float)):
+                            if not (cc_box[0] <= float(lat) <= cc_box[1] and cc_box[2] <= float(lng) <= cc_box[3]):
+                                item["lat"] = None
+                                item["lng"] = None
+                                lat = None
+                                lng = None
+                                coords_ok = False
+                                needs_coords = True
+                                priority_needs_geocode = True
+                    except Exception:
+                        pass
+                if coords_ok and has_detail_addr and (("number 3" in addr_for_check.lower()) or ("no. 3" in addr_for_check.lower()) or ("no 3" in addr_for_check.lower())):
+                    try:
+                        cc_box = COMMUNITY_BBOX.get(("Richmond", "City Centre"))
+                        want_cc = ("列市中心" in hint) or ("richmond centre" in low_hint) or ("richmond center" in low_hint) or ("brighouse" in low_hint)
+                        if cc_box and want_cc and isinstance(lat, (int, float)) and isinstance(lng, (int, float)):
+                            if not (cc_box[0] <= float(lat) <= cc_box[1] and cc_box[2] <= float(lng) <= cc_box[3]):
+                                item["lat"] = None
+                                item["lng"] = None
+                                lat = None
+                                lng = None
+                                coords_ok = False
+                                needs_coords = True
+                                priority_needs_geocode = True
+                    except Exception:
+                        pass
             if (cur_city or "").strip().lower() == "vancouver":
                 try:
                     low_text3 = text.lower()
@@ -2016,6 +2048,26 @@ def main():
         elif allow_geocode:
             geocode_used += 1
         if allow_geocode:
+            if source == "vanpeople" and (cur_city or "").strip().lower() == "richmond" and ("westminster" in addr_for_check.lower()):
+                try:
+                    want_cc = ("列市中心" in hint) or ("richmond centre" in low_hint) or ("richmond center" in low_hint) or ("brighouse" in low_hint)
+                    if want_cc:
+                        a0 = str(item.get("address") or "")
+                        a0 = re.sub(r"(?i),\s*richmond\b.*$", "", a0).strip(" ,")
+                        if a0:
+                            query = c.build_geocode_query(f"{a0}, Richmond Centre", geocode_city)
+                except Exception:
+                    pass
+            if source == "vanpeople" and (cur_city or "").strip().lower() == "richmond" and (("number 3" in addr_for_check.lower()) or ("no. 3" in addr_for_check.lower()) or ("no 3" in addr_for_check.lower())):
+                try:
+                    want_cc = ("列市中心" in hint) or ("richmond centre" in low_hint) or ("richmond center" in low_hint) or ("brighouse" in low_hint)
+                    if want_cc:
+                        a0 = str(item.get("address") or "")
+                        a0 = re.sub(r"(?i),\s*richmond\b.*$", "", a0).strip(" ,")
+                        if a0:
+                            query = c.build_geocode_query(f"{a0}, Richmond Centre", geocode_city)
+                except Exception:
+                    pass
             query = _normalize_geocode_query(query)
             coords = c.get_lat_lng(query)
             try:
