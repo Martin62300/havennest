@@ -84,6 +84,19 @@ jobs:
           HAVENNEST_GEOCODE_RETRIES: "1"
           HAVENNEST_GEOCODE_SLEEP: "1.2"
 
+      - name: Location audit (suspicious coords report)
+        run: python tools/location_audit.py --input listings.json --output location_audit.json --csv location_audit.csv
+
+      - name: Upload location audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: location-audit
+          path: |
+            location_audit.json
+            location_audit.csv
+          if-no-files-found: ignore
+
       - name: Commit and push changes
         run: |
           git config --global user.name "GitHub Action"
