@@ -577,10 +577,9 @@ def _normalize_geocode_query(q: str) -> str:
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Rd\b", r"No. \1 Road", s)
     s = re.sub(r"(?i)\bNo\s*(\d+)\s*Road\b", r"No. \1 Road", s)
     if has_house_addr and re.search(r"(?i)\brichmond\b", s):
-        s = re.sub(r"(?i)\bNo\.?\s*3\s*Road\b", "Number 3 Rd", s)
-        s = re.sub(r"(?i)\bNo\.?\s*3\s*Rd\b", "Number 3 Rd", s)
-        s = re.sub(r"(?i)\bNo\.?\s*4\s*Road\b", "Number 4 Rd", s)
-        s = re.sub(r"(?i)\bNo\.?\s*4\s*Rd\b", "Number 4 Rd", s)
+        s = re.sub(r"(?i)\bNo\.?\s*(\d+)\s*Road\b", r"Number \1 Rd", s)
+        s = re.sub(r"(?i)\bNo\.?\s*(\d+)\s*Rd\b", r"Number \1 Rd", s)
+        s = re.sub(r"(?i)\bNumber\s*(\d+)\s*Road\b", r"Number \1 Rd", s)
     s = re.sub(r"(?i)\bStreet\b", "St", s)
     s = re.sub(r"(?i)\bRoad\b", "Rd", s)
     s = re.sub(r"(?i)\bBoulevard\b", "Blvd", s)
