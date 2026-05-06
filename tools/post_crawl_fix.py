@@ -316,24 +316,6 @@ def _city_hint_from_craigslist_url(url: str) -> str:
         m = re.search(r"craigslist\.org/([a-z]{3})/", u, flags=re.IGNORECASE)
         if not m:
             return ""
-        code = (m.group(1) or "").lower()
-        m2 = {
-            "van": "Vancouver",
-            "rch": "Richmond",
-            "nmo": "Port Moody",
-            "nwb": "New Westminster",
-            "nvy": "North Vancouver",
-            "nvn": "",
-            "pml": "",
-            "wht": "White Rock",
-            "dlt": "Delta",
-            "lan": "Langley",
-            "bnc": "",
-            "rds": "",
-        }
-        code_city = m2.get(code, "") or ""
-        if code_city:
-            return code_city
         m0 = re.search(r"craigslist\.org/[a-z]{3}/apa/d/([^/]+)/", u, flags=re.IGNORECASE)
         if m0:
             slug_full = (m0.group(1) or "").lower().strip("-")
@@ -356,6 +338,24 @@ def _city_hint_from_craigslist_url(url: str) -> str:
             for k, v in mslug.items():
                 if slug_full == k or slug_full.startswith(k + "-"):
                     return v
+        code = (m.group(1) or "").lower()
+        m2 = {
+            "van": "Vancouver",
+            "rch": "Richmond",
+            "nmo": "Port Moody",
+            "nwb": "New Westminster",
+            "nvy": "North Vancouver",
+            "nvn": "North Vancouver",
+            "pml": "",
+            "wht": "White Rock",
+            "dlt": "Delta",
+            "lan": "Langley",
+            "bnc": "",
+            "rds": "",
+        }
+        code_city = m2.get(code, "") or ""
+        if code_city:
+            return code_city
         return ""
     except Exception:
         return ""
@@ -390,6 +390,19 @@ def _city_from_coords(lat: float, lng: float, preferred_city: str = "") -> str:
         return ""
 
  
+def _community_from_coords(city: str, lat: float, lng: float) -> str:
+    try:
+        c0 = (city or "").strip()
+        if not c0:
+            return ""
+        for (c1, comm), box in COMMUNITY_BBOX.items():
+            if c1 == c0 and _in_box(box, float(lat), float(lng)):
+                return comm
+        return ""
+    except Exception:
+        return ""
+
+
 def _cache_key_from_query(query: str) -> str:
     clean_addr = re.sub(r"[^\w\s,.-]", "", (query or "")).strip()
     return f"{clean_addr}, BC, Canada"
@@ -1304,7 +1317,7 @@ def main():
                 item["lat"] = float(ov.get("lat"))
                 item["lng"] = float(ov.get("lng"))
                 item["coord_source"] = "manual_override"
-            else:
+            elif bool(ov.get("force_geocode")):
                 item["lat"] = None
                 item["lng"] = None
                 item["coord_source"] = "manual_override"
@@ -1365,13 +1378,22 @@ def main():
         except Exception:
             cur_beds_int = None
  
-        if cur_beds_int is None:
+        addr_num = None
+        try:
+            m_addrn = re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*(\d{3,6})\b", addr)
+            if m_addrn:
+                addr_num = int(m_addrn.group(1))
+        except Exception:
+            addr_num = None
+        if cur_beds_int is None or cur_beds_int < 0 or cur_beds_int > 10:
             item["beds"] = extracted_beds
             changed_beds += 1
-        else:
-            if extracted_beds != cur_beds_int and (extracted_beds != 1 or cur_beds_int == 1):
-                item["beds"] = extracted_beds
-                changed_beds += 1
+        elif addr_num is not None and cur_beds_int == addr_num and 0 <= int(extracted_beds) <= 10:
+            item["beds"] = extracted_beds
+            changed_beds += 1
+        elif extracted_beds != cur_beds_int:
+            item["beds"] = extracted_beds
+            changed_beds += 1
  
         lat = item.get("lat")
         lng = item.get("lng")
@@ -1536,6 +1558,19 @@ def main():
             )
         )
         has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
+        if coords_ok and cur_city and cur_comm and (not has_detail_addr):
+            try:
+                comm0 = _normalize_community(cur_comm)
+            except Exception:
+                comm0 = cur_comm
+            box0 = COMMUNITY_BBOX.get((cur_city, comm0))
+            if not box0 and comm_enabled:
+                box0 = _get_community_bbox(cur_city, comm0, community_cache, comm_budget, comm_sleep)
+            if box0 and not _in_box(box0, float(lat), float(lng)):
+                comm2 = _community_from_coords(cur_city, float(lat), float(lng))
+                if comm2 and comm2 != cur_comm:
+                    item["community"] = comm2
+                    cur_comm = comm2
         priority_needs_geocode = False
         if source == "craigslist" and needs_coords and has_detail_addr:
             priority_needs_geocode = True
@@ -1777,6 +1812,11 @@ def main():
                     pass
                 try:
                     if (not try_explicit_addr) and url_hint_city2 and cur_city and (cur_city.lower() != url_hint_city2.lower()):
+                        try_explicit_addr = True
+                except Exception:
+                    pass
+                try:
+                    if (not try_explicit_addr) and cur_city and (cur_city in CITY_BBOX) and (not _in_bbox(cur_city, float(lat), float(lng))):
                         try_explicit_addr = True
                 except Exception:
                     pass
@@ -2180,6 +2220,35 @@ def main():
                     try:
                         new_lat = float(coords2[0]) if coords2 and coords2[0] is not None else None
                         new_lng = float(coords2[1]) if coords2 and coords2[1] is not None else None
+                    except Exception:
+                        new_lat = None
+                        new_lng = None
+            if (new_lat is None or new_lng is None) and has_detail_addr:
+                try:
+                    q_short = str(query)
+                    rep = [
+                        (r"(?i)\bStreet\b", "St"),
+                        (r"(?i)\bRoad\b", "Rd"),
+                        (r"(?i)\bAvenue\b", "Ave"),
+                        (r"(?i)\bBoulevard\b", "Blvd"),
+                        (r"(?i)\bDrive\b", "Dr"),
+                        (r"(?i)\bPlace\b", "Pl"),
+                        (r"(?i)\bCourt\b", "Ct"),
+                        (r"(?i)\bCrescent\b", "Cres"),
+                        (r"(?i)\bLane\b", "Ln"),
+                        (r"(?i)\bTerrace\b", "Terr"),
+                        (r"(?i)\bHighway\b", "Hwy"),
+                    ]
+                    for a, b in rep:
+                        q_short = re.sub(a, b, q_short)
+                    q_short = re.sub(r"\s+", " ", q_short).strip()
+                except Exception:
+                    q_short = ""
+                if q_short and q_short != query:
+                    coords_short = c.get_lat_lng(q_short)
+                    try:
+                        new_lat = float(coords_short[0]) if coords_short and coords_short[0] is not None else None
+                        new_lng = float(coords_short[1]) if coords_short and coords_short[1] is not None else None
                     except Exception:
                         new_lat = None
                         new_lng = None
