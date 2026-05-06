@@ -5775,10 +5775,6 @@
         49.2895194,
         -123.1436506
     ],
-    "6080 McKay Avenue, Burnaby, BC, Canada": [
-        49.2283281,
-        -123.0035373
-    ],
     "4185 West 29th Avenue, Vancouver, BC, Canada": [
         49.2472968,
         -123.2003287
@@ -6046,10 +6042,6 @@
     "7711 Belair drive, Richmond, BC, Canada": [
         49.1452905,
         -123.1402201
-    ],
-    "158 West 13th Street, North Vancouver, BC, Canada": [
-        49.3200503,
-        -123.078116
     ],
     "E 29 Ave, Vancouver, BC, Canada": [
         49.0550538,
@@ -7911,10 +7903,6 @@
         49.2081254,
         -122.9771699
     ],
-    "6200 Minoru Blvd, Richmond, BC, Canada": [
-        49.1668277,
-        -123.1401171
-    ],
     "2505 W 15th Ave, Vancouver, BC, Canada": [
         49.2586269,
         -123.1628558
@@ -8262,10 +8250,6 @@
     "St  109 Avenue, Surrey, BC, Canada": [
         49.2006108,
         -122.7792479
-    ],
-    "13750 100 AVENUE, Surrey, BC, Canada": [
-        49.1839351,
-        -122.8415856
     ],
     "1155 High St, Coquitlam, BC, Canada": [
         49.2833735,
@@ -8615,10 +8599,6 @@
         49.3243617,
         -123.098226
     ],
-    "Burquitlam Station, Coquitlam, BC, Canada": [
-        49.2613309,
-        -122.8899378
-    ],
     "7599 15 St, BC, Canada": [
         50.2584363,
         -119.2510922
@@ -8735,10 +8715,6 @@
         49.1792769,
         -123.1181405
     ],
-    "6788 Minoru Blvd, Richmond, BC, Canada": [
-        49.1649333,
-        -123.1400942
-    ],
     "2320 West 40th Avenue, Vancouver, BC, Canada": [
         49.2354363,
         -123.1603074
@@ -8850,10 +8826,6 @@
     "33 Rd, Surrey, Surrey, BC, Canada": [
         49.0474364,
         -122.7823022
-    ],
-    "235 Guildford Way, Port Moody, BC, Canada": [
-        49.2818725,
-        -122.8261133
     ],
     "Heather St, Vancouver, Vancouver, BC, Canada": [
         49.2060134,
@@ -9255,10 +9227,6 @@
         49.1892069,
         -123.133402
     ],
-    "6087 Wilson Avenue, Burnaby, BC, Canada": [
-        49.2296776,
-        -123.00944
-    ],
     "20 Ave, Vancouver, Vancouver, BC, Canada": [
         49.0384697,
         -122.863691
@@ -9575,10 +9543,6 @@
         49.278996,
         -123.0813403
     ],
-    "995 Adair Avenue, Coquitlam, BC, Canada": [
-        49.2367614,
-        -122.8683929
-    ],
     "1045 east 11th Avenue, Vancouver, BC, Canada": [
         49.2604632,
         -123.0692243
@@ -9707,10 +9671,6 @@
         49.1555262,
         -123.077635
     ],
-    "13738 Central Avenue, Surrey, BC, Canada": [
-        49.1906162,
-        -122.8553599
-    ],
     "23222 Gilley Rd, Richmond, BC, Canada": [
         49.1770532,
         -122.9768401
@@ -9830,10 +9790,6 @@
     "W 39th Ave  Dunbar St, BC, Canada": [
         49.2366856,
         -123.1852089
-    ],
-    "985 Adair Avenue, Coquitlam, BC, Canada": [
-        49.2367614,
-        -122.8683929
     ],
     "Palais Georgia West Georgia St, Vancouver, BC, Canada": [
         49.2894883,
@@ -10074,5 +10030,181 @@
     "6588 Nelson Avenue, Burnaby, BC, Canada": [
         49.2238265,
         -122.9937703
+    ],
+    "4178 Dawson St, Burnaby, BC, Canada": [
+        49.2637366,
+        -123.0126265
+    ],
+    "13495 CENTRAL Avenue, Surrey, BC, Canada": [
+        49.1906656,
+        -122.8481878
+    ],
+    "13750 100 AVENUE, Surrey, BC, Canada": [
+        49.1839351,
+        -122.8415856
+    ],
+    "995 Adair Avenue, Coquitlam, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
+    "71 St, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "985 Adair Avenue, Coquitlam, BC, Canada": [
+        49.2367614,
+        -122.8683929
+    ],
+    "neighborhood, BC, Canada": [
+        49.4066433,
+        -123.3650344
+    ],
+    "6087 Wilson Avenue, Burnaby, BC, Canada": [
+        49.2296776,
+        -123.00944
+    ],
+    "1077 23rd St, West Vancouver, BC, Canada": [
+        49.3366803,
+        -123.1748591
+    ],
+    "1288 West Georgia St, Vancouver, BC, Canada": [
+        49.2876225,
+        -123.1267589
+    ],
+    "274 5th St, North Vancouver, BC, Canada": [
+        49.3105567,
+        -123.0641912
+    ],
+    "3420 Rockview Pl, West Vancouver, BC, Canada": [
+        49.3451273,
+        -123.2130998
+    ],
+    "1238 Howe St, Vancouver, BC, Canada": [
+        49.2856299,
+        -123.1153693
+    ],
+    "112 East 13th St, North Vancouver, BC, Canada": [
+        49.3198704,
+        -123.0616331
+    ],
+    "741 Anskar Ct, Coquitlam, BC, Canada": [
+        49.2669439,
+        -122.8814896
+    ],
+    "721 Anskar Ct, Coquitlam, BC, Canada": [
+        49.2669439,
+        -122.8814896
+    ],
+    "603, Coquitlam, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "3018, BC, Canada": [
+        50.6903831,
+        -120.2870119
+    ],
+    "235 Guildford Way, Port Moody, BC, Canada": [
+        49.2818725,
+        -122.8261133
+    ],
+    "7981 17 Avenue, Burnaby, BC, Canada": [
+        49.2145425,
+        -122.9496751
+    ],
+    "Hastings St, Vancouver, Vancouver, BC, Canada": [
+        49.2811255,
+        -123.0235139
+    ],
+    "5791 Kerr St, Vancouver, BC, Canada": [
+        49.2313342,
+        -123.0407103
+    ],
+    "8988, Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "3833, Coquitlam, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "3833, Burnaby, BC, Canada": [
+        49.265451,
+        -123.02027
+    ],
+    "6200 Minoru Blvd, Richmond, BC, Canada": [
+        49.1668277,
+        -123.1401171
+    ],
+    "6808 Minoru Blvd, Richmond, BC, Canada": [
+        49.164444,
+        -123.1397445
+    ],
+    "6788 Minoru Blvd, Richmond, BC, Canada": [
+        49.1649333,
+        -123.1400942
+    ],
+    "5692 Kings Rd, Vancouver, BC, Canada": [
+        49.2653053,
+        -123.2405089
+    ],
+    "7368 Sandborne Avenue, Burnaby, BC, Canada": [
+        49.2103706,
+        -122.9612765
+    ],
+    "9350 University High St, Burnaby, BC, Canada": [
+        49.2768268,
+        -122.9064336
+    ],
+    "712 Delestre Avenue, Coquitlam, BC, Canada": [
+        49.2417296,
+        -122.8688509
+    ],
+    "6088 minoru blvd, Richmond, BC, Canada": [
+        49.1683217,
+        -123.139687
+    ],
+    "13738 Central Avenue, Surrey, BC, Canada": [
+        49.1906162,
+        -122.8553599
+    ],
+    "1549 Chesterfield Avenue, North Vancouver, BC, Canada": [
+        49.3229208,
+        -123.0758763
+    ],
+    "158 West 13th St, North Vancouver, BC, Canada": [
+        49.3200503,
+        -123.078116
+    ],
+    "3435 Sawmill Cres, Vancouver, BC, Canada": [
+        49.2065879,
+        -123.0327657
+    ],
+    "1477 West 15th Avenue, Vancouver, BC, Canada": [
+        49.2582008,
+        -123.1383543
+    ],
+    "10455, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "15355, Surrey, BC, Canada": [
+        49.164901,
+        -122.7968301
+    ],
+    "99 Ave, Surrey, Surrey, BC, Canada": [
+        49.1822786,
+        -122.8726761
+    ],
+    "Burquitlam Station, Coquitlam, BC, Canada": [
+        49.2613309,
+        -122.8899378
+    ],
+    "6080 McKay Avenue, Burnaby, BC, Canada": [
+        49.2283281,
+        -123.0035373
+    ],
+    "2268 Redbud Ln, Vancouver, BC, Canada": [
+        49.2613536,
+        -123.1565969
     ]
 }
