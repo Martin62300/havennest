@@ -21,6 +21,30 @@
     "https://vancouver.craigslist.org/bnc/apa/d/burnaby-1bedroom-furnished-ground-floor/7927760277.html": {
       "city": "Burnaby",
       "community": "Highgate"
+    },
+    "https://c.vanpeople.com/zufang/item-3463943.html": {
+      "city": "Burnaby",
+      "address": "6700 Dunblane Ave, Burnaby",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3452204.html": {
+      "city": "Richmond",
+      "address": "11731 No. 2 Rd, Richmond",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3355401.html": {
+      "drop": true
+    },
+    "https://c.vanpeople.com/zufang/item-3174664.html": {
+      "drop": true
+    },
+    "https://c.vanpeople.com/zufang/item-3460856.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/richmond-bed-bed-unit-at-perla-central/7932446801.html": {
+      "city": "Richmond",
+      "address": "8100 Saba Rd, Richmond",
+      "force_geocode": true
     }
   }
 }
