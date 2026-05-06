@@ -1,5 +1,26 @@
 {
   "version": 1,
-  "by_url": {}
+  "by_url": {
+    "https://c.vanpeople.com/zufang/item-3461894.html": {
+      "city": "Burnaby",
+      "address": "7788 18th St, Burnaby",
+      "lat": 49.2091318,
+      "lng": -122.9493265
+    },
+    "https://c.vanpeople.com/zufang/item-3369242.html": {
+      "city": "Richmond",
+      "address": "Williams Rd & Railway Ave, Richmond",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/surrey-offer-newly-renovated-3br1bath/7930511091.html": {
+      "city": "Surrey",
+      "address": "13167 14A Ave, Surrey",
+      "lat": 49.0286657,
+      "lng": -122.8575236
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-1bedroom-furnished-ground-floor/7927760277.html": {
+      "city": "Burnaby",
+      "community": "Highgate"
+    }
+  }
 }
-
