@@ -225,7 +225,7 @@ def main():
 
     with open(args.csv, "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["severity", "next_step", "source", "city", "community", "coord_source", "lat", "lng", "address", "url", "reasons", "review_status", "review_note", "review_fixed_city", "review_fixed_community", "review_fixed_address", "review_lock_coords"])
+        w.writerow(["severity", "next_step", "source", "city", "community", "coord_source", "lat", "lng", "address", "url", "reasons", "review_status", "review_note", "review_fixed_city", "review_fixed_community", "review_fixed_address", "review_fixed_lat", "review_fixed_lng", "review_lock_coords"])
         for it in rep["issues"]:
             w.writerow(
                 [
@@ -240,6 +240,8 @@ def main():
                     it.get("address", ""),
                     it.get("url", ""),
                     "|".join(it.get("reasons") or []),
+                    "",
+                    "",
                     "",
                     "",
                     "",

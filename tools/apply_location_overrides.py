@@ -46,6 +46,16 @@ def _is_truthy(x: Any) -> bool:
     return s in {"1", "true", "yes", "y", "lock", "locked"}
 
 
+def _to_float(x: Any) -> Optional[float]:
+    try:
+        s = str(x or "").strip()
+        if not s:
+            return None
+        return float(s)
+    except Exception:
+        return None
+
+
 def _load_overrides(path: str) -> Dict[str, Any]:
     try:
         if not os.path.exists(path):
@@ -102,6 +112,8 @@ def main() -> None:
             fixed_city = (row.get("review_fixed_city") or "").strip()
             fixed_comm = (row.get("review_fixed_community") or "").strip()
             fixed_addr = (row.get("review_fixed_address") or "").strip()
+            fixed_lat = _to_float(row.get("review_fixed_lat"))
+            fixed_lng = _to_float(row.get("review_fixed_lng"))
             lock_coords = _is_truthy(row.get("review_lock_coords") or "")
             ov: Dict[str, Any] = {}
             if fixed_city:
@@ -110,6 +122,9 @@ def main() -> None:
                 ov["community"] = fixed_comm
             if fixed_addr:
                 ov["address"] = fixed_addr
+            if fixed_lat is not None and fixed_lng is not None:
+                ov["lat"] = fixed_lat
+                ov["lng"] = fixed_lng
             if not ov:
                 continue
             if fixed_addr:
