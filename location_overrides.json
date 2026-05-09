@@ -46,6 +46,46 @@
       "city": "Richmond",
       "address": "8100 Saba Rd, Richmond",
       "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3462691.html": {
+      "city": "Burnaby",
+      "community": "Metrotown",
+      "address": "6638 Dunblane Avenue, Burnaby",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3460008.html": {
+      "city": "Burnaby",
+      "address": "8850 University Crescent, Burnaby",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/pml/apa/d/surrey-prosprise-realty-new-2bed1bath/7932906147.html": {
+      "city": "Surrey"
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/richmond-3den-2ba-super-sized-direct/7928498385.html": {
+      "city": "Richmond",
+      "address": "14100 Riverport Way",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/nvn/apa/d/squamish-1bedflex-1ba-vantage-large-dt/7930662168.html": {
+      "city": "Squamish",
+      "address": "1365 Pemberton, Squamish",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-bus-stop-to-ubc-campus-house/7924037910.html": {
+      "city": "Vancouver",
+      "address": "4685 W 16th Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-35-storey-townhouse-walking/7932085493.html": {
+      "city": "Burnaby"
+    },
+    "https://vancouver.craigslist.org/van/apa/d/burnaby-newly-renovated-2bed1bath-suite/7932903347.html": {
+      "city": "Burnaby"
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-north-bedroom-condo-with-ac/7931106505.html": {
+      "city": "Coquitlam",
+      "address": "3833 Evergreen Place, Coquitlam",
+      "force_geocode": true
     }
   }
 }
