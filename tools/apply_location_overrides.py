@@ -41,6 +41,11 @@ def _open_csv_dictreader(path: str) -> Tuple[TextIO, csv.DictReader]:
     raise RuntimeError(f"Failed to read CSV with common encodings: {path}: {last_err}")
 
 
+def _is_truthy(x: Any) -> bool:
+    s = str(x or "").strip().lower()
+    return s in {"1", "true", "yes", "y", "lock", "locked"}
+
+
 def _load_overrides(path: str) -> Dict[str, Any]:
     try:
         if not os.path.exists(path):
@@ -97,6 +102,7 @@ def main() -> None:
             fixed_city = (row.get("review_fixed_city") or "").strip()
             fixed_comm = (row.get("review_fixed_community") or "").strip()
             fixed_addr = (row.get("review_fixed_address") or "").strip()
+            lock_coords = _is_truthy(row.get("review_lock_coords") or "")
             ov: Dict[str, Any] = {}
             if fixed_city:
                 ov["city"] = fixed_city
@@ -108,6 +114,8 @@ def main() -> None:
                 continue
             if fixed_addr:
                 ov["force_geocode"] = True
+            if lock_coords:
+                ov["lock_coords"] = True
             by_url[url] = ov
             changed += 1
     finally:

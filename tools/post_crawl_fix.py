@@ -1307,6 +1307,8 @@ def main():
             if bool(ov.get("drop")):
                 item["_drop"] = True
                 continue
+            if bool(ov.get("lock_coords")):
+                item["_lock_coords"] = True
             if isinstance(ov.get("city"), str) and ov.get("city").strip():
                 item["city"] = ov.get("city").strip()
             if isinstance(ov.get("community"), str):
@@ -1418,7 +1420,7 @@ def main():
                     lng = None
             except Exception:
                 pass
-        if coords_ok and is_source_map:
+        if coords_ok and is_source_map and (not item.get("_lock_coords")):
             preferred_city = ""
             if source == "craigslist":
                 preferred_city = _city_hint_from_craigslist_url(item.get("url") or "")
@@ -1453,6 +1455,8 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
+        if item.get("_lock_coords"):
+            continue
         if source == "vanpeople":
             a0 = re.sub(r"\s+", " ", (addr_for_check or "").strip()).lower()
             if (not re.search(r"\d", a0)) and ("&" not in a0) and (
