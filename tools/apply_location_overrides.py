@@ -3,7 +3,7 @@ import csv
 import json
 import os
 import re
-from typing import Any, Dict
+from typing import Any, Dict, Optional, TextIO, Tuple
 
 
 def _normalize_url(s: str) -> str:
@@ -17,6 +17,28 @@ def _normalize_url(s: str) -> str:
     t = t.strip().strip('"').strip("'")
     t = t.rstrip(").,;]")
     return t.strip()
+
+
+def _open_csv_dictreader(path: str) -> Tuple[TextIO, csv.DictReader]:
+    encodings = ["utf-8-sig", "utf-16", "gb18030", "cp936", "cp1252", "latin-1"]
+    last_err: Optional[Exception] = None
+    for enc in encodings:
+        try:
+            f: TextIO = open(path, "r", encoding=enc, newline="")
+            r: csv.DictReader = csv.DictReader(f)
+            _ = r.fieldnames
+            if not r.fieldnames:
+                f.close()
+                raise RuntimeError("empty csv header")
+            print(f"CSV encoding: {enc}")
+            return (f, r)
+        except Exception as e:
+            last_err = e
+            try:
+                f.close()
+            except Exception:
+                pass
+    raise RuntimeError(f"Failed to read CSV with common encodings: {path}: {last_err}")
 
 
 def _load_overrides(path: str) -> Dict[str, Any]:
@@ -57,8 +79,8 @@ def main() -> None:
     by_url = _load_overrides(args.overrides_json)
     changed = 0
 
-    with open(args.review_csv, "r", encoding="utf-8-sig", newline="") as f:
-        r = csv.DictReader(f)
+    f, r = _open_csv_dictreader(args.review_csv)
+    try:
         for row in r:
             url = _normalize_url(row.get("url") or "")
             if not url:
@@ -82,11 +104,17 @@ def main() -> None:
                 ov["community"] = fixed_comm
             if fixed_addr:
                 ov["address"] = fixed_addr
-            ov["force_geocode"] = True
             if not ov:
                 continue
+            if fixed_addr:
+                ov["force_geocode"] = True
             by_url[url] = ov
             changed += 1
+    finally:
+        try:
+            f.close()
+        except Exception:
+            pass
 
     _save_overrides(args.overrides_json, by_url)
     print(f"Saved overrides: {args.overrides_json} (updated {changed})")
