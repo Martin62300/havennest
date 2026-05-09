@@ -77,10 +77,60 @@
       "force_geocode": true
     },
     "https://vancouver.craigslist.org/bnc/apa/d/burnaby-35-storey-townhouse-walking/7932085493.html": {
-      "city": "Burnaby"
+      "city": "Burnaby",
+      "lock_coords": true
     },
     "https://vancouver.craigslist.org/van/apa/d/burnaby-newly-renovated-2bed1bath-suite/7932903347.html": {
-      "city": "Burnaby"
+      "city": "Burnaby",
+      "address": "Ednor Cres & Greystone Dr, Burnaby",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/surrey-offer-kitchener-rare-spacious/7930412961.html": {
+      "city": "Surrey",
+      "address": "South Surrey, Surrey",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3461915.html": {
+      "city": "Vancouver",
+      "community": "Point Grey",
+      "address": "UBC Campus, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/burnaby-bed-upper-unit-close-to/7932229301.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/richmond-west-beautifully-kept-bedroom/7932237183.html": {
+      "city": "Richmond",
+      "address": "5199 Brighouse Way, Richmond",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3461707.html": {
+      "city": "Richmond",
+      "community": "West Cambie",
+      "address": "Shell Rd & Bridgeport Rd, Richmond",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3461657.html": {
+      "city": "Richmond",
+      "lock_coords": true
+    },
+    "https://c.vanpeople.com/zufang/item-3459268.html": {
+      "city": "Burnaby",
+      "lat": 49.22748,
+      "lng": -122.93995,
+      "lock_coords": true
+    },
+    "https://c.vanpeople.com/zufang/item-3432140.html": {
+      "city": "Burnaby",
+      "lat": 49.22748,
+      "lng": -122.93995,
+      "lock_coords": true
+    },
+    "https://c.vanpeople.com/zufang/item-3461917.html": {
+      "city": "Coquitlam",
+      "lat": 49.26911,
+      "lng": -122.88513,
+      "lock_coords": true
     },
     "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-north-bedroom-condo-with-ac/7931106505.html": {
       "city": "Coquitlam",
