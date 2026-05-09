@@ -1506,6 +1506,17 @@ def main():
                     item["city"] = "North Vancouver"
                     changed_city += 1
                     cur_city = "North Vancouver"
+            try:
+                low_text0 = text.lower()
+            except Exception:
+                low_text0 = ""
+            if ("south surrey" in low_text0) or ("ocean park" in low_text0):
+                if cur_city.lower() != "surrey":
+                    item["city"] = "Surrey"
+                    changed_city += 1
+                    cur_city = "Surrey"
+                if not item.get("community"):
+                    item["community"] = "South Surrey"
             m_city = re.search(
                 r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
                 addr_for_check,
@@ -1562,6 +1573,18 @@ def main():
             )
         )
         has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
+        if (
+            source == "craigslist"
+            and coords_ok
+            and is_source_map
+            and (not item.get("_lock_coords"))
+            and has_detail_addr
+            and coord_source in ("source_map", "source_map_pb", "source_map_open")
+        ):
+            item["lat"] = None
+            item["lng"] = None
+            coords_ok = False
+            needs_coords = True
         if coords_ok and cur_city and cur_comm and (not has_detail_addr):
             try:
                 comm0 = _normalize_community(cur_comm)

@@ -103,6 +103,11 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
     city_centers = getattr(pcf, "CITY_CENTERS", {}) or {}
     community_bbox = getattr(pcf, "COMMUNITY_BBOX", {}) or {}
     city_hint_fn = getattr(pcf, "_city_hint_from_craigslist_url", None)
+    c = None
+    try:
+        c = getattr(pcf, "HavenNestCrawler", None)()
+    except Exception:
+        c = None
 
     issues: List[Dict[str, Any]] = []
     reason_counts = Counter()
@@ -115,6 +120,8 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
         city = (it.get("city") or "").strip()
         comm = (it.get("community") or "").strip()
         addr = (it.get("address") or "").strip()
+        title = (it.get("title") or "").strip()
+        desc = (it.get("desc") or it.get("description") or "").strip()
         url = (it.get("url") or "").strip()
         coord_source = (it.get("coord_source") or "").strip()
         lat = _safe_float(it.get("lat"))
@@ -124,6 +131,17 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
             continue
 
         reasons: List[str] = []
+
+        if c is not None:
+            try:
+                info = c.infer_city_info(" ".join([title, addr, desc]))
+                text_city = (info.get("city") or "").strip()
+                strength = int(info.get("strength") or 0)
+            except Exception:
+                text_city = ""
+                strength = 0
+            if text_city and city and text_city.lower() != city.lower() and strength >= 2:
+                reasons.append("text_city_mismatch")
 
         if city and city in city_bbox and (not _in_bbox(city_bbox[city], lat, lng)):
             reasons.append("out_of_city_bbox")
@@ -139,6 +157,9 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
         if src.lower() == "vanpeople":
             if _is_city_only(addr) and (not re.search(r"\d", addr)) and (" & " not in addr):
                 reasons.append("vanpeople_city_only_address")
+            low_addr = addr.lower()
+            if any(k in low_addr for k in ["metrotower", "shellbridge way", "west covina", "head office", "branch"]):
+                reasons.append("vanpeople_company_address_pollution")
 
         if comm and city and (city, comm) in community_bbox and coord_source not in ("community_bbox", "city_bbox"):
             box = community_bbox[(city, comm)]
@@ -151,6 +172,8 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
 
         if coord_source == "city_center_fallback" and _has_street_level_addr(addr):
             reasons.append("center_fallback_with_street")
+        if coord_source in ("source_map", "source_map_pb", "source_map_open") and _has_detail_addr(addr):
+            reasons.append("detail_addr_but_source_map")
 
         if city and city in city_centers and _has_detail_addr(addr):
             c0 = city_centers[city]
@@ -170,6 +193,12 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
             next_step = ""
             if "vanpeople_city_only_address" in reasons:
                 next_step = "drop_low_quality"
+            elif "vanpeople_company_address_pollution" in reasons:
+                next_step = "fix_vanpeople_addr_extract_or_override"
+            elif "detail_addr_but_source_map" in reasons:
+                next_step = "force_geocode_house_addr"
+            elif "text_city_mismatch" in reasons:
+                next_step = "check_city_label_or_lock_coords"
             elif "bbox_but_has_house_number" in reasons:
                 next_step = "force_geocode_house_addr"
             elif "center_fallback_with_street" in reasons:
