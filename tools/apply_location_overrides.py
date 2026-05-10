@@ -80,9 +80,32 @@ def _load_overrides(path: str) -> Dict[str, Any]:
 
 
 def _save_overrides(path: str, by_url: Dict[str, Any]) -> None:
-    obj = {"version": 1, "by_url": by_url}
+    out: Dict[str, Any] = {}
+    if isinstance(by_url, dict):
+        for k, v in by_url.items():
+            nk = _normalize_url(k)
+            if nk:
+                out[nk] = v
+    obj = {"version": 1, "by_url": out}
     with open(path, "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
+
+
+def _normalize_address(addr: str, fixed_city: str = "") -> str:
+    a = str(addr or "").strip()
+    if not a:
+        return ""
+    a = a.replace("\u200b", "").replace("\ufeff", "")
+    a = a.replace("?", ", ")
+    a = re.sub(r"\s+", " ", a).strip()
+    a = re.sub(r"(?i)\bseymore\b", "Seymour", a)
+    a = re.sub(r"(?i)\bvancouve\b", "Vancouver", a)
+    a = re.sub(r"(?i)\bdunblune\b", "Dunblane", a)
+    if fixed_city:
+        fc = fixed_city.strip()
+        if fc and (fc.lower() not in a.lower()):
+            a = f"{a}, {fc}"
+    return a
 
 
 def main() -> None:
@@ -111,7 +134,7 @@ def main() -> None:
                 continue
             fixed_city = (row.get("review_fixed_city") or "").strip()
             fixed_comm = (row.get("review_fixed_community") or "").strip()
-            fixed_addr = (row.get("review_fixed_address") or "").strip()
+            fixed_addr = _normalize_address(row.get("review_fixed_address") or "", fixed_city=fixed_city)
             fixed_lat = _to_float(row.get("review_fixed_lat"))
             fixed_lng = _to_float(row.get("review_fixed_lng"))
             lock_coords = _is_truthy(row.get("review_lock_coords") or "")
