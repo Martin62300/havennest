@@ -132,6 +132,12 @@
       "lng": -122.88513,
       "lock_coords": true
     },
+    "https://c.vanpeople.com/zufang/item-3361515.html": {
+      "city": "Vancouver",
+      "community": "Dunbar",
+      "address": "Dunbar St, Vancouver",
+      "force_geocode": true
+    },
     "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-north-bedroom-condo-with-ac/7931106505.html": {
       "city": "Coquitlam",
       "address": "3833 Evergreen Place, Coquitlam",
