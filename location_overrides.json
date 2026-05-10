@@ -136,6 +136,235 @@
       "city": "Coquitlam",
       "address": "3833 Evergreen Place, Coquitlam",
       "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3462920.html": {
+      "city": "Richmond",
+      "community": "Steveston",
+      "address": "Solway Drive, Steveston, Richmond",
+      "force_geocode": true,
+      "lock_coords": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-brand-new-bedroom-laneway/7933137035.html": {
+      "city": "Vancouver",
+      "community": "Marpole",
+      "address": "1596 E 49th Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-unfurnished-bdrm-and-den-near/7933133837.html": {
+      "city": "Vancouver",
+      "address": "438 Seymour St, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-spacious-3br-basement-suite/7928390559.html": {
+      "city": "Vancouver",
+      "address": "5900 TYNE, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-furnished-bedroom-house/7931993511.html": {
+      "city": "Vancouver",
+      "address": "2552 Napier St, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/pml/apa/d/port-moody-2b-2ba-junior-shaker/7931784507.html": {
+      "city": "Port Moody",
+      "address": "3370 Dewdney Trunk Road, Port Moody",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-community-garden/7932539649.html": {
+      "city": "New Westminster",
+      "address": "820 6th Avenue, New Westminster",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-1b-1b-over-the-range/7924806126.html": {
+      "city": "New Westminster",
+      "address": "527 Carnarvon St, New Westminster",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/pml/apa/d/coquitlam-availability-24-hours-on-site/7927452734.html": {
+      "city": "Coquitlam",
+      "address": "995 Adair Avenue, Coquitlam",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-bed-bath-ac-23rd-floor/7933135241.html": {
+      "city": "Coquitlam",
+      "address": "901 Lougheed Highway, Coquitlam",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/pml/apa/d/coquitlam-card-operated-laundry/7929038894.html": {
+      "city": "Coquitlam",
+      "address": "985 Adair Avenue, Coquitlam",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-north-burnaby-single-house/7933136513.html": {
+      "city": "Burnaby",
+      "address": "2917 SOUTHCREST DR, Burnaby",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-metrotown-semi-basemernt1/7932618997.html": {
+      "city": "Burnaby",
+      "address": "5300 block Chaffey Ave, Burnaby",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3464582.html": {
+      "city": "Vancouver",
+      "address": "2273 E 28th Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3463047.html": {
+      "city": "Vancouver",
+      "address": "Victoria Dr & Kingsway, Vancouver",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3463040.html": {
+      "city": "Vancouver",
+      "address": "Rupert Street & E 22nd Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3462977.html": {
+      "city": "Vancouver",
+      "address": "5515 BOUNDARY RD, Vancouver",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3462850.html": {
+      "city": "Coquitlam",
+      "lock_coords": true
+    },
+    "https://c.vanpeople.com/zufang/item-3462955.html": {
+      "city": "New Westminster",
+      "address": "618 Carnarvon Street, New Westminster",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3462883.html": {
+      "city": "Burnaby",
+      "address": "6398 Silver Ave, Burnaby",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/nvn/apa/d/west-vancouver-fully-furnished-bedroom/7924756158.html": {
+      "city": "West Vancouver",
+      "address": "2237 Palmerston Ave, West Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-studio-1ba-in-suite-laundry/7923798608.html": {
+      "city": "Vancouver",
+      "address": "1022 Nelson Street, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-laminate-flooring-on-site/7932630420.html": {
+      "city": "Vancouver",
+      "address": "1045 Haro St, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-prime-killarney-bedrooms/7931577764.html": {
+      "city": "Vancouver",
+      "address": "Killarney St & E 40th Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-br-den-2bath-885ft-seymour/7928055602.html": {
+      "city": "Vancouver",
+      "address": "565 Smithe St, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-fully-furnished-pet-friendly/7933137595.html": {
+      "city": "Vancouver",
+      "address": "1904 West 16th Avenue, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-pet-friendly-ground-floor/7933137141.html": {
+      "city": "Vancouver",
+      "address": "5635 Lanark Street, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-one-bedroom-flex-room/7933134718.html": {
+      "city": "Vancouver",
+      "address": "5665 Boundary Road, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-bed-den-with-balcony-c-at/7932439740.html": {
+      "city": "Vancouver",
+      "address": "3430 E Kent Ave South, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-half-basement-bedrooms-and/7924630526.html": {
+      "city": "Vancouver",
+      "address": "1556 W 62 Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-furnished-bed-bath-laneway/7931110878.html": {
+      "city": "Vancouver",
+      "address": "2540 Napier St, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/surrey-surrey-bedroom-suite-for-rent/7931812117.html": {
+      "city": "Surrey",
+      "address": "12160 80 Ave, Surrey",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/surrey-northeast-studio-suit-for-rent/7933133556.html": {
+      "city": "Surrey",
+      "lock_coords": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/surrey-bed-room-apartment-rent-1800/7933132553.html": {
+      "city": "Surrey",
+      "address": "10438 148 street, Surrey",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/richmond-large-bedroom-highrise-for-rent/7925504077.html": {
+      "city": "Richmond",
+      "address": "6288 No. 3 Road, Richmond",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/richmond-6088-minoru-blvd-9th-floor/7930402963.html": {
+      "city": "Richmond",
+      "address": "6088 minoru blvd, Richmond",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/pml/apa/d/port-coquitlam-north-bedroom-apartment/7929320527.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/pml/apa/d/port-coquitlam-fully-renovated-bed/7927386333.html": {
+      "city": "Port Coquitlam",
+      "address": "3675 HAMILTON STREET, Port Coquitlam",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/north-vancouver-3bd-2ba-gear-storage/7932121391.html": {
+      "city": "North Vancouver",
+      "address": "155 E 15th St, North Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/nvn/apa/d/north-vancouver-central-lonsdale/7927616761.html": {
+      "city": "North Vancouver",
+      "address": "158 W 13th Street, North Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/new-westminster-southwest-brand-new/7929462105.html": {
+      "city": "New Westminster",
+      "address": "823 CARNARVON ST, New Westminster",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/langley-pet-friendly-condo-in/7928607815.html": {
+      "city": "Langley",
+      "address": "8117 200A Street, Langley",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-2bed-2bath-high-rise-each/7933131490.html": {
+      "city": "Coquitlam",
+      "address": "2978 Glen Drive, Coquitlam",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-private-balcony-patio-social/7931135181.html": {
+      "city": "Burnaby",
+      "address": "5050 Sanders St, Burnaby",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-large-house-bedrooms-bath-levels/7932668349.html": {
+      "city": "Burnaby",
+      "address": "8438 buller ave, Burnaby",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-luxury-high-floor-furnished/7933131399.html": {
+      "city": "Burnaby",
+      "address": "Wilson Ave & Central Ave, Burnaby",
+      "force_geocode": true
     }
   }
 }
