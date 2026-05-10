@@ -1455,6 +1455,23 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
+        if source == "vanpeople":
+            try:
+                low_a = addr_for_check.lower()
+            except Exception:
+                low_a = ""
+            if ("dunbar" in low_a) and ("west side" in low_a) and (re.search(r"\d", low_a) is None):
+                item["city"] = "Vancouver"
+                item["community"] = "Dunbar"
+                item["address"] = "Dunbar St, Vancouver"
+                addr_for_check = str(item.get("address") or "")
+                if coords_ok and (not item.get("_lock_coords")):
+                    item["lat"] = None
+                    item["lng"] = None
+                    coords_ok = False
+                    needs_coords = True
+                    lat = None
+                    lng = None
         if item.get("_lock_coords"):
             continue
         if source == "vanpeople":
@@ -1600,6 +1617,8 @@ def main():
                     cur_comm = comm2
         priority_needs_geocode = False
         if source == "craigslist" and needs_coords and has_detail_addr:
+            priority_needs_geocode = True
+        if coord_source == "manual_override" and needs_coords and has_detail_addr:
             priority_needs_geocode = True
 
         if source == "vanpeople":
