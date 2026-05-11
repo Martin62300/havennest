@@ -152,6 +152,23 @@ class HavenNestCrawler:
 
         def has_token(token):
             return re.search(rf'(?<![a-z0-9]){re.escape(token)}(?![a-z0-9])', s) is not None
+
+        def _is_proximity_context(kw: str) -> bool:
+            try:
+                k = (kw or "").strip().lower()
+                if not k:
+                    return False
+                i = s.find(k)
+                if i < 0:
+                    return False
+                win = s[max(0, i - 24) : min(len(s), i + len(k) + 24)]
+                if re.search(r"(?i)\b(near|close|closest|minutes?|mins?|walk|walking|steps?|to|from|away)\b", win):
+                    return True
+                if any(x in win for x in ["附近", "步行", "分钟", "min", "mins", "距离", "距", "到", "近", "旁", "离"]):
+                    return True
+                return False
+            except Exception:
+                return False
         
         if has_token("lansdowne") and (has_token("richmond") or has_token("rmd") or ("列治文" in s)):
             return {"city": "Richmond", "key": "lansdowne", "strength": 3}
@@ -227,6 +244,22 @@ class HavenNestCrawler:
         ]
 
         for key, city, strength in rules:
+            if key in {
+                "metrotown",
+                "brentwood",
+                "lougheed",
+                "edmonds",
+                "edmond",
+                "guildford",
+                "whalley",
+                "newton",
+                "central city",
+                "ubc",
+                "downtown",
+                "yaletown",
+            }:
+                if _is_proximity_context(key):
+                    continue
             if " " in key:
                 if key in s:
                     return {"city": city, "key": key, "strength": strength}
@@ -1148,6 +1181,34 @@ class HavenNestCrawler:
                 return SimpleNamespace(status_code=sc, text=text, url=final_url)
             except Exception:
                 return None
+
+        def _clean_explicit_addr(s0: str) -> str:
+            s1 = str(s0 or "").strip()
+            if not s1:
+                return ""
+            s1 = re.sub(r"(?i)^\s*(?:address|addr|location)\s*:\s*", "", s1).strip()
+            s1 = s1.replace("—", "-").replace("–", "-")
+            s1 = re.sub(r"(?i)^\s*(?:unit|suite|ste|apt|apartment|rm|room|#|floor|fl)\s*([a-z0-9\-]{1,10})\s*(?:--+|-)\s*", "", s1).strip()
+            s1 = re.sub(r"^\s*[A-Za-z0-9]{1,6}\s*(?:--+|-)\s*(?=\d{3,6}\b)", "", s1).strip()
+            s1 = re.sub(r"\s+", " ", s1).strip(" ,;-")
+            return s1
+
+        def _pick_better_addr(cur: str, desc: str) -> str:
+            cur0 = str(cur or "").strip()
+            desc0 = str(desc or "")
+            m = re.search(r"(?im)^\s*(?:address|addr|location)\s*:\s*(.+?)\s*$", desc0)
+            explicit = _clean_explicit_addr(m.group(1)) if m else ""
+            if not explicit:
+                return cur0
+            if not re.search(r"\d{3,6}\b", explicit):
+                return cur0
+            if not cur0:
+                return explicit
+            if (not re.search(r"\d", cur0)) and re.search(r"\d", explicit):
+                return explicit
+            if len(explicit) > len(cur0) + 10:
+                return explicit
+            return cur0
         try:
             url = "https://vancouver.craigslist.org/search/apa"
             res = _safe_get(url, 20)
@@ -1240,6 +1301,7 @@ class HavenNestCrawler:
                         m = re.search(r'(?im)^\s*(?:address|addr|location)\s*:\s*(.+?)\s*$', desc)
                         if m:
                             address = m.group(1).strip()
+                    address = _pick_better_addr(address, desc)
                     if not address:
                         try:
                             address = str(seed.get("address") or "").strip()
@@ -1367,6 +1429,7 @@ class HavenNestCrawler:
                         m = re.search(r'(?im)^\s*(?:address|addr|location)\s*:\s*(.+?)\s*$', desc)
                         if m:
                             address = m.group(1).strip()
+                    address = _pick_better_addr(address, desc)
                     if not address:
                         address = loc
                     
