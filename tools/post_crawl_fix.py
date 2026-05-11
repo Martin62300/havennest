@@ -1649,6 +1649,20 @@ def main():
                 if comm2 and comm2 != cur_comm:
                     item["community"] = comm2
                     cur_comm = comm2
+        if coords_ok and cur_city and cur_comm and has_detail_addr:
+            try:
+                comm0 = _normalize_community(cur_comm)
+            except Exception:
+                comm0 = cur_comm
+            box0 = COMMUNITY_BBOX.get((cur_city, comm0))
+            if box0 and not _in_box(box0, float(lat), float(lng)):
+                comm2 = _community_from_coords(cur_city, float(lat), float(lng))
+                if comm2 and comm2 != cur_comm:
+                    item["community"] = comm2
+                    cur_comm = comm2
+                else:
+                    item["community"] = ""
+                    cur_comm = ""
         if source in ("craigslist", "vanpeople") and needs_coords and has_detail_addr:
             priority_needs_geocode = True
         if coord_source == "manual_override" and needs_coords and has_detail_addr:

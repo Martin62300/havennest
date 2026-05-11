@@ -58,6 +58,14 @@ def _has_detail_addr(addr: str) -> bool:
     street_typ = r"(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)"
     return bool(re.search(rf"(?i)\b{street_typ}\b", a))
 
+def _has_intersection_addr(addr: str) -> bool:
+    a = (addr or "").strip()
+    if not a:
+        return False
+    if "&" not in a:
+        return False
+    return _has_street_level_addr(a)
+
 
 def _has_street_level_addr(addr: str) -> bool:
     a = (addr or "").strip()
@@ -165,7 +173,8 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
             box = community_bbox[(city, comm)]
             box2 = _pad_bbox(box, 0.008, 0.010)
             if not _in_bbox(box2, lat, lng):
-                reasons.append("out_of_community_bbox")
+                if (not _has_detail_addr(addr)) and (not _has_intersection_addr(addr)):
+                    reasons.append("out_of_community_bbox")
 
         if coord_source in ("city_bbox", "community_bbox") and _has_detail_addr(addr):
             reasons.append("bbox_but_has_house_number")
