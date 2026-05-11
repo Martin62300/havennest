@@ -112,9 +112,15 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--review_csv", required=True)
     ap.add_argument("--overrides_json", default="location_overrides.json")
+    ap.add_argument(
+        "--replace",
+        action="store_true",
+        help="Replace overrides_json using ONLY rows in review_csv (do not merge with existing file).",
+    )
     args = ap.parse_args()
 
-    by_url = _load_overrides(args.overrides_json)
+    existing_by_url = _load_overrides(args.overrides_json)
+    by_url = {} if args.replace else dict(existing_by_url)
     changed = 0
 
     f, r = _open_csv_dictreader(args.review_csv)
@@ -163,6 +169,14 @@ def main() -> None:
             pass
 
     _save_overrides(args.overrides_json, by_url)
+    try:
+        mode = "replace" if args.replace else "merge"
+        print(f"Mode: {mode}")
+        print(f"Existing overrides: {len(existing_by_url)}")
+        print(f"Updated from CSV: {changed}")
+        print(f"Total overrides saved: {len(by_url)}")
+    except Exception:
+        pass
     print(f"Saved overrides: {args.overrides_json} (updated {changed})")
 
 
