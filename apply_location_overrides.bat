@@ -5,9 +5,17 @@ echo Repo: %cd%
 echo.
 
 set REVIEW_CSV=location_audit.csv
+set MODE_FLAG=
 
 if not "%~1"=="" (
   set REVIEW_CSV=%~1
+)
+
+if /I "%~2"=="replace" (
+  set MODE_FLAG=--replace
+)
+if /I "%~2"=="--replace" (
+  set MODE_FLAG=--replace
 )
 
 if not exist "%REVIEW_CSV%" (
@@ -36,8 +44,13 @@ if errorlevel 1 (
 )
 
 echo Using review CSV: %REVIEW_CSV%
+if not "%MODE_FLAG%"=="" (
+  echo Mode: replace (ONLY this CSV)
+) else (
+  echo Mode: merge (keep existing)
+)
 echo.
-python tools\apply_location_overrides.py --review_csv "%REVIEW_CSV%" --overrides_json location_overrides.json
+python tools\apply_location_overrides.py --review_csv "%REVIEW_CSV%" --overrides_json location_overrides.json %MODE_FLAG%
 set EXITCODE=%ERRORLEVEL%
 echo.
 echo Exit code: %EXITCODE%
