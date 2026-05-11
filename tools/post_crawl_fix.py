@@ -825,6 +825,7 @@ def _infer_community_from_text(city: str, text: str) -> str:
     if not vocab:
         return ""
     t = (text or "").lower().replace("’", "'")
+    prox_re = re.compile(r"(?i)\b(near|close|closest|minutes?|mins?|walk|walking|steps?|to|from|away)\b")
     best = ""
     best_len = 0
     for name in vocab:
@@ -832,7 +833,18 @@ def _infer_community_from_text(city: str, text: str) -> str:
             pat = _build_alias_pattern(alias)
             if not pat:
                 continue
-            if re.search(pat, t, flags=re.IGNORECASE):
+            for m in re.finditer(pat, t, flags=re.IGNORECASE):
+                try:
+                    a0 = int(m.start())
+                    b0 = int(m.end())
+                except Exception:
+                    a0, b0 = 0, 0
+                win = t[max(0, a0 - 24) : min(len(t), b0 + 24)]
+                if prox_re.search(win) or any(x in win for x in ["附近", "步行", "分钟", "距离", "距", "到", "近", "旁", "离"]):
+                    if any(x in win for x in ["位于", "位於", "located in"]):
+                        pass
+                    else:
+                        continue
                 if len(alias) > best_len:
                     best = name
                     best_len = len(alias)
@@ -1158,6 +1170,10 @@ def _clean_extracted_addr(s: str) -> str:
     t = re.sub(r"\s*查看地图.*$", "", t).strip()
     t = re.sub(r"(?i)\b(contact|call|text|email|wechat)\b.*$", "", t).strip()
     t = re.sub(r"(?:有意|请|电话|微信|短信|联系).*$", "", t).strip()
+    t = re.sub(r"(?i)^\s*(?:address|addr|location)\s*:\s*", "", t).strip()
+    t = t.replace("—", "-").replace("–", "-")
+    t = re.sub(r"(?i)^\s*(?:unit|suite|ste|apt|apartment|rm|room|#|floor|fl)\s*([a-z0-9\-]{1,10})\s*(?:--+|-)\s*(?=\d{3,6}\b)", "", t).strip()
+    t = re.sub(r"^\s*[A-Za-z0-9]{1,6}\s*(?:--+|-)\s*(?=\d{3,6}\b)", "", t).strip()
     t = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", t)
     def _mask_to_mid(m):
         try:
@@ -1407,6 +1423,7 @@ def main():
         override_source_map = False
         force_geocode_street_only = False
         preserve_existing_bbox = False
+        priority_needs_geocode = False
         if coords_ok:
             try:
                 latf = float(lat)
@@ -1591,17 +1608,34 @@ def main():
         )
         has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
         if (
-            source == "craigslist"
+            source in ("craigslist", "vanpeople")
             and coords_ok
             and is_source_map
             and (not item.get("_lock_coords"))
             and has_detail_addr
             and coord_source in ("source_map", "source_map_pb", "source_map_open")
         ):
-            item["lat"] = None
-            item["lng"] = None
-            coords_ok = False
-            needs_coords = True
+            try:
+                if cur_city and (cur_city in CITY_BBOX) and (not _in_bbox(cur_city, float(lat), float(lng))):
+                    item["lat"] = None
+                    item["lng"] = None
+                    coords_ok = False
+                    needs_coords = True
+                    priority_needs_geocode = True
+                else:
+                    if cur_city and cur_comm:
+                        box0 = COMMUNITY_BBOX.get((cur_city, cur_comm))
+                        if box0 and (not _in_box(box0, float(lat), float(lng))):
+                            comm2 = _community_from_coords(cur_city, float(lat), float(lng))
+                            if comm2 and comm2 != cur_comm:
+                                item["community"] = comm2
+                                cur_comm = comm2
+                            else:
+                                item["community"] = ""
+                                cur_comm = ""
+                    item["coord_source"] = "source_map_verified"
+            except Exception:
+                item["coord_source"] = "source_map_verified"
         if coords_ok and cur_city and cur_comm and (not has_detail_addr):
             try:
                 comm0 = _normalize_community(cur_comm)
@@ -1615,8 +1649,7 @@ def main():
                 if comm2 and comm2 != cur_comm:
                     item["community"] = comm2
                     cur_comm = comm2
-        priority_needs_geocode = False
-        if source == "craigslist" and needs_coords and has_detail_addr:
+        if source in ("craigslist", "vanpeople") and needs_coords and has_detail_addr:
             priority_needs_geocode = True
         if coord_source == "manual_override" and needs_coords and has_detail_addr:
             priority_needs_geocode = True
@@ -1707,6 +1740,43 @@ def main():
                 needs_coords = True
                 priority_needs_geocode = True
             if (cur_city or "").strip().lower() == "richmond":
+                if (("blundel" in low_hint) or ("blundell" in low_hint)) and (
+                    ("no 2" in low_hint)
+                    or ("no. 2" in low_hint)
+                    or ("number 2" in low_hint)
+                    or ("2号路" in hint)
+                    or ("2 號路" in hint)
+                ):
+                    item["city"] = "Richmond"
+                    if not item.get("community"):
+                        item["community"] = "Thompson"
+                    item["address"] = "No. 2 Road & Blundell Rd, Richmond"
+                    cur_comm = (item.get("community") or "").strip()
+                    addr_for_check = str(item.get("address") or "")
+                    has_detail_addr = True
+                    if coords_ok and (not item.get("_lock_coords")):
+                        item["lat"] = None
+                        item["lng"] = None
+                        lat = None
+                        lng = None
+                        coords_ok = False
+                    needs_coords = True
+                    priority_needs_geocode = True
+                if ("shell rd" in low_hint) and ("bridgeport" in low_hint) and ("shell" in addr_for_check.lower()) and (not re.search(r"(?i)^\s*\d{3,6}\b", addr_for_check)):
+                    item["city"] = "Richmond"
+                    item["community"] = "West Cambie"
+                    item["address"] = "Shell Rd & Bridgeport Rd, Richmond"
+                    cur_comm = "West Cambie"
+                    addr_for_check = str(item.get("address") or "")
+                    has_detail_addr = True
+                    if coords_ok and (not item.get("_lock_coords")):
+                        item["lat"] = None
+                        item["lng"] = None
+                        lat = None
+                        lng = None
+                        coords_ok = False
+                    needs_coords = True
+                    priority_needs_geocode = True
                 if (("no 3" in low_hint) or ("no. 3" in low_hint)) and ("francis" in low_hint):
                     item["address"] = "No. 3 Road & Francis Rd, Richmond"
                     item["community"] = ""
