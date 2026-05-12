@@ -50,25 +50,27 @@ def _safe_float(x: Any) -> Optional[float]:
 
 
 def _has_detail_addr(addr: str) -> bool:
-    a = (addr or "").strip()
+    a = (addr or "").replace("\xa0", " ").replace("’", "'").strip()
     if not a:
         return False
-    if not re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", a):
+    if not re.search(r"(?i)^\s*(?:address\s*:\s*)?(?:(?:#\s*)?[0-9a-z]{1,6}\s*(?:--+|-)\s*)?\s*\d{3,6}\b", a):
         return False
     street_typ = r"(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)"
     return bool(re.search(rf"(?i)\b{street_typ}\b", a))
 
 def _has_intersection_addr(addr: str) -> bool:
-    a = (addr or "").strip()
+    a = (addr or "").replace("\xa0", " ").replace("’", "'").strip()
     if not a:
         return False
-    if "&" not in a:
+    a0 = re.sub(r"(?i)\s+\band\b\s+", " & ", a)
+    if not any(x in a0 for x in ["&", "＆", "/", "／"]):
         return False
-    return _has_street_level_addr(a)
+    a0 = a0.replace("＆", "&").replace("／", "/")
+    return _has_street_level_addr(a0)
 
 
 def _has_street_level_addr(addr: str) -> bool:
-    a = (addr or "").strip()
+    a = (addr or "").replace("\xa0", " ").replace("’", "'").strip()
     if not a:
         return False
     street_typ = r"(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)"
@@ -148,7 +150,7 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
             except Exception:
                 text_city = ""
                 strength = 0
-            if text_city and city and text_city.lower() != city.lower() and strength >= 2:
+            if (not _has_detail_addr(addr)) and (not _has_intersection_addr(addr)) and text_city and city and text_city.lower() != city.lower() and strength >= 2:
                 reasons.append("text_city_mismatch")
 
         if city and city in city_bbox and (not _in_bbox(city_bbox[city], lat, lng)):

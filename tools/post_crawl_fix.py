@@ -458,6 +458,44 @@ def _normalize_geocode_query(q: str) -> str:
     )
     s = re.sub(r"(?i)\bwilliams\b\s+near\s+no\.?\s*3\b", "Williams Rd & No. 3 Road", s)
     s = re.sub(r"(?i)\bno\.?\s*3\b(?!\s*(?:road|rd)\b)", "No. 3 Road", s)
+    def _house_near_to_addr(m):
+        num = str(m.group(1) or "").strip()
+        s2 = str(m.group(2) or "").strip().upper()
+        typ = str(m.group(3) or "").strip().lower()
+        typ_map = {
+            "avenue": "Ave",
+            "ave": "Ave",
+            "street": "St",
+            "st": "St",
+            "road": "Rd",
+            "rd": "Rd",
+            "drive": "Dr",
+            "dr": "Dr",
+            "boulevard": "Blvd",
+            "blvd": "Blvd",
+            "lane": "Ln",
+            "ln": "Ln",
+            "way": "Way",
+            "place": "Pl",
+            "pl": "Pl",
+            "court": "Ct",
+            "ct": "Ct",
+            "crescent": "Cres",
+            "cres": "Cres",
+            "terrace": "Terr",
+            "terr": "Terr",
+            "highway": "Hwy",
+            "hwy": "Hwy",
+        }
+        return f"{num} {s2} {typ_map.get(typ, typ.title())}".strip()
+    s = re.sub(
+        r"(?i)^\s*(\d{3,6})\s+near\s+(\d{1,4}[a-z]?)\s+(ave|avenue|st|street|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl|place|ct|court|cres|crescent|terr|terrace|hwy|highway)\b",
+        _house_near_to_addr,
+        s,
+    )
+    if "richmond" in s.lower():
+        s = re.sub(r"(?i)\bno\.?\s*(\d+)\s*(?:road|rd)\b", r"Number \1 Rd", s)
+        s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(?:road|rd)\b", r"Number \1 Rd", s)
     s = re.sub(r"(?i)\b(\d{3,5})\s*block\s*&\s*", "", s)
     s = re.sub(r"(?i)^\s*(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\s+(?:ave|avenue)\b", r"\1 St & \2 Ave", s)
     s = re.sub(
@@ -749,6 +787,9 @@ def _normalize_geocode_query(q: str) -> str:
         s = re.sub(r"\s*,\s*", ", ", s)
     s = re.sub(r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver)(?:\s+\\1)+\b", r"\1", s)
     s = re.sub(r"\s+", " ", s).strip(" ,")
+    if "richmond" in s.lower():
+        s = re.sub(r"(?i)\bno\.?\s*(\d+)\s*(?:road|rd)\b", r"Number \1 Rd", s)
+        s = re.sub(r"(?i)\bnumber\s*(\d+)\s*(?:road|rd)\b", r"Number \1 Rd", s)
     try:
         low = s.lower()
         if ("cambie" in low) and (not has_house_addr):
@@ -1175,6 +1216,40 @@ def _clean_extracted_addr(s: str) -> str:
     t = re.sub(r"(?i)^\s*(?:unit|suite|ste|apt|apartment|rm|room|#|floor|fl)\s*([a-z0-9\-]{1,10})\s*(?:--+|-)\s*(?=\d{3,6}\b)", "", t).strip()
     t = re.sub(r"^\s*[A-Za-z0-9]{1,6}\s*(?:--+|-)\s*(?=\d{3,6}\b)", "", t).strip()
     t = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", t)
+    try:
+        m_near_num = re.search(r"(?i)^\s*(\d{3,6})\s+near\s+(\d{1,4}[a-z]?)\s*(ave|avenue|st|street|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl|place|ct|court|cres|crescent|terr|terrace|hwy|highway)\b", t)
+    except Exception:
+        m_near_num = None
+    if m_near_num:
+        num = str(m_near_num.group(1) or "").strip()
+        s2 = str(m_near_num.group(2) or "").strip().upper()
+        typ = str(m_near_num.group(3) or "").strip().lower()
+        typ_map = {
+            "avenue": "Ave",
+            "ave": "Ave",
+            "street": "St",
+            "st": "St",
+            "road": "Rd",
+            "rd": "Rd",
+            "drive": "Dr",
+            "dr": "Dr",
+            "boulevard": "Blvd",
+            "blvd": "Blvd",
+            "lane": "Ln",
+            "ln": "Ln",
+            "way": "Way",
+            "place": "Pl",
+            "pl": "Pl",
+            "court": "Ct",
+            "ct": "Ct",
+            "crescent": "Cres",
+            "cres": "Cres",
+            "terrace": "Terr",
+            "terr": "Terr",
+            "highway": "Hwy",
+            "hwy": "Hwy",
+        }
+        t = f"{num} {s2} {typ_map.get(typ, typ.title())}".strip()
     def _mask_to_mid(m):
         try:
             prefix = str(m.group(1) or "")
@@ -1182,7 +1257,9 @@ def _clean_extracted_addr(s: str) -> str:
             k = len(xs)
             if not prefix.isdigit() or k <= 0:
                 return m.group(0)
-            return prefix + ("5" + ("0" * (k - 1)))
+            if k >= 2:
+                return m.group(0)
+            return prefix + "5"
         except Exception:
             return m.group(0)
     t = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, t)
