@@ -108,6 +108,22 @@ def _is_city_only(addr: str) -> bool:
     return False
 
 
+def _city_from_address_tail(addr: str) -> str:
+    a = (addr or "").replace("\xa0", " ").strip()
+    if not a:
+        return ""
+    try:
+        m = re.search(
+            r"(?i)(?:^|,)\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver|port coquitlam|port moody|tsawwassen|squamish|white rock)\s*(?:,|$)",
+            a,
+        )
+    except Exception:
+        m = None
+    if not m:
+        return ""
+    return str(m.group(1) or "").strip().title()
+
+
 def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
     city_bbox = getattr(pcf, "CITY_BBOX", {}) or {}
     city_centers = getattr(pcf, "CITY_CENTERS", {}) or {}
@@ -162,7 +178,11 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
             except Exception:
                 hint = ""
             if hint and city and hint.lower() != city.lower():
-                reasons.append("craigslist_city_mismatch_url_hint")
+                addr_city = _city_from_address_tail(addr)
+                if addr_city and addr_city.lower() == city.lower() and city in city_bbox and _in_bbox(city_bbox[city], lat, lng):
+                    pass
+                else:
+                    reasons.append("craigslist_city_mismatch_url_hint")
 
         if src.lower() == "vanpeople":
             if _is_city_only(addr) and (not re.search(r"\d", addr)) and (" & " not in addr):
