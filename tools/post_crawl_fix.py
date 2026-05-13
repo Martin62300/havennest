@@ -1216,6 +1216,28 @@ def _clean_extracted_addr(s: str) -> str:
     t = re.sub(r"(?i)^\s*(?:unit|suite|ste|apt|apartment|rm|room|#|floor|fl)\s*([a-z0-9\-]{1,10})\s*(?:--+|-)\s*(?=\d{3,6}\b)", "", t).strip()
     t = re.sub(r"^\s*[A-Za-z0-9]{1,6}\s*(?:--+|-)\s*(?=\d{3,6}\b)", "", t).strip()
     t = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", t)
+    t = re.sub(r"(?i)\s+#\s*[0-9a-z]{1,6}\s*(?:--+|-)\s*(?=\d{3,6}\b)", " ", t).strip()
+    t = re.sub(r"(?i)\broa(?=[#\s,])", "Road", t)
+    try:
+        street_typ = r"(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)"
+        ms = list(re.finditer(rf"(?i)\b\d{{3,6}}\s+[^,]{{3,80}}?\b{street_typ}\b", t))
+    except Exception:
+        ms = []
+    if ms:
+        head = (ms[-1].group(0) or "").strip()
+        tail = t[ms[-1].end() :] if ms[-1].end() < len(t) else ""
+        try:
+            m_city = re.search(
+                r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver|port coquitlam|port moody|abbotsford|maple ridge|white rock|tsawwassen|squamish)\b",
+                tail,
+            )
+        except Exception:
+            m_city = None
+        if m_city:
+            city = str(m_city.group(1) or "").strip().title()
+            t = f"{head}, {city}".strip()
+        else:
+            t = head
     try:
         m_near_num = re.search(r"(?i)^\s*(\d{3,6})\s+near\s+(\d{1,4}[a-z]?)\s*(ave|avenue|st|street|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl|place|ct|court|cres|crescent|terr|terrace|hwy|highway)\b", t)
     except Exception:
@@ -1264,7 +1286,6 @@ def _clean_extracted_addr(s: str) -> str:
             return m.group(0)
     t = re.sub(r"(?i)\b(\d{1,6})\s*([x]{1,4})\b", _mask_to_mid, t)
     try:
-        street_typ = r"(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)"
         m = re.search(rf"(?i)^\s*(\d{{3,6}}\s+[^,]{{3,80}}?\b{street_typ})\b(.*)$", t)
         if m:
             head = (m.group(1) or "").strip()
@@ -1465,6 +1486,21 @@ def main():
                 item["city"] = "Delta"
                 changed_city += 1
                 cur_city = "Delta"
+        try:
+            low_text_scope = text.lower()
+        except Exception:
+            low_text_scope = ""
+        if ("nanaimo" in low_text_scope) or ("纳奈莫" in text) or ("纳乃莫" in text):
+            try:
+                m_nm = re.search(
+                    r"(?i)\b(?:(?:#\s*)?[0-9a-z]{1,6}\s*[-–—]{1,2}\s*)?\d{3,6}\b.*?\b(?:ave|avenue|st|street|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl|place|ct|court|cres|crescent|terr|terrace|hwy|highway)\b.*?\bnanaimo\b",
+                    low_text_scope,
+                )
+            except Exception:
+                m_nm = None
+            if m_nm:
+                item["_drop"] = True
+                continue
  
         extracted_beds = c.extract_beds(text)
         cur_beds = item.get("beds")
