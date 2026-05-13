@@ -640,6 +640,72 @@
       "city": "Burnaby",
       "address": "6333 Silver Ave, Burnaby",
       "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3463493.html": {
+      "city": "Richmond",
+      "address": "6000 Steveston Highway,Richmond",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/nvn/apa/d/west-vancouver-brm-recently-renovated/7928275634.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/surrey-northeast-beds-baths-620-sqft/7933537129.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/surrey-share-accommodationfurnished/7931813719.html": {
+      "city": "Surrey",
+      "address": "16011 14 Ave, Surrey",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/richmond-newer-bed-bath-laundry/7929249577.html": {
+      "city": "Richmond",
+      "address": "No. 3 Road & Steveston Hwy, Richmond",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/richmond-newer-large-bedroom-suite/7928006720.html": {
+      "city": "Richmond",
+      "lock_coords": true
+    },
+    "https://vancouver.craigslist.org/pml/apa/d/port-coquitlam-designer-bedroom-condo/7930416875.html": {
+      "city": "Coquitlam",
+      "address": "1153 Kensal Place, Coquitlam",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-luxury-bedroom-apartment-with/7931516670.html": {
+      "city": "Coquitlam",
+      "address": "318 Alderson Ave, Coquitlam",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-central-burnaby-beautiful-bed/7925219942.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-available-aug-1st-beds/7924426865.html": {
+      "city": "New Westminster",
+      "address": "16th Street & Edinburgh St, New Westminster",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3463897.html": {
+      "city": "Nanaimo",
+      "address": "135 Haliburton Street, Nanaimo",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3463892.html": {
+      "city": "Nanaimo",
+      "address": "136 Haliburton Street, Nanaimo",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3463881.html": {
+      "city": "Richmond",
+      "address": "8333 Anderson Road, Richmond",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-br-above-grade-suite-9ft/7930403806.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-available-aug-1st-beds/7933752636.html": {
+      "city": "New Westminster",
+      "address": "Edinburgh St & 16th street, New Westminster",
+      "force_geocode": true
     }
   }
 }
