@@ -6,6 +6,7 @@ let activeSvc = '';
 let viewMode = 'card';
 let pendingListingKey = '';
 let currentListingKey = '';
+let pendingCity = '';
 let map = L.map('map', { scrollWheelZoom: false }).setView([49.24, -123.05], 11);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -387,6 +388,7 @@ async function init() {
     try {
         const url = new URL(window.location.href);
         pendingListingKey = (url.searchParams.get('listing') || '').toString().trim();
+        pendingCity = (url.searchParams.get('city') || '').toString().trim();
     } catch (e) {}
     
     // 统一从 listings.json 加载所有房源（包括抓取的和屋主发布的）
@@ -426,6 +428,14 @@ async function init() {
                 }
             } catch (e) {}
             populateCityOptions();
+            if (pendingCity) {
+                const sel = document.getElementById('filter-city');
+                if (sel) {
+                    const ok = Array.from(sel.options).some(o => o && String(o.value || '') === pendingCity);
+                    if (ok) sel.value = pendingCity;
+                }
+                pendingCity = '';
+            }
             filterListings();
             openListingFromUrlIfNeeded();
         } else {
