@@ -1218,6 +1218,11 @@ def _clean_extracted_addr(s: str) -> str:
     t = re.sub(r"(?i)^\s*(?:#\s*)?[0-9a-z]{1,6}\s*-\s*", "", t)
     t = re.sub(r"(?i)\s+#\s*[0-9a-z]{1,6}\s*(?:--+|-)\s*(?=\d{3,6}\b)", " ", t).strip()
     t = re.sub(r"(?i)\broa(?=[#\s,])", "Road", t)
+    t = re.sub(
+        r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver|port coquitlam|port moody|abbotsford|maple ridge|white rock|tsawwassen|squamish)(?=[A-Z]\d[A-Z]\s*\d[A-Z]\d\b)",
+        r"\1 ",
+        t,
+    )
     try:
         street_typ = r"(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway)"
         ms = list(re.finditer(rf"(?i)\b\d{{3,6}}\s+[^,]{{3,80}}?\b{street_typ}\b", t))
@@ -1238,6 +1243,32 @@ def _clean_extracted_addr(s: str) -> str:
             t = f"{head}, {city}".strip()
         else:
             t = head
+    try:
+        m_pc = re.search(r"(?i)([A-Z]\d[A-Z])\s*([0-9][A-Z][0-9])\b", t)
+    except Exception:
+        m_pc = None
+    pc = ""
+    if m_pc:
+        pc = f"{str(m_pc.group(1) or '').upper()} {str(m_pc.group(2) or '').upper()}".strip()
+    try:
+        m_mask_pc = re.search(rf"(?i)^\s*\d{{1,6}}\s*([x\*]{{2,4}})\s+([^,]{{3,120}}?\b{street_typ}\b)(.*)$", t)
+    except Exception:
+        m_mask_pc = None
+    if m_mask_pc and pc:
+        street_part = _normalize_street_name((m_mask_pc.group(2) or "").strip())
+        tail = str(m_mask_pc.group(3) or "")
+        try:
+            m_city2 = re.search(
+                r"(?i)\b(vancouver|richmond|burnaby|coquitlam|surrey|delta|langley|new westminster|north vancouver|west vancouver|port coquitlam|port moody|abbotsford|maple ridge|white rock|tsawwassen|squamish)\b",
+                tail,
+            )
+        except Exception:
+            m_city2 = None
+        if m_city2:
+            city2 = str(m_city2.group(1) or "").strip().title()
+            t = f"{street_part}, {city2} {pc}".strip()
+        else:
+            t = f"{street_part} {pc}".strip()
     try:
         m_near_num = re.search(r"(?i)^\s*(\d{3,6})\s+near\s+(\d{1,4}[a-z]?)\s*(ave|avenue|st|street|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl|place|ct|court|cres|crescent|terr|terrace|hwy|highway)\b", t)
     except Exception:
@@ -1585,6 +1616,19 @@ def main():
         if addr_clean and addr_clean != addr_for_check:
             item["address"] = addr_clean
             addr_for_check = addr_clean
+        if cur_comm and addr_for_check:
+            try:
+                a0 = str(addr_for_check).strip()
+                c0 = str(cur_comm).strip()
+                if c0 and a0.lower().endswith(c0.lower()) and re.search(r"\d", a0):
+                    base = a0[: -len(c0)].strip(" ,-/")
+                    if base and base != a0:
+                        if cur_city and (not re.search(r"(?i),\s*" + re.escape(cur_city) + r"\b", base)):
+                            base = f"{base}, {cur_city}".strip()
+                        item["address"] = base
+                        addr_for_check = base
+            except Exception:
+                pass
         if source == "vanpeople":
             try:
                 low_a = addr_for_check.lower()
@@ -1635,6 +1679,15 @@ def main():
                 item["_drop"] = True
                 continue
         if source == "craigslist":
+            try:
+                a0 = re.sub(r"\s+", " ", (addr_for_check or "").strip()).lower()
+            except Exception:
+                a0 = ""
+            if (not re.search(r"\d", a0)) and ("&" not in a0):
+                if _looks_like_city_only_address(a0, cur_city) or (cur_city and a0 == cur_city.lower()) or re.search(r"(?i)\barea\b", a0):
+                    item["_drop"] = True
+                    continue
+        if source == "craigslist":
             url_hint_city = _city_hint_from_craigslist_url(item.get("url") or "")
             if url_hint_city and (not cur_city or cur_city.lower() == "vancouver"):
                 item["city"] = url_hint_city
@@ -1665,21 +1718,15 @@ def main():
                 if not item.get("community"):
                     item["community"] = "South Surrey"
             m_city = re.search(
-                r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
+                r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver|port moody|port coquitlam|maple ridge|white rock|tsawwassen|squamish|abbotsford)\b",
                 addr_for_check,
             )
             if m_city:
                 addr_city2 = str(m_city.group(1) or "").strip().title()
-                if url_hint_city and addr_city2 and addr_city2.lower() != url_hint_city.lower():
-                    addr2 = re.sub(r"(?i),\s*" + re.escape(addr_city2) + r"\b\s*$", "", addr_for_check).strip(" ,")
-                    if addr2 and addr2 != addr_for_check:
-                        item["address"] = addr2
-                        addr_for_check = addr2
-                if addr_city2 and (not url_hint_city or addr_city2.lower() == url_hint_city.lower()):
-                    if addr_city2 and (not cur_city or cur_city.lower() != addr_city2.lower()):
-                        item["city"] = addr_city2
-                        changed_city += 1
-                        cur_city = addr_city2
+                if addr_city2 and (not cur_city or cur_city.lower() != addr_city2.lower()):
+                    item["city"] = addr_city2
+                    changed_city += 1
+                    cur_city = addr_city2
         if coords_ok and (not is_source_map) and coord_source in ("city_bbox", "community_bbox"):
             if (
                 (not re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
@@ -2373,16 +2420,14 @@ def main():
         if source == "craigslist":
             try:
                 m_gc = re.search(
-                    r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver)\b",
+                    r"(?i),\s*(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver|port moody|port coquitlam|maple ridge|white rock|tsawwassen|squamish|abbotsford)\b",
                     str(item.get("address") or ""),
                 )
             except Exception:
                 m_gc = None
             if m_gc:
                 gc2 = str(m_gc.group(1) or "").strip().title()
-                url_hint_city2 = _city_hint_from_craigslist_url(item.get("url") or "")
-                if (not url_hint_city2) or (gc2.lower() == url_hint_city2.lower()):
-                    geocode_city = gc2
+                geocode_city = gc2
 
         if source == "vanpeople":
             mq = str(item.get("map_query") or "").strip()
