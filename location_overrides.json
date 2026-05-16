@@ -706,6 +706,37 @@
       "city": "New Westminster",
       "address": "Edinburgh St & 16th street, New Westminster",
       "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/surrey-south-surrey-crescent-beach/7933601191.html": {
+      "city": "Surrey",
+      "address": "13150 Marine Drive, Surrey",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3456906.html": {
+      "city": "Vancouver",
+      "address": "2729 Kingsway, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/delta-north-delta-annieville-new/7934429712.html": {
+      "city": "Delta",
+      "address": "11650 92 Ave, Delta",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-bus-stop-to-ubc-campus-house/7934427102.html": {
+      "city": "Vancouver",
+      "address": "4685 W 16 Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-burnaby-edmonds-spacious/7929322349.html": {
+      "city": "Burnaby",
+      "address": "7377 14th Ave, Burnaby",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/pml/apa/d/coquitlam-modern-bed-bath-condo-in/7934427788.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-bedroom-suite-in-newer-house/7934426092.html": {
+      "drop": true
     }
   }
 }
