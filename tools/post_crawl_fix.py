@@ -1303,6 +1303,43 @@ def _clean_extracted_addr(s: str) -> str:
             "hwy": "Hwy",
         }
         t = f"{num} {s2} {typ_map.get(typ, typ.title())}".strip()
+    try:
+        m_near_no = re.search(
+            r"(?i)\bno\.?\s*(\d{1,2})\s*(?:rd|road)\s+near\s+([a-z0-9.'\-\s]{2,}?)\s*(ave|avenue|st|street|rd|road|dr|drive|blvd|boulevard|ln|lane|way|pl|place|ct|court|cres|crescent|terr|terrace|hwy|highway)\b",
+            t,
+        )
+    except Exception:
+        m_near_no = None
+    if m_near_no:
+        n = str(m_near_no.group(1) or "").strip()
+        b = str(m_near_no.group(2) or "").strip()
+        typ = str(m_near_no.group(3) or "").strip().lower()
+        typ_map2 = {
+            "avenue": "Ave",
+            "ave": "Ave",
+            "street": "St",
+            "st": "St",
+            "road": "Rd",
+            "rd": "Rd",
+            "drive": "Dr",
+            "dr": "Dr",
+            "boulevard": "Blvd",
+            "blvd": "Blvd",
+            "lane": "Ln",
+            "ln": "Ln",
+            "way": "Way",
+            "place": "Pl",
+            "pl": "Pl",
+            "court": "Ct",
+            "ct": "Ct",
+            "crescent": "Cres",
+            "cres": "Cres",
+            "terrace": "Terr",
+            "terr": "Terr",
+            "highway": "Hwy",
+            "hwy": "Hwy",
+        }
+        t = f"No. {n} Rd & {b} {typ_map2.get(typ, typ.title())}".strip()
     def _mask_to_mid(m):
         try:
             prefix = str(m.group(1) or "")
@@ -1646,10 +1683,62 @@ def main():
                     needs_coords = True
                     lat = None
                     lng = None
+            try:
+                low_t0 = text.lower()
+            except Exception:
+                low_t0 = ""
+            if ("ubc" in low_t0) or ("hawthorn" in low_t0) or ("university hill" in low_t0) or ("pacific spirit" in low_t0):
+                if (not cur_city) or (cur_city.lower() != "vancouver"):
+                    item["city"] = "Vancouver"
+                    changed_city += 1
+                    cur_city = "Vancouver"
+                if not item.get("community"):
+                    item["community"] = "Point Grey"
+                if (not re.search(r"\d", addr_for_check)) and ("&" not in addr_for_check) and (not _has_street_level_addr(addr_for_check)):
+                    try:
+                        m_ed = re.search(r"(?i)\b(eagles)\s*(drive|dr)\b", low_t0)
+                    except Exception:
+                        m_ed = None
+                    if m_ed:
+                        item["address"] = "Eagles Dr, Vancouver"
+                    else:
+                        item["address"] = "UBC Campus, Vancouver"
+                    addr_for_check = str(item.get("address") or "")
+                if coords_ok and (not item.get("_lock_coords")):
+                    item["lat"] = None
+                    item["lng"] = None
+                    coords_ok = False
+                    needs_coords = True
+                    lat = None
+                    lng = None
+            if (cur_city or "").strip().lower() == "richmond":
+                if ("broadmoor" in low_t0) and (not item.get("community")):
+                    item["community"] = "Broadmoor"
+                if re.search(r"(?i)\bno\.?\s*3\s*(?:rd|road|rd\.)\b", low_t0) and (
+                    ("willams" in low_t0) or ("williams" in low_t0)
+                ) and (("交界" in text) or ("与" in text) or ("&" in text) or (" and " in low_t0)):
+                    item["city"] = "Richmond"
+                    cur_city = "Richmond"
+                    item["address"] = "Number 3 Rd & Williams Rd, Richmond"
+                    addr_for_check = str(item.get("address") or "")
+                    if coords_ok and (not item.get("_lock_coords")):
+                        item["lat"] = None
+                        item["lng"] = None
+                        coords_ok = False
+                        needs_coords = True
+                        lat = None
+                        lng = None
         if item.get("_lock_coords"):
             continue
         if source == "vanpeople":
             a0 = re.sub(r"\s+", " ", (addr_for_check or "").strip()).lower()
+            try:
+                junk_addr = bool(re.search(r"[�æœø]", addr_for_check)) and (not re.search(r"\d", addr_for_check)) and (not _has_street_level_addr(addr_for_check))
+            except Exception:
+                junk_addr = False
+            if junk_addr:
+                item["_drop"] = True
+                continue
             if (not re.search(r"\d", a0)) and ("&" not in a0) and (
                 a0 in {
                     "vancouver",
@@ -1678,22 +1767,36 @@ def main():
             ):
                 item["_drop"] = True
                 continue
+            if (not re.search(r"\d", a0)) and ("&" not in a0) and (not _has_street_level_addr(a0)):
+                try:
+                    a_parts = [p for p in re.split(r"[\s,/]+", a0) if p]
+                except Exception:
+                    a_parts = []
+                if a_parts:
+                    city0 = (cur_city or "").strip().lower()
+                    comm0 = (cur_comm or "").strip().lower()
+                    joined = " ".join(a_parts).strip()
+                    if city0 and comm0:
+                        if joined == f"{city0} {comm0}" or joined == f"{comm0} {city0}":
+                            item["_drop"] = True
+                            continue
+                    if city0:
+                        vocab0 = [str(x or "").strip().lower() for x in (COMMUNITY_VOCAB.get(cur_city) or [])]
+                        if joined in vocab0:
+                            item["_drop"] = True
+                            continue
         if source == "craigslist":
             try:
                 a0 = re.sub(r"\s+", " ", (addr_for_check or "").strip()).lower()
             except Exception:
                 a0 = ""
             if (not re.search(r"\d", a0)) and ("&" not in a0):
-                if _looks_like_city_only_address(a0, cur_city) or (cur_city and a0 == cur_city.lower()) or re.search(r"(?i)\barea\b", a0):
+                if ("google map" in a0) or _looks_like_city_only_address(a0, cur_city) or (cur_city and a0 == cur_city.lower()) or re.search(r"(?i)\barea\b", a0):
                     item["_drop"] = True
                     continue
         if source == "craigslist":
             url_hint_city = _city_hint_from_craigslist_url(item.get("url") or "")
             if url_hint_city and (not cur_city or cur_city.lower() == "vancouver"):
-                item["city"] = url_hint_city
-                changed_city += 1
-                cur_city = url_hint_city
-            if url_hint_city and cur_city and (cur_city.lower() != url_hint_city.lower()):
                 item["city"] = url_hint_city
                 changed_city += 1
                 cur_city = url_hint_city
@@ -1739,6 +1842,30 @@ def main():
                 preserve_existing_bbox = False
                 needs_coords = True
                 priority_needs_geocode = True
+        if (
+            source == "vanpeople"
+            and (not re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
+            and _has_street_level_addr(addr_for_check)
+            and cur_city
+            and (not item.get("_lock_coords"))
+        ):
+            force_geocode_street_only = True
+            needs_coords = True
+            priority_needs_geocode = True
+            try:
+                if not re.search(r"(?i),\s*" + re.escape(cur_city) + r"\b", addr_for_check):
+                    st0 = _extract_street(addr_for_check)
+                    if st0:
+                        item["address"] = f"{st0}, {cur_city}"
+                        addr_for_check = str(item.get("address") or "")
+            except Exception:
+                pass
+            if coords_ok and is_source_map:
+                item["lat"] = None
+                item["lng"] = None
+                coords_ok = False
+                lat = None
+                lng = None
         try:
             mx = re.search(r"(?i)\b(\d{1,3})\s*ave\b\s*(\d{1,4})\s*(st|street)\b", addr_for_check)
             if mx and cur_city:
@@ -1766,6 +1893,13 @@ def main():
                 addr_for_check,
             )
         )
+        if has_intersection_addr and cur_city and (not re.search(r"(?i),\s*[a-z ]+\b$", addr_for_check)):
+            if not re.search(
+                r"(?i)\b(vancouver|surrey|richmond|burnaby|coquitlam|delta|langley|new westminster|north vancouver|west vancouver|port moody|port coquitlam|maple ridge|white rock|tsawwassen|squamish|abbotsford)\b",
+                addr_for_check,
+            ):
+                item["address"] = f"{addr_for_check}, {cur_city}"
+                addr_for_check = str(item.get("address") or "")
         has_detail_addr = bool(has_detail_addr or has_place_query or has_intersection_addr)
         if (
             source in ("craigslist", "vanpeople")
@@ -2076,13 +2210,26 @@ def main():
                 priority_needs_geocode = True
 
         if source == "owner" and (cur_city or "").strip().lower() == "richmond" and (cur_comm or "").strip().lower() == "thompson" and (not has_detail_addr):
-            u = _stable_u(item, "thompson_lat")
-            v = _stable_u(item, "thompson_lng")
-            item["lat"] = 49.1633 + (u - 0.5) * 0.0018
-            item["lng"] = -123.1653617 + (v - 0.5) * 0.0018
-            item["coord_source"] = "community_anchor_fixed"
-            changed_coords += 1
-            continue
+            try:
+                low_text2 = text.lower()
+            except Exception:
+                low_text2 = ""
+            if ("2号路" in text) or re.search(r"(?i)\bno\.?\s*2\b", low_text2) or ("number 2" in low_text2):
+                item["address"] = "No. 2 Rd & Blundell Rd, Richmond"
+                addr_for_check = str(item.get("address") or "")
+                item["lat"] = None
+                item["lng"] = None
+                coords_ok = False
+                needs_coords = True
+                priority_needs_geocode = True
+            else:
+                u = _stable_u(item, "thompson_lat")
+                v = _stable_u(item, "thompson_lng")
+                item["lat"] = 49.1633 + (u - 0.5) * 0.0018
+                item["lng"] = -123.1653617 + (v - 0.5) * 0.0018
+                item["coord_source"] = "community_anchor_fixed"
+                changed_coords += 1
+                continue
 
         if not has_detail_addr and _looks_like_city_only_address(addr_for_check, cur_city):
             item["address"] = f"{cur_comm}, {cur_city}".strip(", ").strip() if cur_comm else (cur_city or "Vancouver")
