@@ -714,7 +714,7 @@
     },
     "https://c.vanpeople.com/zufang/item-3456906.html": {
       "city": "Vancouver",
-      "address": "2729 Kingsway, Vancouver",
+      "address": "2729 Kingsway,Vancouver",
       "force_geocode": true
     },
     "https://vancouver.craigslist.org/rds/apa/d/delta-north-delta-annieville-new/7934429712.html": {
@@ -737,6 +737,30 @@
     },
     "https://vancouver.craigslist.org/bnc/apa/d/burnaby-bedroom-suite-in-newer-house/7934426092.html": {
       "drop": true
+    },
+    "https://c.vanpeople.com/zufang/item-3450818.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/nvn/apa/d/west-vancouver-newer-bed-bath-suite/7930192093.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/langley-large-townhouse-bedrooms-office/7930499891.html": {
+      "city": "Surrey",
+      "address": "16685 25 Ave, Surrey",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-south-granville-bed-bath-new/7933704836.html": {
+      "city": "Vancouver",
+      "address": "1282 W45 Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-upper-floor-clean-lougheed/7932665864.html": {
+      "city": "Coquitlam"
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/coquitlam-north-lougheed-mall-furnished/7934659992.html": {
+      "city": "Burnaby",
+      "address": "3833 Evergreen Place, Burnaby",
+      "force_geocode": true
     }
   }
 }
