@@ -1191,6 +1191,26 @@ def _extract_street(text: str) -> str:
     return ""
 
 
+def _has_street_level_addr(text: str) -> bool:
+    t = (text or "").strip()
+    if not t:
+        return False
+    a, b = _extract_intersection(t)
+    if a and b:
+        return True
+    if _extract_street(t):
+        return True
+    try:
+        return bool(
+            re.search(
+                r"(?i)\b(?:Ave|Avenue|St|Street|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Pl|Place|Ct|Court|Cres|Crescent|Terr|Terrace|Hwy|Highway|路|街|大道)\b",
+                t,
+            )
+        )
+    except Exception:
+        return False
+
+
 def _is_source_map(coord_source: str) -> bool:
     s = (coord_source or "").strip().lower()
     return s.startswith("source_map")
