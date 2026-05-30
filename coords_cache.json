@@ -1223,10 +1223,6 @@
         49.2245944,
         -123.0027579
     ],
-    "Kingsway, Burnaby, BC, Canada": [
-        49.2152709,
-        -122.9405492
-    ],
     "9333 Tomicki Avenue, Richmond, BC, Canada": [
         49.1808425,
         -123.1204848
@@ -5747,10 +5743,6 @@
         49.2519603,
         -123.0638405
     ],
-    "2050 East 20th Avenue, Vancouver, BC, Canada": [
-        49.2521108,
-        -123.0637454
-    ],
     "1633 West 11th Avenue, Vancouver, BC, Canada": [
         49.2620206,
         -123.1418659
@@ -6711,10 +6703,6 @@
         49.2126492,
         -123.0613785
     ],
-    "1180 Lawson Avenue, West Vancouver, BC, Canada": [
-        49.3368057,
-        -123.1246645
-    ],
     ", Vancouver, BC, Canada": [
         49.2608724,
         -123.113952
@@ -7202,10 +7190,6 @@
     "2075 West Mall, Vancouver, BC, Canada": [
         49.2643192,
         -123.2560919
-    ],
-    "2768 West 18th Avenue, Vancouver, BC, Canada": [
-        49.2561875,
-        -123.1669191
     ],
     "W 30th Ave, Vancouver, BC, Canada": [
         49.2443307,
@@ -8495,10 +8479,6 @@
         49.2774299,
         -123.1312177
     ],
-    "3333 Corvette Way, Richmond, BC, Canada": [
-        49.1902645,
-        -123.1333836
-    ],
     "1045 East 11th Avenue, Vancouver, BC, Canada": [
         49.2604632,
         -123.0692243
@@ -9559,10 +9539,6 @@
         49.1718525,
         -123.1388182
     ],
-    "741 Anskar Ct, Coquitlam, BC, Canada": [
-        49.2669439,
-        -122.8814896
-    ],
     "9228 SLOPES MEWS, Burnaby, BC, Canada": [
         49.2770188,
         -122.9074672
@@ -10046,10 +10022,6 @@
     "750 Dogwood St, Coquitlam, BC, Canada": [
         49.2628471,
         -122.8834936
-    ],
-    "6000 Mckay Avenue, Burnaby, BC, Canada": [
-        49.2290292,
-        -123.0026753
     ],
     "6237 Service St, Burnaby, BC, Canada": [
         49.2286218,
@@ -11083,10 +11055,6 @@
         49.2738136,
         -123.0851732
     ],
-    "5687 Gray Avenue, Vancouver, BC, Canada": [
-        49.2532215,
-        -123.2314344
-    ],
     "5212 Cambie St, Vancouver, BC, Canada": [
         49.2383196,
         -123.1154563
@@ -11370,10 +11338,6 @@
     "1031 Boundary Rd, Vancouver, BC, Canada": [
         49.2753017,
         -123.0240268
-    ],
-    "2713 West 18th Avenue, Vancouver, BC, Canada": [
-        49.2565674,
-        -123.1653309
     ],
     "128 West 41st Avenue, Vancouver, BC, Canada": [
         49.2329581,
@@ -12299,10 +12263,6 @@
         49.2677516,
         -123.1148144
     ],
-    "6537 Telford Avenue, Burnaby, BC, Canada": [
-        49.2238595,
-        -123.004829
-    ],
     "4000 West 10th Avenue, Vancouver, BC, Canada": [
         49.2636509,
         -123.1969678
@@ -12330,10 +12290,6 @@
     "Francis Rd, Richmond, Richmond, BC, Canada": [
         49.1483636,
         -123.163425
-    ],
-    "109 East 45th Avenue, Vancouver, BC, Canada": [
-        49.229625,
-        -123.1033658
     ],
     "838 Agnes St, BC, Canada": [
         49.2016115,
@@ -12879,10 +12835,6 @@
         49.2184353,
         -122.604532
     ],
-    "6688 Pearson Way, Richmond, BC, Canada": [
-        49.1749489,
-        -123.1464779
-    ],
     "6087 Wilson Avenue, Burnaby, BC, Canada": [
         49.2292971,
         -123.0103884
@@ -12919,10 +12871,6 @@
         49.2544011,
         -122.8885456
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
     "1270 Burnaby St, Vancouver, BC, Canada": [
         49.281628,
         -123.1359355
@@ -12942,10 +12890,6 @@
     "2002 St George St, Port Moody, BC, Canada": [
         49.2757671,
         -122.8686587
-    ],
-    "Burquitlam Station, Coquitlam, BC, Canada": [
-        49.2613309,
-        -122.8899378
     ],
     "13678 Grosvenor Rd, Surrey, BC, Canada": [
         49.2000506,
@@ -12978,14 +12922,6 @@
     "E 55th Ave, Vancouver, BC, Canada": [
         49.2200142,
         -123.0946033
-    ],
-    "180 East 2nd Avenue, Vancouver, BC, Canada": [
-        49.2689032,
-        -123.1012279
-    ],
-    "2275 East 28th Avenue, Vancouver, BC, Canada": [
-        49.2458227,
-        -123.0627609
     ],
     "W 18th Ave, Vancouver, BC, Canada": [
         49.2562984,
@@ -13083,10 +13019,6 @@
         49.2695828,
         -123.1080533
     ],
-    "2471 West 45th Avenue, Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
-    ],
     "5628 Birney Avenue, Vancouver, BC, Canada": [
         49.2540991,
         -123.2307977
@@ -13110,5 +13042,225 @@
     "7070 Broadway, Burnaby, BC, Canada": [
         49.2612636,
         -122.9477952
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "570 Emerson St, Coquitlam, BC, Canada": [
+        49.2621313,
+        -122.8872016
+    ],
+    "1925 Nelson St, Vancouver, BC, Canada": [
+        49.2908409,
+        -123.1403114
+    ],
+    "Charles Best, Coquitlam, Coquitlam, BC, Canada": [
+        49.2639052,
+        -122.8212832
+    ],
+    "4063 28TH Avenue, Vancouver, BC, Canada": [
+        49.2473846,
+        -123.1956125
+    ],
+    "204 St, Langley, BC, Canada": [
+        49.1114558,
+        -122.6573441
+    ],
+    "750 W 69th Avenue, Vancouver, BC, Canada": [
+        49.2093474,
+        -123.122262
+    ],
+    "1955 West 1st. Avenue, Vancouver, BC, Canada": [
+        49.2712822,
+        -123.1826161
+    ],
+    "Dumfries St  E49th Avenue, Vancouver, BC, Canada": [
+        49.2251892,
+        -123.0741019
+    ],
+    "2650 Duke St, Vancouver, BC, Canada": [
+        49.2391752,
+        -123.0500568
+    ],
+    "6000 Mckay Avenue, Burnaby, BC, Canada": [
+        49.2290292,
+        -123.0026753
+    ],
+    "6850 Laurel St, Vancouver, BC, Canada": [
+        49.2232144,
+        -123.1248176
+    ],
+    "W 52 Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.0972585,
+        -122.6957343
+    ],
+    "1957 West 1st Avenue, Vancouver, BC, Canada": [
+        49.2709122,
+        -123.1491952
+    ],
+    "1959 West 1st Avenue, Vancouver, BC, Canada": [
+        49.2712822,
+        -123.1826161
+    ],
+    "9393 Tower Rd, Burnaby, BC, Canada": [
+        49.2781158,
+        -122.9094122
+    ],
+    "6537 Telford Avenue, Burnaby, BC, Canada": [
+        49.2238595,
+        -123.004829
+    ],
+    "2186 gilmore avenue, Burnaby, BC, Canada": [
+        49.2652569,
+        -123.0137948
+    ],
+    "Burquitlam Station, Coquitlam, BC, Canada": [
+        49.2613309,
+        -122.8899378
+    ],
+    "5725 Cranley Dr, West Vancouver, BC, Canada": [
+        49.3601453,
+        -123.2661936
+    ],
+    "3269 Portview Pl, Port Moody, BC, Canada": [
+        49.2740869,
+        -122.8330076
+    ],
+    "6509 Napier St, Burnaby, BC, Canada": [
+        49.2747541,
+        -123.0118202
+    ],
+    "Rd, Vancouver, BC, Canada": [
+        49.2692216,
+        -123.1374425
+    ],
+    "1550 Fern St, North Vancouver, BC, Canada": [
+        49.3117796,
+        -123.0308339
+    ],
+    "Pacific Blvd, Vancouver, Vancouver, BC, Canada": [
+        49.2770745,
+        -123.1046645
+    ],
+    "199 Drake St, Vancouver, BC, Canada": [
+        49.2733116,
+        -123.1228936
+    ],
+    "1495 Richards St, Vancouver, BC, Canada": [
+        49.2736527,
+        -123.1280765
+    ],
+    "2050 East 20th Avenue, Vancouver, BC, Canada": [
+        49.2521108,
+        -123.0637454
+    ],
+    "Seacote Rd, Richmond, Richmond, BC, Canada": [
+        49.1393042,
+        -123.0981273
+    ],
+    "741 Anskar Ct, Coquitlam, BC, Canada": [
+        49.2669439,
+        -122.8814896
+    ],
+    "55A Avenue, Langley, Langley, BC, Canada": [
+        49.1032514,
+        -122.6770643
+    ],
+    "willingdon Avenue, Burnaby, Burnaby, BC, Canada": [
+        49.228209,
+        -123.0068721
+    ],
+    "180 East 2nd Avenue, Vancouver, BC, Canada": [
+        49.2689032,
+        -123.1012279
+    ],
+    "2275 East 28th Avenue, Vancouver, BC, Canada": [
+        49.2455986,
+        -123.0921885
+    ],
+    "5661 Baillie St, Vancouver, BC, Canada": [
+        49.2343648,
+        -123.1226826
+    ],
+    "6468 Willingdon Avenue, Burnaby, BC, Canada": [
+        49.228209,
+        -123.0068721
+    ],
+    "Chancellor Blvd, Vancouver, BC, Canada": [
+        49.2660706,
+        -123.2196896
+    ],
+    "7555 Alderbridge Way, Richmond, BC, Canada": [
+        49.1733075,
+        -123.1455288
+    ],
+    "1050 Howie Avenue, Coquitlam, BC, Canada": [
+        49.2505609,
+        -122.8635099
+    ],
+    "2471 West 45th Avenue, Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "Kingsway, Burnaby, BC, Canada": [
+        49.2187702,
+        -122.966937
+    ],
+    "6461 Telford Avenue, Burnaby, BC, Canada": [
+        49.2251528,
+        -123.0040351
+    ],
+    "3333 Corvette Way, Richmond, BC, Canada": [
+        49.1902645,
+        -123.1333836
+    ],
+    "6488 University Blvd, Vancouver, BC, Canada": [
+        49.2635236,
+        -123.2555365
+    ],
+    "6688 Pearson Way, Richmond, BC, Canada": [
+        49.1749489,
+        -123.1464779
+    ],
+    "2768 West 18th Avenue, Vancouver, BC, Canada": [
+        49.2561875,
+        -123.1669191
+    ],
+    "2713 West 18th Avenue, Vancouver, BC, Canada": [
+        49.2565674,
+        -123.1653309
+    ],
+    "3750 West 11th Avenue, Vancouver, BC, Canada": [
+        49.2623763,
+        -123.1871329
+    ],
+    "5692 Forglen Dr, Burnaby, BC, Canada": [
+        49.2325596,
+        -122.9906756
+    ],
+    "5687 Gray Avenue, Vancouver, BC, Canada": [
+        49.2532215,
+        -123.2314344
+    ],
+    "1180 Lawson Avenue, West Vancouver, BC, Canada": [
+        49.3368057,
+        -123.1246645
+    ],
+    "570 Emerson St, Burnaby, BC, Canada": [
+        49.2304372,
+        -122.9669889
+    ],
+    "3939 West 21st Avenue, Vancouver, BC, Canada": [
+        49.2539958,
+        -123.1919125
+    ],
+    "8800 Hazelbridge Way, Richmond, BC, Canada": [
+        49.1870288,
+        -123.1323183
+    ],
+    "109 East 45th Avenue, Vancouver, BC, Canada": [
+        49.229625,
+        -123.1033658
     ]
 }
