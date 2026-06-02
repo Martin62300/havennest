@@ -1874,13 +1874,18 @@ def main():
             priority_needs_geocode = True
             try:
                 if not re.search(r"(?i),\s*" + re.escape(cur_city) + r"\b", addr_for_check):
-                    st0 = _extract_street(addr_for_check)
+                    mq0 = str(item.get("map_query") or "").strip()
+                    st0 = ""
+                    if mq0 and _has_street_level_addr(mq0) and (not re.search(r"\d{3,6}\b", mq0)):
+                        st0 = _extract_street(mq0) or _normalize_street_name(mq0)
+                    if not st0:
+                        st0 = _extract_street(addr_for_check)
                     if st0:
                         item["address"] = f"{st0}, {cur_city}"
                         addr_for_check = str(item.get("address") or "")
             except Exception:
                 pass
-            if coords_ok and is_source_map:
+            if coords_ok:
                 item["lat"] = None
                 item["lng"] = None
                 coords_ok = False
