@@ -761,6 +761,27 @@
       "city": "Burnaby",
       "address": "3833 Evergreen Place, Burnaby",
       "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/vancouver-ubc-condo-suite-for-rent/7938245713.html": {
+      "city": "Vancouver",
+      "address": "5639 Hampton PL, Vancouver",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3324674.html": {
+      "address": "E 8th Ave, Vancouver",
+      "force_geocode": true
+    },
+    "https://c.vanpeople.com/zufang/item-3469635.html": {
+      "city": "Vancouver",
+      "address": "E 54th Ave & Main St, Vancouver",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/surrey-bed-den-suite-in-brand-new-home/7931128364.html": {
+      "address": "172 St & 63 Ave",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-bedroom-suite-in-newer-house/7938254827.html": {
+      "drop": true
     }
   }
 }
