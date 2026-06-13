@@ -4211,10 +4211,6 @@
         49.3972463,
         -123.2496564
     ],
-    "9633 Manchester Drive, Burnaby, BC, Canada": [
-        49.2477164,
-        -122.8977099
-    ],
     "9250 University High St, Burnaby, BC, Canada": [
         49.2772254,
         -122.9073774
@@ -4894,14 +4890,6 @@
     "5342 9A Avenue, Delta, BC, Canada": [
         49.0205168,
         -123.0758742
-    ],
-    "3853 West 15th Avenue, Vancouver, BC, Canada": [
-        49.2592221,
-        -123.1896035
-    ],
-    "3550 West 39th Avenue, Vancouver, BC, Canada": [
-        49.2362274,
-        -123.1836294
     ],
     "10021 Semiahmoo Road, Surrey, BC, Canada": [
         49.1858624,
@@ -7474,10 +7462,6 @@
     "6133 Buswell St, Richmond, BC, Canada": [
         49.1698887,
         -123.1340684
-    ],
-    "3233 Ketcheson Road, Richmond, BC, Canada": [
-        49.1894795,
-        -123.126499
     ],
     "5668 Carson St, Burnaby, BC, Canada": [
         49.2091977,
@@ -11143,10 +11127,6 @@
         49.2882817,
         -123.1242033
     ],
-    "5782 Berton Avenue, Vancouver, BC, Canada": [
-        49.2557654,
-        -123.233514
-    ],
     "Marine Dr  136, Vancouver, BC, Canada": [
         49.2081632,
         -123.0237241
@@ -11254,10 +11234,6 @@
     "St  driveway, Surrey, BC, Canada": [
         49.1779414,
         -122.7629832
-    ],
-    "3200 Corvette Way, Richmond, BC, Canada": [
-        49.1901689,
-        -123.1331016
     ],
     "3083 West 15th Avenue, Vancouver, BC, Canada": [
         49.2577306,
@@ -11519,10 +11495,6 @@
         49.3141798,
         -123.0725087
     ],
-    "4890 Lougheed Hwy, Burnaby, BC, Canada": [
-        49.2647074,
-        -122.9803557
-    ],
     "488 SW Marine Dr, Vancouver, BC, Canada": [
         49.2099629,
         -123.1159757
@@ -11582,10 +11554,6 @@
     "15775 Croydon Dr, Surrey, BC, Canada": [
         49.0477376,
         -122.784873
-    ],
-    "9228 Slopes Mews, Burnaby, BC, Canada": [
-        49.2767952,
-        -122.9075546
     ],
     "3133 Pleasant St, Richmond, BC, Canada": [
         49.1311275,
@@ -14491,10 +14459,6 @@
         49.2156775,
         -122.9775353
     ],
-    "3300 Regina Avenue, Vancouver, BC, Canada": [
-        49.1871351,
-        -123.1213005
-    ],
     "6620 Riverdale Dr, Richmond, BC, Canada": [
         49.1654879,
         -123.1728544
@@ -14530,10 +14494,6 @@
     "6463 Silver Avenue, Burnaby, BC, Canada": [
         49.2248459,
         -123.0069043
-    ],
-    "5928 birney Avenue, Vancouver, BC, Canada": [
-        49.2533453,
-        -123.2351271
     ],
     "9700 Number 3 Rd, Richmond, BC, Canada": [
         49.1854548,
@@ -14647,10 +14607,6 @@
         49.2924898,
         -123.1386339
     ],
-    "12160 80 Avenue, Surrey, BC, Canada": [
-        49.1482189,
-        -122.8858715
-    ],
     "8842 Armstrong Avenue, Burnaby, BC, Canada": [
         49.2311685,
         -122.9124878
@@ -14751,10 +14707,6 @@
         49.1902645,
         -123.1333836
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
     "5983 Gray Avenue, Vancouver, BC, Canada": [
         49.2522009,
         -123.2351416
@@ -14851,18 +14803,6 @@
         49.346914,
         -123.1529491
     ],
-    "13325 102A Avenue, Surrey, BC, Canada": [
-        49.1897941,
-        -122.8532333
-    ],
-    "562 West 62nd Avenue, Vancouver, BC, Canada": [
-        49.2139328,
-        -123.1191143
-    ],
-    "3280 Corvette Way, Richmond, BC, Canada": [
-        49.1897718,
-        -123.1336173
-    ],
     "13308 Central Avenue, Surrey, BC, Canada": [
         49.1896771,
         -122.8405014
@@ -14919,10 +14859,6 @@
         49.2108405,
         -122.8382256
     ],
-    "2471 West 45th Avenue, Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
-    ],
     "1762 West 58th Avenue, Vancouver, BC, Canada": [
         49.2183699,
         -123.1468921
@@ -14950,5 +14886,285 @@
     "131 Regiment Square Vancouver, BC, Canada": [
         49.2788305,
         -123.1097301
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "E. 44th Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2302994,
+        -123.1026171
+    ],
+    "7260 Lindsay Rd, Richmond, BC, Canada": [
+        49.1605261,
+        -123.1669359
+    ],
+    "1434 Burnaby St, Vancouver, BC, Canada": [
+        49.2831188,
+        -123.1381154
+    ],
+    "485 West 42nd, Vancouver, BC, Canada": [
+        49.2328917,
+        -123.124552
+    ],
+    "29th Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2442084,
+        -123.0459222
+    ],
+    "Number 3 Rd, Richmond, Richmond, BC, Canada": [
+        49.11484,
+        -123.1367605
+    ],
+    "Columbia St, Vancouver, Vancouver, BC, Canada": [
+        49.2553116,
+        -123.1097715
+    ],
+    "6300 Buchanan St, Burnaby, BC, Canada": [
+        49.2671068,
+        -122.9775854
+    ],
+    "9633 Manchester Dr, Burnaby, BC, Canada": [
+        49.2477164,
+        -122.8977099
+    ],
+    "3817 West 26th Avenue, Vancouver, BC, Canada": [
+        49.2492695,
+        -123.1886889
+    ],
+    "15104 92A Avenue, Surrey, BC, Canada": [
+        49.1708268,
+        -122.8037684
+    ],
+    "13688 100 Avenue, Surrey, BC, Canada": [
+        49.1839721,
+        -122.843713
+    ],
+    "7441 Victoria Dr, Vancouver, BC, Canada": [
+        49.2167351,
+        -123.0663911
+    ],
+    "4890 Lougheed Hwy, Burnaby, BC, Canada": [
+        49.2648852,
+        -122.9807754
+    ],
+    "15691 20 Avenue, Surrey, BC, Canada": [
+        49.0385634,
+        -122.7877093
+    ],
+    "6220 gooseberry Dr, BC, Canada": [
+        50.664779,
+        -120.3867927
+    ],
+    "128 St, Surrey, BC, Canada": [
+        49.2084152,
+        -122.8670157
+    ],
+    "12187 75 Avenue, Surrey, BC, Canada": [
+        49.1395673,
+        -122.8849762
+    ],
+    "1940 Westminster Avenue, Port Coquitlam, BC, Canada": [
+        49.2651079,
+        -122.7619739
+    ],
+    "9524 118 St, Delta, BC, Canada": [
+        49.175754,
+        -122.895408
+    ],
+    "1842 West 63rd Avenue, Vancouver, BC, Canada": [
+        49.2139593,
+        -123.1496544
+    ],
+    "3550 West 39th Avenue, Vancouver, BC, Canada": [
+        49.2362274,
+        -123.1836294
+    ],
+    "3853 West 15th Avenue, Vancouver, BC, Canada": [
+        49.2592221,
+        -123.1896035
+    ],
+    "1285 Martin St, White Rock, BC, Canada": [
+        49.0255049,
+        -122.8057239
+    ],
+    "Downtown, BC, Canada": [
+        49.283393,
+        -123.1174563
+    ],
+    "5611 Holt Avenue, Richmond, BC, Canada": [
+        49.1655945,
+        -123.1636925
+    ],
+    "Lougheed Hwy, Burnaby, Burnaby, BC, Canada": [
+        49.2630235,
+        -122.9746695
+    ],
+    "Kamloops St, Vancouver, Vancouver, BC, Canada": [
+        49.265819,
+        -123.0547031
+    ],
+    "9688 162a St, Surrey, BC, Canada": [
+        49.1784586,
+        -122.7716863
+    ],
+    "5782 Berton Avenue, Vancouver, BC, Canada": [
+        49.2557654,
+        -123.233514
+    ],
+    "524 East 12th Avenue, Vancouver, BC, Canada": [
+        49.2595512,
+        -123.0924308
+    ],
+    "168 Powell St, Vancouver, BC, Canada": [
+        49.2829676,
+        -123.100636
+    ],
+    "6707 NELSON AVENUE, West Vancouver, BC, Canada": [
+        49.3764714,
+        -123.2756602
+    ],
+    "1455 Howe St, Vancouver, BC, Canada": [
+        49.277405,
+        -123.1277937
+    ],
+    "524 E 12th Ave, Vancouver, BC, Canada": [
+        49.2595512,
+        -123.0924308
+    ],
+    "1500 HOwe St, Vancouver, BC, Canada": [
+        49.2742689,
+        -123.1317823
+    ],
+    "1766 East 64th Avenue, Vancouver, BC, Canada": [
+        49.2119322,
+        -123.0690566
+    ],
+    "14000 Riverport Way, Richmond, BC, Canada": [
+        49.1338515,
+        -123.0635465
+    ],
+    "13325 102A Avenue, Surrey, BC, Canada": [
+        49.1897941,
+        -122.8532333
+    ],
+    "8285 12 Avenue, BC, Canada": [
+        49.0239073,
+        -122.7274275
+    ],
+    "562 West 62nd Avenue, Vancouver, BC, Canada": [
+        49.2139328,
+        -123.1191143
+    ],
+    "3300 Regina Avenue, Vancouver, BC, Canada": [
+        49.1871351,
+        -123.1213005
+    ],
+    "3280 Corvette Way, Richmond, BC, Canada": [
+        49.1897718,
+        -123.1336173
+    ],
+    "9228 Slopes Mews, Burnaby, BC, Canada": [
+        49.2767952,
+        -122.9075546
+    ],
+    "17A Avenue, Surrey, BC, Canada": [
+        49.0337422,
+        -122.8561741
+    ],
+    "5320 Ludlow Rd, Richmond, BC, Canada": [
+        49.1579045,
+        -123.1643441
+    ],
+    "2471 West 45th Avenue, Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "5593 Number 3 Rd, Richmond, BC, Canada": [
+        49.11484,
+        -123.1367605
+    ],
+    "St  20 Avenue, Surrey, BC, Canada": [
+        49.0384823,
+        -122.8149396
+    ],
+    "12160 80 Avenue, Surrey, BC, Canada": [
+        49.1482189,
+        -122.8858715
+    ],
+    "No 5, Richmond, Richmond, BC, Canada": [
+        49.1845712,
+        -123.0356445
+    ],
+    "4939 203 St, Langley, BC, Canada": [
+        49.1083276,
+        -122.6601481
+    ],
+    "5928 birney Avenue, Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
+    ],
+    "Number 6 Rd, Richmond, BC, Canada": [
+        49.1534445,
+        -123.0690598
+    ],
+    "7178 Collier St, Vancouver, BC, Canada": [
+        49.2203795,
+        -122.9554187
+    ],
+    "6188 Number 3 Rd, Richmond, BC, Canada": [
+        49.1682746,
+        -123.1357223
+    ],
+    "7063 Hall Avenue, Burnaby, BC, Canada": [
+        49.2195358,
+        -122.9555265
+    ],
+    "Western Parkway, Vancouver, BC, Canada": [
+        49.269903,
+        -123.2459827
+    ],
+    "Eton St, Burnaby, BC, Canada": [
+        49.2874061,
+        -123.0144295
+    ],
+    "W 36th Ave, Vancouver, BC, Canada": [
+        49.2394632,
+        -123.1670541
+    ],
+    "10667 144 St, Surrey, BC, Canada": [
+        49.1963857,
+        -122.8237535
+    ],
+    "3200 Corvette Way, Richmond, BC, Canada": [
+        49.1901689,
+        -123.1331016
+    ],
+    "Kalyk Avenue, Burnaby, BC, Canada": [
+        49.2535831,
+        -123.0134154
+    ],
+    "St  108 Avenue, Surrey, BC, Canada": [
+        49.199079,
+        -122.8669727
+    ],
+    "3233 Ketcheson Rd, Richmond, BC, Canada": [
+        49.1894795,
+        -123.126499
+    ],
+    "6331 Number 1 Rd, Richmond, BC, Canada": [
+        49.1516097,
+        -123.1812386
+    ],
+    "20510 76 Avenue, Langley, BC, Canada": [
+        49.1405821,
+        -122.6542796
+    ],
+    "82 1 St, New Westminster, BC, Canada": [
+        49.2083934,
+        -122.9403482
+    ],
+    "13228 Old Yale Rd, Surrey, BC, Canada": [
+        49.2035114,
+        -122.8911595
     ]
 }
