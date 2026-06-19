@@ -1132,9 +1132,15 @@ def _extract_intersection(text: str) -> Tuple[str, str]:
         low = ""
     if ("francis" in low) and (("no 3" in low) or ("no. 3" in low) or re.search(r"[三3]\s*号\s*路", t)):
         return (_normalize_street_name("No. 3 Road"), _normalize_street_name("Francis Rd"))
+    if ("railway" in low) and ("granville" in low) and (re.search(r"(?i)\b(?:x|and)\b", t) or ("+" in t) or ("&" in t) or ("夹" in t) or ("与" in t) or ("和" in t) or ("/" in t)):
+        return (_normalize_street_name("Railway Ave"), _normalize_street_name("Granville Ave"))
+    if ("elmbridge" in low) and ("alderbridge" in low) and (re.search(r"(?i)\b(?:x|and)\b", t) or ("+" in t) or ("&" in t) or ("夹" in t) or ("与" in t) or ("和" in t) or ("/" in t)):
+        return (_normalize_street_name("Elmbridge Way"), _normalize_street_name("Alderbridge Way"))
     if ("kingsway" in low) and ("nanaimo" in low):
         if ("between" in low) or ("之间" in t) or re.search(r"(?i)\bkingsway\b\s*(?:与|和|&|and|/)\s*nanaimo\b", t):
             return (_normalize_street_name("Kingsway"), _normalize_street_name("Nanaimo St"))
+    if (("49th" in low) or ("49 " in low) or ("w49" in low) or ("e49" in low)) and ("oak" in low) and (("/" in t) or ("&" in t) or ("+" in t) or re.search(r"(?i)\b(?:x|and|near)\b", t)):
+        return (_normalize_street_name("W 49th Ave"), _normalize_street_name("Oak St"))
     m0 = re.search(r"(?i)\b(\d{2,3})\s+near\s+(\d{2,3}[a-z]?)\b", t)
     if m0:
         return (_normalize_street_name(f"{m0.group(1)} St"), _normalize_street_name(f"{m0.group(2)} Ave"))
@@ -1158,16 +1164,23 @@ def _extract_intersection(text: str) -> Tuple[str, str]:
         a = _normalize_street_name(m.group(1))
         b = _normalize_street_name(m.group(2))
         return (a, b)
-    m = re.search(rf"(?i)\b({street})\s*(?:与|和|&|and|夹|/)\s*({street})\b", t)
+    m = re.search(rf"(?i)\b({street})\s*(?:与|和|&|\+|/|夹|\b(?:and|x)\b)\s*({street})\b", t)
     if m:
         a = _normalize_street_name(m.group(1))
         b = _normalize_street_name(m.group(2))
         return (a, b)
-    m = re.search(r"([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:与|和|&|and|夹|/)\s*([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:交汇处|交界处|路口|交叉口|intersection|cross)", t, flags=re.IGNORECASE)
+    m = re.search(r"([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:与|和|&|\+|/|夹|\b(?:and|x)\b)\s*([A-Za-z0-9.'\-\u4e00-\u9fff\s]+?)\s*(?:交汇处|交界处|路口|交叉口|intersection|cross)", t, flags=re.IGNORECASE)
     if m:
         a = _normalize_street_name(m.group(1))
         b = _normalize_street_name(m.group(2))
         return (a, b)
+    bare = r"(?:[A-Za-z0-9.'\-]{2,}(?:\s+[A-Za-z0-9.'\-]{2,}){0,3})"
+    m = re.search(rf"(?i)\b({bare})\s*(?:&|\+|/|\b(?:and|x)\b|与|和|夹)\s*({bare})\b", t)
+    if m:
+        a = _normalize_street_name(m.group(1))
+        b = _normalize_street_name(m.group(2))
+        if a and b and a.lower() != b.lower():
+            return (a, b)
     return ("", "")
 
 
@@ -1805,6 +1818,22 @@ def main():
                         if joined in vocab0:
                             item["_drop"] = True
                             continue
+            try:
+                ia, ib = _extract_intersection(addr_for_check)
+                if not (ia and ib):
+                    ia, ib = _extract_intersection(text)
+                if ia and ib and cur_city and ("ubc" not in ia.lower()) and ("ubc" not in ib.lower()) and ("downtown" not in ia.lower()) and ("downtown" not in ib.lower()):
+                    item["address"] = f"{ia} & {ib}, {cur_city}"
+                    addr_for_check = str(item.get("address") or "")
+                    item["lat"] = None
+                    item["lng"] = None
+                    coords_ok = False
+                    lat = None
+                    lng = None
+                    needs_coords = True
+                    priority_needs_geocode = True
+            except Exception:
+                pass
         if source == "craigslist":
             try:
                 a0 = re.sub(r"\s+", " ", (addr_for_check or "").strip()).lower()
