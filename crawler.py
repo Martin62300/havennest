@@ -768,6 +768,8 @@ class HavenNestCrawler:
                     # 6. 提取卧室
                     beds_match = re.search(r'"bedroomCount":\s*(\d+)', block)
                     beds = int(beds_match.group(1)) if beds_match else self.extract_beds(title)
+                    if not isinstance(beds, int) or beds < 0 or beds > 10:
+                        beds = self.extract_beds(" ".join([title, full_address, desc]))
 
                     # 7. 提取图片 (改进：深度寻找所有可能的图片)
                     images = []

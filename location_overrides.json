@@ -768,7 +768,8 @@
       "force_geocode": true
     },
     "https://c.vanpeople.com/zufang/item-3324674.html": {
-      "address": "E 8th Ave, Vancouver",
+      "city": "VANCOUVER",
+      "address": "E8TH AVE, VANCOUVER",
       "force_geocode": true
     },
     "https://c.vanpeople.com/zufang/item-3469635.html": {
@@ -782,6 +783,32 @@
     },
     "https://vancouver.craigslist.org/bnc/apa/d/burnaby-bedroom-suite-in-newer-house/7938254827.html": {
       "drop": true
+    },
+    "https://c.vanpeople.com/zufang/item-3474301.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/van/apa/d/richmond-richmond-br-2ba-2800/7939736958.html": {
+      "city": "Richmond",
+      "address": "6951 Elmbridge way, Richmond",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rch/apa/d/richmond-ora-unfurnished-richmond-bdrm/7937510424.html": {
+      "city": "Richmond",
+      "address": "6971 Elmbridge Way, Richmond",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/new-westminster-northeast-brewery/7941712014.html": {
+      "drop": true
+    },
+    "https://vancouver.craigslist.org/bnc/apa/d/burnaby-burnaby-renovated-bedroom/7937783496.html": {
+      "city": "Burnaby",
+      "address": "8362 13th Avenue, Burnaby",
+      "force_geocode": true
+    },
+    "https://vancouver.craigslist.org/rds/apa/d/surrey-bed-den-suite-in-brand-new-home/7941090114.html": {
+      "city": "Surry",
+      "address": "172 St & 63 Ave, Surry",
+      "force_geocode": true
     }
   }
 }
