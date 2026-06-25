@@ -1075,6 +1075,35 @@ def _looks_like_city_only_address(addr: str, cur_city: str) -> bool:
     return False
 
 
+def _looks_like_city_or_community_only_address(addr: str, cur_city: str, cur_comm: str = "") -> bool:
+    a = re.sub(r"\s+", " ", str(addr or "").strip()).strip(" ,-/")
+    if not a:
+        return True
+    if re.search(r"\d", a) or _has_street_level_addr(a):
+        return False
+    low = a.lower()
+    city0 = (cur_city or "").strip().lower()
+    comm0 = _normalize_community(cur_comm).strip().lower()
+    if _looks_like_city_only_address(a, cur_city):
+        return True
+    if comm0 and low == comm0:
+        return True
+    if city0 and comm0:
+        combos = {
+            f"{city0} {comm0}",
+            f"{comm0} {city0}",
+            f"{city0}, {comm0}",
+            f"{comm0}, {city0}",
+        }
+        if low in combos:
+            return True
+    if city0:
+        vocab0 = [str(x or "").strip().lower() for x in (COMMUNITY_VOCAB.get(cur_city) or [])]
+        if low in vocab0:
+            return True
+    return False
+
+
 _CN_NUM = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
 
 
@@ -1772,52 +1801,9 @@ def main():
             if junk_addr:
                 item["_drop"] = True
                 continue
-            if (not re.search(r"\d", a0)) and ("&" not in a0) and (
-                a0 in {
-                    "vancouver",
-                    "richmond",
-                    "burnaby",
-                    "coquitlam",
-                    "surrey",
-                    "delta",
-                    "langley",
-                    "new westminster",
-                    "north vancouver",
-                    "west vancouver",
-                    "maple ridge",
-                    "white rock",
-                    "east vancouver",
-                    "vancouver east",
-                    "west vancouver",
-                    "vancouver west",
-                    "north vancouver",
-                    "vancouver north",
-                    "south vancouver",
-                    "vancouver south",
-                }
-                or re.fullmatch(r"(east|west|north|south)\s+vancouver", a0)
-                or re.fullmatch(r"vancouver\s+(east|west|north|south)", a0)
-            ):
+            if _looks_like_city_or_community_only_address(a0, cur_city, cur_comm):
                 item["_drop"] = True
                 continue
-            if (not re.search(r"\d", a0)) and ("&" not in a0) and (not _has_street_level_addr(a0)):
-                try:
-                    a_parts = [p for p in re.split(r"[\s,/]+", a0) if p]
-                except Exception:
-                    a_parts = []
-                if a_parts:
-                    city0 = (cur_city or "").strip().lower()
-                    comm0 = (cur_comm or "").strip().lower()
-                    joined = " ".join(a_parts).strip()
-                    if city0 and comm0:
-                        if joined == f"{city0} {comm0}" or joined == f"{comm0} {city0}":
-                            item["_drop"] = True
-                            continue
-                    if city0:
-                        vocab0 = [str(x or "").strip().lower() for x in (COMMUNITY_VOCAB.get(cur_city) or [])]
-                        if joined in vocab0:
-                            item["_drop"] = True
-                            continue
             try:
                 ia, ib = _extract_intersection(addr_for_check)
                 if not (ia and ib):
@@ -1840,9 +1826,25 @@ def main():
             except Exception:
                 a0 = ""
             if (not re.search(r"\d", a0)) and ("&" not in a0):
-                if ("google map" in a0) or _looks_like_city_only_address(a0, cur_city) or (cur_city and a0 == cur_city.lower()) or re.search(r"(?i)\barea\b", a0):
+                if ("google map" in a0) or _looks_like_city_or_community_only_address(a0, cur_city, cur_comm) or re.search(r"(?i)\barea\b", a0):
                     item["_drop"] = True
                     continue
+            try:
+                ia, ib = _extract_intersection(addr_for_check)
+                if not (ia and ib):
+                    ia, ib = _extract_intersection(text)
+                if ia and ib and cur_city and ("ubc" not in ia.lower()) and ("ubc" not in ib.lower()) and ("downtown" not in ia.lower()) and ("downtown" not in ib.lower()):
+                    item["address"] = f"{ia} & {ib}, {cur_city}"
+                    addr_for_check = str(item.get("address") or "")
+                    item["lat"] = None
+                    item["lng"] = None
+                    coords_ok = False
+                    lat = None
+                    lng = None
+                    needs_coords = True
+                    priority_needs_geocode = True
+            except Exception:
+                pass
         if source == "craigslist":
             url_hint_city = _city_hint_from_craigslist_url(item.get("url") or "")
             if url_hint_city and (not cur_city or cur_city.lower() == "vancouver"):
@@ -1892,7 +1894,7 @@ def main():
                 needs_coords = True
                 priority_needs_geocode = True
         if (
-            source == "vanpeople"
+            source in ("vanpeople", "craigslist")
             and (not re.search(r"(?i)^\s*(?:(?:#\s*)?[0-9a-z]{1,6}\s*-\s*)?\s*\d{3,6}\b", addr_for_check))
             and _has_street_level_addr(addr_for_check)
             and cur_city
@@ -1963,27 +1965,15 @@ def main():
             and has_detail_addr
             and coord_source in ("source_map", "source_map_pb", "source_map_open")
         ):
-            try:
-                if cur_city and (cur_city in CITY_BBOX) and (not _in_bbox(cur_city, float(lat), float(lng))):
-                    item["lat"] = None
-                    item["lng"] = None
-                    coords_ok = False
-                    needs_coords = True
-                    priority_needs_geocode = True
-                else:
-                    if cur_city and cur_comm:
-                        box0 = COMMUNITY_BBOX.get((cur_city, cur_comm))
-                        if box0 and (not _in_box(box0, float(lat), float(lng))):
-                            comm2 = _community_from_coords(cur_city, float(lat), float(lng))
-                            if comm2 and comm2 != cur_comm:
-                                item["community"] = comm2
-                                cur_comm = comm2
-                            else:
-                                item["community"] = ""
-                                cur_comm = ""
-                    item["coord_source"] = "source_map_verified"
-            except Exception:
-                item["coord_source"] = "source_map_verified"
+            item["lat"] = None
+            item["lng"] = None
+            lat = None
+            lng = None
+            coords_ok = False
+            needs_coords = True
+            priority_needs_geocode = True
+            override_source_map = True
+            is_source_map = False
         if coords_ok and cur_city and cur_comm and (not has_detail_addr):
             try:
                 comm0 = _normalize_community(cur_comm)
@@ -2810,14 +2800,14 @@ def main():
                 re_geocoded += 1
                 if (not is_source_map) or bool(override_source_map):
                     cs0 = (item.get("coord_source") or "").strip().lower()
-                    if cs0 == "map_query":
+                    if bool(override_source_map):
+                        item["coord_source"] = "geocode_override"
+                    elif cs0 == "map_query":
                         item["coord_source"] = "map_query_geocode"
                     elif cs0 == "city_center_fallback":
                         item["coord_source"] = "geocode"
                     elif source == "owner":
                         item["coord_source"] = "geocode_owner"
-                    elif bool(override_source_map) and source == "craigslist":
-                        item["coord_source"] = "geocode_override"
                     elif not cs0:
                         item["coord_source"] = "geocode"
  

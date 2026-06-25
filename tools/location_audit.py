@@ -124,10 +124,72 @@ def _city_from_address_tail(addr: str) -> str:
     return str(m.group(1) or "").strip().title()
 
 
+def _looks_like_city_or_community_only(addr: str, city: str, comm: str, community_vocab: Dict[str, List[str]]) -> bool:
+    a = re.sub(r"\s+", " ", str(addr or "").strip()).strip(" ,-/")
+    if not a:
+        return False
+    if re.search(r"\d", a) or _has_street_level_addr(a) or _has_intersection_addr(a):
+        return False
+    low = a.lower()
+    city0 = (city or "").strip().lower()
+    comm0 = (comm or "").strip().lower()
+    if _is_city_only(a):
+        return True
+    if comm0 and low == comm0:
+        return True
+    if city0 and comm0:
+        combos = {
+            f"{city0} {comm0}",
+            f"{comm0} {city0}",
+            f"{city0}, {comm0}",
+            f"{comm0}, {city0}",
+        }
+        if low in combos:
+            return True
+    vocab0 = [str(x or "").strip().lower() for x in (community_vocab.get(city) or [])]
+    return low in vocab0
+
+
+def _classify_decision(
+    reasons: List[str],
+    city_ok: bool,
+    has_detail_addr: bool,
+    has_intersection_addr: bool,
+    has_street_level_addr: bool,
+    addr: str,
+    city: str,
+) -> Tuple[str, str]:
+    if not reasons:
+        return ("auto_accept", "no_action_needed")
+    if "vanpeople_city_only_address" in reasons:
+        return ("auto_drop", "drop_low_quality")
+    if any(r in reasons for r in ("out_of_city_bbox", "vanpeople_company_address_pollution")):
+        return ("manual_review", "high_risk_location")
+    if any(r in reasons for r in ("detail_addr_but_source_map", "bbox_but_has_house_number", "center_fallback_with_street")):
+        return ("auto_fix", "prefer_geocode")
+    if (
+        city_ok
+        and (has_detail_addr or has_intersection_addr or has_street_level_addr)
+        and all(r in {"text_city_mismatch", "craigslist_city_mismatch_url_hint", "out_of_community_bbox"} for r in reasons)
+    ):
+        return ("auto_accept", "ignore_low_confidence_label_noise")
+    addr_city = _city_from_address_tail(addr)
+    if (
+        "craigslist_city_mismatch_url_hint" in reasons
+        and city_ok
+        and addr_city
+        and city
+        and addr_city.lower() == city.lower()
+    ):
+        return ("auto_accept", "address_tail_city_wins")
+    return ("manual_review", "needs_human_check")
+
+
 def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
     city_bbox = getattr(pcf, "CITY_BBOX", {}) or {}
     city_centers = getattr(pcf, "CITY_CENTERS", {}) or {}
     community_bbox = getattr(pcf, "COMMUNITY_BBOX", {}) or {}
+    community_vocab = getattr(pcf, "COMMUNITY_VOCAB", {}) or {}
     city_hint_fn = getattr(pcf, "_city_hint_from_craigslist_url", None)
     c = None
     try:
@@ -156,6 +218,10 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
         if lat is None or lng is None:
             continue
 
+        has_detail_addr = _has_detail_addr(addr)
+        has_intersection_addr = _has_intersection_addr(addr)
+        has_street_addr = _has_street_level_addr(addr)
+        city_ok = bool(city and city in city_bbox and _in_bbox(city_bbox[city], lat, lng))
         reasons: List[str] = []
 
         if c is not None:
@@ -166,7 +232,15 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
             except Exception:
                 text_city = ""
                 strength = 0
-            if (not _has_detail_addr(addr)) and (not _has_intersection_addr(addr)) and text_city and city and text_city.lower() != city.lower() and strength >= 2:
+            if (
+                (not has_detail_addr)
+                and (not has_intersection_addr)
+                and (not (city_ok and has_street_addr))
+                and text_city
+                and city
+                and text_city.lower() != city.lower()
+                and strength >= 2
+            ):
                 reasons.append("text_city_mismatch")
 
         if city and city in city_bbox and (not _in_bbox(city_bbox[city], lat, lng)):
@@ -179,13 +253,16 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
                 hint = ""
             if hint and city and hint.lower() != city.lower():
                 addr_city = _city_from_address_tail(addr)
-                if addr_city and addr_city.lower() == city.lower() and city in city_bbox and _in_bbox(city_bbox[city], lat, lng):
+                if (
+                    (addr_city and addr_city.lower() == city.lower() and city_ok)
+                    or (city_ok and (has_detail_addr or has_intersection_addr or has_street_addr))
+                ):
                     pass
                 else:
                     reasons.append("craigslist_city_mismatch_url_hint")
 
         if src.lower() == "vanpeople":
-            if _is_city_only(addr) and (not re.search(r"\d", addr)) and (" & " not in addr):
+            if _looks_like_city_or_community_only(addr, city, comm, community_vocab):
                 reasons.append("vanpeople_city_only_address")
             low_addr = addr.lower()
             if any(k in low_addr for k in ["metrotower", "shellbridge way", "west covina", "head office", "branch"]):
@@ -195,18 +272,18 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
             box = community_bbox[(city, comm)]
             box2 = _pad_bbox(box, 0.008, 0.010)
             if not _in_bbox(box2, lat, lng):
-                if (not _has_detail_addr(addr)) and (not _has_intersection_addr(addr)):
+                if (not city_ok) or ((not has_detail_addr) and (not has_intersection_addr) and (not has_street_addr)):
                     reasons.append("out_of_community_bbox")
 
-        if coord_source in ("city_bbox", "community_bbox") and _has_detail_addr(addr):
+        if coord_source in ("city_bbox", "community_bbox") and (has_detail_addr or has_intersection_addr):
             reasons.append("bbox_but_has_house_number")
 
-        if coord_source == "city_center_fallback" and _has_street_level_addr(addr):
+        if coord_source == "city_center_fallback" and has_street_addr:
             reasons.append("center_fallback_with_street")
-        if coord_source in ("source_map", "source_map_pb", "source_map_open") and _has_detail_addr(addr):
+        if coord_source in ("source_map", "source_map_pb", "source_map_open") and (has_detail_addr or has_intersection_addr):
             reasons.append("detail_addr_but_source_map")
 
-        if city and city in city_centers and _has_detail_addr(addr):
+        if city and city in city_centers and (has_detail_addr or has_intersection_addr):
             c0 = city_centers[city]
             try:
                 d_km = _haversine_km(lat, lng, float(c0[0]), float(c0[1]))
@@ -216,6 +293,15 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
                 reasons.append("near_city_center_with_detail_addr")
 
         if reasons:
+            decision, decision_note = _classify_decision(
+                reasons,
+                city_ok=city_ok,
+                has_detail_addr=has_detail_addr,
+                has_intersection_addr=has_intersection_addr,
+                has_street_level_addr=has_street_addr,
+                addr=addr,
+                city=city,
+            )
             severity = "low"
             if any(r in reasons for r in ("out_of_city_bbox", "center_fallback_with_street", "bbox_but_has_house_number", "vanpeople_city_only_address")):
                 severity = "high"
@@ -255,11 +341,21 @@ def audit_listings(items: List[Dict[str, Any]], pcf) -> Dict[str, Any]:
                     "reasons": reasons,
                     "severity": severity,
                     "next_step": next_step,
+                    "decision": decision,
+                    "decision_note": decision_note,
                 }
             )
 
     issues.sort(key=lambda x: (len(x.get("reasons") or []), x.get("source") or "", x.get("city") or ""), reverse=True)
-    return {"issues": issues, "reason_counts": dict(reason_counts), "total": len(items)}
+    decision_counts = Counter(str(x.get("decision") or "").strip() for x in issues)
+    manual_review = [x for x in issues if x.get("decision") == "manual_review"]
+    return {
+        "issues": issues,
+        "manual_review": manual_review,
+        "reason_counts": dict(reason_counts),
+        "decision_counts": dict(decision_counts),
+        "total": len(items),
+    }
 
 
 def main():
@@ -286,7 +382,7 @@ def main():
     with open(args.csv, "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
         w.writerow(["severity", "next_step", "source", "city", "community", "coord_source", "lat", "lng", "address", "url", "reasons", "review_status", "review_note", "review_fixed_city", "review_fixed_community", "review_fixed_address", "review_fixed_lat", "review_fixed_lng", "review_lock_coords"])
-        for it in rep["issues"]:
+        for it in rep["manual_review"]:
             w.writerow(
                 [
                     it.get("severity", ""),
@@ -311,14 +407,20 @@ def main():
                 ]
             )
 
-    print(f"Location audit: total={rep['total']}, issues={len(rep['issues'])}")
+    print(
+        f"Location audit: total={rep['total']}, issues={len(rep['issues'])}, "
+        + f"manual_review={len(rep['manual_review'])}, "
+        + f"auto_fix={int(rep['decision_counts'].get('auto_fix', 0))}, "
+        + f"auto_drop={int(rep['decision_counts'].get('auto_drop', 0))}, "
+        + f"auto_accept={int(rep['decision_counts'].get('auto_accept', 0))}"
+    )
     top = sorted(rep["reason_counts"].items(), key=lambda kv: kv[1], reverse=True)
     for k, v in top[:20]:
         print(f"  {k}: {v}")
-    if rep["issues"]:
+    if rep["manual_review"]:
         print("")
-        print("Top suspicious listings:")
-        for it in rep["issues"][: max(1, int(args.max_print))]:
+        print("Top manual-review listings:")
+        for it in rep["manual_review"][: max(1, int(args.max_print))]:
             print(f"- [{it.get('source')}] {it.get('city')} {it.get('coord_source')} {it.get('address')}")
             if it.get("url"):
                 print(f"  {it['url']}")
