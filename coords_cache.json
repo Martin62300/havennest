@@ -1063,10 +1063,6 @@
         49.165719,
         -123.1209942
     ],
-    "7260 Petts Road, Richmond, BC, Canada": [
-        49.1395378,
-        -123.1407128
-    ],
     "3768 nithsdale st Burnaby bc, BC, Canada": [
         49.2513223,
         -123.0210108
@@ -7671,10 +7667,6 @@
         49.1554134,
         -122.8400988
     ],
-    "6383 McKay Avenue, Burnaby, BC, Canada": [
-        49.2263801,
-        -123.0067234
-    ],
     "10788 139 St, Surrey, BC, Canada": [
         49.1984036,
         -122.8365717
@@ -10426,10 +10418,6 @@
     "5691 Elizabeth St, Vancouver, BC, Canada": [
         49.2339767,
         -123.1123599
-    ],
-    "2442 East 19th Avenue, Vancouver, BC, Canada": [
-        49.2529596,
-        -123.0554645
     ],
     "6620 Sussex Avenue, Burnaby, BC, Canada": [
         49.2106932,
@@ -13603,10 +13591,6 @@
         49.1107944,
         -122.8421457
     ],
-    "5608 Berton Avenue, Vancouver, BC, Canada": [
-        49.2557654,
-        -123.233514
-    ],
     "12069 Harris Rd, BC, Canada": [
         49.1027568,
         -122.352744
@@ -13834,10 +13818,6 @@
     "5766 Gilbert Cres, Richmond, BC, Canada": [
         49.142602,
         -123.1481217
-    ],
-    "2555 Tuohey Avenue, Port Coquitlam, BC, Canada": [
-        49.2759776,
-        -122.7844123
     ],
     "13318 104 Avenue, Surrey, BC, Canada": [
         49.1915638,
@@ -15107,10 +15087,6 @@
         49.0734762,
         -122.6788401
     ],
-    "5728 Berton Avenue, Vancouver, BC, Canada": [
-        49.2555694,
-        -123.2331262
-    ],
     "6100 Berwick St, Burnaby, BC, Canada": [
         49.2276935,
         -122.9752876
@@ -15771,10 +15747,6 @@
         49.134775,
         -123.1637437
     ],
-    "438 West 48th Avenue, Vancouver, BC, Canada": [
-        49.2267348,
-        -123.1152585
-    ],
     "6622 Pearson Way, Richmond, BC, Canada": [
         49.1758362,
         -123.148725
@@ -16111,10 +16083,6 @@
         49.2356081,
         -122.9937401
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
     "Harrison Dr, Richmond, Richmond, BC, Canada": [
         49.1781988,
         -123.0881272
@@ -16255,10 +16223,6 @@
         49.1845712,
         -123.0356445
     ],
-    "3963 Uplands Way, West Vancouver, BC, Canada": [
-        49.3517166,
-        -123.2079975
-    ],
     "6191 Buswell St, Richmond, BC, Canada": [
         49.1694739,
         -123.1341006
@@ -16314,14 +16278,6 @@
     "10791 Ashcroft Avenue, Richmond, BC, Canada": [
         49.1432435,
         -123.1054513
-    ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
     ],
     "17th Avenue, Vancouver, Vancouver, BC, Canada": [
         49.256126,
@@ -16447,10 +16403,6 @@
         49.1580474,
         -123.1305411
     ],
-    "6333 Silver Avenue, Burnaby, BC, Canada": [
-        49.2259159,
-        -123.0058227
-    ],
     "No 4, Richmond, BC, Canada": [
         49.163168,
         -123.137414
@@ -16475,10 +16427,6 @@
         49.1664546,
         -123.1272477
     ],
-    "2471 West 45th Avenue, Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
-    ],
     "28 Avenue, Surrey, BC, Canada": [
         49.0529857,
         -122.7529413
@@ -16490,10 +16438,6 @@
     "13468 King George Blvd, Surrey, BC, Canada": [
         49.2011256,
         -122.8492901
-    ],
-    "6080 Mckay Avenue, Burnaby, BC, Canada": [
-        49.2283281,
-        -123.0035373
     ],
     "13380 108 Avenue, Surrey, BC, Canada": [
         49.198616,
@@ -16547,10 +16491,6 @@
         49.2817705,
         -122.7995387
     ],
-    "6608 Sussex Avenue, Burnaby, BC, Canada": [
-        49.2106932,
-        -123.0049785
-    ],
     "2468 Atkins Avenue, Port Coquitlam, BC, Canada": [
         49.2599774,
         -122.7806445
@@ -16586,5 +16526,261 @@
     "06, Coquitlam, Coquitlam, BC, Canada": [
         49.2626847,
         -122.8169707
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "Dewdney Trunk Rd, Maple Ridge, BC, Canada": [
+        49.2199401,
+        -122.429182
+    ],
+    "Lougheed Hwy, Maple Ridge, Maple Ridge, BC, Canada": [
+        49.1737378,
+        -122.439281
+    ],
+    "2BA, Port Moody, Port Moody, BC, Canada": [
+        49.2809744,
+        -122.831263
+    ],
+    "25, Surrey, Surrey, BC, Canada": [
+        49.0474364,
+        -122.7823022
+    ],
+    "Brydon Cres, Langley, BC, Canada": [
+        49.101331,
+        -122.6711771
+    ],
+    "Macdonald St  W 16th Ave, Vancouver, BC, Canada": [
+        49.2578468,
+        -123.1688315
+    ],
+    "bath, Vancouver, BC, Canada": [
+        49.2860226,
+        -123.1428002
+    ],
+    "den, Vancouver, Vancouver, BC, Canada": [
+        49.2738609,
+        -123.1229209
+    ],
+    "Beautiful, Port Moody, Port Moody, BC, Canada": [
+        49.3475014,
+        -122.8601204
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "9299 Tomicki Avenue, Richmond, BC, Canada": [
+        49.1808617,
+        -123.1209732
+    ],
+    "88 Avenue, Surrey, Surrey, BC, Canada": [
+        49.1628785,
+        -122.828468
+    ],
+    "Bright, Burnaby, BC, Canada": [
+        49.2203849,
+        -122.9731445
+    ],
+    "1BR, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "1BA, Vancouver, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "on W. Blvd, Vancouver, BC, Canada": [
+        49.227333,
+        -123.1554005
+    ],
+    "6950, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "2476 York Avenue, Vancouver, BC, Canada": [
+        49.2715656,
+        -123.1615518
+    ],
+    "British West, West Vancouver, West Vancouver, BC, Canada": [
+        49.3508065,
+        -123.1459879
+    ],
+    "Rental, Vancouver, BC, Canada": [
+        49.2646454,
+        -123.1864022
+    ],
+    "Surrey Center, BC, Canada": [
+        49.1897941,
+        -122.8532333
+    ],
+    "Granville Avenue, Richmond, Richmond, BC, Canada": [
+        49.1627851,
+        -123.1838647
+    ],
+    "2B, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "In, Vancouver, Vancouver, BC, Canada": [
+        49.2878691,
+        -123.112941
+    ],
+    "Dayton St, Coquitlam, BC, Canada": [
+        49.3034729,
+        -122.7519188
+    ],
+    "Harper Rd, Coquitlam, Coquitlam, BC, Canada": [
+        49.3007072,
+        -122.7371819
+    ],
+    "Frances St, Vancouver, Vancouver, BC, Canada": [
+        49.2794349,
+        -123.0737905
+    ],
+    "bed, Richmond, BC, Canada": [
+        49.1450075,
+        -123.1274522
+    ],
+    "6333 Silver Avenue, Burnaby, BC, Canada": [
+        49.2259159,
+        -123.0058227
+    ],
+    "1BD, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "5608 Berton Avenue, Vancouver, BC, Canada": [
+        49.2557654,
+        -123.233514
+    ],
+    "Albert St, Burnaby, Burnaby, BC, Canada": [
+        49.2819533,
+        -123.0098945
+    ],
+    "7360 Nevis Dr, Richmond, BC, Canada": [
+        49.1403021,
+        -123.1416563
+    ],
+    "438 West 48th Avenue, Vancouver, BC, Canada": [
+        49.2267348,
+        -123.1152585
+    ],
+    "380 W 62nd Avenue, Vancouver, BC, Canada": [
+        49.2138315,
+        -123.1141339
+    ],
+    "7260 Petts Rd, Richmond, BC, Canada": [
+        49.1395401,
+        -123.1407127
+    ],
+    "1808 East 51st Avenue, Vancouver, BC, Canada": [
+        49.223227,
+        -123.0688694
+    ],
+    "2471 West 45th Avenue, Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "4783 Dawson St, Burnaby, BC, Canada": [
+        49.2644435,
+        -123.0047893
+    ],
+    "32659 George Ferguson Way, Abbotsford, BC, Canada": [
+        49.0531455,
+        -122.304711
+    ],
+    "W 9th Ave, Vancouver, BC, Canada": [
+        49.2647038,
+        -123.20822
+    ],
+    "816 Anderson Cres, West Vancouver, BC, Canada": [
+        49.3314315,
+        -123.140195
+    ],
+    "2442 East 19th Avenue, Vancouver, BC, Canada": [
+        49.2529596,
+        -123.0554645
+    ],
+    "3963 Uplands Way, West Vancouver, BC, Canada": [
+        49.3517166,
+        -123.2079975
+    ],
+    "2555 Tuohey Avenue, Port Coquitlam, BC, Canada": [
+        49.2759776,
+        -122.7844123
+    ],
+    "5728 Berton Avenue, Vancouver, BC, Canada": [
+        49.2555694,
+        -123.2331262
+    ],
+    "Lord Byng 2026, Vancouver, BC, Canada": [
+        49.2589251,
+        -123.193106
+    ],
+    "4314 W 14th Avenue, Vancouver, BC, Canada": [
+        49.2598995,
+        -123.203781
+    ],
+    "Cambie St St St, Vancouver, BC, Canada": [
+        49.268764,
+        -123.1171587
+    ],
+    "1482 Robson St, Vancouver, BC, Canada": [
+        49.2890681,
+        -123.1317176
+    ],
+    "20463 76A Avenue, Langley, BC, Canada": [
+        49.1417371,
+        -122.6552537
+    ],
+    "3359 Wellington Avenue, Vancouver, BC, Canada": [
+        49.2419517,
+        -123.0339327
+    ],
+    "6080 Mckay Avenue, Burnaby, BC, Canada": [
+        49.2283281,
+        -123.0035373
+    ],
+    "6608 Sussex Avenue, Burnaby, BC, Canada": [
+        49.2106932,
+        -123.0049785
+    ],
+    "950 Broughton St, Vancouver, BC, Canada": [
+        49.2872335,
+        -123.1309696
+    ],
+    "455 Beach Cres, Vancouver, BC, Canada": [
+        49.272826,
+        -123.1278708
+    ],
+    "156 St, Surrey, BC, Canada": [
+        49.149804,
+        -122.7901179
+    ],
+    "6865 Noelani Pl, Burnaby, BC, Canada": [
+        49.2257306,
+        -122.9460075
+    ],
+    "E 22nd Ave, Vancouver, BC, Canada": [
+        49.2503425,
+        -123.0691718
+    ],
+    "58 Clark Rd, BC, Canada": [
+        49.7281414,
+        -123.1569119
+    ],
+    "6383 McKay Avenue, Burnaby, BC, Canada": [
+        49.2263801,
+        -123.0067234
+    ],
+    "20211 66 Avenue, Langley, BC, Canada": [
+        49.1239755,
+        -122.6641715
     ]
 }
