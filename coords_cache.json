@@ -13975,10 +13975,6 @@
         49.0729504,
         -122.7827916
     ],
-    "6168 Wilson Avenue, Burnaby, BC, Canada": [
-        49.2279306,
-        -123.0103557
-    ],
     "306 East 12th Avenue, Vancouver, BC, Canada": [
         49.2598824,
         -123.0979459
@@ -18119,10 +18115,6 @@
         49.2622477,
         -123.0903901
     ],
-    "6538 Nelson Avenue, Burnaby, BC, Canada": [
-        49.2045553,
-        -122.9995906
-    ],
     "central, Vancouver, BC, Canada": [
         49.2714086,
         -123.1012588
@@ -18415,10 +18407,6 @@
         49.268029,
         -122.4748198
     ],
-    "6611 Minoru Blvd, Richmond, BC, Canada": [
-        49.166185,
-        -123.142657
-    ],
     "dining, Burnaby, BC, Canada": [
         49.2800277,
         -122.9247177
@@ -18434,10 +18422,6 @@
     "2748 West 36th Avenue, Vancouver, BC, Canada": [
         49.239202,
         -123.1668257
-    ],
-    "5608 Berton Avenue, Vancouver, BC, Canada": [
-        49.2557654,
-        -123.233514
     ],
     "5536 Neville St, Burnaby, BC, Canada": [
         49.2137026,
@@ -18838,10 +18822,6 @@
     "Dunbar  37, Vancouver, BC, Canada": [
         49.2347943,
         -123.1854253
-    ],
-    "9228 Slopes Mews, Burnaby, BC, Canada": [
-        49.2767952,
-        -122.9075546
     ],
     "4685 Cambie St, Vancouver, BC, Canada": [
         49.2787822,
@@ -19367,10 +19347,6 @@
         49.2539137,
         -123.1125393
     ],
-    "3963 Uplands Way, West Vancouver, BC, Canada": [
-        49.3517166,
-        -123.2079975
-    ],
     "1215 Nepal Cres, West Vancouver, BC, Canada": [
         49.3400497,
         -123.1505052
@@ -19498,10 +19474,6 @@
     "2320 West 40th Avenue, Vancouver, BC, Canada": [
         49.2354363,
         -123.1603074
-    ],
-    "Garden City Park, Richmond, BC, Canada": [
-        49.1645913,
-        -123.1224606
     ],
     "Number 5 Rd, Richmond, BC, Canada": [
         49.1797482,
@@ -19887,10 +19859,6 @@
         49.334623,
         -123.1569908
     ],
-    "4688 kingsway, Burnaby, BC, Canada": [
-        49.2287293,
-        -123.001478
-    ],
     "41 Avenue  Dunbar, Vancouver, BC, Canada": [
         49.2501767,
         -123.1894008
@@ -20003,14 +19971,6 @@
         49.2636509,
         -123.1969678
     ],
-    "5520 Langtree Avenue, Richmond, BC, Canada": [
-        49.1587716,
-        -123.1622637
-    ],
-    "6383 MCKAY AVENUE, Burnaby, BC, Canada": [
-        49.2263801,
-        -123.0067234
-    ],
     "2288 Alpha Avenue, Burnaby, BC, Canada": [
         49.2634618,
         -122.9997806
@@ -20039,17 +19999,9 @@
         49.1387447,
         -122.6739773
     ],
-    "6942 Waverley Avenue, Vancouver, BC, Canada": [
-        49.220765,
-        -122.9972693
-    ],
     "3306 157A St, Surrey, BC, Canada": [
         49.0626151,
         -122.7857279
-    ],
-    "602 Como Lake Avenue, Coquitlam, BC, Canada": [
-        49.2629543,
-        -122.887235
     ],
     "3034 Graveley St, Vancouver, BC, Canada": [
         49.2701552,
@@ -20070,14 +20022,6 @@
     "1427 Strawline Hill St, Coquitlam, BC, Canada": [
         49.2991978,
         -122.7373999
-    ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
     ],
     "25 E Pender St., Vancouver, BC, Canada": [
         49.2801896,
@@ -20123,10 +20067,6 @@
         49.2433804,
         -122.972545
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
     "20A Avenue, Langley, Langley, BC, Canada": [
         49.0747307,
         -122.4682508
@@ -20143,18 +20083,6 @@
         49.2259974,
         -123.0627213
     ],
-    "11220 Seaport Avenue, Richmond, BC, Canada": [
-        49.1434176,
-        -123.0969514
-    ],
-    "19967 46 Avenue, Langley, BC, Canada": [
-        49.0858633,
-        -122.6772235
-    ],
-    "562 West 62nd Avenue, Vancouver, BC, Canada": [
-        49.2139328,
-        -123.1191143
-    ],
     "W 40th Ave, Vancouver, BC, Canada": [
         49.2353793,
         -123.1396157
@@ -20162,10 +20090,6 @@
     "16733 15A Avenue, Surrey, BC, Canada": [
         49.0304217,
         -122.7589506
-    ],
-    "2471 West 45th Avenue, Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
     ],
     "21479 Stonehouse Avenue, Maple Ridge, BC, Canada": [
         49.2254793,
@@ -20250,5 +20174,233 @@
     "E 48th Ave, Vancouver, BC, Canada": [
         49.2266086,
         -123.0986737
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "pharmacy, Vancouver, BC, Canada": [
+        49.2541216,
+        -122.9895411
+    ],
+    "Tim Hortons, Vancouver, Vancouver, BC, Canada": [
+        49.2721512,
+        -123.0976982
+    ],
+    "bathroom, Vancouver, Vancouver, BC, Canada": [
+        49.2200309,
+        -122.6617252
+    ],
+    "shopping, Burnaby, BC, Canada": [
+        49.2680771,
+        -123.0003298
+    ],
+    "Clean, Richmond, BC, Canada": [
+        49.1783345,
+        -123.1250495
+    ],
+    "6168 Wilson Avenue, Burnaby, BC, Canada": [
+        49.2279306,
+        -123.0103557
+    ],
+    "breakfast, Surrey, Surrey, BC, Canada": [
+        49.0558006,
+        -122.8052848
+    ],
+    "6611 Minoru Blvd, Richmond, BC, Canada": [
+        49.166185,
+        -123.142657
+    ],
+    "bath  Den 4867 Cambie St, Vancouver, BC, Canada": [
+        49.265192,
+        -123.11506
+    ],
+    "Quayside Dr, New Westminster, New Westminster, BC, Canada": [
+        49.2006807,
+        -122.9099674
+    ],
+    "city bus stop, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.1705884,
+        -123.1244226
+    ],
+    "yale Rd, Port Moody, BC, Canada": [
+        49.2862927,
+        -122.8734471
+    ],
+    "college park way, Port Moody, Port Moody, BC, Canada": [
+        49.2818567,
+        -122.872342
+    ],
+    "Blundell Rd  Gilbert Rd, Richmond, BC, Canada": [
+        49.1552783,
+        -123.1479486
+    ],
+    "650, Maple Ridge, BC, Canada": [
+        49.2197345,
+        -122.599707
+    ],
+    "s ave, Burnaby, Burnaby, BC, Canada": [
+        49.2498695,
+        -123.0038301
+    ],
+    "transit, Vancouver, BC, Canada": [
+        49.2040006,
+        -123.1214851
+    ],
+    "West Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2639455,
+        -123.2038492
+    ],
+    "4800, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "Garden, North Vancouver, BC, Canada": [
+        49.3061149,
+        -123.0672942
+    ],
+    "7547 YUKON St, Vancouver, BC, Canada": [
+        49.2079414,
+        -123.1152115
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "Young Rd, Vancouver, Vancouver, BC, Canada": [
+        49.3166498,
+        -122.9125966
+    ],
+    "2725 Duke St, BC, Canada": [
+        49.2391616,
+        -123.0494471
+    ],
+    "Market Pl, Vancouver, Vancouver, BC, Canada": [
+        49.1627852,
+        -122.8879019
+    ],
+    "E 27th Ave, Burnaby, Burnaby, BC, Canada": [
+        49.2462414,
+        -123.0301135
+    ],
+    "68 Avenue, Vancouver, BC, Canada": [
+        49.1263167,
+        -122.8509244
+    ],
+    "562 West 62nd Avenue, Vancouver, BC, Canada": [
+        49.2139328,
+        -123.1191143
+    ],
+    "11220 Seaport Avenue, Richmond, BC, Canada": [
+        49.1434176,
+        -123.0969514
+    ],
+    "6942 Waverley Avenue, Vancouver, BC, Canada": [
+        49.220765,
+        -122.9972693
+    ],
+    "8080 cambie Rd, Richmond, BC, Canada": [
+        49.1847101,
+        -123.057985
+    ],
+    "19967 46 Avenue, Langley, BC, Canada": [
+        49.0858633,
+        -122.6772235
+    ],
+    "5608 Berton Avenue, Vancouver, BC, Canada": [
+        49.2557654,
+        -123.233514
+    ],
+    "Garden City Park, Richmond, BC, Canada": [
+        49.1645913,
+        -123.1224606
+    ],
+    "6538 Nelson Avenue, Burnaby, BC, Canada": [
+        49.2045553,
+        -122.9995906
+    ],
+    "3478 West 28th Avenue, Vancouver, BC, Canada": [
+        49.2468715,
+        -123.1811045
+    ],
+    "9228 Slopes Mews, Burnaby, BC, Canada": [
+        49.2767952,
+        -122.9075546
+    ],
+    "5520 Langtree Avenue, Richmond, BC, Canada": [
+        49.1587716,
+        -123.1622637
+    ],
+    "6383 MCKAY AVENUE, Burnaby, BC, Canada": [
+        49.2263801,
+        -123.0067234
+    ],
+    "533 East 3rd St, North Vancouver, BC, Canada": [
+        49.3092284,
+        -123.0673985
+    ],
+    "2471 West 45th Avenue, Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "4688 kingsway, Burnaby, BC, Canada": [
+        49.2287293,
+        -123.001478
+    ],
+    "3565 Baycrest Avenue, Coquitlam, BC, Canada": [
+        49.2885457,
+        -122.7356774
+    ],
+    "1335 Palmerston Avenue, West Vancouver, BC, Canada": [
+        49.3413069,
+        -123.1861883
+    ],
+    "602 Como Lake Avenue, Coquitlam, BC, Canada": [
+        49.2629543,
+        -122.887235
+    ],
+    "1372 Halifax Avenue, Coquitlam, BC, Canada": [
+        49.2807102,
+        -122.7521977
+    ],
+    "3295 Westmount Rd, West Vancouver, BC, Canada": [
+        49.3457134,
+        -123.2081423
+    ],
+    "13331 Woodcrest Dr, Surrey, BC, Canada": [
+        49.0552408,
+        -122.8529235
+    ],
+    "3963 Uplands Way, West Vancouver, BC, Canada": [
+        49.3517166,
+        -123.2079975
+    ],
+    "6511 Number 1 Rd, Richmond, BC, Canada": [
+        49.1516097,
+        -123.1812386
+    ],
+    "Dunbar St  W 41, Vancouver, BC, Canada": [
+        49.2534391,
+        -123.1851612
+    ],
+    "5779 Birney Avenue, Vancouver, BC, Canada": [
+        49.254582,
+        -123.2331547
+    ],
+    "3949 West 20th Avenue, Vancouver, BC, Canada": [
+        49.2533245,
+        -123.1164238
+    ],
+    "5200 Alma St, Vancouver, BC, Canada": [
+        49.2338177,
+        -123.1868627
+    ],
+    "6045 Leibly Avenue, Burnaby, BC, Canada": [
+        49.2295204,
+        -122.9624719
     ]
 }
