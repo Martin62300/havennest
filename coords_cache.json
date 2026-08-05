@@ -11959,10 +11959,6 @@
         49.2755826,
         -123.1205503
     ],
-    "13383 108 Avenue, Surrey, BC, Canada": [
-        49.1992214,
-        -122.8514216
-    ],
     "22600 Gilley Rd, Richmond, BC, Canada": [
         49.1770532,
         -122.9768401
@@ -14090,10 +14086,6 @@
     "13768 108 Avenue, Surrey, BC, Canada": [
         49.1988448,
         -122.7872763
-    ],
-    "1180 Lawson Avenue, West Vancouver, BC, Canada": [
-        49.3368057,
-        -123.1246645
     ],
     "1327 CHARTWELL Dr, West Vancouver, BC, Canada": [
         49.346914,
@@ -17999,10 +17991,6 @@
         49.201214,
         -122.913903
     ],
-    "3440 West 26th Avenue, Vancouver, BC, Canada": [
-        49.2487644,
-        -123.1808675
-    ],
     "modern, Vancouver, BC, Canada": [
         49.2622477,
         -123.0903901
@@ -18218,10 +18206,6 @@
     "6537 Telford Avenue, Burnaby, BC, Canada": [
         49.2238595,
         -123.004829
-    ],
-    "6855 Pearson Way, Richmond, BC, Canada": [
-        49.1749489,
-        -123.1464779
     ],
     "6342 Ash St, Vancouver, BC, Canada": [
         49.2235256,
@@ -19751,14 +19735,6 @@
         49.2446989,
         -123.0644767
     ],
-    "2351 Beta Avenue, Burnaby, BC, Canada": [
-        49.2748697,
-        -122.997571
-    ],
-    "5639 Hampton Pl, Vancouver, BC, Canada": [
-        49.1238454,
-        -122.8720727
-    ],
     "VGH, Vancouver, Vancouver, BC, Canada": [
         49.2618427,
         -123.1226691
@@ -20303,10 +20279,6 @@
         49.1972148,
         -123.1685164
     ],
-    "6080 McKay Avenue, Burnaby, BC, Canada": [
-        49.2283281,
-        -123.0035373
-    ],
     "6942 Waverley Avenue, Vancouver, BC, Canada": [
         49.220765,
         -122.9972693
@@ -20314,10 +20286,6 @@
     "562 West 62nd Avenue, Vancouver, BC, Canada": [
         49.2139328,
         -123.1191143
-    ],
-    "5928 birney Avenue, Vancouver, BC, Canada": [
-        49.2533453,
-        -123.2351271
     ],
     "21479 Stonehouse Avenue, Maple Ridge, BC, Canada": [
         49.2254793,
@@ -20463,10 +20431,6 @@
         49.2797463,
         -122.9050974
     ],
-    "6333 Silver Avenue, Burnaby, BC, Canada": [
-        49.2259159,
-        -123.0058227
-    ],
     "16733 15A Avenue, Surrey, BC, Canada": [
         49.0304217,
         -122.7589506
@@ -20611,14 +20575,6 @@
         49.2138586,
         -123.1139196
     ],
-    "8800 Hazelbridge Way, Richmond, BC, Canada": [
-        49.1870288,
-        -123.1323183
-    ],
-    "3750 West 11th Avenue, Vancouver, BC, Canada": [
-        49.2623763,
-        -123.1871329
-    ],
     "16178 31 Avenue, Surrey, BC, Canada": [
         49.0581799,
         -122.8136054
@@ -20702,10 +20658,6 @@
     "City, Burnaby, BC, Canada": [
         49.2546106,
         -122.9392748
-    ],
-    "5687 Gray Avenue, Vancouver, BC, Canada": [
-        49.2532215,
-        -123.2314344
     ],
     "SW Marine Dr, Vancouver, Vancouver, BC, Canada": [
         49.2073743,
@@ -20811,37 +20763,17 @@
         49.2160149,
         -123.1204537
     ],
-    "6000 McKay Avenue, Burnaby, BC, Canada": [
-        49.2290292,
-        -123.0026753
-    ],
     "1508 Smith Avenue, Coquitlam, BC, Canada": [
         49.2602018,
         -122.883107
-    ],
-    "13618 100 Avenue, Vancouver, BC, Canada": [
-        49.1839218,
-        -122.8447029
     ],
     "6350 Yukon St, Vancouver, BC, Canada": [
         49.2273859,
         -123.1142721
     ],
-    "1092 West 42nd Avenue, Vancouver, BC, Canada": [
-        49.2328041,
-        -123.1301037
-    ],
     "3423 Harper Rd, Coquitlam, BC, Canada": [
         49.3044089,
         -122.7529637
-    ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
     ],
     "St  61B Avenue, Surrey, BC, Canada": [
         49.1142101,
@@ -20915,49 +20847,9 @@
         49.3311208,
         -123.159479
     ],
-    "19967 46 Avenue, Langley, BC, Canada": [
-        49.0858633,
-        -122.6772235
-    ],
-    "1565 West 6th Avenue, Vancouver, BC, Canada": [
-        49.2663504,
-        -123.1400279
-    ],
-    "842 West 68th Avenue, Vancouver, BC, Canada": [
-        49.2097429,
-        -123.1255322
-    ],
-    "11220 Seaport Avenue, Richmond, BC, Canada": [
-        49.1434176,
-        -123.0969514
-    ],
-    "5608 Berton Avenue, Vancouver, BC, Canada": [
-        49.2557676,
-        -123.2335146
-    ],
-    "2320 West 40th Avenue, Vancouver, BC, Canada": [
-        49.2354363,
-        -123.1603074
-    ],
     "6033 Gray Avenue, Vancouver, BC, Canada": [
         49.251655,
         -123.235897
-    ],
-    "2748 West 36th Avenue, Vancouver, BC, Canada": [
-        49.239202,
-        -123.1668257
-    ],
-    "8628 Hazelbridge Way, Richmond, BC, Canada": [
-        49.1890105,
-        -123.129762
-    ],
-    "Garden City Park, Richmond, BC, Canada": [
-        49.1645913,
-        -123.1224606
-    ],
-    "2471 West 45th Avenue, Vancouver, BC, Canada": [
-        49.2311934,
-        -123.1623739
     ],
     "4688 kingsway, Burnaby, BC, Canada": [
         49.2287293,
@@ -21050,5 +20942,225 @@
     "8500 Adera St, Vancouver, BC, Canada": [
         49.2170375,
         -123.1436457
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "outdoor space, Vancouver, BC, Canada": [
+        49.2714965,
+        -123.1341744
+    ],
+    "community, Vancouver, Vancouver, BC, Canada": [
+        49.245611,
+        -122.9731414
+    ],
+    "Hwy 10  60 Ave, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "4250 W 10th Ave, Vancouver, BC, Canada": [
+        49.2634274,
+        -123.1820277
+    ],
+    "6080 McKay Avenue, Burnaby, BC, Canada": [
+        49.2283281,
+        -123.0035373
+    ],
+    "72 Avenue, Surrey, Surrey, BC, Canada": [
+        49.1333254,
+        -122.7210509
+    ],
+    "2351 Beta Avenue, Burnaby, BC, Canada": [
+        49.2748697,
+        -122.997571
+    ],
+    "5639 Hampton Pl, Vancouver, BC, Canada": [
+        49.1238454,
+        -122.8720727
+    ],
+    "Nelson St, New Westminster, New Westminster, BC, Canada": [
+        49.2245508,
+        -122.8928004
+    ],
+    "Hwy 10  58 Ave, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "Bath, New Westminster, BC, Canada": [
+        49.2220583,
+        -122.893155
+    ],
+    "4585 Fleming St, Vancouver, BC, Canada": [
+        49.2436598,
+        -123.072535
+    ],
+    "930, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "Victoria  53 Rd, BC, Canada": [
+        48.4283182,
+        -123.364953
+    ],
+    "discovery St, Vancouver, Vancouver, BC, Canada": [
+        49.2730829,
+        -123.2026292
+    ],
+    "August 2026, Vancouver, Vancouver, BC, Canada": [
+        49.1611693,
+        -122.7983397
+    ],
+    "Centre, Langley, BC, Canada": [
+        49.1408915,
+        -122.5957194
+    ],
+    "SFU, Burnaby, BC, Canada": [
+        49.2767096,
+        -122.917803
+    ],
+    "842 West 68th Avenue, Vancouver, BC, Canada": [
+        49.2097429,
+        -123.1255322
+    ],
+    "1565 West 6th Avenue, Vancouver, BC, Canada": [
+        49.2663504,
+        -123.1400279
+    ],
+    "2320 West 40th Avenue, Vancouver, BC, Canada": [
+        49.2354363,
+        -123.1603074
+    ],
+    "2815 Yew St, Vancouver, BC, Canada": [
+        49.2607909,
+        -123.155741
+    ],
+    "5608 Berton Avenue, Vancouver, BC, Canada": [
+        49.2557676,
+        -123.2335146
+    ],
+    "Garden City Park, Richmond, BC, Canada": [
+        49.1645913,
+        -123.1224606
+    ],
+    "8628 Hazelbridge Way, Richmond, BC, Canada": [
+        49.1890105,
+        -123.129762
+    ],
+    "11220 Seaport Avenue, Richmond, BC, Canada": [
+        49.1434176,
+        -123.0969514
+    ],
+    "19967 46 Avenue, Langley, BC, Canada": [
+        49.0858633,
+        -122.6772235
+    ],
+    "2748 West 36th Avenue, Vancouver, BC, Canada": [
+        49.239202,
+        -123.1668257
+    ],
+    "13383 108 Avenue, Surrey, BC, Canada": [
+        49.1992214,
+        -122.8514216
+    ],
+    "1180 Lawson Avenue, West Vancouver, BC, Canada": [
+        49.3368057,
+        -123.1246645
+    ],
+    "3750 West 11th Avenue, Vancouver, BC, Canada": [
+        49.2623763,
+        -123.1871329
+    ],
+    "6333 Silver Avenue, Burnaby, BC, Canada": [
+        49.2259159,
+        -123.0058227
+    ],
+    "5687 Gray Avenue, Vancouver, BC, Canada": [
+        49.2532215,
+        -123.2314344
+    ],
+    "13618 100 Avenue, Vancouver, BC, Canada": [
+        49.1839218,
+        -122.8447029
+    ],
+    "5928 birney Avenue, Vancouver, BC, Canada": [
+        49.2533453,
+        -123.2351271
+    ],
+    "4355 West 10th Avenue, Vancouver, BC, Canada": [
+        49.2639655,
+        -123.2047517
+    ],
+    "2471 West 45th Avenue, Vancouver, BC, Canada": [
+        49.2311934,
+        -123.1623739
+    ],
+    "8800 Hazelbridge Way, Richmond, BC, Canada": [
+        49.1870288,
+        -123.1323183
+    ],
+    "6631 Minoru Blvd, Richmond, BC, Canada": [
+        49.1656967,
+        -123.1421869
+    ],
+    "4401 Oxford St, Burnaby, BC, Canada": [
+        49.2857715,
+        -123.005578
+    ],
+    "6855 Pearson Way, Richmond, BC, Canada": [
+        49.1754983,
+        -123.1470782
+    ],
+    "10833 85A Avenue, Delta, BC, Canada": [
+        49.1587837,
+        -122.9225339
+    ],
+    "6391 Neville St, Burnaby, BC, Canada": [
+        49.2140536,
+        -122.9705438
+    ],
+    "6173 Nelson Avenue, West Vancouver, BC, Canada": [
+        49.3392526,
+        -123.1782091
+    ],
+    "3440 West 26th Avenue, Vancouver, BC, Canada": [
+        49.2487644,
+        -123.1808675
+    ],
+    "granville  lynas, Richmond, BC, Canada": [
+        49.1628706,
+        -123.165389
+    ],
+    "1717 Adanac St, Vancouver, BC, Canada": [
+        49.2778173,
+        -123.0697657
+    ],
+    "6000 McKay Avenue, Burnaby, BC, Canada": [
+        49.2290292,
+        -123.0026753
+    ],
+    "5248 Grimmer St, Burnaby, BC, Canada": [
+        49.2235685,
+        -122.9859922
+    ],
+    "6083 Greenside Dr, Surrey, BC, Canada": [
+        49.1132282,
+        -122.6860256
+    ],
+    "Garden City Rd  Blundell Rd, Richmond, BC, Canada": [
+        49.1541179,
+        -123.1277532
+    ],
+    "6843 Salisbury Avenue, Burnaby, BC, Canada": [
+        49.2217079,
+        -122.9580416
+    ],
+    "1092 West 42nd Avenue, Vancouver, BC, Canada": [
+        49.2328041,
+        -123.1301037
     ]
 }
