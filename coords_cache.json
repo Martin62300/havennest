@@ -18071,10 +18071,6 @@
         49.1702972,
         -123.0091495
     ],
-    "7708 Alderbridge Way, Richmond, BC, Canada": [
-        49.1748868,
-        -123.1429122
-    ],
     "7828 Granville St, Vancouver, BC, Canada": [
         49.2146713,
         -123.139874
@@ -19506,10 +19502,6 @@
     "4063 West 30th Avenue, Vancouver, BC, Canada": [
         49.2455059,
         -123.1956624
-    ],
-    "1888 Gilmore Avenue, Burnaby, BC, Canada": [
-        49.26776,
-        -123.013844
     ],
     "6026 Denbigh Avenue, Burnaby, BC, Canada": [
         49.2292112,
@@ -21783,10 +21775,6 @@
         49.2649239,
         -122.8954525
     ],
-    "4688 kingsway, Burnaby, BC, Canada": [
-        49.2287293,
-        -123.001478
-    ],
     "10838 Whalley Blvd, Surrey, BC, Canada": [
         49.1833233,
         -122.8429935
@@ -21818,14 +21806,6 @@
     "2250 Wesbrook Mall, Vancouver, BC, Canada": [
         49.2642974,
         -123.242812
-    ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
     ],
     "Corner of Victoria Dr, Vancouver, BC, Canada": [
         49.2207482,
@@ -21951,41 +21931,9 @@
         49.1299254,
         -122.6734579
     ],
-    "8628 Hazelbridge Way, Richmond, BC, Canada": [
-        49.1890105,
-        -123.129762
-    ],
-    "19967 46 Avenue, Langley, BC, Canada": [
-        49.0858633,
-        -122.6772235
-    ],
-    "368 West 62nd Avenue, Vancouver, BC, Canada": [
-        49.2138586,
-        -123.1139196
-    ],
-    "2320 West 40th Avenue, Vancouver, BC, Canada": [
-        49.2354363,
-        -123.1603074
-    ],
-    "8199 Capstan Way, Richmond, BC, Canada": [
-        49.1875523,
-        -123.1233983
-    ],
-    "5608 Berton Avenue, Vancouver, BC, Canada": [
-        49.2557676,
-        -123.2335146
-    ],
     "Halifax St  Duthie, Burnaby, BC, Canada": [
         49.267643,
         -122.9534616
-    ],
-    "3333 Corvette Way, Richmond, BC, Canada": [
-        49.1902645,
-        -123.1333836
-    ],
-    "6033 Gray Avenue, Vancouver, BC, Canada": [
-        49.251655,
-        -123.235897
     ],
     "193 Aquarius Mews Vancouver, BC, Canada": [
         49.2741827,
@@ -21998,14 +21946,6 @@
     "1350 Paquette St, Coquitlam, BC, Canada": [
         49.2954211,
         -122.7533312
-    ],
-    "6511 Sussex Avenue, Burnaby, BC, Canada": [
-        49.2135236,
-        -123.0049532
-    ],
-    "6210 Walker Avenue, Burnaby, BC, Canada": [
-        49.2279355,
-        -122.9614286
     ],
     "18883 65 Avenue, Surrey, BC, Canada": [
         49.1209277,
@@ -22043,8 +21983,200 @@
         47.0548741,
         -67.7362271
     ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "W 48th Ave, Vancouver, BC, Canada": [
+        49.2276906,
+        -123.1340692
+    ],
+    "MANITOBA St, Vancouver, Vancouver, BC, Canada": [
+        49.266994,
+        -123.1066701
+    ],
+    "York House School, Vancouver, Vancouver, BC, Canada": [
+        49.2488434,
+        -123.140325
+    ],
+    "Denman St, Vancouver, Vancouver, BC, Canada": [
+        49.2900731,
+        -123.137576
+    ],
+    "7108 Collier St, Burnaby, BC, Canada": [
+        49.2203763,
+        -122.9569907
+    ],
+    "10388 Number 2 Rd, Richmond, BC, Canada": [
+        49.1553292,
+        -123.1588731
+    ],
+    "4750 Pembroke Pl, Richmond, BC, Canada": [
+        49.1450575,
+        -123.1720584
+    ],
+    "Quiet, Vancouver, BC, Canada": [
+        49.218178,
+        -122.9572718
+    ],
+    "luxury, Vancouver, Vancouver, BC, Canada": [
+        49.232819,
+        -123.1178029
+    ],
+    "block on 21 Avenue., Burnaby, BC, Canada": [
+        49.2593137,
+        -122.9278134
+    ],
+    "400, Maple Ridge, BC, Canada": [
+        49.2197345,
+        -122.599707
+    ],
+    "Ackroyd Rd  Number 3 Rd, Richmond, BC, Canada": [
+        49.1723436,
+        -123.136501
+    ],
+    "Minoru Blvd, Richmond, Richmond, BC, Canada": [
+        49.1664888,
+        -123.1409295
+    ],
+    "Capstan Way  Number 3 Rd, Richmond, BC, Canada": [
+        49.1877045,
+        -123.1337958
+    ],
+    "Bd, Vancouver, BC, Canada": [
+        49.1458458,
+        -122.6437523
+    ],
+    "First St, Vancouver, Vancouver, BC, Canada": [
+        49.2217343,
+        -122.9173245
+    ],
+    "1026 Queens Avenue, New Westminster, BC, Canada": [
+        49.2026029,
+        -122.9200276
+    ],
+    "beautiful, Vancouver, Vancouver, BC, Canada": [
+        49.263816,
+        -123.165554
+    ],
+    "755 Harbourside Dr, North Vancouver, BC, Canada": [
+        49.3137847,
+        -123.0932115
+    ],
+    "90 Avenue  141A St, BC, Canada": [
+        56.2363899,
+        -120.8113569
+    ],
+    "8628 Hazelbridge Way, Richmond, BC, Canada": [
+        49.1890105,
+        -123.129762
+    ],
+    "2320 West 40th Avenue, Vancouver, BC, Canada": [
+        49.2354363,
+        -123.1603074
+    ],
+    "5608 Berton Avenue, Vancouver, BC, Canada": [
+        49.2557676,
+        -123.2335146
+    ],
+    "19967 46 Avenue, Langley, BC, Canada": [
+        49.0858633,
+        -122.6772235
+    ],
+    "6033 Gray Avenue, Vancouver, BC, Canada": [
+        49.251655,
+        -123.235897
+    ],
+    "Kingsway  Salisbury Avenue, Burnaby, BC, Canada": [
+        49.218707,
+        -122.9574442
+    ],
+    "368 West 62nd Avenue, Vancouver, BC, Canada": [
+        49.2138586,
+        -123.1139196
+    ],
+    "3333 Corvette Way, Richmond, BC, Canada": [
+        49.1902645,
+        -123.1333836
+    ],
+    "8199 Capstan Way, Richmond, BC, Canada": [
+        49.1875523,
+        -123.1233983
+    ],
+    "and Dunbar 2026, Vancouver, BC, Canada": [
+        49.2464996,
+        -123.1854116
+    ],
+    "08, Vancouver, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "4688 kingsway, Burnaby, BC, Canada": [
+        49.2287293,
+        -123.001478
+    ],
+    "6833 Buswell St, Richmond, BC, Canada": [
+        49.1637291,
+        -123.1339719
+    ],
+    "Rupert St  Renfrew St, Vancouver, BC, Canada": [
+        49.2332675,
+        -123.0429966
+    ],
+    "Caithcart Rd, Richmond, BC, Canada": [
+        49.1888718,
+        -123.1069963
+    ],
+    "Bird St, Richmond, Richmond, BC, Canada": [
+        49.1895365,
+        -123.0972195
+    ],
     "granville  lynas, Richmond, BC, Canada": [
         49.1628706,
         -123.165389
+    ],
+    "6210 Walker Avenue, Burnaby, BC, Canada": [
+        49.2279355,
+        -122.9614286
+    ],
+    "5777 Birney Avenue, Vancouver, BC, Canada": [
+        49.25453,
+        -123.233378
+    ],
+    "135 East 62nd Avenue, Vancouver, BC, Canada": [
+        49.2144308,
+        -123.1036444
+    ],
+    "1888 Gilmore Avenue, Burnaby, BC, Canada": [
+        49.26776,
+        -123.013844
+    ],
+    "6511 Sussex Avenue, Burnaby, BC, Canada": [
+        49.2135236,
+        -123.0049532
+    ],
+    "650 West 41st Avenue, Vancouver, BC, Canada": [
+        49.2317347,
+        -123.1181168
+    ],
+    "Blvd, North Vancouver, BC, Canada": [
+        49.3248689,
+        -123.0568751
+    ],
+    "Keith Lynn, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3155161,
+        -123.066699
+    ],
+    "7708 Alderbridge Way, Richmond, BC, Canada": [
+        49.1748868,
+        -123.1429122
+    ],
+    "Ainsworth, Richmond, BC, Canada": [
+        49.1390834,
+        -123.1061482
     ]
 }
