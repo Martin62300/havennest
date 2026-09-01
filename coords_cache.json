@@ -5427,10 +5427,6 @@
         49.2845057,
         -123.0158668
     ],
-    "6560 Francis Road, Richmond, BC, Canada": [
-        49.1480203,
-        -123.1513082
-    ],
     "1550 West 59th Avenue, Vancouver, BC, Canada": [
         49.2174571,
         -123.1421195
@@ -21283,10 +21279,6 @@
         49.1873137,
         -122.7930353
     ],
-    "355 HOLDOM Avenue, Burnaby, BC, Canada": [
-        49.2715997,
-        -122.9811526
-    ],
     "64 Avenue, Surrey, Surrey, BC, Canada": [
         49.1190154,
         -122.6962495
@@ -22915,10 +22907,6 @@
         49.2625774,
         -123.1350104
     ],
-    "4688 kingsway, Burnaby, BC, Canada": [
-        49.2287293,
-        -123.001478
-    ],
     "1100 Smith Avenue, Coquitlam, BC, Canada": [
         49.2602018,
         -122.883107
@@ -23315,10 +23303,6 @@
         49.2121265,
         -123.1150141
     ],
-    "3200 Corvette Way, Richmond, BC, Canada": [
-        49.1901689,
-        -123.1331016
-    ],
     "711 West 18th St, North Vancouver, BC, Canada": [
         49.3251568,
         -123.0918227
@@ -23367,10 +23351,6 @@
         49.2373838,
         -123.196211
     ],
-    "5987 Wilson Avenue, Burnaby, BC, Canada": [
-        49.2296776,
-        -123.00944
-    ],
     "Marine Dr  Trans, Vancouver, BC, Canada": [
         49.368753,
         -123.2763876
@@ -23386,14 +23366,6 @@
     "1845 Suffolk Avenue, Coquitlam, BC, Canada": [
         49.266718,
         -122.7655352
-    ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
     ],
     "Klahanie Dr, Klahanie, Port Moody, BC, Canada": [
         49.2784956,
@@ -23495,14 +23467,6 @@
         49.1732031,
         -123.1418605
     ],
-    "6463 Silver Avenue, Burnaby, BC, Canada": [
-        49.2248459,
-        -123.0069043
-    ],
-    "2275 East 28th Avenue, Vancouver, BC, Canada": [
-        49.2455986,
-        -123.0921885
-    ],
     "E 28th Ave, Vancouver, BC, Canada": [
         49.2454028,
         -123.0393198
@@ -23594,5 +23558,189 @@
     "59th Avenue, BC, Canada": [
         49.0167031,
         -118.4502865
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "parks, Vancouver, BC, Canada": [
+        49.2908635,
+        -123.1453973
+    ],
+    "Modern, Burnaby, Burnaby, BC, Canada": [
+        49.2197516,
+        -122.9824154
+    ],
+    "parking, Burnaby, BC, Canada": [
+        49.2768619,
+        -122.9110301
+    ],
+    "upper, White Rock, BC, Canada": [
+        49.0260515,
+        -122.8135708
+    ],
+    "The west, Vancouver, BC, Canada": [
+        49.3121458,
+        -123.0815107
+    ],
+    "Kinnee Park, Burnaby, BC, Canada": [
+        49.226651,
+        -123.0093981
+    ],
+    "6th Avenue W., Vancouver, BC, Canada": [
+        49.2668576,
+        -123.1818056
+    ],
+    "Balaclava, Vancouver, Vancouver, BC, Canada": [
+        49.2451734,
+        -123.1743871
+    ],
+    "Station Hill Dr, Burnaby, Burnaby, BC, Canada": [
+        49.2110367,
+        -122.9609772
+    ],
+    "West, Burnaby, Burnaby, BC, Canada": [
+        49.2195456,
+        -122.9568895
+    ],
+    "in, Port Coquitlam, Port Coquitlam, BC, Canada": [
+        49.2716897,
+        -122.789107
+    ],
+    "8 St, New Westminster, New Westminster, BC, Canada": [
+        49.2087102,
+        -122.937609
+    ],
+    "St  84a Avenue, Surrey, BC, Canada": [
+        49.1565702,
+        -122.7932598
+    ],
+    "desk, Vancouver, BC, Canada": [
+        49.2813785,
+        -123.0932246
+    ],
+    "table, Vancouver, Vancouver, BC, Canada": [
+        49.2585455,
+        -123.1385207
+    ],
+    "schools, Vancouver, BC, Canada": [
+        49.2768142,
+        -123.1155937
+    ],
+    "rent 6338 King George Blvd, Surrey, BC, Canada": [
+        49.1911581,
+        -122.8449407
+    ],
+    "Hazelbridge Way, Richmond, Richmond, BC, Canada": [
+        49.1870288,
+        -123.1323183
+    ],
+    "West Richmond, Richmond, BC, Canada": [
+        49.1737665,
+        -122.9647471
+    ],
+    "quiet, Burnaby, BC, Canada": [
+        49.218178,
+        -122.9572718
+    ],
+    "Agnes St  sixth St, New Westminster, BC, Canada": [
+        49.2049293,
+        -122.9101536
+    ],
+    "355 HOLDOM Avenue, Burnaby, BC, Canada": [
+        49.2715997,
+        -122.9811526
+    ],
+    "2275 East 28th Avenue, Vancouver, BC, Canada": [
+        49.2455986,
+        -123.0921885
+    ],
+    "5155 Watling St, Burnaby, BC, Canada": [
+        49.2164853,
+        -122.9911952
+    ],
+    "3839 21ST Avenue, Vancouver, BC, Canada": [
+        49.2540001,
+        -123.1892265
+    ],
+    "4688 kingsway, Burnaby, BC, Canada": [
+        49.2287293,
+        -123.001478
+    ],
+    "1498 Palmerston Avenue, West Vancouver, BC, Canada": [
+        49.342008,
+        -123.1955331
+    ],
+    "5051 Imperial St, Vancouver, BC, Canada": [
+        49.2222273,
+        -122.9919583
+    ],
+    "3168 West 18th Avenue, Vancouver, BC, Canada": [
+        49.2563711,
+        -123.1753645
+    ],
+    "6538 Nelson Avenue, Burnaby, Burnaby, BC, Canada": [
+        49.2045553,
+        -122.9995906
+    ],
+    "2026  09, BC, Canada": [
+        54.4163746,
+        -123.0665464
+    ],
+    "2031 Grant St, Vancouver, BC, Canada": [
+        49.2714782,
+        -123.0630405
+    ],
+    "183  63A, Surrey, BC, Canada": [
+        49.1174934,
+        -122.7003963
+    ],
+    "18 Ave.  154 St, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "5987 Wilson Avenue, Burnaby, BC, Canada": [
+        49.2296776,
+        -123.00944
+    ],
+    "3073 Starlight Way, Coquitlam, BC, Canada": [
+        49.2657947,
+        -122.8082411
+    ],
+    "3518 Wesbrook Mall, Vancouver, BC, Canada": [
+        49.2522216,
+        -123.2332509
+    ],
+    "6780 Lanark St, Vancouver, BC, Canada": [
+        49.2227114,
+        -123.0756165
+    ],
+    "700 Roderick Avenue, Coquitlam, BC, Canada": [
+        49.2371112,
+        -122.8801606
+    ],
+    "6560 Francis Rd, Richmond, BC, Canada": [
+        49.1480203,
+        -123.1513082
+    ],
+    "9891 Glenthorne Dr, Richmond, BC, Canada": [
+        49.1474869,
+        -123.1150684
+    ],
+    "2792 Kitchener St, Vancouver, BC, Canada": [
+        49.2720237,
+        -123.0472528
+    ],
+    "3200 Corvette Way, Richmond, BC, Canada": [
+        49.1901689,
+        -123.1331016
+    ],
+    "2026  09, Vancouver, BC, Canada": [
+        49.2489079,
+        -122.4750398
     ]
 }
