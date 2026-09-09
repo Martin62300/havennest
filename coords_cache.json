@@ -3911,10 +3911,6 @@
         50.9969328,
         -118.1959281
     ],
-    "7769 Park Crescent, Burnaby, BC, Canada": [
-        49.2095788,
-        -122.9483498
-    ],
     "2012 Fullerton Avenue, North Vancouver, BC, Canada": [
         49.3309003,
         -123.1223242
@@ -12451,10 +12447,6 @@
         49.2599106,
         -123.087874
     ],
-    "7362 Elmbridge Way, Richmond, BC, Canada": [
-        49.1717412,
-        -123.1437264
-    ],
     "14778 106 Avenue, Surrey, BC, Canada": [
         49.1951495,
         -122.8177595
@@ -18859,10 +18851,6 @@
         49.3481337,
         -123.2509553
     ],
-    "2425 Alpha Avenue, Burnaby, BC, Canada": [
-        49.2634142,
-        -123.0004111
-    ],
     "Avenue  victoria Dr, Vancouver, BC, Canada": [
         49.0184894,
         -122.7937944
@@ -19326,10 +19314,6 @@
     "100 Avenue, Surrey, BC, Canada": [
         49.1844762,
         -122.8946699
-    ],
-    "7088 Salisbury Avenue, Burnaby, BC, Canada": [
-        49.2195456,
-        -122.9568895
     ],
     "968 15th St, West Vancouver, BC, Canada": [
         49.334623,
@@ -20406,10 +20390,6 @@
     "4900 Lennox Ln, Burnaby, BC, Canada": [
         49.2232341,
         -122.9937513
-    ],
-    "5529 Nelson Avenue, Burnaby, BC, Canada": [
-        49.2340541,
-        -122.9945525
     ],
     "8671 Hazelbridge Way, Richmond, BC, Canada": [
         49.1892846,
@@ -21846,10 +21826,6 @@
     "8199 Capstan Way, Richmond, BC, Canada": [
         49.1875523,
         -123.1233983
-    ],
-    "19967 46 Avenue, Langley, BC, Canada": [
-        49.0858633,
-        -122.6772235
     ],
     "2467 West 45th Avenue, Vancouver, BC, Canada": [
         49.2308757,
@@ -23379,10 +23355,6 @@
         49.287941,
         -122.8180992
     ],
-    "Garden City Park, Richmond, BC, Canada": [
-        49.1645913,
-        -123.1225048
-    ],
     "Williams Rd  Number 2 Rd, Richmond, BC, Canada": [
         49.1413416,
         -123.1588542
@@ -24011,10 +23983,6 @@
         49.3517166,
         -123.2079975
     ],
-    "6511 Sussex Avenue, Burnaby, BC, Canada": [
-        49.2135236,
-        -123.0049532
-    ],
     "552 Beachview Dr, Vancouver, BC, Canada": [
         49.3115442,
         -122.9492353
@@ -24118,10 +24086,6 @@
     "2319 Austin Avenue, Coquitlam, BC, Canada": [
         49.249025,
         -122.8397461
-    ],
-    "1195 West 59th Avenue, Vancouver, BC, Canada": [
-        49.2174618,
-        -123.1318716
     ],
     "3581 East Kent Avenue, Vancouver, BC, Canada": [
         49.2052374,
@@ -24375,14 +24339,6 @@
         49.1913033,
         -122.849143
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "dining, West Vancouver, BC, Canada": [
         49.2672456,
         -123.1131139
@@ -24455,22 +24411,6 @@
         49.2002325,
         -122.979381
     ],
-    "11220 Seaport Avenue, Richmond, BC, Canada": [
-        49.1434176,
-        -123.0969514
-    ],
-    "6463 Silver Avenue, Burnaby, BC, Canada": [
-        49.2248459,
-        -123.0069043
-    ],
-    "Alderbridge Way  No, Richmond, BC, Canada": [
-        49.1772353,
-        -123.1086062
-    ],
-    "180 East 2nd Avenue, Vancouver, BC, Canada": [
-        49.2689032,
-        -123.1012279
-    ],
     "cr, Vancouver, BC, Canada": [
         49.2608724,
         -123.113952
@@ -24487,10 +24427,6 @@
         49.1073873,
         -122.6575682
     ],
-    "5987 Wilson Avenue, Burnaby, BC, Canada": [
-        49.2296776,
-        -123.00944
-    ],
     "4000 West 10th Avenue, Vancouver, BC, Canada": [
         49.2633004,
         -123.1740156
@@ -24502,10 +24438,6 @@
     "595 Austin Avenue, Coquitlam, BC, Canada": [
         49.2499885,
         -122.8863906
-    ],
-    "4688 kingsway, Burnaby, BC, Canada": [
-        49.2287293,
-        -123.001478
     ],
     "1498 Palmerston Avenue, West Vancouver, BC, Canada": [
         49.342008,
@@ -24547,8 +24479,224 @@
         49.2241429,
         -123.1320098
     ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, BC, Canada": [
+        49.0773521,
+        -117.5910601
+    ],
+    "20178 8 Avenue, Langley Township, BC, Canada": [
+        49.0165945,
+        -122.6743508
+    ],
+    "Dan East, Vancouver, Vancouver, BC, Canada": [
+        49.2636783,
+        -123.1027396
+    ],
+    "off, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.1332464,
+        -122.9099596
+    ],
+    "and in, Richmond, BC, Canada": [
+        49.1820717,
+        -123.0696081
+    ],
+    "135 A St, Surrey, Surrey, BC, Canada": [
+        49.2108405,
+        -122.8382256
+    ],
+    "Richmond Centre, Richmond, Richmond, BC, Canada": [
+        49.1672258,
+        -123.1384721
+    ],
+    "20A Ave  154 St, White Rock, BC, Canada": [
+        49.0235357,
+        -122.797924
+    ],
+    "broadway, Burnaby, Burnaby, BC, Canada": [
+        49.2632126,
+        -122.898979
+    ],
+    "Large, Vancouver, Vancouver, BC, Canada": [
+        49.242455,
+        -123.1149659
+    ],
+    "Elwell St, Burnaby, BC, Canada": [
+        49.2287182,
+        -122.9402507
+    ],
+    "6 St, Burnaby, Burnaby, BC, Canada": [
+        49.2782718,
+        -122.9998169
+    ],
+    "2br, Vancouver, North Vancouver, BC, Canada": [
+        49.3176939,
+        -123.0933841
+    ],
+    "huge one, BC, Canada": [
+        48.5266711,
+        -123.4753979
+    ],
+    "One BRw, Vancouver, BC, Canada": [
+        49.2064466,
+        -122.9223432
+    ],
+    "Drake, Vancouver, Vancouver, BC, Canada": [
+        49.2726234,
+        -123.1224313
+    ],
+    "FURNISHED, Vancouver, BC, Canada": [
+        49.2830252,
+        -123.1064171
+    ],
+    "750, Vancouver, BC, Canada": [
+        49.2828495,
+        -123.1206248
+    ],
+    "off St, Vancouver, BC, Canada": [
+        49.261699,
+        -122.7862898
+    ],
+    "150 East 15th St, North Vancouver, BC, Canada": [
+        49.322348,
+        -123.0699203
+    ],
+    "Alderbridge Way  No, Richmond, BC, Canada": [
+        49.1756497,
+        -123.1419392
+    ],
+    "19967 46 Avenue, Langley, BC, Canada": [
+        49.0858633,
+        -122.6772235
+    ],
+    "11220 Seaport Avenue, Richmond, BC, Canada": [
+        49.1434176,
+        -123.0969514
+    ],
+    "6463 Silver Avenue, Burnaby, BC, Canada": [
+        49.2248459,
+        -123.0069043
+    ],
+    "E45  Rupert, Vancouver, BC, Canada": [
+        49.2503156,
+        -123.0337604
+    ],
+    "180 East 2nd Avenue, Vancouver, BC, Canada": [
+        49.2689032,
+        -123.1012279
+    ],
+    "161 West Georgia St, Vancouver, BC, Canada": [
+        49.2788415,
+        -123.1116781
+    ],
+    "1195 West 59th Avenue, Vancouver, BC, Canada": [
+        49.2174618,
+        -123.1318716
+    ],
+    "5825 Vine St, Vancouver, BC, Canada": [
+        49.2335499,
+        -123.1603869
+    ],
+    "6511 Sussex Avenue, Burnaby, BC, Canada": [
+        49.2135236,
+        -123.0049532
+    ],
+    "4335 West 10th Avenue, Vancouver, BC, Canada": [
+        49.2639733,
+        -123.2041509
+    ],
+    "537 Cottonwood Avenue, Coquitlam, BC, Canada": [
+        49.2591554,
+        -122.8898812
+    ],
+    "15441 18 Avenue, Surrey, BC, Canada": [
+        49.0348273,
+        -122.7945216
+    ],
+    "633 Abbott St, Vancouver, BC, Canada": [
+        49.2794189,
+        -123.1079135
+    ],
+    "66 200 St, Langley, BC, Canada": [
+        49.1173218,
+        -122.6686908
+    ],
+    "10080 Kilby Dr, Richmond, BC, Canada": [
+        49.186021,
+        -123.1156208
+    ],
+    "4688 kingsway, Burnaby, BC, Canada": [
+        49.2287293,
+        -123.001478
+    ],
+    "7769 Park Cres, Burnaby, BC, Canada": [
+        49.2095788,
+        -122.9483498
+    ],
     "2026  09, Vancouver, BC, Canada": [
         49.2489079,
         -122.4750398
+    ],
+    "918 Cooperage Way, Vancouver, BC, Canada": [
+        49.2740645,
+        -123.1128995
+    ],
+    "6628 Killarney St, Vancouver, BC, Canada": [
+        49.2237387,
+        -123.0453365
+    ],
+    "1969 Kings Avenue, West Vancouver, BC, Canada": [
+        49.3364437,
+        -123.1722406
+    ],
+    "5750 RHODES St, Vancouver, BC, Canada": [
+        49.2360873,
+        -123.0502661
+    ],
+    "5470 Ormidale St, Vancouver, BC, Canada": [
+        49.2342923,
+        -123.0242113
+    ],
+    "7362 Elmbridge Way, Richmond, BC, Canada": [
+        49.1717412,
+        -123.1437264
+    ],
+    "2425 Alpha Avenue, Burnaby, BC, Canada": [
+        49.2634142,
+        -123.0004111
+    ],
+    "7088 Salisbury Avenue, Burnaby, BC, Canada": [
+        49.2195456,
+        -122.9568895
+    ],
+    "11915 Glenhurst St, Maple Ridge, BC, Canada": [
+        49.2187795,
+        -122.5755775
+    ],
+    "8191 River Rd, Richmond, BC, Canada": [
+        49.1903464,
+        -123.1353197
+    ],
+    "Garden City Park, Richmond, BC, Canada": [
+        49.1645913,
+        -123.1225048
+    ],
+    "5987 Wilson Avenue, Burnaby, BC, Canada": [
+        49.2296776,
+        -123.00944
+    ],
+    "7600 Lang Pl, Richmond, BC, Canada": [
+        49.1592255,
+        -123.1800109
+    ],
+    "5529 Nelson Avenue, Burnaby, BC, Canada": [
+        49.2340541,
+        -122.9945525
+    ],
+    "7297 Moffatt Rd, Richmond, BC, Canada": [
+        49.1595709,
+        -123.1454574
     ]
 }
