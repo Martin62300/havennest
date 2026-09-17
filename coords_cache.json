@@ -19239,10 +19239,6 @@
         49.2455059,
         -123.1956624
     ],
-    "6026 Denbigh Avenue, Burnaby, BC, Canada": [
-        49.2292112,
-        -122.9837677
-    ],
     "158 A  99A Avenue, Surrey, BC, Canada": [
         49.1834729,
         -122.7235953
@@ -19262,10 +19258,6 @@
     "657 Whiting Way, Coquitlam, BC, Canada": [
         49.2572236,
         -122.8914205
-    ],
-    "100 Avenue, Surrey, BC, Canada": [
-        49.1844762,
-        -122.8946699
     ],
     "968 15th St, West Vancouver, BC, Canada": [
         49.334623,
@@ -20534,10 +20526,6 @@
     "2439 Eddington Dr, Vancouver, BC, Canada": [
         49.2453062,
         -123.1621218
-    ],
-    "5955 Birney Avenue, Vancouver, BC, Canada": [
-        49.2529496,
-        -123.2368144
     ],
     "Number 2 Rd, Richmond, Richmond, BC, Canada": [
         49.1218983,
@@ -22351,10 +22339,6 @@
         49.163168,
         -123.137414
     ],
-    "6688 Pearson Way, Richmond, BC, Canada": [
-        49.1754983,
-        -123.1470782
-    ],
     "2160 Grant Avenue, Coquitlam, BC, Canada": [
         49.2701422,
         -122.7733447
@@ -23575,10 +23559,6 @@
         49.3368057,
         -123.1246645
     ],
-    "6333 Silver Avenue, Burnaby, BC, Canada": [
-        49.2259159,
-        -123.0058227
-    ],
     "16733 15A Avenue, Surrey, BC, Canada": [
         49.0304217,
         -122.7589506
@@ -24539,10 +24519,6 @@
         49.1369324,
         -123.1455389
     ],
-    "2319 Austin Avenue, Coquitlam, BC, Canada": [
-        49.249025,
-        -122.8397461
-    ],
     "8677 Capstan Way, Richmond, BC, Canada": [
         49.1875523,
         -123.1233983
@@ -24827,18 +24803,6 @@
         49.2248459,
         -123.0069043
     ],
-    "2102 West 38th Avenue, Vancouver, BC, Canada": [
-        49.2370576,
-        -123.1558457
-    ],
-    "15918 26 Avenue, Surrey, BC, Canada": [
-        49.0489256,
-        -122.7812434
-    ],
-    "3750 West 11th Avenue, Vancouver, BC, Canada": [
-        49.2623763,
-        -123.1871329
-    ],
     "2425 166 St, Surrey, BC, Canada": [
         49.0178963,
         -122.7628357
@@ -25011,10 +24975,6 @@
         49.1073873,
         -122.6575682
     ],
-    "4688 kingsway, Burnaby, BC, Canada": [
-        49.2287293,
-        -123.001478
-    ],
     "2918 Kalamalka Dr, Coquitlam, BC, Canada": [
         49.2601658,
         -122.8037276
@@ -25047,17 +25007,9 @@
         49.18835,
         -122.8438659
     ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "20178 8 Avenue, Langley Township, BC, Canada": [
         49.0165945,
         -122.6743508
-    ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
     ],
     "Elm Park, Vancouver, BC, Canada": [
         49.2337456,
@@ -25275,25 +25227,9 @@
         49.2500859,
         -122.892696
     ],
-    "19967 46 Avenue, Langley, BC, Canada": [
-        49.0858633,
-        -122.6772235
-    ],
-    "6463 Silver Avenue, Burnaby, BC, Canada": [
-        49.2248459,
-        -123.0069043
-    ],
-    "368 West 62nd Avenue, Vancouver, BC, Canada": [
-        49.2138586,
-        -123.1139196
-    ],
     "5360 Larch St, Vancouver, BC, Canada": [
         49.239407,
         -123.1625893
-    ],
-    "180 East 2nd Avenue, Vancouver, BC, Canada": [
-        49.2689032,
-        -123.1012279
     ],
     "6371 Number 4 Rd, Richmond, BC, Canada": [
         49.1969956,
@@ -25322,10 +25258,6 @@
     "1150 Charland Avenue, Coquitlam, BC, Canada": [
         49.2481216,
         -122.8495659
-    ],
-    "2026  09, Vancouver, BC, Canada": [
-        49.2712539,
-        -122.4405762
     ],
     "6870 Cedar Rose Ct, Burnaby, BC, Canada": [
         49.2209812,
@@ -25367,8 +25299,228 @@
         49.251311,
         -123.1911855
     ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "28 Avenue, Burnaby, BC, Canada": [
+        49.2145425,
+        -122.9496751
+    ],
+    "Bridge St, Richmond, Richmond, BC, Canada": [
+        49.157704,
+        -123.1169538
+    ],
+    "2600, New Westminster, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "6688 Pearson Way, Richmond, BC, Canada": [
+        49.1754983,
+        -123.1470782
+    ],
+    "E 45th Ave, Burnaby, Burnaby, BC, Canada": [
+        49.2292647,
+        -123.0236705
+    ],
+    "Cartier St, Vancouver, BC, Canada": [
+        49.25144,
+        -123.1366201
+    ],
+    "W 62nd Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2142096,
+        -123.1208829
+    ],
+    "W Pender St, Vancouver, Vancouver, BC, Canada": [
+        49.2882816,
+        -123.1229867
+    ],
+    "1br, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "3330 William St, Burnaby, BC, Canada": [
+        49.2738945,
+        -123.0209265
+    ],
+    "3622 West 18th Avenue, Vancouver, BC, Canada": [
+        49.2562494,
+        -123.1858669
+    ],
+    "McKay Avenue, Burnaby, Burnaby, BC, Canada": [
+        49.2245547,
+        -123.0081305
+    ],
+    "Granville 1365 W 11th Ave, Vancouver, BC, Canada": [
+        49.2618417,
+        -123.1387713
+    ],
+    "Commercial Dr, Vancouver, BC, Canada": [
+        49.275187,
+        -123.069531
+    ],
+    "at 12, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "Hull St, Vancouver, Vancouver, BC, Canada": [
+        49.2521051,
+        -123.0646626
+    ],
+    "high schools, Surrey, Surrey, BC, Canada": [
+        49.1636354,
+        -122.7747008
+    ],
+    "1300, Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "Room, Surrey, BC, Canada": [
+        49.133874,
+        -122.8897525
+    ],
+    "Argyle St, Vancouver, BC, Canada": [
+        49.2322084,
+        -123.0715272
+    ],
+    "English Bay 1201, Vancouver, Vancouver, BC, Canada": [
+        49.280707,
+        -123.1400113
+    ],
+    "beds, Vancouver, BC, Canada": [
+        49.2443519,
+        -123.1010252
+    ],
+    "368 West 62nd Avenue, Vancouver, BC, Canada": [
+        49.2138586,
+        -123.1139196
+    ],
     "Garden City Park, Richmond, BC, Canada": [
         49.1645913,
         -123.1225048
+    ],
+    "19967 46 Avenue, Langley, BC, Canada": [
+        49.0858633,
+        -122.6772235
+    ],
+    "6463 Silver Avenue, Burnaby, BC, Canada": [
+        49.2248459,
+        -123.0069043
+    ],
+    "3261 East 1st Avenue, Vancouver, BC, Canada": [
+        49.2697763,
+        -123.0349947
+    ],
+    "1864 Mathers Ct, West Vancouver, BC, Canada": [
+        49.3376167,
+        -123.1641222
+    ],
+    "180 East 2nd Avenue, Vancouver, BC, Canada": [
+        49.2689032,
+        -123.1012279
+    ],
+    "5900 Olive Avenue, Burnaby, BC, Canada": [
+        49.2307413,
+        -123.0109804
+    ],
+    "3750 West 11th Avenue, Vancouver, BC, Canada": [
+        49.2623763,
+        -123.1871329
+    ],
+    "15918 26 Avenue, Surrey, BC, Canada": [
+        49.0489256,
+        -122.7812434
+    ],
+    "2102 West 38th Avenue, Vancouver, BC, Canada": [
+        49.2370576,
+        -123.1558457
+    ],
+    "1407 Chippendale Rd, West Vancouver, BC, Canada": [
+        49.3502931,
+        -123.1838514
+    ],
+    "17769 57 Avenue, Surrey, BC, Canada": [
+        49.106319,
+        -122.7307016
+    ],
+    "6333 Silver Avenue, Burnaby, BC, Canada": [
+        49.2259159,
+        -123.0058227
+    ],
+    "6026 Denbigh Avenue, Burnaby, BC, Canada": [
+        49.2292112,
+        -122.9837677
+    ],
+    "4688 kingsway, Burnaby, BC, Canada": [
+        49.2287293,
+        -123.001478
+    ],
+    "5955 Birney Avenue, Vancouver, BC, Canada": [
+        49.2529496,
+        -123.2368144
+    ],
+    "578 West 61st Avenue, Vancouver, BC, Canada": [
+        49.2148513,
+        -123.1194642
+    ],
+    "505 Schoolhouse St, Coquitlam, BC, Canada": [
+        49.242187,
+        -122.8527478
+    ],
+    "River Rd, Richmond, BC, Canada": [
+        49.1979312,
+        -123.1248359
+    ],
+    "Rd  Steveston, Richmond, BC, Canada": [
+        49.1236299,
+        -123.1816368
+    ],
+    "2319 Austin Avenue, Coquitlam, BC, Canada": [
+        49.2490731,
+        -122.8293474
+    ],
+    "2026  09, Vancouver, BC, Canada": [
+        49.2712539,
+        -122.4405762
+    ],
+    "E 26th Ave, Vancouver, BC, Canada": [
+        49.2475598,
+        -123.0890035
+    ],
+    "9688 University Cres, Burnaby, BC, Canada": [
+        49.2794076,
+        -122.9051373
+    ],
+    "E 38th Ave, Vancouver, BC, Canada": [
+        49.2363041,
+        -123.0998268
+    ],
+    "3611 West 18th Avenue, Vancouver, BC, Canada": [
+        49.2567153,
+        -123.1855049
+    ],
+    "100 Avenue, Surrey, BC, Canada": [
+        49.1842812,
+        -122.7415122
+    ],
+    "Fraser Hwy  160 St, Surrey, BC, Canada": [
+        49.1583606,
+        -122.7787646
+    ],
+    "10519 Dennis Cres, Richmond, BC, Canada": [
+        49.1397311,
+        -123.112079
+    ],
+    "189 A St, Pitt Meadows, Vancouver, BC, Canada": [
+        49.2120876,
+        -122.6727315
+    ],
+    "3585 West 28th Avenue, Vancouver, BC, Canada": [
+        49.2473516,
+        -123.1844316
     ]
 }
