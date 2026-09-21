@@ -25235,10 +25235,6 @@
         49.251311,
         -123.1911855
     ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "28 Avenue, Burnaby, BC, Canada": [
         49.2145425,
         -122.9496751
@@ -25427,18 +25423,6 @@
         49.2473516,
         -123.1844316
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "20178 8 Avenue, Langley Township, BC, Canada": [
-        49.0165945,
-        -122.6743508
-    ],
     "East Broadway, Vancouver, BC, Canada": [
         49.2618322,
         -123.0326133
@@ -25547,10 +25531,6 @@
         49.2174618,
         -123.1318716
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
     "20360 Logan Avenue, Langley, BC, Canada": [
         49.1073873,
         -122.6575682
@@ -25610,5 +25590,105 @@
     "5987 Wilson Avenue, Burnaby, BC, Canada": [
         49.2296776,
         -123.00944
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "20178 8 Avenue, Langley Township, BC, Canada": [
+        49.0165945,
+        -122.6743508
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "ocean view, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3167248,
+        -123.0769998
+    ],
+    "St  154 Avenue, Surrey, BC, Canada": [
+        49.0455052,
+        -122.7951112
+    ],
+    "recreation, Port Moody, Port Moody, BC, Canada": [
+        49.2832114,
+        -122.8316509
+    ],
+    "2350 Mary Hill Rd, Port Coquitlam, BC, Canada": [
+        49.2624761,
+        -122.777756
+    ],
+    "Montroyal blvd, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3558995,
+        -123.0893156
+    ],
+    "120, Vancouver, BC, Canada": [
+        49.2732597,
+        -123.1206532
+    ],
+    "2BR, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "peaceful, Burnaby, BC, Canada": [
+        49.2194503,
+        -122.949967
+    ],
+    "1800  1br, BC, Canada": [
+        49.34446,
+        -122.0472263
+    ],
+    "Book, Burnaby, Burnaby, BC, Canada": [
+        49.252084,
+        -122.9150315
+    ],
+    "ashley grove Ct, Burnaby, BC, Canada": [
+        49.2646354,
+        -122.9043555
+    ],
+    "brand, Burnaby, Burnaby, BC, Canada": [
+        49.2253201,
+        -122.9992986
+    ],
+    "Esmond Avenue, Burnaby, BC, Canada": [
+        49.2833875,
+        -123.0209545
+    ],
+    "590, West Vancouver, BC, Canada": [
+        49.3311208,
+        -123.159479
+    ],
+    "500, Port Coquitlam, BC, Canada": [
+        49.2621643,
+        -122.780542
+    ],
+    "900, Coquitlam, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "west balmoral Rd, North Vancouver, BC, Canada": [
+        49.3442312,
+        -123.0772205
+    ],
+    "norwood avenue, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3392833,
+        -123.0772945
+    ],
+    "1950, Vancouver, BC, Canada": [
+        49.2837507,
+        -123.0643709
+    ],
+    "425, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
     ]
 }
