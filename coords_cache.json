@@ -23867,10 +23867,6 @@
         49.2433804,
         -122.972545
     ],
-    "Sperling  Halifax, Burnaby, BC, Canada": [
-        49.268051,
-        -122.9644319
-    ],
     "136 St  100 Avenue, Surrey, BC, Canada": [
         49.0615999,
         -122.8455418
@@ -23974,10 +23970,6 @@
     "71 avenue, Vancouver, BC, Canada": [
         49.1316491,
         -122.8317133
-    ],
-    "4695 Kingsway, Burnaby, BC, Canada": [
-        49.2187778,
-        -122.9664832
     ],
     "Regal Dr, Surrey, Surrey, BC, Canada": [
         49.1783074,
@@ -25591,14 +25583,6 @@
         49.2296776,
         -123.00944
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "20178 8 Avenue, Langley Township, BC, Canada": [
         49.0165945,
         -122.6743508
@@ -25690,5 +25674,93 @@
     "425, Burnaby, BC, Canada": [
         49.2433804,
         -122.972545
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "WALLACE, North Vancouver, BC, Canada": [
+        49.3099877,
+        -123.079465
+    ],
+    "146 A St, Surrey, Surrey, BC, Canada": [
+        49.1596438,
+        -122.7644583
+    ],
+    "Bath, Surrey, BC, Canada": [
+        49.16383,
+        -122.7946143
+    ],
+    "Wayne Dr, North Vancouver, BC, Canada": [
+        49.3391931,
+        -123.0916095
+    ],
+    "Bewicke Avenue, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3221957,
+        -123.0912705
+    ],
+    "4695 Kingsway, Burnaby, BC, Canada": [
+        49.2187778,
+        -122.9664832
+    ],
+    "2026, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "Sperling  Halifax, Burnaby, BC, Canada": [
+        49.268051,
+        -122.9644319
+    ],
+    "Skytrain, Burnaby, Burnaby, BC, Canada": [
+        49.2035038,
+        -122.9577771
+    ],
+    "708 East 26th Avenue, Vancouver, BC, Canada": [
+        49.2474363,
+        -123.0898923
+    ],
+    "2783 Highview Pl, West Vancouver, BC, Canada": [
+        49.3520202,
+        -123.1892231
+    ],
+    "Esquimalt avenue  15th St, West Vancouver, BC, Canada": [
+        49.3305495,
+        -123.1551627
+    ],
+    "AC, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3176939,
+        -123.0933841
+    ],
+    "36 E 14th Ave, Vancouver, BC, Canada": [
+        49.2582001,
+        -123.1043335
+    ],
+    "Aire West, Vancouver, Vancouver, BC, Canada": [
+        49.3136788,
+        -123.0944915
+    ],
+    "148 25 St, Surrey, BC, Canada": [
+        49.1459639,
+        -122.7561899
+    ],
+    "gas, Vancouver, BC, Canada": [
+        49.2945762,
+        -123.118301
+    ],
+    "Heat, Burnaby, BC, Canada": [
+        49.2190275,
+        -122.9694464
+    ],
+    "Georgia St, Vancouver, Vancouver, BC, Canada": [
+        49.2784661,
+        -123.0235409
+    ],
+    "152 St, Surrey, Surrey, BC, Canada": [
+        49.1492064,
+        -122.801295
     ]
 }
