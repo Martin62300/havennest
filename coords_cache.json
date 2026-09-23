@@ -25591,10 +25591,6 @@
         49.0067791,
         -122.6826528
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
     "ocean view, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
         49.3167248,
         -123.0769998
@@ -25675,14 +25671,6 @@
         49.2433804,
         -122.972545
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "WALLACE, North Vancouver, BC, Canada": [
         49.3099877,
         -123.079465
@@ -25762,5 +25750,89 @@
     "152 St, Surrey, Surrey, BC, Canada": [
         49.1492064,
         -122.801295
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "BR, Port Moody, BC, Canada": [
+        49.300519,
+        -122.8942314
+    ],
+    "Beautiful, West Vancouver, BC, Canada": [
+        49.2642285,
+        -123.1690347
+    ],
+    "Salt  Meadow, BC, Canada": [
+        49.0476498,
+        -123.1080507
+    ],
+    "marine Dr, Vancouver, Vancouver, BC, Canada": [
+        49.2096843,
+        -123.1169801
+    ],
+    "Yaletown 939 expo Blvd, Vancouver, BC, Canada": [
+        49.2763098,
+        -123.114386
+    ],
+    "939 expo Blvd, Vancouver, Vancouver, BC, Canada": [
+        49.2775755,
+        -123.1127768
+    ],
+    "3817 Princess Avenue, North Vancouver, BC, Canada": [
+        49.3373953,
+        -123.057946
+    ],
+    "North Rd, New Westminster, New Westminster, BC, Canada": [
+        49.2183065,
+        -122.9188078
+    ],
+    "Live  work, BC, Canada": [
+        49.1648625,
+        -123.9412044
+    ],
+    "St  49 Avenue, Burnaby, BC, Canada": [
+        49.2137296,
+        -122.9421177
+    ],
+    "St  14 avenue, New Westminster, BC, Canada": [
+        49.2110613,
+        -122.9192128
+    ],
+    "den, North Vancouver, BC, Canada": [
+        49.3676593,
+        -122.9489028
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "mountain view, Vancouver, BC, Canada": [
+        49.2352644,
+        -123.093833
+    ],
+    "Hudson St  Marine Dr, BC, Canada": [
+        49.2031366,
+        -123.1354969
+    ],
+    "Coal Harbour 2B  2B, Vancouver, BC, Canada": [
+        49.2894409,
+        -123.1249202
+    ],
+    "Albert St  Gamma Avenue, Burnaby, BC, Canada": [
+        49.2821922,
+        -122.9946454
+    ],
+    "East 3 Rd, Burnaby, BC, Canada": [
+        49.2648634,
+        -122.9934999
+    ],
+    "850, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
     ]
 }
