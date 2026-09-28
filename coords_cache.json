@@ -13871,10 +13871,6 @@
         49.2616151,
         -122.9535346
     ],
-    "Downtown Vancouver, BC, Canada": [
-        49.283393,
-        -123.1174563
-    ],
     "Tweedsmuir Avenue, Richmond, Richmond, BC, Canada": [
         49.1370851,
         -123.1390458
@@ -25587,10 +25583,6 @@
         49.0165945,
         -122.6743508
     ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "ocean view, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
         49.3167248,
         -123.0769998
@@ -25751,14 +25743,6 @@
         49.1492064,
         -122.801295
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "BR, Port Moody, BC, Canada": [
         49.300519,
         -122.8942314
@@ -25834,5 +25818,149 @@
     "850, Burnaby, BC, Canada": [
         49.2433804,
         -122.972545
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "Downtown Vancouver, BC, Canada": [
+        49.2824929,
+        -123.1181364
+    ],
+    "830 sq. ft. of, Delta, Delta, BC, Canada": [
+        49.0922548,
+        -122.8903598
+    ],
+    "825, Delta, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "Carson Pl  Nelson Avenue, Burnaby, BC, Canada": [
+        49.2097389,
+        -122.9943412
+    ],
+    "4500 Westlawn Dr, Burnaby, BC, Canada": [
+        49.2743267,
+        -122.997423
+    ],
+    "650, Delta, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "Hurst St, Burnaby, BC, Canada": [
+        49.2201511,
+        -123.0207796
+    ],
+    "Columbia St, Vancouver, BC, Canada": [
+        49.2553116,
+        -123.1097715
+    ],
+    "W 11th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2627813,
+        -123.2006062
+    ],
+    "2300, North Vancouver, BC, Canada": [
+        49.3305938,
+        -123.0459196
+    ],
+    "one  two, BC, Canada": [
+        49.1813217,
+        -122.8423958
+    ],
+    "300, Delta, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "2B, Vancouver, BC, Canada": [
+        49.1823457,
+        -123.1707778
+    ],
+    "2B 75 West, Vancouver, Vancouver, BC, Canada": [
+        49.0070896,
+        -122.739406
+    ],
+    "359 East 13th St, Vancouver, North Vancouver, BC, Canada": [
+        49.3198706,
+        -123.0616465
+    ],
+    "8885 Lawrence Way, West Vancouver, BC, Canada": [
+        49.4015126,
+        -123.2461533
+    ],
+    "Mountain, North Vancouver, BC, Canada": [
+        49.3183365,
+        -123.0721633
+    ],
+    "3BA, West Vancouver, West Vancouver, BC, Canada": [
+        49.3496404,
+        -123.222084
+    ],
+    "MODERN 2, BC, Canada": [
+        49.9161985,
+        -119.4669175
+    ],
+    "and in, Vancouver, North Vancouver, BC, Canada": [
+        49.3238744,
+        -123.0745673
+    ],
+    "750, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "8050 Number 4 Rd, Richmond, BC, Canada": [
+        49.1969956,
+        -123.1139013
+    ],
+    "Burris St, Burnaby, Burnaby, BC, Canada": [
+        49.2318651,
+        -122.9609765
+    ],
+    "950, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "BR, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "2295.00, New Westminster, BC, Canada": [
+        49.2043703,
+        -122.9111858
+    ],
+    "2195, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "BR, West Vancouver, BC, Canada": [
+        49.3150354,
+        -123.1389544
+    ],
+    "Den, West Vancouver, West Vancouver, BC, Canada": [
+        49.3537143,
+        -123.2276147
+    ],
+    "Hydro, Vancouver, BC, Canada": [
+        49.2815519,
+        -123.1126264
+    ],
+    "Internet, Vancouver, Vancouver, BC, Canada": [
+        49.2823445,
+        -123.1116458
+    ],
+    "5500, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "St. Andrews Avenue, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3113676,
+        -123.0704198
     ]
 }
