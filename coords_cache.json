@@ -25819,14 +25819,6 @@
         49.2433804,
         -122.972545
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "19506 3A Avenue, Surrey, BC, Canada": [
         49.0067791,
         -122.6826528
@@ -25962,5 +25954,133 @@
     "St. Andrews Avenue, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
         49.3113676,
         -123.0704198
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "Lions Gate Bridge, Vancouver, BC, Canada": [
+        49.3177998,
+        -123.1363929
+    ],
+    "Lost Lagoon, Vancouver, Vancouver, BC, Canada": [
+        49.2955987,
+        -123.1407427
+    ],
+    "stove, Vancouver, BC, Canada": [
+        49.2374997,
+        -122.4425419
+    ],
+    "oven, Vancouver, Vancouver, BC, Canada": [
+        49.2875711,
+        -123.121131
+    ],
+    "services, Burnaby, Burnaby, BC, Canada": [
+        49.2471155,
+        -122.9988973
+    ],
+    "104 Avenue  164 St, Surrey, BC, Canada": [
+        49.1915197,
+        -122.7779161
+    ],
+    "6th Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2665339,
+        -123.1599143
+    ],
+    "Central Avenue  133 St, BC, Canada": [
+        44.6489253,
+        -63.6457904
+    ],
+    "1995, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "Bath city of vancouver, Vancouver, Vancouver, BC, Canada": [
+        49.2722366,
+        -123.098352
+    ],
+    "bed  furniture, BC, Canada": [
+        50.6648241,
+        -120.3557578
+    ],
+    "peak, Vancouver, Vancouver, BC, Canada": [
+        49.2485623,
+        -122.5888278
+    ],
+    "Chartwell Dr, West Vancouver, BC, Canada": [
+        49.346914,
+        -123.1529491
+    ],
+    "vinson creek Rd, West Vancouver, West Vancouver, BC, Canada": [
+        49.353127,
+        -123.1516327
+    ],
+    "E 45th Ave  Rupert St, BC, Canada": [
+        49.2289699,
+        -123.0432266
+    ],
+    "TRIUMPH St, Burnaby V5C 1Z9, BC, Canada": [
+        49.2838109,
+        -123.017378
+    ],
+    "KITCHENER St, Burnaby, BC, Canada": [
+        49.2716014,
+        -122.9701381
+    ],
+    "Gilbert Rd  Granville Avenue, Richmond, BC, Canada": [
+        49.1628647,
+        -123.1488237
+    ],
+    "Family, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3232389,
+        -123.0733854
+    ],
+    "2200  2BR, BC, Canada": [
+        54.9154276,
+        -122.228627
+    ],
+    "King George Blvd, Surrey, Surrey, BC, Canada": [
+        49.0578384,
+        -122.808869
+    ],
+    "Victoria, Vancouver, Vancouver, BC, Canada": [
+        49.2226365,
+        -123.0576311
+    ],
+    "GRANVILLE, Vancouver, Vancouver, BC, Canada": [
+        49.2832289,
+        -123.116043
+    ],
+    "Bright, North Vancouver, BC, Canada": [
+        49.3247211,
+        -123.0725108
+    ],
+    "St  128 Avenue, Surrey, BC, Canada": [
+        49.1627111,
+        -122.8688117
+    ],
+    "1748 E Pender St, Vancouver, BC, Canada": [
+        49.2800026,
+        -123.0690897
+    ],
+    "delta  surrey, White Rock, BC, Canada": [
+        49.0473056,
+        -122.9665219
+    ],
+    "390, Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "Gas, Vancouver, BC, Canada": [
+        49.2945762,
+        -123.118301
+    ],
+    "two, Abbotsford, BC, Canada": [
+        49.0485619,
+        -122.2926934
     ]
 }
