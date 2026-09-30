@@ -23055,10 +23055,6 @@
         49.2856364,
         -123.119815
     ],
-    "Minoru Blvd  Granville Avenue, Richmond, BC, Canada": [
-        49.1626108,
-        -123.1397599
-    ],
     "A Avenue  104 Avenue, Surrey, BC, Canada": [
         49.1919709,
         -122.8241091
@@ -25955,14 +25951,6 @@
         49.3113676,
         -123.0704198
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "Lions Gate Bridge, Vancouver, BC, Canada": [
         49.3177998,
         -123.1363929
@@ -26082,5 +26070,133 @@
     "two, Abbotsford, BC, Canada": [
         49.0485619,
         -122.2926934
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "Chinatown BBQ, Vancouver, Vancouver, BC, Canada": [
+        49.2803102,
+        -123.1015048
+    ],
+    "well, Langley, Langley, BC, Canada": [
+        49.1193416,
+        -122.6586908
+    ],
+    "Waverley Ave  Imperial St, Burnaby, BC, Canada": [
+        49.2220167,
+        -122.9981625
+    ],
+    "Hope Rd, Vancouver, BC, Canada": [
+        49.3257149,
+        -123.111932
+    ],
+    "Tatlow Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.3205112,
+        -123.1174599
+    ],
+    "balsam St  W 4th Ave, Vancouver, BC, Canada": [
+        49.2683462,
+        -123.1602532
+    ],
+    "Office, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3074087,
+        -123.0219262
+    ],
+    "3575 West Broadway, Vancouver, BC, Canada": [
+        49.2635491,
+        -123.1390633
+    ],
+    "Woodwards 128 West Cordova St, Vancouver, BC, Canada": [
+        49.2829488,
+        -123.1080778
+    ],
+    "Furniture, Vancouver, BC, Canada": [
+        49.2820211,
+        -123.108083
+    ],
+    "Cutlery, Vancouver, Vancouver, BC, Canada": [
+        49.2179808,
+        -122.9751754
+    ],
+    "Kitchen, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3105671,
+        -123.0760227
+    ],
+    "500, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "den, West Vancouver, BC, Canada": [
+        49.3537143,
+        -123.2276147
+    ],
+    "1088 Richards St, Vancouver, BC, Canada": [
+        49.2771971,
+        -123.1217794
+    ],
+    "1455 Howe, Vancouver, BC, Canada": [
+        49.277405,
+        -123.1277937
+    ],
+    "Minoru Blvd  Granville Avenue, Richmond, BC, Canada": [
+        49.1628589,
+        -123.1408748
+    ],
+    "Office, Vancouver, Vancouver, BC, Canada": [
+        49.2955671,
+        -122.8067068
+    ],
+    "Shopping, Surrey, BC, Canada": [
+        49.0325486,
+        -122.8022877
+    ],
+    "Skytrain station, Surrey, BC, Canada": [
+        49.1211513,
+        -122.6946919
+    ],
+    "Community Centre, Burnaby, Burnaby, BC, Canada": [
+        49.2208951,
+        -122.9482032
+    ],
+    "1 St, Vancouver, Vancouver, BC, Canada": [
+        49.2825678,
+        -123.104125
+    ],
+    "boutique, Vancouver, BC, Canada": [
+        49.2760079,
+        -123.1151859
+    ],
+    "grocery store, Richmond, BC, Canada": [
+        49.1916674,
+        -123.1081615
+    ],
+    "990, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "BRIGHT, Burnaby, BC, Canada": [
+        49.2203849,
+        -122.9731445
+    ],
+    "Southwest Marine Dr, Vancouver, Vancouver, BC, Canada": [
+        49.2295013,
+        -123.176987
+    ],
+    "Cres Rd, Surrey, BC, Canada": [
+        49.0659968,
+        -122.8378111
+    ],
+    "David Lam Park, Vancouver, BC, Canada": [
+        49.2719754,
+        -123.1246619
+    ],
+    "Vine St, Vancouver, BC, Canada": [
+        49.2545655,
+        -123.1580347
     ]
 }
