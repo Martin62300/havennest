@@ -9863,10 +9863,6 @@
         49.1335105,
         -123.1308202
     ],
-    "4720 Lougheed Hwy, Burnaby, BC, Canada": [
-        49.2653358,
-        -122.994647
-    ],
     "Pender St, Burnaby, BC, Canada": [
         49.2801933,
         -123.0164524
@@ -17407,10 +17403,6 @@
         49.1340928,
         -123.1283175
     ],
-    "3590 West 26th Avenue, Vancouver, BC, Canada": [
-        49.2487639,
-        -123.184886
-    ],
     "22A Avenue, Surrey, BC, Canada": [
         49.0428707,
         -122.8583335
@@ -22443,10 +22435,6 @@
         49.2337653,
         -123.169975
     ],
-    "17350 4 Avenue, Surrey, BC, Canada": [
-        49.0093902,
-        -122.7432951
-    ],
     "Steveston  Number 1 Rd, Richmond, BC, Canada": [
         49.1236299,
         -123.1816368
@@ -24147,10 +24135,6 @@
         49.2536239,
         -123.0083314
     ],
-    "delta  surrey, Surrey, BC, Canada": [
-        49.1069688,
-        -122.8905167
-    ],
     "6905 Tyne St, Vancouver, BC, Canada": [
         49.226975,
         -123.0321631
@@ -24506,10 +24490,6 @@
     "7388 Kingsway, Burnaby, BC, Canada": [
         49.2185996,
         -122.9495587
-    ],
-    "7338 Gollner Avenue, Richmond, BC, Canada": [
-        49.1683608,
-        -123.1414673
     ],
     "2024 Fullerton Avenue, North Vancouver, BC, Canada": [
         49.329734,
@@ -25515,10 +25495,6 @@
         49.2174618,
         -123.1318716
     ],
-    "20360 Logan Avenue, Langley, BC, Canada": [
-        49.1073873,
-        -122.6575682
-    ],
     "3300 Bayswater Avenue, Coquitlam, BC, Canada": [
         49.2939353,
         -122.7624999
@@ -25787,10 +25763,6 @@
         49.3676593,
         -122.9489028
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
     "mountain view, Vancouver, BC, Canada": [
         49.2352644,
         -123.093833
@@ -25814,10 +25786,6 @@
     "850, Burnaby, BC, Canada": [
         49.2433804,
         -122.972545
-    ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
     ],
     "Downtown Vancouver, BC, Canada": [
         49.2824929,
@@ -26071,14 +26039,6 @@
         49.0485619,
         -122.2926934
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "Chinatown BBQ, Vancouver, Vancouver, BC, Canada": [
         49.2803102,
         -123.1015048
@@ -26198,5 +26158,181 @@
     "Vine St, Vancouver, BC, Canada": [
         49.2545655,
         -123.1580347
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "1280, New Westminster, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "7338 Gollner Avenue, Richmond, BC, Canada": [
+        49.1683608,
+        -123.1414673
+    ],
+    "1300, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "2600, Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "1300, Coquitlam, BC, Canada": [
+        49.2323669,
+        -122.8568687
+    ],
+    "St  Marine Dr, White Rock, BC, Canada": [
+        49.0166454,
+        -122.780989
+    ],
+    "St  72 Avenue, Langley, BC, Canada": [
+        49.1335316,
+        -122.675945
+    ],
+    "St  New McLellan Rd, Surrey, BC, Canada": [
+        49.1034552,
+        -122.8815867
+    ],
+    "McKinnon, Langley, Langley, BC, Canada": [
+        49.1809269,
+        -122.5985627
+    ],
+    "151 St  33 Rd, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "St  34 Avenue, Surrey, BC, Canada": [
+        49.0639269,
+        -122.8202725
+    ],
+    "33 Rd  148 St, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "33 Rd  151 St, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "193 Rd  76 Avenue, Langley, BC, Canada": [
+        49.1408811,
+        -122.675871
+    ],
+    "108 Avenue, Surrey, Surrey, BC, Canada": [
+        49.1986489,
+        -122.8045854
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "Elm St  Elm St, White Rock, BC, Canada": [
+        49.0235357,
+        -122.797924
+    ],
+    "4635 Napier St, Burnaby, BC, Canada": [
+        49.2748145,
+        -123.022233
+    ],
+    "Lonsdale Avenue, North Vancouver, BC, Canada": [
+        49.3122268,
+        -123.0782269
+    ],
+    "Marine Dr, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3224908,
+        -123.0985086
+    ],
+    "1385 Po Avenue, Port Coquitlam, BC, Canada": [
+        49.2617465,
+        -122.7536941
+    ],
+    "Barnet Hwy, Coquitlam, Coquitlam, BC, Canada": [
+        49.2768871,
+        -122.800235
+    ],
+    "4645 Brentlawn Dr, Burnaby, BC, Canada": [
+        49.2683179,
+        -122.9963437
+    ],
+    "Hwy, Port Moody, Port Moody, BC, Canada": [
+        49.2904817,
+        -122.8727798
+    ],
+    "20360 Logan Avenue, Langley, BC, Canada": [
+        49.1073873,
+        -122.6575682
+    ],
+    "Braeside Pl  Parkway Blvd, Coquitlam, BC, Canada": [
+        49.3161998,
+        -122.795568
+    ],
+    "4576 Beatrice St, Vancouver, BC, Canada": [
+        49.2436881,
+        -123.0662458
+    ],
+    "2743 East 5th Avenue, Vancouver, BC, Canada": [
+        49.2659988,
+        -123.0716396
+    ],
+    "Moody Park  Uptown, New Westminster, BC, Canada": [
+        49.2123972,
+        -122.9232344
+    ],
+    "2365 McLean Dr, Vancouver, BC, Canada": [
+        49.2635533,
+        -123.0760596
+    ],
+    "St  168 Avenue, Langley, BC, Canada": [
+        49.0529233,
+        -122.677546
+    ],
+    "4720 Lougheed Hwy, Burnaby, BC, Canada": [
+        49.2657159,
+        -122.9961288
+    ],
+    "20282 72B Avenue, Langley, BC, Canada": [
+        49.1343623,
+        -122.6594597
+    ],
+    "St., Burnaby, BC, Canada": [
+        49.2782775,
+        -122.9998169
+    ],
+    "3590 West 26th Avenue, Vancouver, BC, Canada": [
+        49.2487639,
+        -123.184886
+    ],
+    "14968 101A Avenue, Surrey, BC, Canada": [
+        49.1873137,
+        -122.7930353
+    ],
+    "15 Avenue  cumberland, BC, Canada": [
+        50.706034,
+        -120.3604687
+    ],
+    "delta  surrey, Surrey, BC, Canada": [
+        49.1069688,
+        -122.8905167
+    ],
+    "17350 4 Avenue, Surrey, BC, Canada": [
+        49.0093902,
+        -122.7432951
+    ],
+    "Comfy, Vancouver, BC, Canada": [
+        49.2631335,
+        -123.1196296
+    ],
+    "most, Surrey, Surrey, BC, Canada": [
+        49.1229549,
+        -122.797747
     ]
 }
