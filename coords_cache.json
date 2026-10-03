@@ -14495,10 +14495,6 @@
         49.2707752,
         -123.0705043
     ],
-    "525 West 14th Avenue, Vancouver, BC, Canada": [
-        49.2589738,
-        -123.1159714
-    ],
     "8740 Citation Dr, Richmond, BC, Canada": [
         49.1633074,
         -123.1264594
@@ -21215,14 +21211,6 @@
         49.3092284,
         -123.0673985
     ],
-    "8940 University Cres, Burnaby, BC, Canada": [
-        49.2804862,
-        -122.9088532
-    ],
-    "2186 Gilmore Avenue, Burnaby, BC, Canada": [
-        49.2652569,
-        -123.0137948
-    ],
     "Cambridge St  N.Boundary Rd, BC, Canada": [
         49.2862898,
         -123.0236685
@@ -24583,10 +24571,6 @@
         49.2508907,
         -123.231907
     ],
-    "2288 Alpha Avenue, Burnaby, BC, Canada": [
-        49.2634618,
-        -122.9997806
-    ],
     "1788 Gilmore Avenue, Burnaby, BC, Canada": [
         49.268332,
         -123.0137244
@@ -26159,14 +26143,6 @@
         49.2545655,
         -123.1580347
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "19506 3A Avenue, Surrey, BC, Canada": [
         49.0067791,
         -122.6826528
@@ -26334,5 +26310,169 @@
     "most, Surrey, Surrey, BC, Canada": [
         49.1229549,
         -122.797747
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "Nelson St, Burnaby, Burnaby, BC, Canada": [
+        49.2354716,
+        -122.9948095
+    ],
+    "Bruce St, Vancouver, Vancouver, BC, Canada": [
+        49.2346886,
+        -123.0700712
+    ],
+    "Inverness St, Vancouver, Vancouver, BC, Canada": [
+        49.2433662,
+        -123.0801793
+    ],
+    "North Rd, Port Moody, Port Moody, BC, Canada": [
+        49.2731411,
+        -122.8935842
+    ],
+    "400, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "Utilities, Vancouver, BC, Canada": [
+        49.1918931,
+        -123.1784227
+    ],
+    "Ross Rd  Hoskins Rd, Vancouver, North Vancouver, BC, Canada": [
+        49.3355784,
+        -123.0276264
+    ],
+    "W.68th Avenue, Vancouver, BC, Canada": [
+        49.2102548,
+        -123.1221862
+    ],
+    "Railway Avenue  Granville Avenue, Richmond, BC, Canada": [
+        49.1626125,
+        -123.1667616
+    ],
+    "8940 University Cres, Burnaby, BC, Canada": [
+        49.2804862,
+        -122.9088532
+    ],
+    "E.40 Avenue, Burnaby, BC, Canada": [
+        49.2145425,
+        -122.9496751
+    ],
+    "Cambridge St, Burnaby, Burnaby, BC, Canada": [
+        49.2864829,
+        -123.0119556
+    ],
+    "2288 Alpha Avenue, Burnaby, BC, Canada": [
+        49.2634618,
+        -122.9997806
+    ],
+    "1561 Booth Avenue, Coquitlam, BC, Canada": [
+        49.2393214,
+        -122.8508239
+    ],
+    "2186 Gilmore Avenue, Burnaby, BC, Canada": [
+        49.2652569,
+        -123.0137948
+    ],
+    "59th Ave west  Cambie St St, Vancouver, BC, Canada": [
+        49.2164929,
+        -123.1171155
+    ],
+    "2050 2nd Avenue, Vancouver, BC, Canada": [
+        49.2696378,
+        -123.1514259
+    ],
+    "large, Surrey, BC, Canada": [
+        49.1960044,
+        -122.8348115
+    ],
+    "Yukon St, Vancouver, Vancouver, BC, Canada": [
+        49.2079414,
+        -123.1152115
+    ],
+    "St  27A Avenue, Langley, BC, Canada": [
+        49.05211,
+        -122.4610095
+    ],
+    "middle, Port Moody, BC, Canada": [
+        49.2919355,
+        -122.842124
+    ],
+    "McGuigan Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2398027,
+        -123.1198058
+    ],
+    "Malabar Avenue, White Rock, BC, Canada": [
+        49.0283996,
+        -122.8414315
+    ],
+    "Lancaster St, White Rock, White Rock, BC, Canada": [
+        49.0289508,
+        -122.837404
+    ],
+    "1360 Mitchell St, Coquitlam, BC, Canada": [
+        49.2980623,
+        -122.7346176
+    ],
+    "W 63 Avenue, Vancouver, BC, Canada": [
+        49.1167226,
+        -122.7141654
+    ],
+    "18th St  Queens Avenue, West Vancouver, BC, Canada": [
+        49.3419234,
+        -123.163392
+    ],
+    "den, Vancouver, BC, Canada": [
+        49.279559,
+        -123.107842
+    ],
+    "330 N Nanaimo St, Vancouver, BC, Canada": [
+        49.2884235,
+        -123.056153
+    ],
+    "2098, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "7446 14 Avenue, BC, Canada": [
+        49.0275019,
+        -122.7535099
+    ],
+    "522 East 8th Avenue, Vancouver, BC, Canada": [
+        49.2631964,
+        -123.0924168
+    ],
+    "1589, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "1855 E. Georgia St, Vancouver, BC, Canada": [
+        49.2786827,
+        -123.0666666
+    ],
+    "2198, Vancouver, BC, Canada": [
+        49.2645689,
+        -123.2476074
+    ],
+    "1649, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "770 East 7th Avenue, Vancouver, BC, Canada": [
+        49.2640718,
+        -123.0875117
+    ],
+    "612 East 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "525 West 14th Avenue, Vancouver, BC, Canada": [
+        49.2589738,
+        -123.1159714
     ]
 }
