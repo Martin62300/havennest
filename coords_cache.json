@@ -8627,10 +8627,6 @@
         49.2749484,
         -123.1140814
     ],
-    "6300 Minoru Blvd, Richmond, BC, Canada": [
-        49.1663453,
-        -123.1403168
-    ],
     "10291 Addison St, Richmond, BC, Canada": [
         49.1394983,
         -123.1566002
@@ -26311,14 +26307,6 @@
         49.1229549,
         -122.797747
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "Nelson St, Burnaby, Burnaby, BC, Canada": [
         49.2354716,
         -122.9948095
@@ -26474,5 +26462,97 @@
     "525 West 14th Avenue, Vancouver, BC, Canada": [
         49.2589738,
         -123.1159714
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "800, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "front, Vancouver, BC, Canada": [
+        49.2638614,
+        -123.0986846
+    ],
+    "33150 4th Avenue, Vancouver, BC, Canada": [
+        49.1393786,
+        -123.1869771
+    ],
+    "MODERN, Vancouver, Vancouver, BC, Canada": [
+        49.2622477,
+        -123.0903901
+    ],
+    "central, Vancouver, Vancouver, BC, Canada": [
+        49.2714086,
+        -123.1012588
+    ],
+    "great, West Vancouver, BC, Canada": [
+        49.3599514,
+        -123.201507
+    ],
+    "commercial Dr, Vancouver, BC, Canada": [
+        49.2552369,
+        -123.0691228
+    ],
+    "E 4th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2673369,
+        -123.101761
+    ],
+    "East St. James Rd, North Vancouver, BC, Canada": [
+        49.3391633,
+        -123.0554353
+    ],
+    "Princess Avenue, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3373953,
+        -123.057946
+    ],
+    "lennox Ln, Burnaby, BC, Canada": [
+        49.2235204,
+        -122.9934981
+    ],
+    "nelson St, Burnaby, Burnaby, BC, Canada": [
+        49.2303011,
+        -122.9941222
+    ],
+    "96 Avenue  130 St, Surrey, BC, Canada": [
+        49.1767007,
+        -122.7567592
+    ],
+    "Victory Square, Vancouver, BC, Canada": [
+        49.2821907,
+        -123.1102907
+    ],
+    "100, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "1983 Blenheim St, Vancouver, BC, Canada": [
+        49.2687471,
+        -123.177962
+    ],
+    "E 37th Ave, Vancouver, BC, Canada": [
+        49.2368396,
+        -123.0752956
+    ],
+    "prince edward, Vancouver, Vancouver, BC, Canada": [
+        49.2515131,
+        -123.097641
+    ],
+    "168 St  110 Avenue, BC, Canada": [
+        49.1989721,
+        -122.7570127
+    ],
+    "BD  4BA, Langley, BC, Canada": [
+        49.1458458,
+        -122.6437523
+    ],
+    "6300 Minoru Blvd, Richmond, BC, Canada": [
+        49.1663453,
+        -123.1403168
     ]
 }
