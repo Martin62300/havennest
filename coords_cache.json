@@ -26139,10 +26139,6 @@
         49.2545655,
         -123.1580347
     ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "1280, New Westminster, BC, Canada": [
         49.2067726,
         -122.9108818
@@ -26459,18 +26455,6 @@
         49.2641225,
         -123.0905153
     ],
-    "525 West 14th Avenue, Vancouver, BC, Canada": [
-        49.2589738,
-        -123.1159714
-    ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "800, Port Moody, BC, Canada": [
         49.2821981,
         -122.8293554
@@ -26554,5 +26538,133 @@
     "6300 Minoru Blvd, Richmond, BC, Canada": [
         49.1663453,
         -123.1403168
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "50 Avenue, Langley, Langley, BC, Canada": [
+        49.09341,
+        -122.6784869
+    ],
+    "Main  E45th Avenue, Vancouver, BC, Canada": [
+        49.2471404,
+        -123.1013354
+    ],
+    "525 West 14th Avenue, Vancouver, BC, Canada": [
+        49.2589738,
+        -123.1159714
+    ],
+    "Cornwall Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2726902,
+        -123.1620483
+    ],
+    "Kitsilano Beaches , Vancouver, BC, Canada": [
+        49.2756531,
+        -123.1537326
+    ],
+    "80 Avenue, Surrey, Surrey, BC, Canada": [
+        49.148023,
+        -122.8215883
+    ],
+    "Delta Avenue, Burnaby, BC, Canada": [
+        49.282859,
+        -122.992049
+    ],
+    "space, Vancouver, BC, Canada": [
+        49.2757243,
+        -123.1259237
+    ],
+    "Burnaby Hospital, Burnaby, Burnaby, BC, Canada": [
+        49.2496569,
+        -123.0154533
+    ],
+    "bright, Burnaby, Burnaby, BC, Canada": [
+        49.2203849,
+        -122.9731445
+    ],
+    "995, Delta, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "coast, Coquitlam, Coquitlam, BC, Canada": [
+        49.3016741,
+        -122.7558697
+    ],
+    "3413 Harper Rd, Coquitlam, BC, Canada": [
+        49.3048928,
+        -122.7540374
+    ],
+    "433 SW Marine Dr, Vancouver, BC, Canada": [
+        49.2116011,
+        -123.1150805
+    ],
+    "hot water, Vancouver, Vancouver, BC, Canada": [
+        49.2831722,
+        -123.104026
+    ],
+    "1885 West 7th Avenue, Vancouver, BC, Canada": [
+        49.2656858,
+        -123.1477355
+    ],
+    "15825 85 Avenue, Surrey, BC, Canada": [
+        49.158609,
+        -122.785411
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "3100  2BR, BC, Canada": [
+        51.2556086,
+        -121.5331881
+    ],
+    "greenery, Surrey, Surrey, BC, Canada": [
+        49.1913333,
+        -122.7894455
+    ],
+    "Laurel St, Vancouver, BC, Canada": [
+        49.2055011,
+        -123.1252144
+    ],
+    "70th Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2084137,
+        -123.1262003
+    ],
+    "E 32nd Ave, Vancouver, Vancouver, BC, Canada": [
+        49.241569,
+        -123.0682378
+    ],
+    "Chesterfield avenue, North Vancouver, BC, Canada": [
+        49.313625,
+        -123.081397
+    ],
+    "14 St, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3185021,
+        -123.0885964
+    ],
+    "East Blvd, Vancouver, BC, Canada": [
+        49.2234837,
+        -123.1523155
+    ],
+    "W 44th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2304532,
+        -123.1083313
+    ],
+    "walk, New Westminster, New Westminster, BC, Canada": [
+        49.1854426,
+        -122.936496
+    ],
+    "46th Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2296256,
+        -123.1373832
+    ],
+    "6085 Irmin St, Burnaby, BC, Canada": [
+        49.2157389,
+        -123.0118815
     ]
 }
