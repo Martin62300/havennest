@@ -12127,10 +12127,6 @@
         49.2391752,
         -123.0500568
     ],
-    "6000 Mckay Avenue, Burnaby, BC, Canada": [
-        49.2290292,
-        -123.0026753
-    ],
     "6850 Laurel St, Vancouver, BC, Canada": [
         49.2232144,
         -123.1248176
@@ -20043,10 +20039,6 @@
         49.1732014,
         -123.1280827
     ],
-    "13428 105 Avenue, Surrey, BC, Canada": [
-        49.1929263,
-        -122.7875488
-    ],
     "1335 Palmerston Avenue, West Vancouver, BC, Canada": [
         49.3413069,
         -123.1861883
@@ -26199,10 +26191,6 @@
         49.1986489,
         -122.8045854
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
     "Elm St  Elm St, White Rock, BC, Canada": [
         49.0235357,
         -122.797924
@@ -26615,10 +26603,6 @@
         49.158609,
         -122.785411
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
     "3100  2BR, BC, Canada": [
         51.2556086,
         -121.5331881
@@ -26666,5 +26650,77 @@
     "6085 Irmin St, Burnaby, BC, Canada": [
         49.2157389,
         -123.0118815
+    ],
+    "Expo, Burnaby, BC, Canada": [
+        49.2122419,
+        -122.9593479
+    ],
+    "Millennium Line, Burnaby, Burnaby, BC, Canada": [
+        49.2584821,
+        -122.9543736
+    ],
+    "oak St, Vancouver, BC, Canada": [
+        49.2057615,
+        -123.1304201
+    ],
+    "park Dr, Vancouver, Vancouver, BC, Canada": [
+        49.2156327,
+        -123.134164
+    ],
+    "Carolina St, Vancouver, Vancouver, BC, Canada": [
+        49.256069,
+        -123.0918632
+    ],
+    "4631 West 14th Avenue, Vancouver, BC, Canada": [
+        49.2605085,
+        -123.2132641
+    ],
+    "broadway  Glen Dr, Vancouver, BC, Canada": [
+        49.2625152,
+        -123.0808737
+    ],
+    "Angus St, Vancouver, Vancouver, BC, Canada": [
+        49.2543407,
+        -123.1390534
+    ],
+    "bus station, Vancouver, BC, Canada": [
+        49.2381656,
+        -123.0308742
+    ],
+    "Folkestone Way, West Vancouver, West Vancouver, BC, Canada": [
+        49.3466778,
+        -123.1785633
+    ],
+    "Bridge, Vancouver, BC, Canada": [
+        49.2712721,
+        -123.1090853
+    ],
+    "39  Fraser St, Vancouver, BC, Canada": [
+        49.2275759,
+        -123.0907209
+    ],
+    "709 East 39th Avenue, Vancouver, BC, Canada": [
+        49.2350548,
+        -123.0901026
+    ],
+    "1338 Hames Cres, Coquitlam, BC, Canada": [
+        49.2947641,
+        -122.7543369
+    ],
+    "6450 East Blvd, Vancouver, BC, Canada": [
+        49.2276135,
+        -123.154303
+    ],
+    "1408 Strathmore Mews, Vancouver, BC, Canada": [
+        49.2727606,
+        -123.1266776
+    ],
+    "cozy, Vancouver, BC, Canada": [
+        49.2828578,
+        -123.118403
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
     ]
 }
