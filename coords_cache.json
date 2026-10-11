@@ -25403,10 +25403,6 @@
         49.2766432,
         -123.0678526
     ],
-    "BD  2.5 BA, Vancouver, North Vancouver, BC, Canada": [
-        49.4212265,
-        -122.9956043
-    ],
     "3 BRENTWOOD 4168 Lougheed Hwy, Burnaby, BC, Canada": [
         49.2659072,
         -123.0128344
@@ -26527,10 +26523,6 @@
         49.1663453,
         -123.1403168
     ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "19506 3A Avenue, Surrey, BC, Canada": [
         49.0067791,
         -122.6826528
@@ -26722,5 +26714,97 @@
     "West Port Moody, Port Moody, BC, Canada": [
         49.3099554,
         -122.8269491
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "1483 King Edward Avenue, Vancouver, BC, Canada": [
+        49.2511702,
+        -123.1517254
+    ],
+    "15268 105 Avenue, Surrey, BC, Canada": [
+        49.1929263,
+        -122.7875488
+    ],
+    "BD  2.5 BA, Vancouver, North Vancouver, BC, Canada": [
+        49.4212265,
+        -122.9956043
+    ],
+    "BD, Langley, BC, Canada": [
+        49.1458458,
+        -122.6437523
+    ],
+    "1BD, West Vancouver, BC, Canada": [
+        49.3311208,
+        -123.159479
+    ],
+    "2BD, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "3BD, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "2BA SOUTH, Port Moody, Port Moody, BC, Canada": [
+        49.3030024,
+        -122.8993241
+    ],
+    "2BD, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "Sitka House 150 James Rd, Port Moody, BC, Canada": [
+        49.2748529,
+        -122.8367124
+    ],
+    "St Johns Rd, Port Moody, Port Moody, BC, Canada": [
+        49.2764484,
+        -122.8311051
+    ],
+    "gardens, Surrey, BC, Canada": [
+        49.0580586,
+        -122.7859805
+    ],
+    "96 St  130 Avenue, Surrey, BC, Canada": [
+        49.1769326,
+        -122.6948096
+    ],
+    "Oak, Vancouver, BC, Canada": [
+        49.1973016,
+        -123.1218046
+    ],
+    "VERNON Dr, Vancouver, Vancouver, BC, Canada": [
+        49.2682388,
+        -123.0788826
+    ],
+    "Old yale Rd, Surrey, Surrey, BC, Canada": [
+        49.2007293,
+        -122.8855277
+    ],
+    "New Westminster 892 Carnarvon St, New Westminster, BC, Canada": [
+        49.2014068,
+        -122.9127069
+    ],
+    "Beautiful, North Vancouver, BC, Canada": [
+        49.3811092,
+        -122.8846582
+    ],
+    "Bright Lonsdale, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3247211,
+        -123.0725108
+    ],
+    "245, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "millennium line, Port Moody, Port Moody, BC, Canada": [
+        49.2730812,
+        -122.8757349
     ]
 }
