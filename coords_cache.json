@@ -26523,10 +26523,6 @@
         49.1663453,
         -123.1403168
     ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "50 Avenue, Langley, Langley, BC, Canada": [
         49.09341,
         -122.6784869
@@ -26711,18 +26707,6 @@
         49.2828578,
         -123.118403
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "1483 King Edward Avenue, Vancouver, BC, Canada": [
         49.2511702,
         -123.1517254
@@ -26806,5 +26790,169 @@
     "millennium line, Port Moody, Port Moody, BC, Canada": [
         49.2730812,
         -122.8757349
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "18, Vancouver, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "Water, Burnaby, BC, Canada": [
+        49.291771,
+        -123.0196784
+    ],
+    "Outdoor Pool, Burnaby, Burnaby, BC, Canada": [
+        49.2308846,
+        -122.931309
+    ],
+    "2.5 bath, Vancouver, Vancouver, BC, Canada": [
+        49.1892295,
+        -123.0899127
+    ],
+    "Crestline Rd, West Vancouver, BC, Canada": [
+        49.3560532,
+        -123.1406429
+    ],
+    "Millstream Rd, West Vancouver, West Vancouver, BC, Canada": [
+        49.3572781,
+        -123.1426739
+    ],
+    "Stanley Park 3008, Vancouver, BC, Canada": [
+        49.2983951,
+        -123.1176127
+    ],
+    "OFFICE, Vancouver, Vancouver, BC, Canada": [
+        49.2955671,
+        -122.8067068
+    ],
+    "118 Carrie Cates Ct, North Vancouver, BC, Canada": [
+        49.311153,
+        -123.0806201
+    ],
+    "550, North Vancouver, BC, Canada": [
+        49.3531212,
+        -123.0835792
+    ],
+    "Station St, Burnaby, Burnaby, BC, Canada": [
+        49.2284782,
+        -123.0013361
+    ],
+    "East Rd, Vancouver, Vancouver, BC, Canada": [
+        49.3136826,
+        -122.8467892
+    ],
+    "BURNABY St, Vancouver, Vancouver, BC, Canada": [
+        49.2827999,
+        -123.1370908
+    ],
+    "800, Coquitlam, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "Strathcona, Vancouver, BC, Canada": [
+        49.279554,
+        -123.0899788
+    ],
+    "100 Avenue  138 St, Surrey, BC, Canada": [
+        49.1276024,
+        -122.8399906
+    ],
+    "1420 W.11th Avenue, Vancouver, BC, Canada": [
+        49.2614607,
+        -123.1368585
+    ],
+    "8238 Saba Rd, Richmond, BC, Canada": [
+        49.168544,
+        -123.132948
+    ],
+    "W 32nd Ave  Arbutus St, Vancouver, BC, Canada": [
+        49.2426988,
+        -123.153606
+    ],
+    "Balfour St  Oak St, Vancouver, BC, Canada": [
+        49.2514242,
+        -123.1276129
+    ],
+    "Floor, Surrey, BC, Canada": [
+        49.1990077,
+        -122.8169071
+    ],
+    "New Westminster 218 Carnarvon St, New Westminster, BC, Canada": [
+        49.2014068,
+        -122.9127069
+    ],
+    "Merivale St, New Westminster, New Westminster, BC, Canada": [
+        49.2069488,
+        -122.9046977
+    ],
+    "3150, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "800, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "13 St, BC, Canada": [
+        50.2646116,
+        -119.2486585
+    ],
+    "4BD, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "4BA, Burnaby, Burnaby, BC, Canada": [
+        49.2831364,
+        -123.0146127
+    ],
+    "South Surrey, Surrey, BC, Canada": [
+        49.0474364,
+        -122.7823022
+    ],
+    "Elgin Park, Surrey, Surrey, BC, Canada": [
+        49.0646467,
+        -122.846658
+    ],
+    "SkyTrain, Port Moody, Port Moody, BC, Canada": [
+        49.2766535,
+        -122.8732386
+    ],
+    "2BD, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "1 777 Harbourside Dr, Vancouver, BC, Canada": [
+        49.3145779,
+        -123.0983756
+    ],
+    "Harbourside Dr, Vancouver, Vancouver, BC, Canada": [
+        49.3145779,
+        -123.0983756
+    ],
+    "5BR, West Vancouver, BC, Canada": [
+        49.3311208,
+        -123.159479
+    ],
+    "400, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "Kirkstone Rd, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3311941,
+        -123.0489409
     ]
 }
