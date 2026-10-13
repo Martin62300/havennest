@@ -8655,10 +8655,6 @@
         50.118987,
         -122.9558471
     ],
-    "13615 Fraser Hwy, Surrey, BC, Canada": [
-        49.1809336,
-        -122.8445551
-    ],
     "12592 102 Avenue, Surrey, BC, Canada": [
         49.1879482,
         -122.8733192
@@ -26791,18 +26787,6 @@
         49.2730812,
         -122.8757349
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "18, Vancouver, Vancouver, BC, Canada": [
         49.2608724,
         -123.113952
@@ -26954,5 +26938,89 @@
     "Kirkstone Rd, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
         49.3311941,
         -123.0489409
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "000, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "1415 East Broadway, Vancouver, BC, Canada": [
+        49.2626396,
+        -123.0749566
+    ],
+    "McLean Dr, Vancouver, Vancouver, BC, Canada": [
+        49.267767,
+        -123.0754782
+    ],
+    "101 808 East 8th Avenue, Vancouver, BC, Canada": [
+        49.2636706,
+        -123.0995893
+    ],
+    "153 Rd  16A Avenue, BC, Canada": [
+        49.0322136,
+        -122.842321
+    ],
+    "kincaid St, Burnaby, Burnaby, BC, Canada": [
+        49.2490399,
+        -123.0136729
+    ],
+    "Haro St, Vancouver, BC, Canada": [
+        49.291905,
+        -123.1382423
+    ],
+    "study, Surrey, Surrey, BC, Canada": [
+        49.0543394,
+        -122.7313524
+    ],
+    "fresh, Burnaby, Burnaby, BC, Canada": [
+        49.2200019,
+        -122.988244
+    ],
+    "E. 49th Avenue, Vancouver, BC, Canada": [
+        49.2250469,
+        -123.0592761
+    ],
+    "Saint George St, Vancouver, Vancouver, BC, Canada": [
+        49.2292462,
+        -123.093982
+    ],
+    "E 55th Ave  Fraser St, Vancouver, BC, Canada": [
+        49.2196068,
+        -123.0910777
+    ],
+    "Port Moody, Port Moody, BC, Canada": [
+        49.2823162,
+        -122.82998
+    ],
+    "Hwy 201 St  1 Ave, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "highland Blvd. 4152 highland blvd, North Vancouver, BC, Canada": [
+        49.3382241,
+        -123.10061
+    ],
+    "highland pl, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3473696,
+        -123.0918337
+    ],
+    "13615 Fraser Hwy, Surrey, BC, Canada": [
+        49.1809336,
+        -122.8445551
+    ],
+    "128 St, Surrey, Surrey, BC, Canada": [
+        49.2084152,
+        -122.8670157
     ]
 }
