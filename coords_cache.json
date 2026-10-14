@@ -615,10 +615,6 @@
         49.2694099,
         -123.155267
     ],
-    "Alberni Street, Vancouver, BC, Canada": [
-        49.2872269,
-        -123.1267113
-    ],
     "Kilby Court, Richmond, BC, Canada": [
         49.1869095,
         -123.1146975
@@ -23619,14 +23615,6 @@
         49.2238265,
         -122.9937703
     ],
-    "13303 Central Avenue, Surrey, BC, Canada": [
-        49.1896771,
-        -122.8405014
-    ],
-    "Burquitlam Station, Coquitlam, BC, Canada": [
-        49.2613584,
-        -122.8898923
-    ],
     "Country Club, West Vancouver, West Vancouver, BC, Canada": [
         49.343475,
         -123.1436132
@@ -26939,18 +26927,6 @@
         49.3311941,
         -123.0489409
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "000, Langley, BC, Canada": [
         49.1039289,
         -122.657047
@@ -27022,5 +26998,141 @@
     "128 St, Surrey, Surrey, BC, Canada": [
         49.2084152,
         -122.8670157
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "300, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "Jim Taylor Park, Vancouver, BC, Canada": [
+        49.2589791,
+        -123.247515
+    ],
+    "Pacific Spirit Regional Park, Vancouver, Vancouver, BC, Canada": [
+        49.2574846,
+        -123.2173026
+    ],
+    "high, Burnaby, BC, Canada": [
+        49.2774397,
+        -122.9072025
+    ],
+    "Burquitlam Station, Coquitlam, BC, Canada": [
+        49.2613584,
+        -122.8898923
+    ],
+    "30, Langley, Langley, BC, Canada": [
+        49.169126,
+        -122.5793628
+    ],
+    "1221 Bidwell St, Vancouver, BC, Canada": [
+        49.2863731,
+        -123.1408481
+    ],
+    "St 1483 King Edward Avenue, Vancouver, BC, Canada": [
+        49.2485462,
+        -123.0896275
+    ],
+    "Knight St KING EDWARD, Vancouver, Vancouver, BC, Canada": [
+        49.2486297,
+        -123.0766197
+    ],
+    "Everything, Vancouver, BC, Canada": [
+        49.2028271,
+        -123.0308662
+    ],
+    "13303 Central Avenue, Surrey, BC, Canada": [
+        49.1896771,
+        -122.8405014
+    ],
+    "Storage, New Westminster, New Westminster, BC, Canada": [
+        49.2028758,
+        -122.9287197
+    ],
+    "W 37th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2379352,
+        -123.13595
+    ],
+    "vancouver, Richmond, Richmond, BC, Canada": [
+        49.1928337,
+        -123.1829087
+    ],
+    "Landsdowne Rd, Richmond, Richmond, BC, Canada": [
+        49.1733117,
+        -123.1334828
+    ],
+    "Cook, Richmond, BC, Canada": [
+        49.1656127,
+        -123.1292262
+    ],
+    "private 1, Vancouver, Vancouver, BC, Canada": [
+        49.0897896,
+        -123.0702761
+    ],
+    "Pool, Vancouver, BC, Canada": [
+        49.3009685,
+        -123.1315604
+    ],
+    "guildford, Surrey, Surrey, BC, Canada": [
+        49.1930451,
+        -122.7971749
+    ],
+    "LOWER LONSDALE Vancouver, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3302699,
+        -123.0549106
+    ],
+    "Internet, Richmond, BC, Canada": [
+        49.182497,
+        -123.1377574
+    ],
+    "135 St  13 Ave, Vancouver, North Vancouver, BC, Canada": [
+        49.4212265,
+        -122.9956043
+    ],
+    "156 St  100 Avenue, BC, Canada": [
+        49.068267,
+        -122.7902115
+    ],
+    "1675 Lions Gate Ln, Vancouver, BC, Canada": [
+        49.3251128,
+        -123.122288
+    ],
+    "Capilano Rd, Vancouver, Vancouver, BC, Canada": [
+        49.2795496,
+        -122.8313541
+    ],
+    "YVR, Vancouver, BC, Canada": [
+        49.1928337,
+        -123.1829087
+    ],
+    "2325 Emery Ct, North Vancouver, BC, Canada": [
+        49.3303018,
+        -123.0408396
+    ],
+    "dent, Vancouver, Vancouver, BC, Canada": [
+        49.2052848,
+        -123.1280819
+    ],
+    "Yard, North Vancouver, BC, Canada": [
+        49.2999545,
+        -123.0210659
+    ],
+    "29 Avenue, Burnaby, Burnaby, BC, Canada": [
+        49.2145425,
+        -122.9496751
+    ],
+    "2957 E. 26 Avenue, BC, Canada": [
+        49.0492146,
+        -122.7975111
     ]
 }
