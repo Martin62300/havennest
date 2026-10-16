@@ -25739,10 +25739,6 @@
         49.2433804,
         -122.972545
     ],
-    "Downtown Vancouver, BC, Canada": [
-        49.2824929,
-        -123.1181364
-    ],
     "830 sq. ft. of, Delta, Delta, BC, Canada": [
         49.0922548,
         -122.8903598
@@ -26999,18 +26995,6 @@
         49.2084152,
         -122.8670157
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "300, Surrey, BC, Canada": [
         49.1913033,
         -122.849143
@@ -27134,5 +27118,153 @@
     "2957 E. 26 Avenue, BC, Canada": [
         49.0492146,
         -122.7975111
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "21783 Lougheed Hwy, BC, Canada": [
+        49.2538238,
+        -122.9230397
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "1205 Howe St, Vancouver, BC, Canada": [
+        49.2777583,
+        -123.1278247
+    ],
+    "701 Victoria Park West, North Vancouver, BC, Canada": [
+        49.3184104,
+        -123.0758558
+    ],
+    "Chesterfield Avenue, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.313625,
+        -123.081397
+    ],
+    "Kitchen, Burnaby, Burnaby, BC, Canada": [
+        49.2588258,
+        -122.9826307
+    ],
+    "5311 Goring St, Burnaby, BC, Canada": [
+        49.263425,
+        -122.9843341
+    ],
+    "27 Avenue  158 St, BC, Canada": [
+        54.4407166,
+        -124.2509881
+    ],
+    "8 3250, New Westminster, New Westminster, BC, Canada": [
+        49.2040333,
+        -122.9064857
+    ],
+    "136 1350, Surrey, Surrey, BC, Canada": [
+        49.0615999,
+        -122.8455418
+    ],
+    "Hwy 1  83 Ave, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "transit, North Vancouver, BC, Canada": [
+        49.3087937,
+        -123.0645783
+    ],
+    "136 St  FRASER Hwy, BC, Canada": [
+        53.9168132,
+        -122.7496296
+    ],
+    "16 St East  Grand Blvd, Vancouver, North Vancouver, BC, Canada": [
+        49.3166826,
+        -123.056496
+    ],
+    "Cordova St, Vancouver, BC, Canada": [
+        49.2821448,
+        -123.0923798
+    ],
+    "capilano, Vancouver, Vancouver, BC, Canada": [
+        49.288006,
+        -123.114697
+    ],
+    "AC, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "2B  1B, New Westminster, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "tiles, Burnaby, Burnaby, BC, Canada": [
+        49.2611919,
+        -123.002098
+    ],
+    "Royal Oak  Clinton St, Burnaby, BC, Canada": [
+        49.2129726,
+        -122.9879833
+    ],
+    "Den 1277 Hornby St, Vancouver, Vancouver, BC, Canada": [
+        49.282877,
+        -123.1205636
+    ],
+    "cooling, Coquitlam, Coquitlam, BC, Canada": [
+        49.249905,
+        -122.8631158
+    ],
+    "Safeway  S ave, BC, Canada": [
+        49.2484762,
+        -123.1264942
+    ],
+    "Chesterfield Avenue, North Vancouver, BC, Canada": [
+        49.3167045,
+        -123.0782238
+    ],
+    "Downtown Vancouver, BC, Canada": [
+        49.2824931,
+        -123.1181365
+    ],
+    "1768 COOK St, Vancouver, BC, Canada": [
+        49.2695757,
+        -123.1101121
+    ],
+    "W 2nd Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2699599,
+        -123.1561661
+    ],
+    "Pleasant 642 E 7th Ave, Vancouver, BC, Canada": [
+        49.2640267,
+        -123.0836838
+    ],
+    "Avenue One 1768 COOK St, Vancouver, BC, Canada": [
+        49.2696838,
+        -123.1101275
+    ],
+    "NELSON St, Vancouver, Vancouver, BC, Canada": [
+        49.2866364,
+        -123.1343994
+    ],
+    "Coal Harbour 588 BROUGHTON St, Vancouver, BC, Canada": [
+        49.2904149,
+        -123.125114
+    ],
+    "W PENDER St, Vancouver, Vancouver, BC, Canada": [
+        49.2882816,
+        -123.1229867
+    ],
+    "1199 SEYMOUR St, Vancouver, BC, Canada": [
+        49.2768722,
+        -123.1252035
+    ],
+    "DAVIE St, Vancouver, Vancouver, BC, Canada": [
+        49.2797382,
+        -123.1301971
+    ],
+    "RICHARDS St  ROBSON St, Vancouver, BC, Canada": [
+        49.2797564,
+        -123.1178625
     ]
 }
