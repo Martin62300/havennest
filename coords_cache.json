@@ -26391,10 +26391,6 @@
         49.0275019,
         -122.7535099
     ],
-    "522 East 8th Avenue, Vancouver, BC, Canada": [
-        49.2631964,
-        -123.0924168
-    ],
     "1589, Vancouver, BC, Canada": [
         49.2608724,
         -123.113952
@@ -26410,14 +26406,6 @@
     "1649, Vancouver, BC, Canada": [
         49.2608724,
         -123.113952
-    ],
-    "770 East 7th Avenue, Vancouver, BC, Canada": [
-        49.2640718,
-        -123.0875117
-    ],
-    "612 East 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
     ],
     "800, Port Moody, BC, Canada": [
         49.2821981,
@@ -26510,10 +26498,6 @@
     "Main  E45th Avenue, Vancouver, BC, Canada": [
         49.2471404,
         -123.1013354
-    ],
-    "525 West 14th Avenue, Vancouver, BC, Canada": [
-        49.2589738,
-        -123.1159714
     ],
     "Cornwall Avenue, Vancouver, Vancouver, BC, Canada": [
         49.2726902,
@@ -27119,14 +27103,6 @@
         49.0492146,
         -122.7975111
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "21783 Lougheed Hwy, BC, Canada": [
         49.2538238,
         -122.9230397
@@ -27266,5 +27242,105 @@
     "RICHARDS St  ROBSON St, Vancouver, BC, Canada": [
         49.2797564,
         -123.1178625
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3070 Guildford Way, BC, Canada": [
+        49.2842878,
+        -122.7895302
+    ],
+    "454 East 8th Avenue, Vancouver, BC, Canada": [
+        49.2632221,
+        -123.0940893
+    ],
+    "522 East 8th Avenue, Vancouver, BC, Canada": [
+        49.2631964,
+        -123.0924168
+    ],
+    "612 East 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "7466 14 Avenue, Burnaby, BC, Canada": [
+        49.2145425,
+        -122.9496751
+    ],
+    "770 East 7th Avenue, Vancouver, BC, Canada": [
+        49.2640718,
+        -123.0875117
+    ],
+    "525 West 14th Avenue, Vancouver, BC, Canada": [
+        49.2589738,
+        -123.1159714
+    ],
+    "113 Avenue  124 St, BC, Canada": [
+        56.2584619,
+        -120.8365882
+    ],
+    "Studio in Mt. Pleasant, Vancouver, BC, Canada": [
+        49.26496,
+        -123.107094
+    ],
+    "Fairview, Vancouver, Vancouver, BC, Canada": [
+        49.2641128,
+        -123.1268352
+    ],
+    "IN, Burnaby, BC, Canada": [
+        49.2104835,
+        -122.9604245
+    ],
+    "living room, Vancouver, BC, Canada": [
+        49.2548986,
+        -123.0199897
+    ],
+    "6658 Dow Avenue, Burnaby, BC, Canada": [
+        49.223318,
+        -123.0008377
+    ],
+    "140 St  96 Avenue, Surrey, BC, Canada": [
+        49.1770853,
+        -122.8352752
+    ],
+    "sunlight, Burnaby, Burnaby, BC, Canada": [
+        49.2189345,
+        -122.950874
+    ],
+    "Avenue, Vancouver 61 Avenue, Vancouver, BC, Canada": [
+        49.1135798,
+        -122.8062498
+    ],
+    "Walton Avenue, Coquitlam, Coquitlam, BC, Canada": [
+        49.2899456,
+        -122.7972953
+    ],
+    "Assembly St, Burnaby, BC, Canada": [
+        49.2147266,
+        -122.9878018
+    ],
+    "266 sq. ft., Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "189 a St  60 Ave, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "Pinetree Way, Coquitlam, Coquitlam, BC, Canada": [
+        49.2946664,
+        -122.7891278
+    ],
+    "1750 E 63rd Ave, Vancouver, BC, Canada": [
+        49.2125843,
+        -123.070202
+    ],
+    "Shell Rd  Williams Rd, Richmond, BC, Canada": [
+        49.1406332,
+        -123.1037518
     ]
 }
