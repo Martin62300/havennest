@@ -26675,14 +26675,6 @@
         49.2511702,
         -123.1517254
     ],
-    "15268 105 Avenue, Surrey, BC, Canada": [
-        49.1929263,
-        -122.7875488
-    ],
-    "BD  2.5 BA, Vancouver, North Vancouver, BC, Canada": [
-        49.4212265,
-        -122.9956043
-    ],
     "BD, Langley, BC, Canada": [
         49.1458458,
         -122.6437523
@@ -27107,10 +27099,6 @@
         49.2538238,
         -122.9230397
     ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "1205 Howe St, Vancouver, BC, Canada": [
         49.2777583,
         -123.1278247
@@ -27243,14 +27231,6 @@
         49.2797564,
         -123.1178625
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "3070 Guildford Way, BC, Canada": [
         49.2842878,
         -122.7895302
@@ -27342,5 +27322,101 @@
     "Shell Rd  Williams Rd, Richmond, BC, Canada": [
         49.1406332,
         -123.1037518
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "277 Thurlow St, Vancouver, BC, Canada": [
+        49.2888267,
+        -123.1190173
+    ],
+    "William St, North Vancouver, BC, Canada": [
+        49.3356016,
+        -123.0513549
+    ],
+    "Blundell Rd  1 Rd, Richmond, BC, Canada": [
+        49.1593892,
+        -123.0194054
+    ],
+    "Hastings, Burnaby, BC, Canada": [
+        49.2803354,
+        -122.959755
+    ],
+    "11500 75A Avenue, North Delta, , Surrey, BC, Canada": [
+        49.1401733,
+        -122.8945048
+    ],
+    "15268 105 Avenue, Surrey, BC, Canada": [
+        49.1929263,
+        -122.7875488
+    ],
+    "1216 Homer St, Vancouver, BC, Canada": [
+        49.2749942,
+        -123.1234532
+    ],
+    "up, Vancouver, Vancouver, BC, Canada": [
+        49.3320107,
+        -123.0943124
+    ],
+    "recreation centre, Vancouver, Vancouver, BC, Canada": [
+        49.2717876,
+        -123.1054301
+    ],
+    "8  Columbia St, New Westminster, BC, Canada": [
+        49.2072383,
+        -122.900544
+    ],
+    "West End 1155 Harwood St, Vancouver, BC, Canada": [
+        49.2814257,
+        -123.1372396
+    ],
+    "studio Burnaby St, Vancouver, BC, Canada": [
+        49.2196859,
+        -122.927988
+    ],
+    "Canada Hwy, Burnaby, BC, Canada": [
+        49.2437607,
+        -122.893751
+    ],
+    "Horne St  Government St, Burnaby, BC, Canada": [
+        49.2493855,
+        -122.9079668
+    ],
+    "1277 Hornby St, Vancouver, BC, Canada": [
+        49.2779997,
+        -123.1293472
+    ],
+    "BD  2.5 BA, Vancouver, North Vancouver, BC, Canada": [
+        49.4212265,
+        -122.9956043
+    ],
+    "550 E 57th Ave, Vancouver, BC, Canada": [
+        49.2179881,
+        -123.0935897
+    ],
+    "AC 201 St, Langley, Langley, BC, Canada": [
+        49.102058,
+        -122.6664783
+    ],
+    "Willingdon Ave  Kingsway, Burnaby, BC, Canada": [
+        49.2305914,
+        -123.0056051
+    ],
+    "St  85 Avenue, Langley, BC, Canada": [
+        49.1582728,
+        -122.6617682
+    ],
+    "DOWNTOWN VANCOUVER  COAL HARBOUR, Vancouver, BC, Canada": [
+        49.2885746,
+        -123.1212752
     ]
 }
