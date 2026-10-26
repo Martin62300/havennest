@@ -27323,18 +27323,6 @@
         49.1406332,
         -123.1037518
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "19506 3A Avenue, Surrey, BC, Canada": [
-        49.0067791,
-        -122.6826528
-    ],
     "277 Thurlow St, Vancouver, BC, Canada": [
         49.2888267,
         -123.1190173
@@ -27418,5 +27406,125 @@
     "DOWNTOWN VANCOUVER  COAL HARBOUR, Vancouver, BC, Canada": [
         49.2885746,
         -123.1212752
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "19506 3A Avenue, Surrey, BC, Canada": [
+        49.0067791,
+        -122.6826528
+    ],
+    "459 East 2nd St, Vancouver, North Vancouver, BC, Canada": [
+        49.3106858,
+        -123.0732788
+    ],
+    "5906 176A St, Surrey, BC, Canada": [
+        49.109613,
+        -122.7334765
+    ],
+    "West Rd, Vancouver, Vancouver, BC, Canada": [
+        49.1925495,
+        -123.1314464
+    ],
+    "212 B St  96 Ave, Maple Ridge, BC, Canada": [
+        49.2197345,
+        -122.599707
+    ],
+    "208 A St  69 Ave, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "24 Avenue, Langley, Langley, BC, Canada": [
+        49.0456624,
+        -122.6788318
+    ],
+    "library, Coquitlam, BC, Canada": [
+        49.2803029,
+        -122.7878073
+    ],
+    "transit, Surrey, BC, Canada": [
+        49.1419413,
+        -122.8536102
+    ],
+    "167 St, Surrey, Surrey, BC, Canada": [
+        49.0343751,
+        -122.7599757
+    ],
+    "F 89 Nelson St., Vancouver, BC, Canada": [
+        49.2917366,
+        -123.1422831
+    ],
+    "of Denman 1949 Comox St, Vancouver, BC, Canada": [
+        49.2852406,
+        -123.1342018
+    ],
+    "5125 KEITH St, Burnaby, BC, Canada": [
+        49.2067717,
+        -123.0202635
+    ],
+    "King Edward  Cambie St, Vancouver, BC, Canada": [
+        49.2493003,
+        -123.1153315
+    ],
+    "One, Vancouver, Vancouver, BC, Canada": [
+        49.2365017,
+        -122.9533421
+    ],
+    "dining, Surrey, BC, Canada": [
+        49.0370091,
+        -122.8014564
+    ],
+    "3.5, Richmond, Richmond, BC, Canada": [
+        49.1845712,
+        -123.0356445
+    ],
+    "Riverside Dr, North Vancouver, BC, Canada": [
+        49.3159078,
+        -123.010844
+    ],
+    "Swinburne Avenue, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3217579,
+        -123.0050614
+    ],
+    "in, Vancouver, BC, Canada": [
+        49.2878691,
+        -123.112941
+    ],
+    "2550 Shelley Rd, Vancouver, North Vancouver, BC, Canada": [
+        49.3208592,
+        -123.0037117
+    ],
+    "Huxley Avenue, Burnaby, BC, Canada": [
+        49.2438536,
+        -123.0070079
+    ],
+    "Moscrop St, Burnaby, Burnaby, BC, Canada": [
+        49.2430306,
+        -123.0162398
+    ],
+    "Hwy 148 St  99 Ave, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "650, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "20A Ave  168 St, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "BURRARD, Vancouver, Vancouver, BC, Canada": [
+        49.2856364,
+        -123.119815
+    ],
+    "BROADWAY, Vancouver, BC, Canada": [
+        49.2618519,
+        -123.0691167
     ]
 }
