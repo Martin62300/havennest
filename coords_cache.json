@@ -23055,10 +23055,6 @@
         49.274915,
         -123.1301395
     ],
-    "2B  1B, Surrey, BC, Canada": [
-        49.1913033,
-        -122.849143
-    ],
     "Burfield Pl, West Vancouver, BC, Canada": [
         49.3497182,
         -123.1989365
@@ -26487,10 +26483,6 @@
         49.1458458,
         -122.6437523
     ],
-    "6300 Minoru Blvd, Richmond, BC, Canada": [
-        49.1663453,
-        -123.1403168
-    ],
     "50 Avenue, Langley, Langley, BC, Canada": [
         49.09341,
         -122.6784869
@@ -27239,10 +27231,6 @@
         49.2632221,
         -123.0940893
     ],
-    "522 East 8th Avenue, Vancouver, BC, Canada": [
-        49.2631964,
-        -123.0924168
-    ],
     "612 East 7th Avenue, Vancouver, BC, Canada": [
         49.2641225,
         -123.0905153
@@ -27407,14 +27395,6 @@
         49.2885746,
         -123.1212752
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "19506 3A Avenue, Surrey, BC, Canada": [
         49.0067791,
         -122.6826528
@@ -27526,5 +27506,169 @@
     "BROADWAY, Vancouver, BC, Canada": [
         49.2618519,
         -123.0691167
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "177 175A St, Surrey, BC, Canada": [
+        49.0051906,
+        -122.7384344
+    ],
+    "150, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "C 2738 Library Ln, North Vancouver, BC, Canada": [
+        49.3337462,
+        -123.0387928
+    ],
+    "East St, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3105567,
+        -123.0641912
+    ],
+    "1250 Comox St, Vancouver, BC, Canada": [
+        49.2836271,
+        -123.1324351
+    ],
+    "6 St, West Vancouver, BC, Canada": [
+        49.3297896,
+        -123.1459722
+    ],
+    "Tolmie St, Vancouver, Vancouver, BC, Canada": [
+        49.2676434,
+        -123.2120201
+    ],
+    "Switchmen St, Vancouver, Vancouver, BC, Canada": [
+        49.2710847,
+        -123.1014917
+    ],
+    "2843 West 49th Avenue, Vancouver, BC, Canada": [
+        49.2276207,
+        -123.1686228
+    ],
+    "3818 Broadway W, Vancouver, BC, Canada": [
+        49.2641667,
+        -123.1883671
+    ],
+    "Prince Edward St, Vancouver, BC, Canada": [
+        49.2188036,
+        -123.0977471
+    ],
+    "211 11 St  211 11 St, New Westminster, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "Fifth St, New Westminster, BC, Canada": [
+        49.2181779,
+        -122.9245073
+    ],
+    "Fourth Avenue, New Westminster, New Westminster, BC, Canada": [
+        49.212806,
+        -122.9118369
+    ],
+    "50 E 40th Ave, Vancouver, BC, Canada": [
+        49.2343195,
+        -123.1045656
+    ],
+    "ocean view, North Vancouver, BC, Canada": [
+        49.3167248,
+        -123.0769998
+    ],
+    "10721 139 St, Surrey, BC, Canada": [
+        49.1975137,
+        -122.8376912
+    ],
+    "120 St  scott Rd, Surrey, BC, Canada": [
+        49.1753236,
+        -122.8895931
+    ],
+    "short, Vancouver, BC, Canada": [
+        49.275578,
+        -123.1189639
+    ],
+    "long term West, Vancouver, Vancouver, BC, Canada": [
+        49.3718643,
+        -123.2731982
+    ],
+    "Richmond 7371 Westminster Hwy, Richmond, BC, Canada": [
+        49.1703896,
+        -123.1362002
+    ],
+    "6300 Minoru Blvd, Richmond, BC, Canada": [
+        49.1663453,
+        -123.1403168
+    ],
+    "1br, Coquitlam, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "2B  1B, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "BURNABY, Burnaby, BC, Canada": [
+        49.2322829,
+        -122.9328007
+    ],
+    "522 East 8th Avenue, Vancouver, BC, Canada": [
+        49.2631964,
+        -123.0924168
+    ],
+    "Pet, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3204964,
+        -123.0951024
+    ],
+    "13428 105 Avenue, Surrey, BC, Canada": [
+        49.1929263,
+        -122.7875488
+    ],
+    "Brunette Avenue, New Westminster, New Westminster, BC, Canada": [
+        49.2231875,
+        -122.8916434
+    ],
+    "450, Port Coquitlam, BC, Canada": [
+        49.2621643,
+        -122.780542
+    ],
+    "grocery, Burnaby, BC, Canada": [
+        49.2207205,
+        -122.9304631
+    ],
+    "New Westminster 520 11 St, Burnaby, BC, Canada": [
+        49.2315103,
+        -122.906135
+    ],
+    "6 Avenue, Burnaby, Burnaby, BC, Canada": [
+        49.2145425,
+        -122.9496751
+    ],
+    "750, New Westminster, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "OAK 1065 West, Vancouver, Vancouver, BC, Canada": [
+        49.1924622,
+        -123.1187291
+    ],
+    "More, Richmond, Richmond, BC, Canada": [
+        49.1721,
+        -123.132726
+    ],
+    "113 Avenue  126A St, BC, Canada": [
+        56.2584609,
+        -120.8383614
+    ],
+    "4500 Eton St, Burnaby, BC, Canada": [
+        49.2874062,
+        -123.0144412
     ]
 }
