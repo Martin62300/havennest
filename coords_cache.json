@@ -24979,10 +24979,6 @@
         49.3609362,
         -123.2810008
     ],
-    "4650 Brentwood Blvd, Burnaby, BC, Canada": [
-        49.2687297,
-        -123.0022002
-    ],
     "15388 101 Avenue, Surrey, BC, Canada": [
         49.186136,
         -122.8009071
@@ -26311,10 +26307,6 @@
         49.2864829,
         -123.0119556
     ],
-    "2288 Alpha Avenue, Burnaby, BC, Canada": [
-        49.2634618,
-        -122.9997806
-    ],
     "1561 Booth Avenue, Coquitlam, BC, Canada": [
         49.2393214,
         -122.8508239
@@ -26542,10 +26534,6 @@
     "1885 West 7th Avenue, Vancouver, BC, Canada": [
         49.2656858,
         -123.1477355
-    ],
-    "15825 85 Avenue, Surrey, BC, Canada": [
-        49.158609,
-        -122.785411
     ],
     "3100  2BR, BC, Canada": [
         51.2556086,
@@ -27507,18 +27495,6 @@
         49.2618519,
         -123.0691167
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
     "177 175A St, Surrey, BC, Canada": [
         49.0051906,
         -122.7384344
@@ -27670,5 +27646,153 @@
     "4500 Eton St, Burnaby, BC, Canada": [
         49.2874062,
         -123.0144412
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "at 1591 W 16th Ave, Vancouver, BC, Canada": [
+        49.257194,
+        -123.1268843
+    ],
+    "Fir St, Vancouver, Vancouver, BC, Canada": [
+        49.2562444,
+        -123.1411007
+    ],
+    "5380 Oben St, Vancouver, BC, Canada": [
+        49.2353833,
+        -123.0264893
+    ],
+    "Marine Way  Byrne Rd, Burnaby, BC, Canada": [
+        49.2022735,
+        -122.9812019
+    ],
+    "9150 University High St, Burnaby, BC, Canada": [
+        49.2774067,
+        -122.9084808
+    ],
+    "MOUNTAIN, Burnaby, BC, Canada": [
+        49.2793412,
+        -122.908708
+    ],
+    "13321 102a Avenue, Surrey, BC, Canada": [
+        49.1892787,
+        -122.8539675
+    ],
+    "2288 Alpha Avenue, Burnaby, BC, Canada": [
+        49.2634618,
+        -122.9997806
+    ],
+    "2651 Library Ln, Vancouver, North Vancouver, BC, Canada": [
+        49.3325032,
+        -123.0398488
+    ],
+    "Shower, Vancouver, Vancouver, BC, Canada": [
+        49.0994426,
+        -122.7122496
+    ],
+    "4650 Brentwood Blvd, Burnaby, BC, Canada": [
+        49.2687297,
+        -123.0022002
+    ],
+    "Wellness  Spa, Richmond, BC, Canada": [
+        49.1693496,
+        -123.133928
+    ],
+    "New, Surrey, BC, Canada": [
+        49.2076336,
+        -122.8925889
+    ],
+    "100, New Westminster, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "26 St, North Vancouver, BC, Canada": [
+        49.3476497,
+        -123.0632729
+    ],
+    "St. Andrew Avenue, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3338636,
+        -123.0755886
+    ],
+    "Parking, Port Moody, BC, Canada": [
+        49.2761253,
+        -122.8570622
+    ],
+    "15825 85 Avenue, Surrey, BC, Canada": [
+        49.158609,
+        -122.785411
+    ],
+    "408 E Columbia St, New Westminster, BC, Canada": [
+        49.2283626,
+        -122.8924507
+    ],
+    "Driveway  St, Richmond, BC, Canada": [
+        49.1887284,
+        -123.1560816
+    ],
+    "NEW, Vancouver, BC, Canada": [
+        49.2894913,
+        -123.0365936
+    ],
+    "900, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "2850, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "Kits Beach, Vancouver, Vancouver, BC, Canada": [
+        49.2756531,
+        -123.1537326
+    ],
+    "beauty of Coal Harbour, Vancouver, BC, Canada": [
+        49.2873834,
+        -123.120873
+    ],
+    "Fourth avenue, New Westminster, BC, Canada": [
+        49.212806,
+        -122.9118369
+    ],
+    "Tenth St, New Westminster, New Westminster, BC, Canada": [
+        49.2065993,
+        -122.9230905
+    ],
+    "kitchen, Burnaby, Burnaby, BC, Canada": [
+        49.2588258,
+        -122.9826307
+    ],
+    "at 889 Pacific St, Vancouver, BC, Canada": [
+        49.2783684,
+        -123.1346121
+    ],
+    "at 1111 Alberni St, Vancouver, BC, Canada": [
+        49.2849045,
+        -123.123416
+    ],
+    "stylish, Vancouver, BC, Canada": [
+        49.2575772,
+        -123.1853747
+    ],
+    "Parking, Coquitlam, BC, Canada": [
+        49.280693,
+        -122.799152
+    ],
+    "The Kitchen, Vancouver, BC, Canada": [
+        49.2634725,
+        -123.2089582
+    ],
+    "100, Port Moody, Port Moody, BC, Canada": [
+        49.2823162,
+        -122.82998
     ]
 }
