@@ -10511,10 +10511,6 @@
         49.2695757,
         -123.1101121
     ],
-    "338 Taylor Way, West Vancouver, BC, Canada": [
-        49.3354945,
-        -123.1347971
-    ],
     "254 West 3rd St, Vancouver, BC, Canada": [
         49.3158286,
         -123.0818927
@@ -17874,10 +17870,6 @@
     "2651 East 18th Avenue, Vancouver, BC, Canada": [
         49.2540075,
         -123.0377455
-    ],
-    "15778 85 Avenue, Surrey, BC, Canada": [
-        49.1584926,
-        -122.7880268
     ],
     "Morgan, Surrey, Surrey, BC, Canada": [
         49.0669454,
@@ -26203,10 +26195,6 @@
         49.2436881,
         -123.0662458
     ],
-    "2743 East 5th Avenue, Vancouver, BC, Canada": [
-        49.2659988,
-        -123.0716396
-    ],
     "Moody Park  Uptown, New Westminster, BC, Canada": [
         49.2123972,
         -122.9232344
@@ -26826,10 +26814,6 @@
     "800, Langley, BC, Canada": [
         49.1039289,
         -122.657047
-    ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
     ],
     "13 St, BC, Canada": [
         50.2646116,
@@ -27647,18 +27631,6 @@
         49.2874062,
         -123.0144412
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
     "at 1591 W 16th Ave, Vancouver, BC, Canada": [
         49.257194,
         -123.1268843
@@ -27794,5 +27766,189 @@
     "100, Port Moody, Port Moody, BC, Canada": [
         49.2823162,
         -122.82998
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "Pacific blvd, Vancouver, Vancouver, BC, Canada": [
+        49.2762682,
+        -123.1100667
+    ],
+    "NEW 3, Burnaby, BC, Canada": [
+        49.223109,
+        -122.9434657
+    ],
+    "246 St  87 Ave, Maple Ridge, BC, Canada": [
+        49.2197345,
+        -122.599707
+    ],
+    "15778 85 Avenue, Surrey, BC, Canada": [
+        49.1584926,
+        -122.7880268
+    ],
+    "Main St  41 St, BC, Canada": [
+        44.1430763,
+        -78.4563765
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "Howard St, Burnaby, Burnaby, BC, Canada": [
+        49.2802325,
+        -122.983283
+    ],
+    "of Burnaby Heights burnaby, Burnaby, BC, Canada": [
+        49.2926769,
+        -123.0227696
+    ],
+    "13458 95 Avenue, Surrey, BC, Canada": [
+        49.1750805,
+        -122.7749515
+    ],
+    "432 13th St, North Vancouver, BC, Canada": [
+        49.3200625,
+        -123.0615235
+    ],
+    "362 W. 28th Avenue, BC, Canada": [
+        49.2465419,
+        -123.1417965
+    ],
+    "Br, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "Freezer, Vancouver, Vancouver, BC, Canada": [
+        49.2824768,
+        -123.0675809
+    ],
+    "Seymour Parkway, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3159794,
+        -122.9982732
+    ],
+    "Avenue  200 St, Langley, BC, Canada": [
+        49.1585375,
+        -122.6667356
+    ],
+    "gyms, Vancouver, Vancouver, BC, Canada": [
+        49.0853931,
+        -123.0839554
+    ],
+    "1005 Beach Avenue, Vancouver, BC, Canada": [
+        49.2768674,
+        -123.1341717
+    ],
+    "live, West Vancouver, BC, Canada": [
+        49.3260601,
+        -123.1375093
+    ],
+    "2br, West Vancouver, BC, Canada": [
+        49.3311208,
+        -123.159479
+    ],
+    "BATTISON St, Vancouver, BC, Canada": [
+        49.2278305,
+        -123.0305352
+    ],
+    "bd, Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "4526 Venables St, Burnaby, BC, Canada": [
+        49.2762545,
+        -123.002157
+    ],
+    "2743 East 5th Avenue, Vancouver, BC, Canada": [
+        49.2659988,
+        -123.0716396
+    ],
+    "338 Taylor Way, West Vancouver, BC, Canada": [
+        49.3357274,
+        -123.1349514
+    ],
+    "Cook Cres, Richmond, Richmond, BC, Canada": [
+        49.1682482,
+        -123.1277921
+    ],
+    "Richmond Centre 6500 Minoru Blvd, Richmond, BC, Canada": [
+        49.1657594,
+        -123.1403803
+    ],
+    "276 48th Avenue, Vancouver, BC, Canada": [
+        49.2266298,
+        -123.1123728
+    ],
+    "Alberta St, Vancouver, Vancouver, BC, Canada": [
+        49.2313344,
+        -123.1131359
+    ],
+    "Prince Albert St, Vancouver, Vancouver, BC, Canada": [
+        49.212924,
+        -123.0881511
+    ],
+    "13303 central Avenue, Surrey, BC, Canada": [
+        49.1896771,
+        -122.8405014
+    ],
+    "w, Burnaby, Burnaby, BC, Canada": [
+        49.2195456,
+        -122.9568895
+    ],
+    "000, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "Comox St  Denman St, Vancouver, BC, Canada": [
+        49.2885531,
+        -123.1400511
+    ],
+    "35 5115 Cambie St St St, Vancouver, BC, Canada": [
+        49.2394978,
+        -123.1178632
+    ],
+    "35th Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2392144,
+        -123.11645
+    ],
+    "21 Ave  165 St, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "watch, Burnaby, Burnaby, BC, Canada": [
+        49.2457326,
+        -122.893785
+    ],
+    "223 St  119 Avenue, Maple Ridge, BC, Canada": [
+        49.2276947,
+        -122.6041801
+    ],
+    "college, Burnaby, BC, Canada": [
+        49.2017484,
+        -122.9845702
+    ],
+    "bright, North Vancouver, BC, Canada": [
+        49.3247211,
+        -123.0725108
+    ],
+    "Pacific St, Vancouver, Vancouver, BC, Canada": [
+        49.2778437,
+        -123.1337246
+    ],
+    "Fraser  E 49th Ave, Vancouver, BC, Canada": [
+        49.2255577,
+        -123.0913168
+    ],
+    "Ash St  Broadway, Vancouver, BC, Canada": [
+        49.2633632,
+        -123.1167867
     ]
 }
