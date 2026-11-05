@@ -27767,18 +27767,6 @@
         49.2823162,
         -122.82998
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
     "Pacific blvd, Vancouver, Vancouver, BC, Canada": [
         49.2762682,
         -123.1100667
@@ -27798,10 +27786,6 @@
     "Main St  41 St, BC, Canada": [
         44.1430763,
         -78.4563765
-    ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
     ],
     "Howard St, Burnaby, Burnaby, BC, Canada": [
         49.2802325,
@@ -27950,5 +27934,113 @@
     "Ash St  Broadway, Vancouver, BC, Canada": [
         49.2633632,
         -123.1167867
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "family rooms, Vancouver, Vancouver, BC, Canada": [
+        49.1478403,
+        -123.1138983
+    ],
+    "Hwy 128 St  10 Ave, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "Elliot St, New Westminster, New Westminster, BC, Canada": [
+        49.2071714,
+        -122.9024693
+    ],
+    "Fir St 2965 Fir St, Vancouver, Vancouver, BC, Canada": [
+        49.2693718,
+        -123.1409245
+    ],
+    "North Delta, Surrey, BC, Canada": [
+        49.1069688,
+        -122.8905167
+    ],
+    "concrete construction, Vancouver, BC, Canada": [
+        49.2663377,
+        -123.1354369
+    ],
+    "Albert St, Burnaby, BC, Canada": [
+        49.2819533,
+        -123.0098945
+    ],
+    "convenience, Vancouver, Vancouver, BC, Canada": [
+        49.2585937,
+        -123.0448351
+    ],
+    "55 Water St, Vancouver, BC, Canada": [
+        49.2840238,
+        -123.1053348
+    ],
+    "5055 Springs Blvd, Delta, BC, Canada": [
+        49.0325766,
+        -123.0842557
+    ],
+    "Capilano Rd, Port Moody, Port Moody, BC, Canada": [
+        49.2795496,
+        -122.8313541
+    ],
+    "Berry St, Richmond, Richmond, BC, Canada": [
+        49.1349633,
+        -123.1177141
+    ],
+    "1200, Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "Granville St  W66th Avenue, Vancouver, BC, Canada": [
+        49.2270501,
+        -123.1402899
+    ],
+    "McMurray Avenue, Burnaby, BC, Canada": [
+        49.2289468,
+        -122.9964144
+    ],
+    "elementary, Burnaby, BC, Canada": [
+        49.2261417,
+        -122.9203027
+    ],
+    "Hwy 91  98 Ave, New Westminster, BC, Canada": [
+        49.2067726,
+        -122.9108818
+    ],
+    "shopping, North Vancouver, BC, Canada": [
+        49.3327269,
+        -123.0897178
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "New, Port Moody, BC, Canada": [
+        49.2832126,
+        -122.8260086
+    ],
+    "Avenue  128A St, BC, Canada": [
+        49.2046337,
+        -122.8666585
+    ],
+    "147 B St  61A Ave, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "St.  41 St, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "Parking, Vancouver, Vancouver, BC, Canada": [
+        49.3718643,
+        -123.2731982
     ]
 }
