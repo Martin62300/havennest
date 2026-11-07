@@ -27935,18 +27935,6 @@
         49.2633632,
         -123.1167867
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
     "family rooms, Vancouver, Vancouver, BC, Canada": [
         49.1478403,
         -123.1138983
@@ -28019,10 +28007,6 @@
         49.3327269,
         -123.0897178
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
     "New, Port Moody, BC, Canada": [
         49.2832126,
         -122.8260086
@@ -28042,5 +28026,113 @@
     "Parking, Vancouver, Vancouver, BC, Canada": [
         49.3718643,
         -123.2731982
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "300, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "William St, Burnaby, Burnaby, BC, Canada": [
+        49.2738945,
+        -123.0209265
+    ],
+    "Richards St, Vancouver, BC, Canada": [
+        49.2795903,
+        -123.1187226
+    ],
+    "2B 2Ba  In-, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "breakfast, Burnaby, Burnaby, BC, Canada": [
+        49.2666619,
+        -123.0007123
+    ],
+    "31 St, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.3099554,
+        -122.8269491
+    ],
+    "ocean view, Vancouver, Vancouver, BC, Canada": [
+        49.218651,
+        -123.0167049
+    ],
+    "St  104 Avenue, Surrey, BC, Canada": [
+        49.1896317,
+        -122.8033279
+    ],
+    "850, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "Hwy 408 St  99 Ave, Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "S.Granville 1410 W 13th Ave, Vancouver, BC, Canada": [
+        49.2599518,
+        -123.1385767
+    ],
+    "long term, Vancouver, Vancouver, BC, Canada": [
+        49.0869088,
+        -123.0621755
+    ],
+    "Avenue  201 St, Langley, BC, Canada": [
+        49.0935145,
+        -122.4622968
+    ],
+    "250, Coquitlam, BC, Canada": [
+        49.2842958,
+        -122.793281
+    ],
+    "Gas, Vancouver, Vancouver, BC, Canada": [
+        49.2945762,
+        -123.118301
+    ],
+    "Tyrol Rd, West Vancouver, BC, Canada": [
+        49.3441276,
+        -123.1535403
+    ],
+    "Cross Creek Rd, West Vancouver, West Vancouver, BC, Canada": [
+        49.3436341,
+        -123.1493926
+    ],
+    "370, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "3174 East 8th Avenue, Vancouver, BC, Canada": [
+        49.2631939,
+        -123.0593104
+    ],
+    "1850, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "One Bath, Vancouver, Vancouver, BC, Canada": [
+        49.1892295,
+        -123.0899127
+    ],
+    "138 St  114 avenue, Surrey, BC, Canada": [
+        49.1189505,
+        -122.8394642
+    ],
+    "96 avenue, Surrey, Surrey, BC, Canada": [
+        49.1770924,
+        -122.7380123
     ]
 }
