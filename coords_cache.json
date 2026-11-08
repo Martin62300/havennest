@@ -15499,10 +15499,6 @@
         49.2831364,
         -123.0146127
     ],
-    "5883 Barker Avenue, Burnaby, BC, Canada": [
-        49.2315434,
-        -123.0116568
-    ],
     "285 East 10th Avenue, Vancouver, BC, Canada": [
         49.2621121,
         -123.099338
@@ -28027,14 +28023,6 @@
         49.3718643,
         -123.2731982
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "3817 Princess Avenue, Vancouver, BC, Canada": [
         49.2779819,
         -123.0916359
@@ -28134,5 +28122,89 @@
     "96 avenue, Surrey, Surrey, BC, Canada": [
         49.1770924,
         -122.7380123
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "West End 1170 HARWOOD St, Vancouver, BC, Canada": [
+        49.2814257,
+        -123.1372396
+    ],
+    "in, Burnaby, Burnaby, BC, Canada": [
+        49.2104835,
+        -122.9604245
+    ],
+    "Arena Centre, Richmond, BC, Canada": [
+        49.1815423,
+        -123.1370182
+    ],
+    "8th Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2629574,
+        -123.0447758
+    ],
+    "East Broadway, Vancouver, Vancouver, BC, Canada": [
+        49.2625153,
+        -123.0935394
+    ],
+    "banks, Vancouver, BC, Canada": [
+        49.2775851,
+        -123.2209245
+    ],
+    "living, Burnaby, BC, Canada": [
+        49.2173787,
+        -122.9483702
+    ],
+    "5883 Barker Avenue, Burnaby, BC, Canada": [
+        49.2315434,
+        -123.0116568
+    ],
+    "rent burnaby, Burnaby, BC, Canada": [
+        49.2195596,
+        -122.971759
+    ],
+    "arcadia Rd, Richmond, BC, Canada": [
+        49.171925,
+        -123.1260337
+    ],
+    "132 St  112 Avenue, Surrey, BC, Canada": [
+        49.2097667,
+        -122.8558338
+    ],
+    "Driveway  St, Vancouver, BC, Canada": [
+        49.2508818,
+        -122.8164347
+    ],
+    "3535 W 35th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.240698,
+        -123.1832225
+    ],
+    "St. george St, Port Moody, BC, Canada": [
+        49.2755498,
+        -122.8693417
+    ],
+    "1B 1Ba  In-, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "Scotia St, Vancouver, Vancouver, BC, Canada": [
+        49.2680848,
+        -123.0978006
+    ],
+    "Westminster Pier Park, New Westminster, BC, Canada": [
+        49.2031927,
+        -122.9054649
+    ],
+    "kitchen, Vancouver, Vancouver, BC, Canada": [
+        49.2829266,
+        -123.123798
+    ],
+    "1br, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
     ]
 }
