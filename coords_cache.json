@@ -28023,10 +28023,6 @@
         49.3718643,
         -123.2731982
     ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
     "300, Port Moody, BC, Canada": [
         49.2821981,
         -122.8293554
@@ -28123,14 +28119,6 @@
         49.1770924,
         -122.7380123
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "West End 1170 HARWOOD St, Vancouver, BC, Canada": [
         49.2814257,
         -123.1372396
@@ -28206,5 +28194,129 @@
     "1br, Burnaby, BC, Canada": [
         49.2433804,
         -122.972545
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "100, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "2  Balsam, Vancouver, BC, Canada": [
+        49.2337405,
+        -123.1613777
+    ],
+    "St St 700 sq  ft, BC, Canada": [
+        55.001251,
+        -125.002441
+    ],
+    "Br, Vancouver, BC, Canada": [
+        49.2712721,
+        -123.1090853
+    ],
+    "living room, Vancouver, Vancouver, BC, Canada": [
+        49.2548986,
+        -123.0199897
+    ],
+    "Arbutus St  33 Rd, Vancouver, BC, Canada": [
+        49.2716797,
+        -123.1526516
+    ],
+    "Den at, Vancouver, Vancouver, BC, Canada": [
+        49.3537143,
+        -123.2276147
+    ],
+    "Storage, Burnaby, Burnaby, BC, Canada": [
+        49.1890272,
+        -122.9652488
+    ],
+    "5450 Blundell Rd, Richmond, BC, Canada": [
+        49.1556918,
+        -123.0322673
+    ],
+    "59 Avenue  Fraser St, BC, Canada": [
+        54.4446807,
+        -124.2538857
+    ],
+    "Chester St  SE Marine Dr, Vancouver, BC, Canada": [
+        49.2111521,
+        -123.0899965
+    ],
+    "Moscrop St, Burnaby, BC, Canada": [
+        49.2429462,
+        -123.0162434
+    ],
+    "Carleton Avenue, Burnaby, Burnaby, BC, Canada": [
+        49.2715849,
+        -123.0123598
+    ],
+    "Vine St  1 St, Vancouver, BC, Canada": [
+        49.2545655,
+        -123.1580347
+    ],
+    "fridge, Vancouver, Vancouver, BC, Canada": [
+        49.2488541,
+        -123.0644993
+    ],
+    "64 Ave  122 St, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "MARY 1465 W 14th Ave, Vancouver, BC, Canada": [
+        49.2591765,
+        -123.1378388
+    ],
+    "HEMLOCK St, Vancouver, Vancouver, BC, Canada": [
+        49.2593081,
+        -123.1362686
+    ],
+    "7000, Richmond, BC, Canada": [
+        49.1688999,
+        -123.1465888
+    ],
+    "655, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "4723 Dawson St, Burnaby, BC, Canada": [
+        49.2644578,
+        -122.973138
+    ],
+    "Keary St  East Columbia St, New Westminster, BC, Canada": [
+        49.225779,
+        -122.8928137
+    ],
+    "Safe, Vancouver, BC, Canada": [
+        49.2519172,
+        -123.0791588
+    ],
+    "3528 Galloway Avenue, Coquitlam, BC, Canada": [
+        49.2960973,
+        -122.7408379
+    ],
+    "the Cambie St St St, Vancouver, Vancouver, BC, Canada": [
+        49.2831924,
+        -123.109049
+    ],
+    "9850 DEAGLE Rd, Richmond, BC, Canada": [
+        49.1438971,
+        -123.1449357
+    ],
+    "4450 MAPLEWOOD CRES, Burnaby, BC, Canada": [
+        49.2374966,
+        -123.0051321
+    ],
+    "519 sq, North Vancouver, BC, Canada": [
+        49.3098691,
+        -123.0799016
     ]
 }
