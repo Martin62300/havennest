@@ -26031,10 +26031,6 @@
         49.277405,
         -123.1277937
     ],
-    "Minoru Blvd  Granville Avenue, Richmond, BC, Canada": [
-        49.1628589,
-        -123.1408748
-    ],
     "Office, Vancouver, Vancouver, BC, Canada": [
         49.2955671,
         -122.8067068
@@ -28047,10 +28043,6 @@
         49.2433804,
         -122.972545
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.3099554,
-        -122.8269491
-    ],
     "ocean view, Vancouver, Vancouver, BC, Canada": [
         49.218651,
         -123.0167049
@@ -28195,18 +28187,6 @@
         49.2433804,
         -122.972545
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
     "100, Burnaby, BC, Canada": [
         49.2433804,
         -122.972545
@@ -28318,5 +28298,161 @@
     "519 sq, North Vancouver, BC, Canada": [
         49.3098691,
         -123.0799016
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "133 St  104 Avenue, Surrey, BC, Canada": [
+        49.1917572,
+        -122.8545998
+    ],
+    "2355 Madison Avenue, Burnaby, BC, Canada": [
+        49.2630361,
+        -123.009434
+    ],
+    "St  24 Avenue, Surrey, BC, Canada": [
+        49.0456406,
+        -122.7641771
+    ],
+    "Peaceful, West Vancouver, BC, Canada": [
+        49.2681152,
+        -123.1595834
+    ],
+    "St  Queens Avenue, New Westminster, BC, Canada": [
+        49.2048798,
+        -122.9162301
+    ],
+    "Miele, Vancouver, BC, Canada": [
+        49.2762369,
+        -123.114576
+    ],
+    "Sub, Vancouver, Vancouver, BC, Canada": [
+        49.2815798,
+        -123.1248272
+    ],
+    "2330 MAPLE St, BC, Canada": [
+        49.2652873,
+        -123.1499651
+    ],
+    "7750 Nelson Avenue, Burnaby, BC, Canada": [
+        49.2135081,
+        -122.9934328
+    ],
+    "5883 BARKER AVENUE, Burnaby, BC, Canada": [
+        49.2315434,
+        -123.0116568
+    ],
+    "5883 BARKER Avenue, Burnaby, BC, Canada": [
+        49.2315434,
+        -123.0116568
+    ],
+    "4086 DOMINION St, Burnaby, BC, Canada": [
+        49.2561358,
+        -122.9878617
+    ],
+    "restaurants, Vancouver, BC, Canada": [
+        49.2257547,
+        -122.9906488
+    ],
+    "3150 E 4th Ave, Burnaby, BC, Canada": [
+        49.2666349,
+        -123.0235875
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.312717,
+        -122.8261137
+    ],
+    "57, Vancouver, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "about a 2, BC, Canada": [
+        50.0801172,
+        -123.0275229
+    ],
+    "Richards St  Robson St, Vancouver, BC, Canada": [
+        49.2797564,
+        -123.1178625
+    ],
+    "Dunsmuir St, Vancouver, Vancouver, BC, Canada": [
+        49.2832912,
+        -123.1159473
+    ],
+    "194 St  64 Avenue, BC, Canada": [
+        49.1190099,
+        -122.6850446
+    ],
+    "11225 240th St, BC, Canada": [
+        49.1628896,
+        -122.555004
+    ],
+    "400, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "956 Lytton St, Vancouver, North Vancouver, BC, Canada": [
+        49.3144911,
+        -123.0004894
+    ],
+    "2358 York Avenue, Vancouver, BC, Canada": [
+        49.2714913,
+        -123.1586829
+    ],
+    "Graveley St, Burnaby, BC, Canada": [
+        49.2702029,
+        -123.0083755
+    ],
+    "3605 Kingsway, Burnaby, BC, Canada": [
+        49.2232009,
+        -122.9833156
+    ],
+    "clean, Vancouver, BC, Canada": [
+        49.2647138,
+        -123.0807025
+    ],
+    "W 17th Ave  Columbia St, Vancouver, BC, Canada": [
+        49.2570642,
+        -123.185243
+    ],
+    "Arden Avenue, Burnaby, Burnaby, BC, Canada": [
+        49.264774,
+        -122.9370619
+    ],
+    "Minoru Blvd  Granville Avenue, Richmond, BC, Canada": [
+        49.1626108,
+        -123.1397599
+    ],
+    "Kamloops St  13 St, New Westminster, BC, Canada": [
+        49.2039796,
+        -122.9295343
+    ],
+    "W 20th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2533245,
+        -123.1164238
+    ],
+    "2B, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "6225 Lynas Ln, Richmond, BC, Canada": [
+        49.171095,
+        -123.1645033
+    ],
+    "11 St  5 Avenue, New Westminster, BC, Canada": [
+        49.2110613,
+        -122.9192128
+    ],
+    "975, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
     ]
 }
