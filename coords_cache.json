@@ -24059,10 +24059,6 @@
         49.2766137,
         -123.1185482
     ],
-    "Keefer Pl, Vancouver, BC, Canada": [
-        49.2794616,
-        -123.1060837
-    ],
     "718 princess St, Vancouver, BC, Canada": [
         49.2039169,
         -122.656891
@@ -27771,10 +27767,6 @@
         49.2197345,
         -122.599707
     ],
-    "15778 85 Avenue, Surrey, BC, Canada": [
-        49.1584926,
-        -122.7880268
-    ],
     "Main St  41 St, BC, Canada": [
         44.1430763,
         -78.4563765
@@ -28299,18 +28291,6 @@
         49.3098691,
         -123.0799016
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "133 St  104 Avenue, Surrey, BC, Canada": [
         49.1917572,
         -122.8545998
@@ -28454,5 +28434,145 @@
     "975, Vancouver, BC, Canada": [
         49.2608724,
         -123.113952
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "St  Tallon Pl, Surrey, BC, Canada": [
+        49.1759866,
+        -122.8366042
+    ],
+    "Lord St, Vancouver, BC, Canada": [
+        49.2100751,
+        -123.118649
+    ],
+    "White Rock  South Surrey White Rock, White Rock, BC, Canada": [
+        49.0311448,
+        -122.8452649
+    ],
+    "B dr, Vancouver, BC, Canada": [
+        49.3233771,
+        -123.1066126
+    ],
+    "10750 Blundell Rd, Richmond, BC, Canada": [
+        49.1555829,
+        -123.1509768
+    ],
+    "west, Vancouver, North Vancouver, North Vancouver, BC, Canada": [
+        49.3141366,
+        -123.0846641
+    ],
+    "living, North Vancouver, BC, Canada": [
+        49.3219179,
+        -123.1053298
+    ],
+    "5250 Inman Avenue, Burnaby, BC, Canada": [
+        49.236982,
+        -123.0158619
+    ],
+    "oven, Surrey, Surrey, BC, Canada": [
+        49.1781416,
+        -122.8424161
+    ],
+    "living, Surrey, Surrey, BC, Canada": [
+        49.1183533,
+        -122.8376782
+    ],
+    "1150 Crestline Rd, West Vancouver, BC, Canada": [
+        49.3560532,
+        -123.1406429
+    ],
+    "6550 Nolan St, Burnaby, BC, Canada": [
+        49.2238511,
+        -122.9776823
+    ],
+    "living, West Vancouver, BC, Canada": [
+        49.3299012,
+        -123.166724
+    ],
+    "2650 W 5th Ave, Vancouver, BC, Canada": [
+        49.2672462,
+        -123.1656202
+    ],
+    "Near Metro, Vancouver, BC, Canada": [
+        49.3637126,
+        -123.0652183
+    ],
+    "Kitchen, Richmond, BC, Canada": [
+        49.1844064,
+        -123.1334352
+    ],
+    "3950 W 33rd Ave, Vancouver, BC, Canada": [
+        49.2421765,
+        -123.1923048
+    ],
+    "3850 Emerald Dr, BC, Canada": [
+        54.0024506,
+        -122.7926347
+    ],
+    "Keefer Pl, Vancouver, BC, Canada": [
+        49.2794616,
+        -123.1060837
+    ],
+    "6550 Angus Dr, Vancouver, BC, Canada": [
+        49.2263731,
+        -123.1476105
+    ],
+    "2295, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "2150, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "W 29th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.246371,
+        -123.1991123
+    ],
+    "move, Burnaby, Burnaby, BC, Canada": [
+        49.2248571,
+        -122.940099
+    ],
+    "2B, Surrey, BC, Canada": [
+        49.0253025,
+        -122.764593
+    ],
+    "1B 9835 King George, Surrey, Surrey, BC, Canada": [
+        49.2066092,
+        -122.8658071
+    ],
+    "Stanley Park 1825 Haro St  Denman St, Vancouver, BC, Canada": [
+        49.2921862,
+        -123.1378666
+    ],
+    "time for, Vancouver, Vancouver, BC, Canada": [
+        49.3066087,
+        -123.0326454
+    ],
+    "St 1865 Haro St  Denman St, Vancouver, BC, Canada": [
+        49.291688,
+        -123.1379809
+    ],
+    "St 1851 Haro St  Denman St, Vancouver, BC, Canada": [
+        49.291688,
+        -123.1379809
+    ],
+    "Ocean view, Burnaby, BC, Canada": [
+        49.218651,
+        -123.0167049
+    ],
+    "15778 85 Avenue, Surrey, BC, Canada": [
+        49.1584926,
+        -122.7880268
     ]
 }
