@@ -28435,17 +28435,9 @@
         49.2608724,
         -123.113952
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
     "3817 Princess Avenue, Vancouver, BC, Canada": [
         49.2779819,
         -123.0916359
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
     ],
     "St  Tallon Pl, Surrey, BC, Canada": [
         49.1759866,
@@ -28574,5 +28566,97 @@
     "15778 85 Avenue, Surrey, BC, Canada": [
         49.1584926,
         -122.7880268
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "41 Avenue, Vancouver, BC, Canada": [
+        49.0764991,
+        -122.6609094
+    ],
+    "beach, Vancouver, Vancouver, BC, Canada": [
+        49.2817048,
+        -123.1395686
+    ],
+    "Nelson downtown Vancouver Seymour, Vancouver, Vancouver, BC, Canada": [
+        49.278802,
+        -123.1216436
+    ],
+    "Nicola St  Davie St, Vancouver, BC, Canada": [
+        49.2867034,
+        -123.134299
+    ],
+    "1900  1br, BC, Canada": [
+        49.3595975,
+        -121.7322158
+    ],
+    "chair, Burnaby, Burnaby, BC, Canada": [
+        49.2285241,
+        -123.0025105
+    ],
+    "Big, Maple Ridge, BC, Canada": [
+        49.2509076,
+        -122.4583201
+    ],
+    "Secondary school, Burnaby, Burnaby, BC, Canada": [
+        49.2164819,
+        -122.9847319
+    ],
+    "Wi, Burnaby, Burnaby, BC, Canada": [
+        49.256239,
+        -122.9957848
+    ],
+    "17, Vancouver, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "North Rd, Port Moody, BC, Canada": [
+        49.2731411,
+        -122.8935842
+    ],
+    "Cedar Grove Park, Surrey, BC, Canada": [
+        49.1881585,
+        -122.8299498
+    ],
+    "Green Timbers Urban Forest, Surrey, Surrey, BC, Canada": [
+        49.1802879,
+        -122.8187399
+    ],
+    "Heat, Burnaby, Burnaby, BC, Canada": [
+        49.2190275,
+        -122.9694464
+    ],
+    "1429 Strawline Hill St, Coquitlam, BC, Canada": [
+        49.2992445,
+        -122.7372211
+    ],
+    "restaurant, Vancouver, Vancouver, BC, Canada": [
+        49.2544351,
+        -123.0204526
+    ],
+    "104 Ave  University Dr, Surrey, BC, Canada": [
+        49.1921285,
+        -122.8507362
+    ],
+    "149 A St, Surrey, BC, Canada": [
+        49.0589516,
+        -122.8328369
+    ],
+    "102 A Avenue, Surrey, Surrey, BC, Canada": [
+        49.1854274,
+        -122.7259408
+    ],
+    "access to 56, Richmond, Richmond, BC, Canada": [
+        49.173599,
+        -123.0406104
+    ],
+    "residential area. Near Main St  Fraser St, BC, Canada": [
+        49.1722346,
+        -121.9673138
     ]
 }
