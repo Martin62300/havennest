@@ -20047,10 +20047,6 @@
         49.2820034,
         -122.7984278
     ],
-    "East  West, Vancouver, BC, Canada": [
-        49.2346465,
-        -122.8983333
-    ],
     "2629 6TH Avenue, Vancouver, BC, Canada": [
         49.265034,
         -123.0514217
@@ -27139,10 +27135,6 @@
         49.3167045,
         -123.0782238
     ],
-    "Downtown Vancouver, BC, Canada": [
-        49.2824931,
-        -123.1181365
-    ],
     "1768 COOK St, Vancouver, BC, Canada": [
         49.2695757,
         -123.1101121
@@ -28407,10 +28399,6 @@
         49.264774,
         -122.9370619
     ],
-    "Minoru Blvd  Granville Avenue, Richmond, BC, Canada": [
-        49.1626108,
-        -123.1397599
-    ],
     "Kamloops St  13 St, New Westminster, BC, Canada": [
         49.2039796,
         -122.9295343
@@ -28567,14 +28555,6 @@
         49.1584926,
         -122.7880268
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "41 Avenue, Vancouver, BC, Canada": [
         49.0764991,
         -122.6609094
@@ -28658,5 +28638,81 @@
     "residential area. Near Main St  Fraser St, BC, Canada": [
         49.1722346,
         -121.9673138
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "Downtown Vancouver, BC, Canada": [
+        49.2824931,
+        -123.1181365
+    ],
+    "1355 Pendrell St, Vancouver, BC, Canada": [
+        49.2841573,
+        -123.1343272
+    ],
+    "university, BC, Canada": [
+        52.1391049,
+        -106.6220531
+    ],
+    "Skytrain New Westminster 1550.00, New Westminster, New Westminster, BC, Canada": [
+        49.2037309,
+        -122.956945
+    ],
+    "Last, Vancouver, Vancouver, BC, Canada": [
+        49.2681021,
+        -122.4750427
+    ],
+    "Science World, Vancouver, Vancouver, BC, Canada": [
+        49.2734536,
+        -123.1036739
+    ],
+    "Avenue  153 St, Langley, BC, Canada": [
+        49.1066159,
+        -122.6587384
+    ],
+    "84 Avenue., Surrey, BC, Canada": [
+        49.15534,
+        -122.8624329
+    ],
+    "CITY, Vancouver, BC, Canada": [
+        49.2779085,
+        -123.1089417
+    ],
+    "E 6th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2650303,
+        -123.0631617
+    ],
+    "East  West, Vancouver, BC, Canada": [
+        49.2183138,
+        -122.9333905
+    ],
+    "laundry, Burnaby, Burnaby, BC, Canada": [
+        49.2140991,
+        -122.9883295
+    ],
+    "Mundy St, Coquitlam, BC, Canada": [
+        49.233199,
+        -122.8350363
+    ],
+    "Dawes Hill Rd, Coquitlam, Coquitlam, BC, Canada": [
+        49.2359244,
+        -122.8343766
+    ],
+    "Camosun St  West 31 St, Vancouver, BC, Canada": [
+        49.2613788,
+        -123.1970295
+    ],
+    "Minoru Blvd  Granville Avenue, Richmond, BC, Canada": [
+        49.1626108,
+        -123.1397599
+    ],
+    "laundry, Vancouver, BC, Canada": [
+        49.2676606,
+        -123.1052614
     ]
 }
