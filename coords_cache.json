@@ -20351,10 +20351,6 @@
         49.1992214,
         -122.8514216
     ],
-    "5687 Gray Avenue, Vancouver, BC, Canada": [
-        49.2532215,
-        -123.2314344
-    ],
     "13618 100 Avenue, Vancouver, BC, Canada": [
         49.1839218,
         -122.8447029
@@ -28423,10 +28419,6 @@
         49.2608724,
         -123.113952
     ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
     "St  Tallon Pl, Surrey, BC, Canada": [
         49.1759866,
         -122.8366042
@@ -28639,14 +28631,6 @@
         49.1722346,
         -121.9673138
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "Downtown Vancouver, BC, Canada": [
         49.2824931,
         -123.1181365
@@ -28714,5 +28698,133 @@
     "laundry, Vancouver, BC, Canada": [
         49.2676606,
         -123.1052614
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "350, Port Coquitlam, BC, Canada": [
+        49.2621643,
+        -122.780542
+    ],
+    "16539 8 Avenue, Surrey., BC, Canada": [
+        49.0168355,
+        -122.685283
+    ],
+    "1500 Fern St, Vancouver, North Vancouver, BC, Canada": [
+        49.3114774,
+        -123.0314429
+    ],
+    "W 12th Ave, Vancouver, Vancouver, BC, Canada": [
+        49.2614228,
+        -123.1705854
+    ],
+    "Bright, Delta, BC, Canada": [
+        49.0875759,
+        -123.051576
+    ],
+    "650, North Vancouver, BC, Canada": [
+        49.3206294,
+        -123.0737925
+    ],
+    "oven, New Westminster, BC, Canada": [
+        49.2248373,
+        -122.8910681
+    ],
+    "city, Port Moody, BC, Canada": [
+        49.2823162,
+        -122.82998
+    ],
+    "oven, Vancouver, BC, Canada": [
+        49.267926,
+        -123.1507143
+    ],
+    "500, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "5687 Gray Avenue, Vancouver, BC, Canada": [
+        49.2532215,
+        -123.2314344
+    ],
+    "550, Delta, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "800, Delta, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "The Amazing Brentwood Mall, Burnaby, BC, Canada": [
+        49.2680771,
+        -123.0003298
+    ],
+    "Beedie, Burnaby, Burnaby, BC, Canada": [
+        49.2569595,
+        -123.0115239
+    ],
+    "Russell Avenue, White Rock, BC, Canada": [
+        49.0292313,
+        -122.7813009
+    ],
+    "Kent St, White Rock, White Rock, BC, Canada": [
+        49.0183969,
+        -122.7847598
+    ],
+    "Hydro, Surrey, BC, Canada": [
+        49.165034,
+        -122.8826325
+    ],
+    "2026 9825 140 St, Surrey, BC, Canada": [
+        49.1375911,
+        -122.8346588
+    ],
+    "2060 Curling Rd, Vancouver, North Vancouver, BC, Canada": [
+        49.3256161,
+        -123.1223118
+    ],
+    "1200 West Georgia St, Vancouver, BC, Canada": [
+        49.2871051,
+        -123.1259525
+    ],
+    "650 Evergreen Pl, Vancouver, North Vancouver, BC, Canada": [
+        49.342056,
+        -123.0817263
+    ],
+    "9439 134 St, Surrey, BC, Canada": [
+        49.1809409,
+        -122.851331
+    ],
+    "BRIGHT, Vancouver, BC, Canada": [
+        49.2842936,
+        -123.1095896
+    ],
+    "PARKING, Langley, BC, Canada": [
+        49.1069171,
+        -122.6320584
+    ],
+    "134 a St  71 Ave, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "550, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "T, Burnaby, BC, Canada": [
+        49.2867828,
+        -122.9325314
+    ],
+    "Flex, Vancouver, Vancouver, BC, Canada": [
+        49.2619324,
+        -123.0189135
     ]
 }
