@@ -10267,10 +10267,6 @@
         49.2388378,
         -122.8639682
     ],
-    "1955 Alpha Way, Burnaby, BC, Canada": [
-        49.2668307,
-        -123.0003775
-    ],
     "5152 Cooper Pl, Delta, BC, Canada": [
         49.0967089,
         -123.0625193
@@ -21507,10 +21503,6 @@
         49.3155161,
         -123.066699
     ],
-    "7708 Alderbridge Way, Richmond, BC, Canada": [
-        49.1748868,
-        -123.1429122
-    ],
     "Ainsworth, Richmond, BC, Canada": [
         49.1390834,
         -123.1061482
@@ -28335,10 +28327,6 @@
         49.2666349,
         -123.0235875
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.312717,
-        -122.8261137
-    ],
     "57, Vancouver, Vancouver, BC, Canada": [
         49.2608724,
         -123.113952
@@ -28491,10 +28479,6 @@
         54.0024506,
         -122.7926347
     ],
-    "Keefer Pl, Vancouver, BC, Canada": [
-        49.2794616,
-        -123.1060837
-    ],
     "6550 Angus Dr, Vancouver, BC, Canada": [
         49.2263731,
         -123.1476105
@@ -28542,10 +28526,6 @@
     "Ocean view, Burnaby, BC, Canada": [
         49.218651,
         -123.0167049
-    ],
-    "15778 85 Avenue, Surrey, BC, Canada": [
-        49.1584926,
-        -122.7880268
     ],
     "41 Avenue, Vancouver, BC, Canada": [
         49.0764991,
@@ -28699,18 +28679,6 @@
         49.2676606,
         -123.1052614
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "350, Port Coquitlam, BC, Canada": [
         49.2621643,
         -122.780542
@@ -28826,5 +28794,125 @@
     "Flex, Vancouver, Vancouver, BC, Canada": [
         49.2619324,
         -123.0189135
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "bd., Vancouver, BC, Canada": [
+        49.1458458,
+        -122.6437523
+    ],
+    "15778 85 Avenue, Surrey, BC, Canada": [
+        49.1584926,
+        -122.7880268
+    ],
+    "1655 Nelson St, Vancouver, BC, Canada": [
+        49.2879576,
+        -123.1357978
+    ],
+    "2632 Library Ln, Vancouver, North Vancouver, BC, Canada": [
+        49.3323555,
+        -123.0389669
+    ],
+    "Floor, , North Vancouver, BC, Canada": [
+        49.2855421,
+        -123.0401982
+    ],
+    "3295 Mountain Hwy, Vancouver, North Vancouver, BC, Canada": [
+        49.2989239,
+        -123.0324152
+    ],
+    "458 West 63rd Avenue, Vancouver, BC, Canada": [
+        49.2129271,
+        -123.1158355
+    ],
+    "2333 Marine Dr, West Vancouver, BC, Canada": [
+        49.3267464,
+        -123.1423707
+    ],
+    "7088 17 Avenue, BC, Canada": [
+        49.0329187,
+        -122.7908327
+    ],
+    "Mount Pleasant, Vancouver, Vancouver, BC, Canada": [
+        49.2644165,
+        -123.1008859
+    ],
+    "laundry in unit, North Vancouver, BC, Canada": [
+        49.1611259,
+        -122.8922311
+    ],
+    "450 E 47th Ave, Vancouver, BC, Canada": [
+        49.227215,
+        -123.0957993
+    ],
+    "Ackroyd Rd 7988 Ackroyd Rd, Richmond, BC, Canada": [
+        49.1719438,
+        -123.134441
+    ],
+    "Line 455 SW Marine Dr, Vancouver, BC, Canada": [
+        49.2076982,
+        -123.1173439
+    ],
+    "Gym, Richmond, BC, Canada": [
+        49.1783373,
+        -123.1384545
+    ],
+    "1067 Seymour St, Vancouver, BC, Canada": [
+        49.2779846,
+        -123.1235483
+    ],
+    "pk, Richmond, BC, Canada": [
+        49.163168,
+        -123.137414
+    ],
+    "Canada Line, Richmond, Richmond, BC, Canada": [
+        49.1988847,
+        -123.1190152
+    ],
+    "6479 Selma Avenue, Burnaby, BC, Canada": [
+        49.227293,
+        -122.985757
+    ],
+    "2400 3054 West 10th Avenue, Vancouver, BC, Canada": [
+        49.262824,
+        -123.146239
+    ],
+    "300 Mundy St, Coquitlam, BC, Canada": [
+        49.233199,
+        -122.8350363
+    ],
+    "Keefer Pl, Vancouver, BC, Canada": [
+        49.2794616,
+        -123.1060837
+    ],
+    "1850 Tatlow Avenue, Vancouver, BC, Canada": [
+        49.3205112,
+        -123.1174599
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.312717,
+        -122.8261137
+    ],
+    "71 Ave  142 St, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "2256 Inglewood Avenue, West Vancouver, BC, Canada": [
+        49.3345667,
+        -123.1604786
+    ],
+    "1955 Alpha Way, Burnaby, BC, Canada": [
+        49.2668307,
+        -123.0003775
     ]
 }
