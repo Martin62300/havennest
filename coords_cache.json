@@ -28795,14 +28795,6 @@
         49.2619324,
         -123.0189135
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "3817 Princess Avenue, Vancouver, BC, Canada": [
         49.2779819,
         -123.0916359
@@ -28899,10 +28891,6 @@
         49.3205112,
         -123.1174599
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.312717,
-        -122.8261137
-    ],
     "71 Ave  142 St, Surrey, BC, Canada": [
         49.1913033,
         -122.849143
@@ -28914,5 +28902,93 @@
     "1955 Alpha Way, Burnaby, BC, Canada": [
         49.2668307,
         -123.0003775
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "Last, Burnaby, Burnaby, BC, Canada": [
+        49.2185183,
+        -122.9509724
+    ],
+    "doctors office, Burnaby, BC, Canada": [
+        49.2132641,
+        -122.988725
+    ],
+    "E 16th Ave  Main St, Vancouver, BC, Canada": [
+        49.2563469,
+        -123.1014198
+    ],
+    "Hwy 172 St  99 Ave, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "3800, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "Hwy 1  49 Ave, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "850, Port Moody, BC, Canada": [
+        49.2821981,
+        -122.8293554
+    ],
+    "Granville, Vancouver, Vancouver, BC, Canada": [
+        49.2834541,
+        -123.1160353
+    ],
+    "600, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "4326 W.10th Avenue, Vancouver, BC, Canada": [
+        49.2635114,
+        -123.2038391
+    ],
+    "Eastleigh Cres  Glover Rd, Langley, BC, Canada": [
+        49.1075959,
+        -122.6512816
+    ],
+    "In, Surrey, Surrey, BC, Canada": [
+        49.1324344,
+        -122.8635173
+    ],
+    "Kincaid St, Burnaby, BC, Canada": [
+        49.2490399,
+        -123.0136729
+    ],
+    "Smith St, Burnaby, Burnaby, BC, Canada": [
+        49.2535954,
+        -123.0011077
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.312717,
+        -122.8261137
+    ],
+    "Swimming Pool, Vancouver, BC, Canada": [
+        49.2735888,
+        -123.1581965
+    ],
+    "St  Victoria Avenue, White Rock, BC, Canada": [
+        49.0184894,
+        -122.7937944
+    ],
+    "Clean, Burnaby, BC, Canada": [
+        49.2186994,
+        -122.9605772
+    ],
+    "850  mo, BC, Canada": [
+        59.4316702,
+        10.7275754
+    ],
+    "4887 Central Avenue, Delta, BC, Canada": [
+        49.0918962,
+        -123.0805671
     ]
 }
