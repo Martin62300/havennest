@@ -26139,10 +26139,6 @@
         49.3224908,
         -123.0985086
     ],
-    "1385 Po Avenue, Port Coquitlam, BC, Canada": [
-        49.2617465,
-        -122.7536941
-    ],
     "Barnet Hwy, Coquitlam, Coquitlam, BC, Canada": [
         49.2768871,
         -122.800235
@@ -28903,14 +28899,6 @@
         49.2668307,
         -123.0003775
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "Last, Burnaby, Burnaby, BC, Canada": [
         49.2185183,
         -122.9509724
@@ -28967,10 +28955,6 @@
         49.2535954,
         -123.0011077
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.312717,
-        -122.8261137
-    ],
     "Swimming Pool, Vancouver, BC, Canada": [
         49.2735888,
         -123.1581965
@@ -28990,5 +28974,129 @@
     "4887 Central Avenue, Delta, BC, Canada": [
         49.0918962,
         -123.0805671
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "St  58 Avenue, Surrey, BC, Canada": [
+        49.1083673,
+        -122.8261345
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.312717,
+        -122.8261137
+    ],
+    "Marine Dr, Vancouver, BC, Canada": [
+        49.2096843,
+        -123.1169801
+    ],
+    "3488 Ketcheson Ct, Richmond, BC, Canada": [
+        49.1867316,
+        -123.1259129
+    ],
+    "700, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "450, Vancouver, BC, Canada": [
+        49.2608724,
+        -123.113952
+    ],
+    "159 West 2ND AVENUE, Vancouver, BC, Canada": [
+        49.2695828,
+        -123.1080533
+    ],
+    "2511 Quebec St, Vancouver, BC, Canada": [
+        49.2627418,
+        -123.103229
+    ],
+    "175 St, Langley, Langley, BC, Canada": [
+        49.1019244,
+        -122.5808262
+    ],
+    "South Surrey, White Rock, BC, Canada": [
+        49.0556235,
+        -122.7899568
+    ],
+    "828 Harbourside Dr, Vancouver, North Vancouver, BC, Canada": [
+        49.3149509,
+        -123.0954022
+    ],
+    "In, Burnaby, Burnaby, BC, Canada": [
+        49.2104835,
+        -122.9604245
+    ],
+    "Heritage woods secondary school, Port Moody, Port Moody, BC, Canada": [
+        49.2985635,
+        -122.8401562
+    ],
+    "1385 Po Avenue, Port Coquitlam, BC, Canada": [
+        49.2617465,
+        -122.7536941
+    ],
+    "Modern 1, BC, Canada": [
+        49.9161899,
+        -119.4669697
+    ],
+    "57 Avenue  148 St, BC, Canada": [
+        49.0912536,
+        -123.0651815
+    ],
+    "Central Park, Burnaby, Burnaby, BC, Canada": [
+        49.227573,
+        -123.0180725
+    ],
+    "beautiful, West Vancouver, BC, Canada": [
+        49.2642285,
+        -123.1690347
+    ],
+    "In, New Westminster, New Westminster, BC, Canada": [
+        49.2324016,
+        -122.8944605
+    ],
+    "Gas, Burnaby, BC, Canada": [
+        49.2251806,
+        -122.9358986
+    ],
+    "Hydro, Burnaby, Burnaby, BC, Canada": [
+        49.2677717,
+        -123.0161865
+    ],
+    "Yard, Vancouver, BC, Canada": [
+        49.285753,
+        -123.1093879
+    ],
+    "238 West 4th St, Vancouver, North Vancouver, BC, Canada": [
+        49.316439,
+        -123.0805699
+    ],
+    "44th Avenue, Vancouver, BC, Canada": [
+        49.2302994,
+        -123.1026171
+    ],
+    "Prince edward St, Vancouver, Vancouver, BC, Canada": [
+        49.2188036,
+        -123.0977471
+    ],
+    "Great Northern Way, Vancouver, BC, Canada": [
+        49.2658892,
+        -123.0849279
+    ],
+    "West Broadway. 10, Vancouver, Vancouver, BC, Canada": [
+        49.2639865,
+        -123.1623845
+    ],
+    "transit, Vancouver, Vancouver, BC, Canada": [
+        49.2018233,
+        -123.1378145
+    ],
+    "63 W 2nd Ave, Vancouver, BC, Canada": [
+        49.2694497,
+        -123.1055622
     ]
 }
