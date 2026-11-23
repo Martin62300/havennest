@@ -28791,10 +28791,6 @@
         49.2619324,
         -123.0189135
     ],
-    "3817 Princess Avenue, Vancouver, BC, Canada": [
-        49.2779819,
-        -123.0916359
-    ],
     "bd., Vancouver, BC, Canada": [
         49.1458458,
         -122.6437523
@@ -28975,14 +28971,6 @@
         49.0918962,
         -123.0805671
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "St  58 Avenue, Surrey, BC, Canada": [
         49.1083673,
         -122.8261345
@@ -29098,5 +29086,169 @@
     "63 W 2nd Ave, Vancouver, BC, Canada": [
         49.2694497,
         -123.1055622
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "3817 Princess Avenue, Vancouver, BC, Canada": [
+        49.2779819,
+        -123.0916359
+    ],
+    "3538 West 23rd Avenue, Vancouver, BC, Canada": [
+        49.2517462,
+        -123.1830418
+    ],
+    "10440 Algonquin Dr, Richmond, BC, Canada": [
+        49.1456365,
+        -123.1101455
+    ],
+    "1758 Western Pkwy, Vancouver, BC, Canada": [
+        49.2698976,
+        -123.2459808
+    ],
+    "6537 TELFORD AVENUE, Burnaby, BC, Canada": [
+        49.2243928,
+        -123.0047933
+    ],
+    "4831 Foxglove Cres, Richmond, BC, Canada": [
+        49.1640495,
+        -123.1731404
+    ],
+    "77 W 62nd Ave, Vancouver, BC, Canada": [
+        49.2144816,
+        -123.1080561
+    ],
+    "BD, Burnaby, BC, Canada": [
+        49.2264329,
+        -123.0046411
+    ],
+    "Keets Dr, Coquitlam, BC, Canada": [
+        49.2621401,
+        -122.8012179
+    ],
+    "2108 West 16th Avenue, Vancouver, BC, Canada": [
+        49.2576632,
+        -123.173098
+    ],
+    "193 b St  65 Ave, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "DT Vancouver, Vancouver, Vancouver, BC, Canada": [
+        49.2907503,
+        -123.118268
+    ],
+    "washroom, Burnaby, BC, Canada": [
+        49.1879749,
+        -122.9937518
+    ],
+    "5850 Easterbrook Rd, Richmond, BC, Canada": [
+        49.1717289,
+        -123.1724834
+    ],
+    "Richmond Centre., Richmond, Richmond, BC, Canada": [
+        49.1672258,
+        -123.1384721
+    ],
+    "4br, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "open, Surrey, Surrey, BC, Canada": [
+        49.056131,
+        -122.8056796
+    ],
+    "Laundry, Surrey, Surrey, BC, Canada": [
+        49.1983244,
+        -122.8119716
+    ],
+    "3150 Toba Dr, Coquitlam, BC, Canada": [
+        49.2836706,
+        -122.7812622
+    ],
+    "Fridge, Burnaby, Burnaby, BC, Canada": [
+        49.2787271,
+        -122.9191549
+    ],
+    "Fridge, Coquitlam, Coquitlam, BC, Canada": [
+        49.2916258,
+        -122.7831344
+    ],
+    "Hwy 152 St  10 Ave, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "60 St  148 Ave, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "3500 E 54th Ave, BC, Canada": [
+        49.220567,
+        -123.0856164
+    ],
+    "Lansdowne St, Richmond, BC, Canada": [
+        49.1747647,
+        -123.1285419
+    ],
+    "Number 3 Rd St, Richmond, Richmond, BC, Canada": [
+        49.1625173,
+        -123.1361943
+    ],
+    "Hwy 30 St  99 Ave, Delta, BC, Canada": [
+        49.0846258,
+        -123.057938
+    ],
+    "FLEX, Vancouver, Vancouver, BC, Canada": [
+        49.2619324,
+        -123.0189135
+    ],
+    "111 A St  72 Ave, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "3500 Bowen Dr, Richmond, BC, Canada": [
+        49.1564369,
+        -123.1874494
+    ],
+    "One 22265 Dewdney Trunk Rd, Maple Ridge, BC, Canada": [
+        49.2208203,
+        -122.6056738
+    ],
+    "Plaza St, Maple Ridge, Maple Ridge, BC, Canada": [
+        49.2211664,
+        -122.6060056
+    ],
+    "3142 St Johns St, Port Moody, Port Moody, BC, Canada": [
+        49.2776495,
+        -122.8391733
+    ],
+    "2002 St. George St, Port Moody, Port Moody, BC, Canada": [
+        49.2757671,
+        -122.8686587
+    ],
+    "Tim Hortons, Burnaby, Burnaby, BC, Canada": [
+        49.2540202,
+        -123.001417
+    ],
+    "National Avenue, Vancouver, Vancouver, BC, Canada": [
+        49.2733117,
+        -123.0910007
+    ],
+    "Storage, Surrey, Surrey, BC, Canada": [
+        49.1075809,
+        -122.6819166
+    ],
+    "Dawson St, Burnaby, Burnaby, BC, Canada": [
+        49.2644578,
+        -122.973138
+    ],
+    "12791 235 St, Maple Ridge, Maple Ridge, BC, Canada": [
+        49.2465178,
+        -122.5710993
     ]
 }
