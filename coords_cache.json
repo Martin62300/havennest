@@ -25755,10 +25755,6 @@
         49.3198706,
         -123.0616465
     ],
-    "8885 Lawrence Way, West Vancouver, BC, Canada": [
-        49.4015126,
-        -123.2461533
-    ],
     "Mountain, North Vancouver, BC, Canada": [
         49.3183365,
         -123.0721633
@@ -27475,10 +27471,6 @@
         49.2710847,
         -123.1014917
     ],
-    "2843 West 49th Avenue, Vancouver, BC, Canada": [
-        49.2276207,
-        -123.1686228
-    ],
     "3818 Broadway W, Vancouver, BC, Canada": [
         49.2641667,
         -123.1883671
@@ -29087,14 +29079,6 @@
         49.2694497,
         -123.1055622
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "3817 Princess Avenue, Vancouver, BC, Canada": [
         49.2779819,
         -123.0916359
@@ -29250,5 +29234,81 @@
     "12791 235 St, Maple Ridge, Maple Ridge, BC, Canada": [
         49.2465178,
         -122.5710993
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "209 Angela Dr, BC, Canada": [
+        49.278521,
+        -122.875981
+    ],
+    "5657 Hampton Pl, Vancouver, BC, Canada": [
+        49.2596299,
+        -123.2334535
+    ],
+    "Private, Delta, BC, Canada": [
+        49.0897896,
+        -123.0702761
+    ],
+    "8885 Lawrence Way, West Vancouver, BC, Canada": [
+        49.4015126,
+        -123.2461533
+    ],
+    "kitchen, Langley, BC, Canada": [
+        49.1039387,
+        -122.653589
+    ],
+    "Avenue  221 St, Langley, BC, Canada": [
+        49.1030451,
+        -122.4618593
+    ],
+    "Dufferin Avenue, Burnaby, BC, Canada": [
+        49.2286184,
+        -122.9808122
+    ],
+    "irving St, Burnaby, Burnaby, BC, Canada": [
+        49.2261856,
+        -122.9873475
+    ],
+    "3055 Murray St, Port Moody, BC, Canada": [
+        49.2798865,
+        -122.8384042
+    ],
+    "Avenue  208 St, Langley, BC, Canada": [
+        49.1329174,
+        -122.6462048
+    ],
+    "Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "St  67 Avenue, Surrey, BC, Canada": [
+        49.1247809,
+        -122.8280718
+    ],
+    "15733, Langley, BC, Canada": [
+        49.1039289,
+        -122.657047
+    ],
+    "Hudson St, Richmond, Richmond, BC, Canada": [
+        49.1903828,
+        -123.1451164
+    ],
+    "1730 Pendrell St, Vancouver, BC, Canada": [
+        49.2870185,
+        -123.139767
+    ],
+    "2843 West 49th Avenue, Vancouver, BC, Canada": [
+        49.2276207,
+        -123.1686228
+    ],
+    "Commercial St, Vancouver, BC, Canada": [
+        49.2522727,
+        -123.0680447
     ]
 }
