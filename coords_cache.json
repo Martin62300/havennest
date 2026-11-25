@@ -18135,10 +18135,6 @@
         49.2657121,
         -123.0993846
     ],
-    "6611 Pearson Way, Richmond, BC, Canada": [
-        49.1749489,
-        -123.1464779
-    ],
     "15957 39A Avenue, Surrey, BC, Canada": [
         49.0741446,
         -122.7806017
@@ -27803,10 +27799,6 @@
         49.2762545,
         -123.002157
     ],
-    "2743 East 5th Avenue, Vancouver, BC, Canada": [
-        49.2659988,
-        -123.0716396
-    ],
     "338 Taylor Way, West Vancouver, BC, Canada": [
         49.3357274,
         -123.1349514
@@ -28967,10 +28959,6 @@
         49.1083673,
         -122.8261345
     ],
-    "West Port Moody, Port Moody, BC, Canada": [
-        49.312717,
-        -122.8261137
-    ],
     "Marine Dr, Vancouver, BC, Canada": [
         49.2096843,
         -123.1169801
@@ -29235,14 +29223,6 @@
         49.2465178,
         -122.5710993
     ],
-    "13685 102 Avenue, Surrey, BC, Canada": [
-        49.18835,
-        -122.8438659
-    ],
-    "612 7th Avenue, Vancouver, BC, Canada": [
-        49.2641225,
-        -123.0905153
-    ],
     "209 Angela Dr, BC, Canada": [
         49.278521,
         -122.875981
@@ -29310,5 +29290,145 @@
     "Commercial St, Vancouver, BC, Canada": [
         49.2522727,
         -123.0680447
+    ],
+    "13685 102 Avenue, Surrey, BC, Canada": [
+        49.18835,
+        -122.8438659
+    ],
+    "612 7th Avenue, Vancouver, BC, Canada": [
+        49.2641225,
+        -123.0905153
+    ],
+    "Jessie Wowk Elementary School, Richmond, BC, Canada": [
+        49.1433273,
+        -123.1641417
+    ],
+    "1722 West 4th Avenue, Vancouver, BC, Canada": [
+        49.2678107,
+        -123.1438206
+    ],
+    "Pine St, Vancouver, Vancouver, BC, Canada": [
+        49.2613388,
+        -123.1434908
+    ],
+    "7387 10 Avenue, New Westminster, BC, Canada": [
+        49.2110613,
+        -122.9192128
+    ],
+    "kingsway, New Westminster, New Westminster, BC, Canada": [
+        49.213635,
+        -122.9381353
+    ],
+    "West, Surrey, Surrey, BC, Canada": [
+        49.1094272,
+        -122.8606788
+    ],
+    "Building Amenities, Vancouver, BC, Canada": [
+        49.2570132,
+        -122.8913605
+    ],
+    "parking  storage, BC, Canada": [
+        49.1972148,
+        -123.1685164
+    ],
+    "Birch St  8th Ave, Vancouver, BC, Canada": [
+        49.2617701,
+        -123.133793
+    ],
+    "West Port Moody, Port Moody, BC, Canada": [
+        49.312717,
+        -122.8261137
+    ],
+    "225 St, Maple Ridge, Maple Ridge, BC, Canada": [
+        49.2117983,
+        -122.5989991
+    ],
+    "to, Vancouver, North Vancouver, BC, Canada": [
+        49.3018978,
+        -123.0380357
+    ],
+    "32 Ave  144 St, Surrey, BC, Canada": [
+        49.1913033,
+        -122.849143
+    ],
+    "5828 Thunderbird Blvd, Vancouver, BC, Canada": [
+        49.2616755,
+        -123.2402618
+    ],
+    "St albans Rd, Richmond, BC, Canada": [
+        49.1591382,
+        -123.1309502
+    ],
+    "Bennett Rd, Richmond, Richmond, BC, Canada": [
+        49.1608926,
+        -123.1309776
+    ],
+    "shopping, Richmond, Richmond, BC, Canada": [
+        49.1874368,
+        -123.130069
+    ],
+    "5058 JOYCE St, BC, Canada": [
+        49.2386285,
+        -123.0310728
+    ],
+    "20376 86 Avenue, Langley, BC, Canada": [
+        49.1589347,
+        -122.6579221
+    ],
+    "2743 East 5th Avenue, Vancouver, BC, Canada": [
+        49.2659988,
+        -123.0716396
+    ],
+    "2390, Burnaby, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "burnaby, Vancouver, BC, Canada": [
+        49.2433804,
+        -122.972545
+    ],
+    "88 St  152 Avenue, Langley, BC, Canada": [
+        49.1620635,
+        -122.625257
+    ],
+    "55 E 12th Ave, Vancouver, BC, Canada": [
+        49.2604881,
+        -123.1037125
+    ],
+    "Apel Dr  Victoria Dr, BC, Canada": [
+        49.285679,
+        -122.7494991
+    ],
+    "office  den, BC, Canada": [
+        49.2422585,
+        -124.0490747
+    ],
+    "1471 Hunter St, Vancouver, North Vancouver, BC, Canada": [
+        49.3104666,
+        -123.0338046
+    ],
+    "Ocean, Squamish, BC, Canada": [
+        49.7020678,
+        -123.1387284
+    ],
+    "1350 Broughton St, Vancouver, BC, Canada": [
+        49.282001,
+        -123.1384923
+    ],
+    "New 3, Burnaby, BC, Canada": [
+        49.223109,
+        -122.9434657
+    ],
+    "Blueridge, North Vancouver, BC, Canada": [
+        49.3239289,
+        -123.0005376
+    ],
+    "Columbia St  W62nd Avenue, Vancouver, BC, Canada": [
+        49.2690075,
+        -123.1097503
+    ],
+    "Camosun Park, Vancouver, BC, Canada": [
+        49.2573671,
+        -123.2014035
     ]
 }
